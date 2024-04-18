@@ -1,0 +1,40 @@
+.buttonSendLinkBox {
+    display: flex;
+    gap: 9rem;
+    align-items: center;
+    /* margin-top: 3rem; */
+}
+
+.buttonSendProfile {
+    background-color: #07C51A;
+    color: #000;
+     border: 1px solid #07C51A;
+
+    text-transform: lowercase;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: 3.1875rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transform: all 0.5s;
+}
+
+.buttonSendProfile:hover {
+     border: 1px solid #07C51A;
+    color: #07C51A;
+    background: none;
+}
+
+.disabledLink {
+  pointer-events: none;
+  border: 1px solid #07C51A;
+    color: #07C51A;
+    background: none;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .buttonSendProfile {
+        font-size: 1rem;
+    }
+}

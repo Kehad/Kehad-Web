@@ -1,0 +1,35 @@
+.layout {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 4rem 7rem;
+  /* position: relative; */
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
+
+  width: 100vw;
+  height: 100vh;
+}
+
+@media screen and (max-width: 1024px) {
+  .layout {
+    padding: 4rem 4rem;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .layout {
+    padding-bottom: 0rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .layout {
+    padding-top: 2rem;
+    height: 100vh;
+    /* height: 90vh; */
+  }
+}

@@ -3,7 +3,7 @@ import React from 'react';
 
 function Layout(props) {
   return (
-    <div className="bg-main text-white h-screen w-screen py-16 px-28">
+    <div className="bg-main text-white h-screen w-screen py-16 px-28 font-judson">
       {props.children}
     </div>
   );

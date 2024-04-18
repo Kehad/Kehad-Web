@@ -31,7 +31,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/home'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-red-500 hover:text-green-500'
+                  : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
             <span className="hidden group-hover:flex">Home</span>
@@ -47,7 +47,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/about-me'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-red-500 hover:text-green-500'
+                  : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
             <span className="hidden group-hover:flex">About me</span>
@@ -65,7 +65,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/skills'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-red-500 hover:text-green-500'
+                  : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
             <span className="hidden group-hover:flex">Skills</span>
@@ -81,7 +81,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/works'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-red-500 hover:text-green-500'
+                  : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
             <span className="hidden group-hover:flex">Works</span>
@@ -97,7 +97,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/side-project'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-red-500 hover:text-green-500'
+                  : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
             <span className="hidden group-hover:flex">Side project</span>
@@ -113,7 +113,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/contact'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-red-500 group hover:text-green-500'
+                  : 'iconFill-secondary text-white group hover:text-green-500'
               )}
             />
             <span

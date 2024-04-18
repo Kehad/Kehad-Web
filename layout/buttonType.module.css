@@ -1,0 +1,30 @@
+.button--type2__link---box {
+    display: flex;
+    gap: 9rem;
+    align-items: center;
+    /* margin-top: 3rem; */
+}
+
+.button--type2__profile {
+    border: 1px solid #07C51A;
+    color: #07C51A;
+    text-transform: lowercase;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: 3.1875rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transform: all 0.5s;
+}
+
+.button--type2__profile:hover {
+    background-color: #07C51A;
+    color: #000;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .button--type2__profile {
+        font-size: 1rem;
+    }
+}

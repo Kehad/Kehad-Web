@@ -22,7 +22,7 @@ export default {
         sub: '#232323',
         primary: '#07c514',
       },
-      color: {
+      colors: {
         primary: '#07c514',
         iconFill: {
           primary: '#FF0000', // Example primary color
@@ -33,6 +33,9 @@ export default {
       fill: ['#07c514'],
       borderColor: {
         primary: '#07c514',
+      },
+      fontFamily: {
+        judson: ['Judson', 'sans-serif'],
       },
     },
   },

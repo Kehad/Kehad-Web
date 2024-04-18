@@ -1,0 +1,98 @@
+.about {
+    /* position: absolute;
+    top: 37%;
+    left: 30%; */
+
+    /* display: flex; */
+    /* flex-direction: column;
+    margin-top: 4rem; */
+    
+}
+.skillsList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3.1875rem;
+    background: #263328;
+    padding: 0.4rem 2rem;
+    /* width: 36.61038rem; */
+        width: 70%;
+    /* height: 3.25438rem; */
+    padding-right: 0px;
+}
+
+.skillsList__name {
+    color: #07C51A;
+    font-family: Judson;
+    font-size: 1.79663rem;
+    font-weight: 700;
+}
+
+.skillsList__box---img {
+    border-radius: 3.1875rem;
+    background: #263328;
+    /* width: 2.84175rem; */
+    /* height: 3.25438rem; */
+
+/* height: 6.84175rem; */
+    padding: 0.4rem 0rem;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* border-left: 7.187px; */
+    stroke: #1A1A1A;
+    border: 0px solid #1A1A1A;
+    border-top-left-radius: 1.4rem;
+    border-bottom-left-radius: 1.4rem;
+    border-left: 0.57rem solid #1A1A1A;
+    /* border-left-width: 50px; */
+    margin-right: 1.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+    .skillsList {
+        width: 70%
+    }
+    .skillsList__name {
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .skills {
+        margin-bottom: 1rem;
+    }
+    .skillsList {
+        width: 90%;
+        padding: 0.2rem 2rem;
+     
+    /* height: 1.25438rem; */
+     
+    }
+    .skillsList__box---img {
+        /* padding: 1rem 1rem; */
+    /* height: 1.25438rem; */
+
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .skills {
+        margin-bottom: 1rem;
+    }
+    .skillsList {
+        width: 90%;
+                padding: 0.2rem 2rem;
+        padding-right: 0rem;
+        /* height: 1rem;    */
+    }
+    .skillsList__box---img {
+        /* padding: 0.8rem 0.8rem; */
+        /* height: 1rem;       */
+    }
+     .skillsList__name {
+        font-size: 1.2rem;
+    }
+}

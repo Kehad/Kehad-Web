@@ -1,0 +1,45 @@
+.skills {
+    /* margin-top: 5rem; */
+    margin-top: 0rem;
+}
+
+.skills__greeting {
+    color: #07C51A;
+    font-family: Judson;
+    font-size: 4rem;
+    margin-bottom: 3rem;
+}
+
+.skillsList__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.skills__button {
+    margin-top: 4rem;
+    text-align: center;
+    margin-left: 10%;
+}
+
+@media screen and (max-width: 1024px) {
+    .skills__greeting {
+        font-size: 3rem;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .skills {
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .skills {
+        margin-top: 1rem;
+    }
+    .skills__greeting {
+        font-size: 2rem;
+    }
+}

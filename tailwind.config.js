@@ -21,6 +21,7 @@ export default {
         main: '#1a1a1a',
         sub: '#232323',
         primary: '#07c514',
+        sup: '#263328',
       },
       colors: {
         primary: '#07c514',

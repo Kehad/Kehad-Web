@@ -7,6 +7,7 @@ import Header from './components/header/header.jsx';
 import Home from './components/home/home';
 import Layout from './components/layout/layout.jsx';
 import Nav from './components/sidebar/nav';
+import Skills from './components/skills/skills';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/about-me" element={<AboutMe />} />
-              {/* <Route path="/skills" element={<Skills />} /> */}
+              <Route path="/skills" element={<Skills />} />
               {/* <Route path="/works" element={<Works />} /> */}
               {/* <Route path="/side-project" element={<Project />} /> */}
               {/* <Route path="/contact-me" element={<Contact />} /> */}

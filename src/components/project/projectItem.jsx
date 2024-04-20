@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '../others/button';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -13,6 +12,7 @@ const ProjectItem = function (props) {
 
   return (
     // <Slider {...settings}>
+
     <div className="classes.projectItem">
       <div className="flex items-center justify-between gap-12">
         <div className="">
@@ -34,7 +34,6 @@ const ProjectItem = function (props) {
         {/* <MobilePagination next={next} back={back} /> */}
       </div>
     </div>
-    // </Slider>
   );
 };
 

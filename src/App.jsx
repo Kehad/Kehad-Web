@@ -14,7 +14,7 @@ import Works from './components/works/works';
 
 function App() {
   return (
-    <>
+    <div>
       <Layout>
         <Header />
         <div className="grid  grid-cols-column gap-15 mt-16">
@@ -35,7 +35,7 @@ function App() {
           </div>
         </div>
       </Layout>
-    </>
+    </div>
   );
 }
 

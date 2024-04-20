@@ -3,7 +3,7 @@ const Toggle = function (props) {
   return (
     <div onClick="" className="">
       <div className="flex items-center flex-row gap-8 border rounded-3xl border-primary p-2 ">
-        <div className="flex items-center flex-row rounded-full bg-primary justify-center border py-0.4 px-0.4 gap-2 ">
+        <div className="flex items-center flex-row rounded-full bg-primary justify-center border-0 py-0.4 px-0.4 gap-2 ">
           <svg
             width="25"
             height="25"

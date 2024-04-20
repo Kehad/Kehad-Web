@@ -21,7 +21,7 @@ export default {
         main: '#1a1a1a',
         sub: '#232323',
         primary: '#07c514',
-        sup: '#263328',
+        sup: '#263328', // 263328
       },
       colors: {
         primary: '#07c514',
@@ -37,6 +37,9 @@ export default {
       },
       fontFamily: {
         judson: ['Judson', 'sans-serif'],
+      },
+      spacing: {
+        '40rem': '43rem',
       },
     },
   },

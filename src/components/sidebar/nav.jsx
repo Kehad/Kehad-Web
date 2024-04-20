@@ -20,7 +20,7 @@ const Nav = function () {
 
   return (
     <nav className="">
-      <div className="flex flex-col justify-center rounded-7 bg-sub w-max pt-20 pb-20 pr-10 pl-10 gap-4 transition-all duration-500 group hover:flex">
+      <div className="flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 pr-10 pl-10 gap-4 transition-all duration-500 group hover:flex">
         <div className=" my-4 transition-all duration-500">
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 hover:text-green-500"
@@ -106,19 +106,19 @@ const Nav = function () {
         <div className="my-4 transition-all duration-500">
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 group hover:text-green-500"
-            to="/contact"
+            to="/contact-me"
           >
             {/* <i className="material-icons material-icons-round">email</i> */}
             <ContactPageIcon
               className={classNames(
-                pathname === '/contact'
+                pathname === '/contact-me'
                   ? ' text-green-500'
                   : 'iconFill-secondary text-white group hover:text-green-500'
               )}
             />
             <span
               className={
-                (classNames(pathname === '/contact' ? 'text-green-500' : ''),
+                (classNames(pathname === '/contact-me' ? 'text-green-500' : ''),
                 'hidden group-hover:flex ')
               }
             >

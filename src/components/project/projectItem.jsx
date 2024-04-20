@@ -8,20 +8,12 @@ import 'slick-carousel/slick/slick-theme.css';
 // import classes from "./worksItem.module.css";
 // import MobilePagination from "../Paginations/mobilePagination";
 
-const WorksItem = function (props) {
+const ProjectItem = function (props) {
   const { name, description, website, imageSrc, next, back } = props;
-
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   return (
     // <Slider {...settings}>
-    <div className="classes.worksItem">
+    <div className="classes.projectItem">
       <div className="flex items-center justify-between gap-12">
         <div className="">
           <h2 className="text-3xl text-primary mb-4 font-judson">{name}</h2>
@@ -46,4 +38,4 @@ const WorksItem = function (props) {
   );
 };
 
-export default WorksItem;
+export default ProjectItem;

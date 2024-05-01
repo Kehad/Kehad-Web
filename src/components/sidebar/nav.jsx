@@ -20,10 +20,10 @@ const Nav = function () {
 
   return (
     <nav className="">
-      <div className="flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 pr-10 pl-10 gap-4 transition-all duration-500 group hover:flex">
-        <div className=" my-4 transition-all duration-500">
+      <div className="flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 pr-10 pl-10 gap-4 transition transition-all duration-500 border-1 border-sub group hover:flex dark:bg-black dark:text-white dark:border-primary dark:border-1">
+        <div className=" my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2  font-josefin-sans transition transition-all duration-500 hover:text-primary group"
             to="/home"
           >
             {/* <span className="material-symbols-rounded">home</span> */}
@@ -31,15 +31,21 @@ const Nav = function () {
               className={classNames(
                 pathname === '/home'
                   ? ' text-green-500'
-                  : 'iconFill-secondary text-white hover:text-green-500'
+                  : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
-            <span className="hidden group-hover:flex">Home</span>
+            <span
+              className={`${
+                pathname === '/home' ? 'text-primary' : ''
+              } hidden group-hover:flex group-hover:text-primary`}
+            >
+              Home
+            </span>
           </NavLink>
         </div>
-        <div className="my-4 transition-all duration-500">
+        <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-green-500"
             to="/about-me"
           >
             {/* <i className="material-icons material-icons-round">person</i> */}
@@ -50,12 +56,18 @@ const Nav = function () {
                   : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
-            <span className="hidden group-hover:flex">About me</span>
+            <span
+              className={`${
+                pathname === '/about-me' ? 'text-primary' : ''
+              } hidden group-hover:flex`}
+            >
+              About me
+            </span>
           </NavLink>
         </div>
-        <div className="my-4 transition-all duration-500">
+        <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-green-500"
             to="/skills"
           >
             {/* <i className="material-icons material-icons-round"> */}
@@ -68,12 +80,18 @@ const Nav = function () {
                   : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
-            <span className="hidden group-hover:flex">Skills</span>
+            <span
+              className={`${
+                pathname === '/skills' ? 'text-primary' : ''
+              } hidden group-hover:flex`}
+            >
+              Skills
+            </span>
           </NavLink>
         </div>
-        <div className="my-4 transition-all duration-500">
+        <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-green-500"
             to="/works"
           >
             {/* <i className="material-icons material-icons-round">work</i> */}
@@ -84,12 +102,18 @@ const Nav = function () {
                   : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
-            <span className="hidden group-hover:flex">Works</span>
+            <span
+              className={`${
+                pathname === '/works' ? 'text-primary' : ''
+              } hidden group-hover:flex`}
+            >
+              Works
+            </span>
           </NavLink>
         </div>
-        <div className="my-4 transition-all duration-500">
+        <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/side-project"
           >
             {/* <i className="material-icons material-icons-round">workspaces</i> */}
@@ -100,27 +124,32 @@ const Nav = function () {
                   : 'iconFill-secondary text-white hover:text-green-500'
               )}
             />
-            <span className="hidden group-hover:flex">Side project</span>
+            <span
+              className={`${
+                pathname === '/side-project' ? 'text-primary' : ''
+              } hidden group-hover:flex`}
+            >
+              Side project
+            </span>
           </NavLink>
         </div>
-        <div className="my-4 transition-all duration-500">
+        <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition-all duration-500 group hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition  transition-all duration-500 group hover:text-primary"
             to="/contact-me"
           >
             {/* <i className="material-icons material-icons-round">email</i> */}
             <ContactPageIcon
               className={classNames(
                 pathname === '/contact-me'
-                  ? ' text-green-500'
+                  ? ' text-primary'
                   : 'iconFill-secondary text-white group hover:text-green-500'
               )}
             />
             <span
-              className={
-                (classNames(pathname === '/contact-me' ? 'text-green-500' : ''),
-                'hidden group-hover:flex ')
-              }
+              className={`${
+                pathname === '/contact-me' ? 'text-primary' : ''
+              } hidden group-hover:flex`}
             >
               Contact me
             </span>

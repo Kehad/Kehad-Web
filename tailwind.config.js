@@ -3,6 +3,7 @@ import { color } from '@mui/system';
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       gridTemplateColumns: {
@@ -34,6 +35,7 @@ export default {
       fill: ['#07c514'],
       borderColor: {
         primary: '#07c514',
+        sub: '#232323',
       },
       fontFamily: {
         judson: ['Judson', 'sans-serif'],

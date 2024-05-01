@@ -11,12 +11,15 @@ import Piccon from '../../assets/Piccon.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Button from '../others/button.jsx';
+import ProjectItem from './projectItem.jsx';
+
+// import './swiperStyles.css';
 
 const ProjectData = [
   {
@@ -65,11 +68,8 @@ const ProjectList = function (props) {
 
   return (
     <div className="md:relative">
-      {/* <Swiper navigation={true} modules={[Navigation]} className="mySwiper"> */}
-      {/* <SwiperSlide key="1"> */}
-      {/* <Slider {...settings}> */}
       {ProjectData.map((data) => (
-        <WorksItem
+        <ProjectItem
           key={data.id}
           id={data.id}
           name={data.name}
@@ -80,9 +80,6 @@ const ProjectList = function (props) {
           back={handleBackClick}
         />
       ))}
-      {/* </Slider> */}
-      {/* </SwiperSlide> */}
-      {/* </Swiper> */}
     </div>
   );
 

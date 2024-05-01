@@ -2,6 +2,8 @@ import React from 'react';
 
 // import classes from './works.module.css';
 import ProjectList from './projectList';
+import MyComponent from './textProject';
+import textProject from './textProject';
 // import NewList from './ProjectsListcopy';
 
 const Project = function (props) {
@@ -15,6 +17,7 @@ const Project = function (props) {
 
       <ProjectList />
       {/* <NewList /> */}
+      {/* <MyComponent /> */}
     </div>
   );
 };

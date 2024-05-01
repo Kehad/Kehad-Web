@@ -1,9 +1,51 @@
+import { useEffect, useState } from 'react';
+
 const Toggle = function (props) {
   // const { onAction } = props;
+  // const [lightMode, setLightMode] = useState(
+  //   localStorage.getItem('lightMode') === 'true'
+  // );
+  const [theme, setTheme] = useState('system');
+
+  // useEffect(() => {
+  //   if (lightMode) {
+  //     document.documentElement.classList.add('light');
+  //     localStorage.setItem('lightMode', true);
+  //   } else {
+  //     document.documentElement.classList.remove('light');
+  //     localStorage.setItem('lightMode', false);
+  //   }
+  // }, [lightMode]);
+
+  // const toggleLightMode = () => {
+  //   setLightMode(!lightMode);
+  // };
+
+  const element = document.documentElement;
+
+  useEffect(() => {
+    switch (theme) {
+      case 'dark':
+        element.classList.add('dark');
+        break;
+      case 'light':
+        element.classList.remove('dark');
+
+      default:
+        break;
+    }
+  }, [theme]);
+
   return (
     <div onClick="" className="">
-      <div className="flex items-center flex-row gap-8 border rounded-3xl border-primary p-2 ">
-        <div className="flex items-center flex-row rounded-full bg-primary justify-center border-0 py-0.4 px-0.4 gap-2 ">
+      <div className="flex items-center flex-row p-2 gap-8 border rounded-3xl border-primary  ">
+        {/* <div className="w-1/2 p-2 rounded-3xl bg-red-500"> */}
+        <div
+          className="flex items-center flex-row rounded-full bg-primary justify-center border-0 py-0.4 px-0.4 gap-2"
+          // onClick={setDarkMode(false)}
+          // onClick={toggleLightMode}
+          onClick={() => setTheme('light')}
+        >
           <svg
             width="25"
             height="25"
@@ -20,12 +62,16 @@ const Toggle = function (props) {
             </g>
           </svg>
         </div>
+        {/* </div> */}
         <svg
           width="25"
           height="25"
           viewBox="0 0 25 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          // onClick={setDarkMode(true)}
+          onClick={() => setTheme('dark')}
+          // onClick={toggleLightMode}
         >
           <g id="material-symbols:light-mode">
             <path
@@ -41,3 +87,18 @@ const Toggle = function (props) {
 };
 
 export default Toggle;
+
+// import React, { useState, useEffect } from "react";
+
+const DarkModeToggle = () => {
+  return (
+    <button
+      className="fixed bottom-0 right-0 p-4 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+      // onClick={toggleDarkMode}
+    >
+      {/* {darkMode ? "Light Mode" : "Dark Mode"} */}
+    </button>
+  );
+};
+
+// export default DarkModeToggle;

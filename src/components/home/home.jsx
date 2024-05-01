@@ -8,7 +8,7 @@ import MyComponent from './autoType.jsx';
 
 const Home = function () {
   return (
-    <div className="flex flex-col mt-0">
+    <div className="flex flex-col mt-0 ">
       <h1 className="text-primary font-Judson text-7xl mb-4">Hi.</h1>
       <h3 className="text-5xl mb-5">
         I'm <MyComponent name={'Kehinde Adigun.'} />

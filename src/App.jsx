@@ -17,7 +17,7 @@ function App() {
     <div>
       <Layout>
         <Header />
-        <div className="grid  grid-cols-column gap-15 mt-16">
+        <div className="grid grid-cols-column gap-15 mt-16">
           <div className="">
             <Nav />
           </div>

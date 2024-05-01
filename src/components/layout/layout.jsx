@@ -23,7 +23,7 @@ function Layout(props) {
     };
   }, []);
 
-  console.log(dimensions);
+  // console.log(dimensions);
 
   return (
     <div

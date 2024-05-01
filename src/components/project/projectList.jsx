@@ -4,20 +4,21 @@ import Slider from 'react-slick';
 // import classes from './worksList.module.css';
 import WorksItem from './projectItem.jsx';
 // import Pagination from './pagination.jsx';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 import Piccon from '../../assets/Piccon.png';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation, Pagination } from 'swiper/modules';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import { Navigation, Pagination } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Button from '../others/button.jsx';
 import ProjectItem from './projectItem.jsx';
+import Pagination from './pagination.jsx';
 
 // import './swiperStyles.css';
 
@@ -53,7 +54,7 @@ const ProjectList = function (props) {
     console.log('Back clicked');
 
     if (currentPage === 1) {
-      setCurrentPage(worksData.length);
+      setCurrentPage(ProjectData.length);
       return;
     }
     setCurrentPage(currentPage - 1);
@@ -68,7 +69,7 @@ const ProjectList = function (props) {
 
   return (
     <div className="md:relative">
-      {ProjectData.map((data) => (
+      {records.map((data) => (
         <ProjectItem
           key={data.id}
           id={data.id}
@@ -80,6 +81,8 @@ const ProjectList = function (props) {
           back={handleBackClick}
         />
       ))}
+
+      <Pagination back={handleBackClick} next={handleBackClick} />
     </div>
   );
 

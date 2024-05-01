@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { Pagination } from '@mui/material';
 import React from 'react';
 import Button from '../others/button';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 // import Button from '../../layout/button';
 // import classes from "./worksItem.module.css";
 // import MobilePagination from "../Paginations/mobilePagination";

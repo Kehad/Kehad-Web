@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // import classes from './worksList.module.css';
 import WorksItem from './worksItem.jsx';
-// import Pagination from './pagination.jsx';
+import Pagination from './pagination.jsx';
 
 import Adbook from '../../assets/Adbook.png';
 import kadee from '../../assets/kadee.png';
@@ -106,13 +106,12 @@ const WorkList = function (props) {
     }
     setCurrentPage(currentPage + 1);
   }
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  // var settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
 
   return (
     <div className="md:relative">
@@ -128,6 +127,8 @@ const WorkList = function (props) {
           back={handleBackClick}
         />
       ))}
+
+      <Pagination next={handleNextClick} back={handleBackClick} />
 
       {/* <Pagination
         postsPerPage={recordsPerPage}

@@ -4,7 +4,10 @@ const SocialLinks = function (props) {
   return (
     <div className="">
       <div className="flex gap-4 mb-6">
-        <a href="https://twitter.com/Littlegenius01">
+        <a
+          href="https://twitter.com/Littlegenius01"
+          className="hover:bg-sub p-4 rounded"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"
@@ -21,7 +24,10 @@ const SocialLinks = function (props) {
           </svg>
         </a>
 
-        <a href="https://www.linkedin.com/in/kehinde-adigun-/">
+        <a
+          href="https://www.linkedin.com/in/kehinde-adigun-/"
+          className="hover:bg-sub p-4"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"
@@ -36,7 +42,7 @@ const SocialLinks = function (props) {
           </svg>
         </a>
 
-        <a href="https://github.com/KhingKehad">
+        <a href="https://github.com/KhingKehad" className="hover:bg-sub p-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"

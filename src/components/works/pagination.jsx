@@ -1,13 +1,16 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React from 'react';
 
-import Button from "../../layout/button";
-import classes from "./pagination.module.css";
-import MobilePagination from "../Paginations/mobilePagination";
+// import Button from "../../layout/button";
+import classes from './pagination.module.css';
+// import MobilePagination from "../Paginations/mobilePagination";
 
 const Pagination = function (props) {
-  const { totalPosts, postsPerPage, backDisable, nextDisable, next, back } = props;
+  const { totalPosts, postsPerPage, backDisable, nextDisable, next, back } =
+    props;
   // console.log(totalPosts, postsPerPage);
-  console.log(backDisable)
+  console.log(backDisable);
   // const pageNumbers = [];
 
   // for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -15,9 +18,9 @@ const Pagination = function (props) {
   // }
   // console.log(pageNumbers);
   const mystyle = {
-      padding: "10px",
-      fontSize: "small"
-    };
+    padding: '10px',
+    fontSize: 'small',
+  };
   return (
     <div className={classes.pagination}>
       {/* <a className={classes["pagination__arrow--left"]}> */}
@@ -27,7 +30,7 @@ const Pagination = function (props) {
         height="81"
         viewBox="0 0 43 81"
         // fill="none"
-        className={classes["pagination__arrow--left"]}
+        className={classes['pagination__arrow--left']}
         onClick={back}
         fill="#07C51A"
         // fill={backDisable ? "#07c51a" : "#484747"}
@@ -42,7 +45,7 @@ const Pagination = function (props) {
         height="97"
         viewBox="0 0 96 97"
         fill="#07c51a"
-        className={classes["pagination__arrow--right"]}
+        className={classes['pagination__arrow--right']}
         onClick={next}
         // fill={nextDisable ? "#484747" : "#07c51a"}
       >
@@ -51,7 +54,7 @@ const Pagination = function (props) {
       {/* </a> */}
       {/* <button onClick={paginate(3)}>+</button> */}
       {/* {props.arrow} */}
-      <div className={classes["pagination__button-text"]}>
+      <div className={classes['pagination__button-text']}>
         {/* <Button
           style={mystyle}
           name={"Previous"}
@@ -70,7 +73,7 @@ const Pagination = function (props) {
           height="81"
           viewBox="0 0 43 81"
           // fill="none"
-          className={classes["pagination__small--left"]}
+          className={classes['pagination__small--left']}
           onClick={back}
           fill="#07C51A"
           // fill={backDisable ? "#07c51a" : "#484747"}
@@ -83,7 +86,7 @@ const Pagination = function (props) {
           height="97"
           viewBox="0 0 96 97"
           fill="#07c51a"
-          className={classes["pagination__small--right"]}
+          className={classes['pagination__small--right']}
           onClick={next}
           // fill={nextDisable ? "#484747" : "#07c51a"}
         >

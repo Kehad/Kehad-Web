@@ -17,12 +17,15 @@ export default {
       },
       borderRadius: {
         7: '7rem',
+        10: '10.5rem',
       },
       backgroundColor: {
         main: '#1a1a1a',
         sub: '#232323',
         primary: '#07c514',
         sup: '#263328', // 263328
+        error: 'rgb(236, 166, 166)',
+        success: 'rgb(83, 96, 83)',
       },
       colors: {
         primary: '#07c514',

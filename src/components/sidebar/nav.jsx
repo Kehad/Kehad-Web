@@ -23,21 +23,21 @@ const Nav = function () {
       <div className="flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 pr-10 pl-10 gap-4 transition transition-all duration-500 border-1 border-sub group hover:flex dark:bg-black dark:text-white dark:border-primary dark:border-1">
         <div className=" my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2  font-josefin-sans transition transition-all duration-500 hover:text-primary group"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2  font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/home"
           >
             {/* <span className="material-symbols-rounded">home</span> */}
             <HomeIcon
               className={classNames(
                 pathname === '/home'
-                  ? ' text-green-500'
+                  ? ' text-primary'
                   : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
             <span
               className={`${
                 pathname === '/home' ? 'text-primary' : ''
-              } hidden group-hover:flex group-hover:text-primary`}
+              } hidden group-hover:flex `}
             >
               Home
             </span>
@@ -45,15 +45,15 @@ const Nav = function () {
         </div>
         <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/about-me"
           >
             {/* <i className="material-icons material-icons-round">person</i> */}
             <PersonIcon
               className={classNames(
                 pathname === '/about-me'
-                  ? ' text-green-500'
-                  : 'iconFill-secondary text-white hover:text-green-500'
+                  ? ' text-primary'
+                  : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
             <span
@@ -67,7 +67,7 @@ const Nav = function () {
         </div>
         <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/skills"
           >
             {/* <i className="material-icons material-icons-round"> */}
@@ -76,8 +76,8 @@ const Nav = function () {
             <IntegrationInstructionsIcon
               className={classNames(
                 pathname === '/skills'
-                  ? ' text-green-500'
-                  : 'iconFill-secondary text-white hover:text-green-500'
+                  ? ' text-primary'
+                  : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
             <span
@@ -91,15 +91,15 @@ const Nav = function () {
         </div>
         <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-green-500"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/works"
           >
             {/* <i className="material-icons material-icons-round">work</i> */}
             <WorkspacesIcon
               className={classNames(
                 pathname === '/works'
-                  ? ' text-green-500'
-                  : 'iconFill-secondary text-white hover:text-green-500'
+                  ? ' text-primary'
+                  : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
             <span
@@ -120,8 +120,8 @@ const Nav = function () {
             <WorkspacePremiumIcon
               className={classNames(
                 pathname === '/side-project'
-                  ? ' text-green-500'
-                  : 'iconFill-secondary text-white hover:text-green-500'
+                  ? ' text-primary'
+                  : 'iconFill-secondary text-white hover:text-primary '
               )}
             />
             <span
@@ -143,7 +143,7 @@ const Nav = function () {
               className={classNames(
                 pathname === '/contact-me'
                   ? ' text-primary'
-                  : 'iconFill-secondary text-white group hover:text-green-500'
+                  : 'iconFill-secondary text-white group hover:text-primary'
               )}
             />
             <span

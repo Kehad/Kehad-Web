@@ -3,7 +3,7 @@
 
 const SkillsList = function (props) {
   return (
-    <div className="flex justify-between items-center rounded-full h-20  w-9/12 bg-sup">
+    <div className="flex justify-between items-center rounded-full h-20  w-9/12 bg-sup dark:bg-black">
       <p className="font-judson text-3xl text-primary font-bold ml-6">
         {props.name}
       </p>

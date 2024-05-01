@@ -7,6 +7,8 @@ import SocialLinks from '../others/socialLinks';
 // import ButtonSend from '../layout/buttonSend';
 import { useNavigate } from 'react-router-dom';
 import Button from '../others/button';
+import Not from './not';
+import Notify from './notify';
 // import Not from './notification/not';
 
 const Contact = function (props) {
@@ -149,7 +151,7 @@ const Contact = function (props) {
         <textarea
           placeholder="Message..."
           maxLength="500"
-          className="resize-none h-20 bg-transparent rounded-md border border-solid border-primary p-4 outline-none text-2xl"
+          className="resize-none h-20 bg-transparent rounded-md border border-solid border-primary p-4 outline-none text-2xl text-white font-judson"
           name="message"
           ref={messageInput}
           onChange={handleChange}
@@ -158,25 +160,26 @@ const Contact = function (props) {
         <div className="flex justify-between items-center mt-8">
           <SocialLinks />
           <Button action={handleSubmit} to={'/home'} name={'send'} />
-          {authenticated &&
-            // <Notify
-            //   head="Success"
-            //   text="You have successfully sent the email"
-            // />
-            'kk'}
-          {authenticatedError &&
-            // <Not head="Failure" text="You failed to send your message" />
-            'aa'}
-
+          {authenticated && (
+            <Notify
+              head="Success"
+              text="You have successfully sent the email"
+            />
+          )}
+          {authenticatedError && (
+            <Not head="Failure" text="You failed to send your message" />
+          )}
+          {/* <Not /> */}
+          {/* <Notify /> */}
           {/* {!disable && (
-            <ButtonSend action={sendEmail} to={"/home"} name={"send"} />
+            <ButtonSend action={sendEmail} to={'/home'} name={'send'} />
           )}
           {disable && (
             <ButtonType2
               action={dontClick}
-              newClass={"disabledLink"}
-              to={"/home"}
-              name={"send"}
+              newClass={'disabledLink'}
+              to={'/home'}
+              name={'send'}
               disable={disable}
             />
           )} */}

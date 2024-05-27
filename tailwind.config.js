@@ -8,11 +8,7 @@ export default {
     extend: {
       gridTemplateColumns: {
         // Simple 16 column grid
-
         16: 'repeat(16, minmax(0, 1fr))',
-
-        // Complex site-specific column configuration
-
         column: '20rem, 1fr',
       },
       borderRadius: {
@@ -26,6 +22,7 @@ export default {
         sup: '#263328', // 263328
         error: 'rgb(236, 166, 166)',
         success: 'rgb(83, 96, 83)',
+        mainOpacity: 'rgba(50, 49, 49, 0.855)',
       },
       colors: {
         primary: '#07c514',

@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Toggle from './toggleMode.jsx';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Header() {
+  const [isMenuActive, setIsMenuActive] = useState(false);
+
+  const trueMenuHandler = () => {
+    setIsMenuActive(true);
+  };
+  const falseMenuHandler = () => {
+    setIsMenuActive(false);
+  };
+  // props.menuActive(isMenuActive);
+
   return (
     <div>
       <div className="flex justify-between">
@@ -35,7 +47,40 @@ function Header() {
           </div>
         </a>
 
-        <Toggle />
+        {/*  To open side Navigation for mobile view */}
+        <div className="sm:block lg:hidden">
+          {/* <MenuRoundedIcon sx={{ color: 'text-primary' }} /> */}
+          <MenuRoundedIcon
+            className="text-primary"
+            style={{ width: '40px', height: '40px' }}
+            onClick={trueMenuHandler}
+          />
+        </div>
+
+        <div className="sm:hidden lg:block">
+          <Toggle />
+        </div>
+
+        {/*  side Navigation for mobile view */}
+        {isMenuActive ? (
+          <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidden">
+            <div className="flex justify-between flex-col gap-4">
+              {/* to close side nav for mobile view */}
+              <CloseIcon
+                className="text-primary"
+                style={{ width: '40px', height: '40px', margin: '15px' }}
+                onClick={falseMenuHandler}
+              />
+
+              {/* for contact me for mobile view */}
+              <Toggle />
+            </div>
+            {/* toggle for mobile view */}
+            <Toggle />
+          </div>
+        ) : (
+          ''
+        )}
       </div>
       <div></div>
     </div>

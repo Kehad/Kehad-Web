@@ -38,10 +38,10 @@ const Toggle = function (props) {
 
   return (
     <div onClick="" className="">
-      <div className="flex items-center flex-row p-2 gap-8 border rounded-3xl border-primary  ">
+      <div className="flex  flex-row p-2 gap-8 border rounded-3xl border-primary  ">
         {/* <div className="w-1/2 p-2 rounded-3xl bg-red-500"> */}
         <div
-          className="flex items-center flex-row rounded-full bg-primary justify-center border-0 py-0.4 px-0.4 gap-2"
+          className="flex items-center flex-row rounded-full bg-primary justify-center border-0 py-0.4 px-0.4 gap-2 "
           // onClick={setDarkMode(false)}
           // onClick={toggleLightMode}
           onClick={() => setTheme('light')}
@@ -62,6 +62,7 @@ const Toggle = function (props) {
             </g>
           </svg>
         </div>
+
         {/* </div> */}
         <svg
           width="25"

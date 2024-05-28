@@ -50,7 +50,7 @@ const Contact = function (props) {
           if (result.text === 'OK') {
             console.log('correct');
             setIsSuccess(true);
-            setIsDisable(true);
+            setIsDisable(true); // 09139116045 -- ini
             // <Notify
             //   head="Success"
             //   text="You have successfully sent the email"

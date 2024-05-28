@@ -3,10 +3,10 @@ import React from 'react';
 const SocialLinks = function (props) {
   return (
     <div className="">
-      <div className="flex gap-4 mb-6">
+      <div className="flex gap-3 mb-6">
         <a
           href="https://twitter.com/Littlegenius01"
-          className="hover:bg-sub p-4 rounded"
+          className="hover:bg-sub p-3 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const SocialLinks = function (props) {
 
         <a
           href="https://www.linkedin.com/in/kehinde-adigun-/"
-          className="hover:bg-sub p-4"
+          className="hover:bg-sub p-3"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const SocialLinks = function (props) {
           </svg>
         </a>
 
-        <a href="https://github.com/KhingKehad" className="hover:bg-sub p-4">
+        <a href="https://github.com/KhingKehad" className="hover:bg-sub p-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"

@@ -48,7 +48,7 @@ function Header() {
         </a>
 
         {/*  To open side Navigation for mobile view */}
-        <div className="sm:block lg:hidden">
+        <div className="sm:block md:hidden lg:hidden">
           {/* <MenuRoundedIcon sx={{ color: 'text-primary' }} /> */}
           <MenuRoundedIcon
             className="text-primary"
@@ -57,7 +57,7 @@ function Header() {
           />
         </div>
 
-        <div className="sm:hidden lg:block">
+        <div className="hidden sm:hidden md:block lg:block">
           <Toggle />
         </div>
 

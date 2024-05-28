@@ -20,7 +20,7 @@ const Nav = function () {
 
   return (
     <nav className="">
-      <div className="flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 pr-10 pl-10 gap-4 transition transition-all duration-500 border-1 border-sub group hover:flex dark:bg-mainOpacity dark:text-white dark:border-primary dark:border-1">
+      <div className="flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 lg:pr-10 md:pr-6 lg:pl-10 md:pl-6  gap-4 transition transition-all duration-500 border-1 border-sub group hover:flex dark:bg-mainOpacity dark:text-white dark:border-primary dark:border-1 sm:hidden md:block">
         <div className=" my-4 transition transition-all duration-500">
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2  font-josefin-sans transition transition-all duration-500 hover:text-primary"

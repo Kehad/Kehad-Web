@@ -10,6 +10,7 @@ export default {
         // Simple 16 column grid
         16: 'repeat(16, minmax(0, 1fr))',
         column: '20rem, 1fr',
+        columnMd: '14rem, 1fr',
       },
       borderRadius: {
         7: '7rem',

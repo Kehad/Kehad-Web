@@ -21,7 +21,7 @@ const Home = function () {
       {/* <h3 className="text-gray-200 font-Judson text-2.5xl font-normal mt-0.5 mb-0.7">
         I'm Kehinde Adigun.
       </h3> */}
-      <p className=" font-judson  font-normal  mt-3 mb-3 md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-4xl lg:leading-normal">
+      <p className=" font-judson  font-normal  mt-3 mb-3 sm:text-[1.5rem] md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-4xl lg:leading-normal">
         I am a <span className="text-primary">front-end developer</span> who
         currently seek out <br></br> innovative solution to everyday problems.
         <br />I am a dedicated and creative front-end developer with a strong

@@ -27,7 +27,7 @@ function Layout(props) {
 
   return (
     <div
-      className="bg-main min-h-screen w-screen text-white py-16 lg:px-28  font-judson dark:bg-gray-300 dark:text-black duration-100 sm:px-12 md:px-16"
+      className="bg-main min-h-screen w-screen text-white py-16 lg:px-28  font-judson dark:bg-gray-300 dark:text-black duration-100 px-12  sm:px-12 md:px-16"
       // className=" h-screen w-screen"
       // style={dimensions}
     >

@@ -3,7 +3,7 @@ import React from 'react';
 const SocialLinks = function (props) {
   return (
     <div className="">
-      <div className="flex gap-3 mb-6">
+      <div className="flex gap-2 lg:gap-3 mb-6">
         <a
           href="https://twitter.com/Littlegenius01"
           className="hover:bg-sub p-3 rounded"

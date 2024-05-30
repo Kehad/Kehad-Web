@@ -10,7 +10,7 @@ const ButtonPlain = function (props) {
         <a
           href={props.link}
           onClick={props.action}
-          className="py-4 px-6 border rounded-full transition-all duration-500 font-bold cursor-pointer text-3xl hover:bg-primary hover:text-black hover:border-primary  text-primary border-primary bg-transparent "
+          className="py-4 px-6 border rounded-full transition-all duration-500 font-bold cursor-pointer text-3xl text-base sm:text-base hover:bg-primary hover:text-black hover:border-primary  text-primary border-primary bg-transparent "
           download={props.download}
           target={props.target}
           style={props.style}

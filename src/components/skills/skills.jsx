@@ -115,7 +115,9 @@ const Skills = function () {
   };
   return (
     <div className="">
-      <h1 className="text-6xl font-judson mb-12 text-primary">My Skills</h1>
+      <h1 className="text-6xl font-judson mb-12 text-primary sm:text-5xl text-5xl">
+        My Skills
+      </h1>
       <div className="skillsList__item flex flex-col gap-8">
         {itemList.map((item) => (
           <SkillsList key={item.id} name={item.name} link={item.link} />

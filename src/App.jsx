@@ -1,5 +1,6 @@
 // import { useState } from 'react';
 
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import AboutMe from './components/aboutme/about-me';
@@ -7,16 +8,25 @@ import Contact from './components/contact/contact';
 import Header from './components/header/header.jsx';
 import Home from './components/home/home';
 import Layout from './components/layout/layout.jsx';
+import Backdrop from './components/others/backDrop';
 import Project from './components/project/project';
 import Nav from './components/sidebar/nav';
 import Skills from './components/skills/skills';
 import Works from './components/works/works';
 
 function App() {
+  const [inMenu, setInMenu] = useState(false);
+
+  const menuHandler = (menuActive) => {
+    console.log(menuActive);
+    setInMenu(menuActive);
+  };
+
   return (
     <div>
+      {inMenu && <Backdrop />}
       <Layout>
-        <Header />
+        <Header menuActive={menuHandler} />
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">
           <div className="">
             <Nav />

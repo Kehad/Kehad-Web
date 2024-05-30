@@ -22,14 +22,14 @@ const WorksItem = function (props) {
   return (
     // <Slider {...settings}>
     <div className="classes.worksItem">
-      <div className="flex items-center justify-between gap-12">
+      <div className="flex items-center justify-between gap-12 sm:flex-col lg:flex-row">
         <div className="">
           <h2 className="text-3xl text-primary mb-4 font-judson">{name}</h2>
-          <p className="text-2xl font-judson mb-10 leading-relaxed">
+          <p className="text-2xl sm:text-xl sm:leading-tight font-judson mb-10 leading-relaxed">
             {description}
           </p>
         </div>
-        <div className="flex items-center justify-center p-12 bg-sub rounded-xl">
+        <div className="flex items-center justify-center p-12 bg-sub rounded-xl sm:mb-8">
           <img
             className="w-full h-auto object-cover"
             src={imageSrc}

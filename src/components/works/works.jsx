@@ -11,7 +11,9 @@ const Works = function (props) {
 
   return (
     <div className="mt-10 relative">
-      <h1 className="text-6xl font-judson text-primary mb-4">Works</h1>
+      <h1 className="text-6xl sm:text-5xl font-judson text-primary mb-4">
+        Works
+      </h1>
 
       <WorkList />
       {/* <NewList /> */}

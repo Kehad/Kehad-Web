@@ -113,7 +113,9 @@ const Contact = function (props) {
 
   return (
     <div className="mt-0">
-      <h1 className="font-judson text-primary text-7xl mb-4">Hello</h1>
+      <h1 className="font-judson text-primary text-7xl mb-4 sm:text-5xl">
+        Hello
+      </h1>
       <p className="text-2xl mb-6 font-bold">
         Looking to start a project and need that magical touch?
         <span>
@@ -128,13 +130,13 @@ const Contact = function (props) {
       <form
         ref={form}
         onSubmit={handleSubmit}
-        className="flex flex-col p-8 bg-sup rounded-3xl w-40rem"
+        className="flex flex-col p-8 bg-sup rounded-3xl sm:w-full lg:w-40rem"
       >
         <div className="flex gap-4 mb-6">
           <input
             type="text"
             placeholder="name"
-            className="rounded-md border border-solid border-primary p-4 bg-transparent text-white font-judson w-full text-2xl outline-none"
+            className="rounded-md border border-solid border-primary p-4 bg-transparent text-white font-judson w-full text-2xl outline-none sm:text-lg sm:p-2"
             name="user_name"
             ref={nameInput}
             onChange={handleChange}
@@ -143,7 +145,7 @@ const Contact = function (props) {
             type="email"
             placeholder="email"
             name="user_email"
-            className="rounded-md border border-solid border-primary p-4 bg-transparent text-white font-judson w-full text-2xl outline-none"
+            className="rounded-md border border-solid border-primary p-4 bg-transparent text-white font-judson w-full text-2xl outline-none sm:text-lg sm:p-2"
             ref={emailInput}
             onChange={handleChange}
           />
@@ -151,7 +153,7 @@ const Contact = function (props) {
         <textarea
           placeholder="Message..."
           maxLength="500"
-          className="resize-none h-20 bg-transparent rounded-md border border-solid border-primary p-4 outline-none text-2xl text-white font-judson"
+          className="resize-none h-20 bg-transparent rounded-md border border-solid border-primary p-4 outline-none text-2xl text-white font-judson sm:text-lg sm:p-2"
           name="message"
           ref={messageInput}
           onChange={handleChange}

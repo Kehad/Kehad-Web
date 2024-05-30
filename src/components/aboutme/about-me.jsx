@@ -6,8 +6,10 @@ import SocialLinks from '../others/socialLinks';
 const AboutMe = function () {
   return (
     <div className="">
-      <h1 className="text-primary font-judson text-6xl mb-10">About me.</h1>
-      <p className="mt-8 mb-12 text-4xl">
+      <h1 className="text-primary font-judson sm:text-5xl lg:text-6xl mb-10">
+        About me.
+      </h1>
+      <p className="mt-8 mb-12 sm:text-2xl lg:text-4xl">
         I've always been fascinated by the intersection of design and
         technology, and I've made it my mission to bring beautiful,
         user-friendly websites to life. With 5 years of experience in the

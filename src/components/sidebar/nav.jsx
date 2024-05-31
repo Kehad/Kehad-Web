@@ -6,10 +6,20 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { useState } from 'react';
 
 const Nav = function (props) {
-  const { status } = props;
+  // eslint-disable-next-line react/prop-types
+  // const { navStatus } = props;
   const { pathname } = useLocation();
+
+  const [isMenuActive, setIsMenuActive] = useState(false);
+
+  const falseMenuHandler = () => {
+    setIsMenuActive(false);
+  };
+  // navStatus(isMenuActive);
+
   console.log(pathname);
 
   // const navLinkStyles = ({ isActive }) => {

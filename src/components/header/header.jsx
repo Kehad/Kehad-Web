@@ -77,7 +77,7 @@ function Header(props) {
               {/* for contact me for mobile view */}
               {/* <Toggle /> */}
               {/* <Toggle /> */}
-              <NavMobile />
+              <NavMobile navStatus={falseMenuHandler} />
             </div>
             {/* toggle for mobile view */}
             <Toggle />

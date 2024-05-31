@@ -11,6 +11,7 @@ import Layout from './components/layout/layout.jsx';
 import Backdrop from './components/others/backDrop';
 import Project from './components/project/project';
 import Nav from './components/sidebar/nav';
+import NavMobile from './components/sidebar/navMobile';
 import Skills from './components/skills/skills';
 import Works from './components/works/works';
 
@@ -30,6 +31,7 @@ function App() {
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">
           <div className="">
             <Nav />
+            {/* <NavMobile navStatus={menuHandler} /> */}
           </div>
           <div className="flex-1 ">
             <Routes>

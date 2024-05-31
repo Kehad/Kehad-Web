@@ -32,7 +32,7 @@ const Home = function () {
       </p>
       <SocialLinks />
       <div className="flex items-center gap-2">
-        <Button name={'hire me'} link={'www.kehad.com'} />
+        <Button name={'hire me'} link={'/contact-me'} />
         <ButtonPlain name={'about me'} link={'/about-me'} />
       </div>
       {/* <MusicPlayer /> */}

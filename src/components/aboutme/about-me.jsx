@@ -10,12 +10,12 @@ const AboutMe = function () {
         About me.
       </h1>
       <p className="mt-8 mb-12 font-judson text-2xl sm:text-2xl  lg:text-4xl">
-        I've always been fascinated by the intersection of design and
-        technology, and I've made it my mission to bring beautiful,
-        user-friendly websites to life. With 5 years of experience in the
-        industry, I've had the privilege of working on a diverse range of
-        projects, each one presenting a unique challenge that I've eagerly
-        tackled.
+        I'm popularly known as <span className="text-primary">Kehad</span>, and
+        I love creating intuitive and visually appealing digital experiences. I
+        thrive on new challenges and am always eager to learn and grow. My
+        dedication to improvement drives me to deliver great results and stay
+        ahead in the tech industry.each one presenting a unique challenge that
+        I've eagerly tackled.
       </p>
       <SocialLinks />
       <Button name={'Hire me'} link={'www.kehad.com'} />

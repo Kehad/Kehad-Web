@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Toggle from './toggleMode.jsx';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseIcon from '@mui/icons-material/Close';
+import Nav from '../sidebar/nav.jsx';
+import NavMobile from '../sidebar/navMobile.jsx';
 
 function Header(props) {
   const { menuActive } = props;
@@ -64,17 +66,18 @@ function Header(props) {
 
         {/*  side Navigation for mobile view */}
         {isMenuActive ? (
-          <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidden ">
-            <div className="flex justify-between flex-col gap-4">
+          <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidden">
+            <div className="flex justify-between flex-col gap-4  ">
               {/* to close side nav for mobile view */}
               <CloseIcon
                 className="text-primary"
                 style={{ width: '40px', height: '40px', margin: '15px' }}
                 onClick={falseMenuHandler}
               />
-
               {/* for contact me for mobile view */}
-              <Toggle />
+              {/* <Toggle /> */}
+              {/* <Toggle /> */}
+              <NavMobile />
             </div>
             {/* toggle for mobile view */}
             <Toggle />

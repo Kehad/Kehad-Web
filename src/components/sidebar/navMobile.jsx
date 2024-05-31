@@ -7,8 +7,7 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-const Nav = function (props) {
-  const { status } = props;
+const NavMobile = function () {
   const { pathname } = useLocation();
   console.log(pathname);
 
@@ -21,10 +20,10 @@ const Nav = function (props) {
 
   return (
     <nav className="">
-      <div className="lg:flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 lg:pr-10 md:pr-6 lg:pl-10 md:pl-6  gap-4 transition transition-all duration-500 border-1 border-sub group hover:flex dark:bg-mainOpacity dark:text-white dark:border-primary dark:border-1 hidden sm:hidden md:block">
+      <div className="lg:flex flex-col justify-center w-max pt-20 pb-20 gap-4 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden">
         <div className="my-4 transition transition-all duration-500">
           <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2  font-josefin-sans transition transition-all duration-500 hover:text-primary"
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/home"
           >
             {/* <span className="material-symbols-rounded">home</span> */}
@@ -35,11 +34,7 @@ const Nav = function (props) {
                   : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
-            <span
-              className={`${
-                pathname === '/home' ? 'text-primary' : ''
-              } hidden group-hover:flex `}
-            >
+            <span className={`${pathname === '/home' ? 'text-primary' : ''}  `}>
               Home
             </span>
           </NavLink>
@@ -60,7 +55,7 @@ const Nav = function (props) {
             <span
               className={`${
                 pathname === '/about-me' ? 'text-primary' : ''
-              } hidden group-hover:flex`}
+              } hidde group-hover:fle`}
             >
               About me
             </span>
@@ -82,9 +77,7 @@ const Nav = function (props) {
               )}
             />
             <span
-              className={`${
-                pathname === '/skills' ? 'text-primary' : ''
-              } hidden group-hover:flex`}
+              className={`${pathname === '/skills' ? 'text-primary' : ''} `}
             >
               Skills
             </span>
@@ -103,11 +96,7 @@ const Nav = function (props) {
                   : 'iconFill-secondary text-white hover:text-primary'
               )}
             />
-            <span
-              className={`${
-                pathname === '/works' ? 'text-primary' : ''
-              } hidden group-hover:flex`}
-            >
+            <span className={`${pathname === '/works' ? 'text-primary' : ''} `}>
               Works
             </span>
           </NavLink>
@@ -128,7 +117,7 @@ const Nav = function (props) {
             <span
               className={`${
                 pathname === '/side-project' ? 'text-primary' : ''
-              } hidden group-hover:flex`}
+              } `}
             >
               Side project
             </span>
@@ -148,9 +137,7 @@ const Nav = function (props) {
               )}
             />
             <span
-              className={`${
-                pathname === '/contact-me' ? 'text-primary' : ''
-              } hidden group-hover:flex`}
+              className={`${pathname === '/contact-me' ? 'text-primary' : ''} `}
             >
               Contact me
             </span>
@@ -161,7 +148,7 @@ const Nav = function (props) {
   );
 };
 
-export default Nav;
+export default NavMobile;
 
 {
   /* <div className={classes["nav__container---box"]}>

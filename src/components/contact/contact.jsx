@@ -90,15 +90,16 @@ const Contact = function (props) {
     // You can perform authentication here. For simplicity, we're comparing to hardcoded values.
     if (!formData) return;
     const { username, email, message } = formData;
+    const words = message.trim().split(/\s+/);
     if (
-      username.length > 3 &&
-      message.length > 5 &&
+      username.length > 5 &&
+      words.length >= 5 &&
       email.includes('@gmail.com')
     ) {
       setAuthenticated(true);
       setTimeout(() => {
         dontClick();
-      }, 5000);
+      }, 3000);
     } else {
       // alert("Authentication failed. Please check your username and password.")
       // { !authenticated && <p>ss</p> };
@@ -109,7 +110,7 @@ const Contact = function (props) {
   setTimeout(() => {
     setAuthenticated(false);
     setAuthenticatedError(false);
-  }, 5000);
+  }, 7000);
 
   return (
     <div className="mt-0">
@@ -130,7 +131,7 @@ const Contact = function (props) {
       <form
         ref={form}
         onSubmit={handleSubmit}
-        className="flex flex-col p-8 bg-sup rounded-3xl sm:w-full lg:w-40rem"
+        className="flex flex-col p-8 bg-sup dark:bg-sub rounded-3xl sm:w-full lg:w-40rem"
       >
         <div className="flex gap-4 mb-6">
           <input
@@ -169,7 +170,10 @@ const Contact = function (props) {
             />
           )}
           {authenticatedError && (
-            <Not head="Failure" text="You failed to send your message" />
+            <Not
+              head="Failure"
+              text="Your username/message must be at least 5 texts/words long and gmail must be a valid email address "
+            />
           )}
           {/* <Not /> */}
           {/* <Notify /> */}

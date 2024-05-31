@@ -10,7 +10,7 @@ const AboutMe = function () {
         About me.
       </h1>
       <p className="mt-8 mb-12 font-judson text-2xl sm:text-2xl  lg:text-4xl">
-        I'm popularly known as <span className="text-primary">Kehad</span>, and
+        I'm Popularly known as <span className="text-primary">Kehad</span>, and
         I love creating intuitive and visually appealing digital experiences. I
         thrive on new challenges and am always eager to learn and grow. My
         dedication to improvement drives me to deliver great results and stay

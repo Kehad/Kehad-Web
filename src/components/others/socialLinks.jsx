@@ -7,6 +7,7 @@ const SocialLinks = function (props) {
         <a
           href="https://twitter.com/Littlegenius01"
           className="p-3 rounded hover:bg-sup dark:hover:bg-mainOpacity"
+          target="_blank"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +28,7 @@ const SocialLinks = function (props) {
         <a
           href="https://www.linkedin.com/in/kehinde-adigun-/"
           className="p-3 rounded hover:bg-sup dark:hover:bg-mainOpacity"
+          target="_blank"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,6 +47,7 @@ const SocialLinks = function (props) {
         <a
           href="https://github.com/KhingKehad"
           className="p-3 rounded hover:bg-sup dark:hover:bg-mainOpacity"
+          target="_blank"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

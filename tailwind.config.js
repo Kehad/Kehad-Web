@@ -44,6 +44,12 @@ export default {
       spacing: {
         '40rem': '43rem',
       },
+      transitionProperty: {
+        all: 'all',
+      },
+      transitionDuration: {
+        500: '500ms',
+      },
     },
   },
   plugins: [],

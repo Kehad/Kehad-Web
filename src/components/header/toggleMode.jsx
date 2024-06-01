@@ -43,7 +43,7 @@ const Toggle = function (props) {
     <div onClick="" className="">
       <div className="flex  flex-row items-center justify-between  border rounded-3xl border-primary bg-primry  p2 gap8 w24 h12 w-[130px] h-[43px] transition duration-300">
         <div
-          className={`flex items-center justify-center h-full w-2/4 rounded-3xl rounded-tr-none rounded-br-none transition duration-300  ${
+          className={`flex items-center justify-center h-full w-2/4 rounded-3xl rounded-tr-none rounded-br-none transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] cursor-pointer  ${
             theme === 'light' ? 'bg-primary' : ''
           } ${theme === 'system' ? 'bg-primary' : ''}`}
           onClick={() => setTheme('light')}

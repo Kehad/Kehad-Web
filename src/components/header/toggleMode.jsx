@@ -41,14 +41,43 @@ const Toggle = function (props) {
 
   return (
     <div onClick="" className="">
-      <div className="flex  flex-row p-2 gap-8 border rounded-3xl border-primary  ">
-        {/* <div className="w-1/2 p-2 rounded-3xl bg-red-500"> */}
+      <div className="flex  flex-row items-center justify-between  border rounded-3xl border-primary bg-primry  p2 gap8 w24 h12 w-[130px] h-[43px] transition duration-300">
         <div
-          className="flex items-center flex-row rounded-full bg-primary justify-center border-0 py-0.4 px-0.4 gap-2 cursor-pointer"
-          // onClick={setDarkMode(false)}
-          // onClick={toggleLightMode}
-          title="dark mode"
+          className={`flex items-center justify-center h-full w-2/4 rounded-3xl rounded-tr-none rounded-br-none transition duration-300  ${
+            theme === 'light' ? 'bg-primary' : ''
+          }`}
           onClick={() => setTheme('light')}
+        >
+          <div
+            className="flex items-center justify-center flex-row rounded-full bg-primary  border-0 py-0.4 px-0.4 gap-2 cursor-pointer"
+            // onClick={setDarkMode(false)}
+            // onClick={toggleLightMode}
+            title="dark mode"
+            // onClick={() => setTheme('light')}
+          >
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="ic:sharp-dark-mode">
+                <path
+                  id="Vector"
+                  d="M12.3241 3.32703C10.5441 3.32703 8.80401 3.85487 7.32397 4.8438C5.84393 5.83273 4.69037 7.23834 4.00918 8.88288C3.328 10.5274 3.14977 12.337 3.49703 14.0828C3.8443 15.8287 4.70147 17.4323 5.96014 18.691C7.21881 19.9497 8.82246 20.8068 10.5683 21.1541C12.3141 21.5014 14.1237 21.3231 15.7683 20.6419C17.4128 19.9608 18.8184 18.8072 19.8073 17.3272C20.7963 15.8471 21.3241 14.1071 21.3241 12.327C21.3241 11.867 21.2841 11.407 21.2241 10.967C20.7244 11.6677 20.0642 12.2385 19.2987 12.6317C18.5332 13.0249 17.6847 13.229 16.8241 13.227C15.6793 13.2271 14.5641 12.8635 13.6393 12.1887C12.7145 11.5139 12.0279 10.5628 11.6786 9.47263C11.3293 8.38243 11.3353 7.20946 11.6958 6.12288C12.0562 5.03631 12.7525 4.09231 13.6841 3.42703C13.2441 3.36703 12.7841 3.32703 12.3241 3.32703Z"
+                  fill="black"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          title="light mode"
+          className={`cursor-pointer w-2/4 rounded-3xl rounded-tl-none rounded-bl-none  h-full flex items-center justify-center ${
+            theme === 'dark' ? 'bg-primary' : ''
+          } transition duration-300`}
+          onClick={() => setTheme('dark')}
         >
           <svg
             width="25"
@@ -56,29 +85,8 @@ const Toggle = function (props) {
             viewBox="0 0 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-          >
-            <g id="ic:sharp-dark-mode">
-              <path
-                id="Vector"
-                d="M12.3241 3.32703C10.5441 3.32703 8.80401 3.85487 7.32397 4.8438C5.84393 5.83273 4.69037 7.23834 4.00918 8.88288C3.328 10.5274 3.14977 12.337 3.49703 14.0828C3.8443 15.8287 4.70147 17.4323 5.96014 18.691C7.21881 19.9497 8.82246 20.8068 10.5683 21.1541C12.3141 21.5014 14.1237 21.3231 15.7683 20.6419C17.4128 19.9608 18.8184 18.8072 19.8073 17.3272C20.7963 15.8471 21.3241 14.1071 21.3241 12.327C21.3241 11.867 21.2841 11.407 21.2241 10.967C20.7244 11.6677 20.0642 12.2385 19.2987 12.6317C18.5332 13.0249 17.6847 13.229 16.8241 13.227C15.6793 13.2271 14.5641 12.8635 13.6393 12.1887C12.7145 11.5139 12.0279 10.5628 11.6786 9.47263C11.3293 8.38243 11.3353 7.20946 11.6958 6.12288C12.0562 5.03631 12.7525 4.09231 13.6841 3.42703C13.2441 3.36703 12.7841 3.32703 12.3241 3.32703Z"
-                fill="black"
-              />
-            </g>
-          </svg>
-        </div>
-
-        {/* </div> */}
-        <div title="light mode" className="cursor-pointer">
-          <svg
-            width="25"
-            height="25"
-            viewBox="0 0 25 25"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            // onClick={setDarkMode(true)}
-            onClick={() => setTheme('dark')}
+            // onClick={() => setTheme('dark')}
             title="light"
-            // onClick={toggleLightMode}
           >
             <g id="material-symbols:light-mode">
               <path

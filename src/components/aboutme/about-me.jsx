@@ -15,7 +15,8 @@ const AboutMe = function () {
         thrive on new challenges and am always eager to learn and grow. My
         dedication to improvement drives me to deliver great results and stay
         ahead in the tech industry.each one presenting a unique challenge that
-        I've eagerly tackled.
+        I've eagerly tackled. When I'm not with my computer, you'll probably
+        find me playing mobile games and gisting with friends 😉
       </p>
       <SocialLinks />
       <Button name={'Hire me'} link={'www.kehad.com'} />

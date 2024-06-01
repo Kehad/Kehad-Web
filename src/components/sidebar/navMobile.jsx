@@ -20,7 +20,7 @@ const NavMobile = function (props) {
 
   return (
     <nav className="">
-      <div className=" flex-col justify-center w-max pt-20 pb-20 gap-4 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden">
+      <div className="flex flex-col justify-center w-max pt-20 pb-20 gap-4 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden">
         <div className="my-4 transition transition-all duration-500">
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"

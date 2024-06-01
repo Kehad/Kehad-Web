@@ -107,7 +107,7 @@ const Skills = function () {
     console.log(event);
 
     const link = document.createElement('a');
-    link.download = 'Kehinde Adigun CV';
+    link.download = 'Kehinde Gabriel Adigun CV';
 
     link.href = cv;
 

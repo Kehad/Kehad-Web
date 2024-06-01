@@ -54,7 +54,7 @@ function Header(props) {
         <div className="sm:block md:hidden lg:hidden">
           {/* <MenuRoundedIcon sx={{ color: 'text-primary' }} /> */}
           <MenuRoundedIcon
-            className="text-primary"
+            className="text-primary cursor-pointer"
             style={{ width: '40px', height: '40px' }}
             onClick={trueMenuHandler}
           />
@@ -67,11 +67,15 @@ function Header(props) {
         {/*  side Navigation for mobile view */}
         {isMenuActive ? (
           <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidden">
-            <div className="flex justify-between flex-col gap-4  ">
+            <div className="flex justify-between flex-col gap-4 ">
               {/* to close side nav for mobile view */}
               <CloseIcon
-                className="text-primary"
-                style={{ width: '40px', height: '40px', margin: '15px' }}
+                className="text-primary cursor-pointer"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  margin: '15px',
+                }}
                 onClick={falseMenuHandler}
               />
               {/* for contact me for mobile view */}

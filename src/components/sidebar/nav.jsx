@@ -65,28 +65,7 @@ const Nav = function (props) {
             </span>
           </NavLink>
         </div>
-        <div className="my-4 transition transition-all duration-500">
-          <NavLink
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
-            to="/about-me"
-          >
-            {/* <i className="material-icons material-icons-round">person</i> */}
-            <PersonIcon
-              className={classNames(
-                pathname === '/about-me'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white hover:text-primary'
-              )}
-            />
-            <span
-              className={`${
-                pathname === '/about-me' ? 'text-primary' : ''
-              } hidden group-hover:flex`}
-            >
-              About me
-            </span>
-          </NavLink>
-        </div>
+
         <div className="my-4 transition transition-all duration-500">
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
@@ -152,6 +131,28 @@ const Nav = function (props) {
               } hidden group-hover:flex`}
             >
               Side project
+            </span>
+          </NavLink>
+        </div>
+        <div className="my-4 transition transition-all duration-500">
+          <NavLink
+            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
+            to="/about-me"
+          >
+            {/* <i className="material-icons material-icons-round">person</i> */}
+            <PersonIcon
+              className={classNames(
+                pathname === '/about-me'
+                  ? ' text-primary'
+                  : 'iconFill-secondary text-white hover:text-primary'
+              )}
+            />
+            <span
+              className={`${
+                pathname === '/about-me' ? 'text-primary' : ''
+              } hidden group-hover:flex`}
+            >
+              About me
             </span>
           </NavLink>
         </div>

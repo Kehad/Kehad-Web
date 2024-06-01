@@ -17,9 +17,10 @@ const AboutMe = function () {
         ahead in the tech industry.each one presenting a unique challenge that
         I've eagerly tackled. When I'm not with my computer, you'll probably
         find me playing mobile games and gisting with friends 😉
+        <br /> <br /> &copy; 2024, Kehad
       </p>
       <SocialLinks />
-      <Button name={'Hire me'} link={'www.kehad.com'} />
+      <Button name={'Hire me'} link={'/contact-me'} />
     </div>
   );
 };

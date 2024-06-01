@@ -1,87 +1,92 @@
 .pagination__arrow--left,
 .pagination__arrow--right {
-    width: 4rem;
-    height: 4rem;
-    cursor: pointer;
-    flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.3s;
 }
 
 .pagination__button--left,
 .pagination__button--right {
-    display: block;
-    position: absolute;
-    /* right: -10%; */
-    right: -90px;
-    top: 50%
+  display: block;
+  position: absolute;
+  /* right: -10%; */
+  right: -90px;
+  top: 50%;
 }
 
 .pagination__arrow--left {
-    position: absolute;
-    /* left: -10%; */
-    left: -90px;
-    top: 50%;
+  position: absolute;
+  /* left: -10%; */
+  left: -90px;
+  top: 50%;
 }
 .pagination__arrow--right {
-    position: absolute;
-    /* right: -10%; */
-    right: -90px;
-    top: 50%
+  position: absolute;
+  /* right: -10%; */
+  right: -90px;
+  top: 50%;
 }
 .pagination__button-text {
-    display: none;
+  display: none;
+}
+
+.pagination__arrow--left:hover,
+.pagination__arrow--right:hover {
+  transform: translateY(-5px);
+  transition: all 0.3s;
 }
 
 @media screen and (max-width: 1024px) {
-    .pagination__arrow--left {
-        left: -90px;
-        top: 30%;
-    }
-    .pagination__arrow--right {
-        right: -50px;
-        top: 30%
-    }
-    .pagination__arrow--left,
-    .pagination__arrow--right {
-        width: 3rem;
-        height: 3rem;
-        flex-shrink: 0;
-    }
+  .pagination__arrow--left {
+    left: -90px;
+    top: 30%;
+  }
+  .pagination__arrow--right {
+    right: -50px;
+    top: 30%;
+  }
+  .pagination__arrow--left,
+  .pagination__arrow--right {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+  }
 }
 
 @media screen and (max-width: 769px) {
-    .pagination__small--left {
-        /* left: -50px;
+  .pagination__small--left {
+    /* left: -50px;
         top: 30%; */
-        height: 2rem;
-        cursor: pointer;
-        transition: all 0.5s;        
-    }
-    .pagination__small--right {
-        /* right: -40px;
+    height: 2rem;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  .pagination__small--right {
+    /* right: -40px;
         top: 30%; */
-        height: 2rem;
-        width: max-content;
-        cursor: pointer;
-        transition: all 0.5s;
-    }
-    .pagination__small--left:hover,
-    .pagination__small--left:active {
-        transform: translateX(-2px);
-    }
-    .pagination__small--right:hover,
-    .pagination__small--right:active {
-        transform: translateX(+2px);
-    }
-    .pagination__button-text {
-        margin-top: -25px;
-        display: flex;
-        gap: 0.5rem;
-        justify-content: right;
-    }
-    .pagination__arrow--left,
-    .pagination__arrow--right {
-        display: none;
-    }
-
+    height: 2rem;
+    width: max-content;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  .pagination__small--left:hover,
+  .pagination__small--left:active {
+    transform: translateX(-2px);
+  }
+  .pagination__small--right:hover,
+  .pagination__small--right:active {
+    transform: translateX(+2px);
+  }
+  .pagination__button-text {
+    margin-top: -25px;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: right;
+  }
+  .pagination__arrow--left,
+  .pagination__arrow--right {
+    display: none;
+  }
 }
-

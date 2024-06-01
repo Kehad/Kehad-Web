@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import AboutMe from './components/aboutme/about-me';
 import Contact from './components/contact/contact';
@@ -22,6 +22,14 @@ function App() {
     console.log(menuActive);
     setInMenu(menuActive);
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to /about after 2 seconds
+    navigate('/home');
+    // Clean up the timer
+  }, []);
 
   return (
     <div>

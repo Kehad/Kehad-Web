@@ -45,7 +45,7 @@ const Toggle = function (props) {
         <div
           className={`flex items-center justify-center h-full w-2/4 rounded-3xl rounded-tr-none rounded-br-none transition duration-300  ${
             theme === 'light' ? 'bg-primary' : ''
-          }`}
+          } ${theme === 'system' ? 'bg-primary' : ''}`}
           onClick={() => setTheme('light')}
         >
           <div

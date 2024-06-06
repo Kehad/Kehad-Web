@@ -28,15 +28,13 @@ const Contact = function (props) {
   const emailInput = useRef();
   const messageInput = useRef();
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-
+  const sendEmail = () => {
     emailjs
       .sendForm(
         'service_d447m7b',
         'template_nxsssjd',
         form.current,
-        '0XzXxZ4oMFmfaKJ-D'
+        'bQptP5N6peueuwXVE'
       )
       .then(
         (result) => {
@@ -91,12 +89,18 @@ const Contact = function (props) {
     if (!formData) return;
     const { username, email, message } = formData;
     const words = message.trim().split(/\s+/);
+    console.log(words);
+    console.log(username, username.length);
     if (
-      username.length > 5 &&
+      username.length >= 5 &&
       words.length >= 5 &&
       email.includes('@gmail.com')
     ) {
+      console.log('correct');
       setAuthenticated(true);
+      console.log('correct');
+      sendEmail();
+      console.log('correct');
       setTimeout(() => {
         dontClick();
       }, 3000);

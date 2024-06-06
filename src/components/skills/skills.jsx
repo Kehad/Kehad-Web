@@ -1,7 +1,8 @@
 // import classes from "./skills.module.css";
 // import SkillsList from "./skillsList";
 // import Button from "../layout/button";
-import cv from '../../assets/kadee.png';
+// import cv from '../../assets/Kehinde Gabriel Adigun Resumè.pdf';
+import cv from '../../assets/Kehinde-Gabriel-Adigun-Resumè.pdf';
 // import images from "../../"
 import tailwinding from '../../assets/tailwind.svg';
 

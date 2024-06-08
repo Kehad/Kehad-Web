@@ -2,6 +2,7 @@
 // import SkillsList from "./skillsList";
 // import Button from "../layout/button";
 // import cv from '../../assets/Kehinde Gabriel Adigun Resumè.pdf';
+import { useState } from 'react';
 import cv from '../../assets/Kehinde-Gabriel-Adigun-Resumè.pdf';
 // import images from "../../"
 import tailwinding from '../../assets/tailwind.svg';
@@ -10,6 +11,8 @@ import Button from '../others/button';
 import SkillsList from './skillsList';
 
 const Skills = function () {
+  const [inMenu, setInMenu] = useState(false);
+
   const itemList = [
     {
       id: 'm1',
@@ -103,6 +106,10 @@ const Skills = function () {
     },
   ];
 
+  const changeInMenu = () => {
+    setInMenu(!inMenu);
+  };
+
   const downloadHandler = (event) => {
     event.preventDefault();
     console.log(event);
@@ -114,6 +121,9 @@ const Skills = function () {
 
     link.click();
   };
+
+  const downloadOptions = () => {};
+
   return (
     <div className="">
       <h1 className="text-6xl font-judson mb-12 text-primary sm:text-5xl text-5xl">
@@ -124,9 +134,36 @@ const Skills = function () {
           <SkillsList key={item.id} name={item.name} link={item.link} />
         ))}
       </div>
-
       <div className="skills__button mt-12">
         <Button link="cv" name="Download Resume" action={downloadHandler} />
+      </div>
+      <div className="w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="bg-black text-white p-4  flex-col m-0 mx-auto">
+          <div className="border-b border-gray-300 pb-1 text-xl">
+            Download via
+          </div>
+          <div className="flex flex-col gap-3 pt-4 border-b border-gray-300 pb-1">
+            <a
+              href="#"
+              onClick={downloadOptions}
+              className="p-2 bg-red-500 w-max cursor-pointer"
+            >
+              Download Image
+            </a>
+            <a
+              href="#"
+              onClick={downloadOptions}
+              className="p-2 bg-red-500 w-max cursor-pointer"
+            >
+              Download pdf
+            </a>
+          </div>
+          <div className="flex justify-end p-2 flex-wrap">
+            <a className=" fflex-wrap bg-red-500 px-4 py-2 cursor-pointer  rounded inline-block">
+              close
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

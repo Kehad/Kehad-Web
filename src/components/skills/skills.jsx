@@ -137,7 +137,7 @@ const Skills = function () {
       <div className="skills__button mt-12">
         <Button link="cv" name="Download Resume" action={downloadHandler} />
       </div>
-      <div className="w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden">
         <div className="bg-black text-white p-4  flex-col m-0 mx-auto">
           <div className="border-b border-gray-300 pb-1 text-xl">
             Download via

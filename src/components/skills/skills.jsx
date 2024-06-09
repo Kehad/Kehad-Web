@@ -3,7 +3,7 @@
 // import Button from "../layout/button";
 // import cv from '../../assets/Kehinde Gabriel Adigun Resumè.pdf';
 import { useState } from 'react';
-// import cv from '../../assets/Kehinde-Gabriel-Adigun-Resumè.pdf';
+import cv from '../../assets/Kehinde-Gabriel-Adigun-Resumè.jpg';
 // import images from "../../"
 import tailwinding from '../../assets/tailwind.svg';
 

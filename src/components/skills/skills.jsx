@@ -10,7 +10,7 @@ import tailwinding from '../../assets/tailwind.svg';
 import Button from '../others/button';
 import SkillsList from './skillsList';
 
-const Skills = function () {
+const Skills = function (props) {
   const [inMenu, setInMenu] = useState(false);
 
   const itemList = [
@@ -106,9 +106,7 @@ const Skills = function () {
     },
   ];
 
-  const changeInMenu = () => {
-    setInMenu(!inMenu);
-  };
+  const changeInMenu = () => {};
 
   const downloadHandler = (event) => {
     event.preventDefault();
@@ -122,7 +120,12 @@ const Skills = function () {
     link.click();
   };
 
-  const downloadOptions = () => {};
+  const downloadOptions = () => {
+    setInMenu((inMenu) => !inMenu);
+  };
+  props.menuActive(inMenu);
+
+  console.log(props);
 
   return (
     <div className="">
@@ -135,11 +138,15 @@ const Skills = function () {
         ))}
       </div>
       <div className="skills__button mt-12">
-        <Button link="cv" name="Download Resume" action={downloadHandler} />
+        <Button link="" name="Download Resume" action={downloadOptions} />
       </div>
-      <div className="w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden">
-        <div className="bg-black text-white p-4  flex-col m-0 mx-auto">
-          <div className="border-b border-gray-300 pb-1 text-xl">
+      <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+        <div
+          className={`bg-black text-white p-4  flex-col m-0 mx-auto ${
+            !inMenu ? 'hidden' : 'block'
+          } `}
+        >
+          <div className="border-b border-gray-300 pb-1 text-xl ">
             Download via
           </div>
           <div className="flex flex-col gap-3 pt-4 border-b border-gray-300 pb-1">
@@ -159,7 +166,10 @@ const Skills = function () {
             </a>
           </div>
           <div className="flex justify-end p-2 flex-wrap">
-            <a className=" fflex-wrap bg-red-500 px-4 py-2 cursor-pointer  rounded inline-block">
+            <a
+              className=" fflex-wrap bg-red-500 px-4 py-2 cursor-pointer  rounded inline-block"
+              onClick={downloadOptions}
+            >
               close
             </a>
           </div>

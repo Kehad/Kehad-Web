@@ -20,7 +20,7 @@ const Nav = function (props) {
   };
   // navStatus(isMenuActive);
 
-  console.log(pathname);
+  // console.log(pathname);
 
   // const navLinkStyles = ({ isActive }) => {
   //   return {

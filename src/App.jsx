@@ -19,6 +19,7 @@ function App() {
   const [inMenu, setInMenu] = useState(false);
 
   const menuHandler = (menuActive) => {
+    console.log('menuHandler');
     console.log(menuActive);
     setInMenu(menuActive);
   };
@@ -30,10 +31,13 @@ function App() {
     navigate('/home');
     // Clean up the timer
   }, []);
+  console.log('App');
+
+  console.log(inMenu);
 
   return (
     <div>
-      {inMenu && <Backdrop />}
+      {inMenu && <Backdrop menuActive={menuHandler} />}
       <Layout>
         <Header menuActive={menuHandler} />
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">

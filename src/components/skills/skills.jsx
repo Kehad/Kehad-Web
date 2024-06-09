@@ -12,7 +12,6 @@ import SkillsList from './skillsList';
 
 const Skills = function (props) {
   const [inMenu, setInMenu] = useState(false);
-
   const itemList = [
     {
       id: 'm1',
@@ -106,17 +105,13 @@ const Skills = function (props) {
     },
   ];
 
-  const changeInMenu = () => {};
-
   const downloadHandler = (event) => {
     event.preventDefault();
     console.log(event);
 
     const link = document.createElement('a');
     link.download = 'Kehinde Gabriel Adigun CV';
-
     link.href = cv;
-
     link.click();
   };
 
@@ -125,7 +120,7 @@ const Skills = function (props) {
   };
   props.menuActive(inMenu);
 
-  console.log(props);
+  // console.log(props);
 
   return (
     <div className="">

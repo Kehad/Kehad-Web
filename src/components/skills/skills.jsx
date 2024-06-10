@@ -133,7 +133,7 @@ const Skills = function (props) {
         ))}
       </div>
       <div className="skills__button mt-12">
-        <Button link="" name="Download Resume" action={downloadOptions} />
+        <Button link="" name="Download Resume" action={downloadHandler} />
       </div>
       <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
         <div

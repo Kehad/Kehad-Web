@@ -117,8 +117,9 @@ const Skills = function (props) {
 
   const downloadOptions = () => {
     setInMenu((inMenu) => !inMenu);
+    props.menuActive(inMenu);
   };
-  props.menuActive(inMenu);
+  // props.menuActive(inMenu);
 
   // console.log(props);
 
@@ -135,7 +136,7 @@ const Skills = function (props) {
       <div className="skills__button mt-12">
         <Button link="" name="Download Resume" action={downloadOptions} />
       </div>
-      <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+      <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
         <div
           className={`bg-black text-white p-4  flex-col m-0 mx-auto ${
             !inMenu ? 'hidden' : 'block'

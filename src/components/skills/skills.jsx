@@ -1,12 +1,22 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import cv from '../../assets/Kehinde-Gabriel-Adigun-Resume.jpg';
-import cv2 from '../../assets/Kehinde-Gabriel-Adigun-Resume.pdf';
+import cv2 from '../../assets/Kehinde-Gabriel-Adigun-Resume.jpg';
+import cv from '../../assets/Kehinde-Gabriel-Adigun-Resume.pdf';
 // import tailwinding from '../../assets/tailwind.svg';
 import Button from '../others/button';
 import SkillsList from './skillsList';
 
 const Skills = function (props) {
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+
+    // console.log(selectedOption);
+  };
+
+  console.log(selectedOption);
+
   const [inMenu, setInMenu] = useState(false);
   const itemList = [
     {
@@ -104,10 +114,18 @@ const Skills = function (props) {
   const downloadHandler = (event) => {
     event.preventDefault();
     console.log(event);
+    setSelectedOption(event.target.value);
 
     const link = document.createElement('a');
     link.download = 'Kehinde Gabriel Adigun CV';
-    link.href = cv;
+
+    if (selectedOption === 'download-img') {
+      link.href = cv;
+    }
+    if (selectedOption === 'download-pdf') {
+      link.href = cv2;
+    }
+
     link.click();
   };
 
@@ -129,9 +147,23 @@ const Skills = function (props) {
         ))}
       </div>
       <div className="skills__button mt-12">
-        <Button link="" name="Download Resum" action={downloadHandler} />
+        {/* <Button link="" name="Download Resume" action={downloadOptions} /> */}
       </div>
-      <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+
+      <select
+        id="fruit"
+        className="py-4 px-6 border rounded-full transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent"
+        name="fruit"
+        onChange={downloadHandler}
+      >
+        {/* <option value="" className="hidden">
+          Download Resume
+        </option> */}
+        <option value="download-pdf">Download pdf</option>
+        <option value="download-img">Download Image</option>
+      </select>
+
+      {/* <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
         <div
           className={`bg-black text-white p-4  flex-col m-0 mx-auto ${
             !inMenu ? 'hidden' : 'block'
@@ -165,7 +197,7 @@ const Skills = function (props) {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,12 +1,8 @@
-// import classes from "./skills.module.css";
-// import SkillsList from "./skillsList";
-// import Button from "../layout/button";
-// import cv from '../../assets/Kehinde Gabriel Adigun Resumè.pdf';
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
-import cv from '../../assets/Kehinde-Gabriel-Adigun-Resumè.jpg';
-// import images from "../../"
-import tailwinding from '../../assets/tailwind.svg';
-
+import cv from '../../assets/Kehinde-Gabriel-Adigun-Resume.jpg';
+import cv2 from '../../assets/Kehinde-Gabriel-Adigun-Resume.pdf';
+// import tailwinding from '../../assets/tailwind.svg';
 import Button from '../others/button';
 import SkillsList from './skillsList';
 
@@ -120,7 +116,6 @@ const Skills = function (props) {
     props.menuActive(inMenu);
   };
   // props.menuActive(inMenu);
-
   // console.log(props);
 
   return (

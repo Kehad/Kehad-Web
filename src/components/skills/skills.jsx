@@ -108,38 +108,60 @@ const Skills = function (props) {
     },
   ];
 
-  const downloadHandler = (event) => {
-    event.preventDefault();
-    console.log(event);
-    setSelectedOption(event.target.value);
+  // for the select element
+  // const downloadHandler = (event) => {
+  //   event.preventDefault();
+  //   console.log(event);
+  //   setSelectedOption(event.target.value);
 
+  //   const link = document.createElement('a');
+  //   link.download = 'Kehinde Gabriel Adigun CV';
+
+  //   if (selectedOption === 'download-img') {
+  //     link.href = cv;
+  //     setInMenu(false);
+  //   }
+  //   if (selectedOption === 'download-pdf') {
+  //     link.href = cv2;
+  //     setInMenu(false);
+  //   }
+
+  //   link.click();
+  // };
+
+  // for the list element using the download resume button
+  const pdfResume = (event) => {
+    event.preventDefault();
     const link = document.createElement('a');
     link.download = 'Kehinde Gabriel Adigun CV';
-
-    if (selectedOption === 'download-img') {
-      link.href = cv;
-    }
-    if (selectedOption === 'download-pdf') {
-      link.href = cv2;
-    }
-
+    link.href = cv;
     link.click();
+
+    setInMenu(false);
+  };
+  const imgResume = (event) => {
+    event.preventDefault();
+    console.log('Download Img resume');
+    const link = document.createElement('a');
+    link.download = 'Kehinde Gabriel Adigun CV';
+    link.href = cv2;
+    link.click();
+
+    setInMenu(false);
   };
 
-  const trueMenu = (event) => {
-    // event.preventDefault();
+  const showDownloadOptions = (event) => {
+    event.stopPropagation();
     setInMenu(true);
   };
-  const falseMenu = (event) => {
-    event.preventDefault();
+  const hideDownloadOptions = () => {
     setInMenu(false);
-    // props.menuActive(inMenu);
   };
   // props.menuActive(inMenu);
   // console.log(props);
 
   return (
-    <div className="" onClick={falseMenu}>
+    <div className="" onClick={hideDownloadOptions}>
       <h1 className="font-judson mb-12 text-primary text-4xl sm:text-5xl md:text-6xl">
         My Skills
       </h1>
@@ -149,14 +171,20 @@ const Skills = function (props) {
         ))}
       </div>
       <div className="skills__button mt-12 flex sm:flex-row md:flex-col">
-        <Button link="" name="Download Resume" action={trueMenu} />
+        <Button link="" name="Download Resume" action={showDownloadOptions} />
 
         {inMenu ? (
           <ul className="sm:w-[250px]  md:w-[300px] p-2 flex flex-col gap-2 rounded  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
-            <li className="cursor-pointer border-b  border-primary hover:text-primary">
+            <li
+              className="cursor-pointer border-b  border-primary hover:text-primary"
+              onClick={pdfResume}
+            >
               Download pdf
             </li>
-            <li className="cursor-pointer hover:text-primary">
+            <li
+              className="cursor-pointer hover:text-primary"
+              onClick={imgResume}
+            >
               Download Image
             </li>
           </ul>

@@ -7,7 +7,7 @@ const SkillsList = function (props) {
       <p className="font-judson text-2xl sm:text-2xl lg:text-3xl text-primary font-bold ml-6">
         {props.name}
       </p>
-      <div className="flex items-center justify-center mr-6 h-4 sm:h-4">
+      <div className="flex items-center justify-center mr-6 h-1 sm:h-4">
         {props.link}
       </div>
     </div>

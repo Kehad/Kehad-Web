@@ -2,22 +2,18 @@
 import { useState } from 'react';
 import cv2 from '../../assets/Kehinde-Gabriel-Adigun-Resume.jpg';
 import cv from '../../assets/Kehinde-Gabriel-Adigun-Resume.pdf';
-// import tailwinding from '../../assets/tailwind.svg';
+import tailwinding from '../../assets/tailwind.svg';
 import Button from '../others/button';
 import SkillsList from './skillsList';
 
 const Skills = function (props) {
   const [selectedOption, setSelectedOption] = useState('');
+  const [inMenu, setInMenu] = useState(false);
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-
-    // console.log(selectedOption);
+    setSelectedOption(event.target.value); // console.log(selectedOption);
   };
-
-  console.log(selectedOption);
-
-  const [inMenu, setInMenu] = useState(false);
+  // console.log(selectedOption);
   const itemList = [
     {
       id: 'm1',
@@ -108,6 +104,7 @@ const Skills = function (props) {
           </defs>
         </svg>
       ),
+      // link: tailwinding,
     },
   ];
 
@@ -131,7 +128,7 @@ const Skills = function (props) {
 
   const downloadOptions = () => {
     setInMenu((inMenu) => !inMenu);
-    props.menuActive(inMenu);
+    // props.menuActive(inMenu);
   };
   // props.menuActive(inMenu);
   // console.log(props);
@@ -146,22 +143,26 @@ const Skills = function (props) {
           <SkillsList key={item.id} name={item.name} link={item.link} />
         ))}
       </div>
-      <div className="skills__button mt-12">
-        {/* <Button link="" name="Download Resume" action={downloadOptions} /> */}
-      </div>
+      <div className="skills__button mt-12 flex sm:flex-row md:flex-col">
+        <Button link="" name="Download Resume" action={downloadOptions} />
 
+        <ul className="sm:w-[250px]  md:w-[300px] p-2 flex flex-col gap-2 rounded  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
+          <li className="cursor-pointer border-b  border-primary hover:text-primary">
+            Download pdf
+          </li>
+          <li className="cursor-pointer hover:text-primary">Download Image</li>
+        </ul>
+      </div>
+      {/* 
       <select
         id="fruit"
         className="py-4 px-6 border rounded-full transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent"
         name="fruit"
         onChange={downloadHandler}
       >
-        {/* <option value="" className="hidden">
-          Download Resume
-        </option> */}
         <option value="download-pdf">Download pdf</option>
         <option value="download-img">Download Image</option>
-      </select>
+      </select> */}
 
       {/* <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
         <div

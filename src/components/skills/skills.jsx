@@ -126,16 +126,21 @@ const Skills = function (props) {
     link.click();
   };
 
-  const downloadOptions = () => {
-    setInMenu((inMenu) => !inMenu);
+  const trueMenu = (event) => {
+    // event.preventDefault();
+    setInMenu(true);
+  };
+  const falseMenu = (event) => {
+    event.preventDefault();
+    setInMenu(false);
     // props.menuActive(inMenu);
   };
   // props.menuActive(inMenu);
   // console.log(props);
 
   return (
-    <div className="">
-      <h1 className="text-6xl font-judson mb-12 text-primary sm:text-5xl text-5xl">
+    <div className="" onClick={falseMenu}>
+      <h1 className="font-judson mb-12 text-primary text-4xl sm:text-5xl md:text-6xl">
         My Skills
       </h1>
       <div className="skillsList__item flex flex-col gap-8">
@@ -144,14 +149,20 @@ const Skills = function (props) {
         ))}
       </div>
       <div className="skills__button mt-12 flex sm:flex-row md:flex-col">
-        <Button link="" name="Download Resume" action={downloadOptions} />
+        <Button link="" name="Download Resume" action={trueMenu} />
 
-        <ul className="sm:w-[250px]  md:w-[300px] p-2 flex flex-col gap-2 rounded  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
-          <li className="cursor-pointer border-b  border-primary hover:text-primary">
-            Download pdf
-          </li>
-          <li className="cursor-pointer hover:text-primary">Download Image</li>
-        </ul>
+        {inMenu ? (
+          <ul className="sm:w-[250px]  md:w-[300px] p-2 flex flex-col gap-2 rounded  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
+            <li className="cursor-pointer border-b  border-primary hover:text-primary">
+              Download pdf
+            </li>
+            <li className="cursor-pointer hover:text-primary">
+              Download Image
+            </li>
+          </ul>
+        ) : (
+          ''
+        )}
       </div>
       {/* 
       <select

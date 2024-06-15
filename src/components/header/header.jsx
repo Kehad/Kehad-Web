@@ -12,7 +12,7 @@ function Header(props) {
   const trueMenuHandler = () => {
     setIsMenuActive(true);
   };
-  const falseMenuHandler = () => {
+  const falseMenuHandler = (e) => {
     setIsMenuActive(false);
   };
   menuActive(isMenuActive);
@@ -78,9 +78,7 @@ function Header(props) {
                 }}
                 onClick={falseMenuHandler}
               />
-              {/* for contact me for mobile view */}
-              {/* <Toggle /> */}
-              {/* <Toggle /> */}
+              {/* nav for mobile view */}
               <NavMobile navStatus={falseMenuHandler} />
             </div>
             {/* toggle for mobile view */}

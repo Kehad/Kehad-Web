@@ -7,6 +7,7 @@ import WorksItem from './projectItem.jsx';
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
 import Piccon from '../../assets/Piccon.png';
+import wondabite from '../../assets/wondabite.png';
 
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import 'swiper/css';
@@ -33,11 +34,11 @@ const ProjectData = [
   },
   {
     id: 'm2',
-    name: 'CalcXpert',
+    name: 'Wondabite',
     description:
       "CalcXpert is your trusted source for accurate and user-friendly simple online calculators. Whether you're a student, professional, or simply need a reliable tool for calculations, we have you covered. Say goodbye to distractions and explore the world of precise online calculations with CalcXpert.",
-    website: 'https://piccon.onrender.com/',
-    imageSrc: 'https://www.w3schools.com/css/img_5terre.jpg',
+    website: 'https://wondabite.onrender.com/',
+    imageSrc: wondabite,
   },
 ];
 const ProjectList = function (props) {

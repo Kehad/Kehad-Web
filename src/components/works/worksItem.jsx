@@ -31,7 +31,7 @@ const WorksItem = function (props) {
         </div>
         <div className="flex items-center justify-center p-12 bg-sub rounded-xl mb-8 sm:mb-8">
           <img
-            className="w-full h-auto object-cover"
+            className=" w-[100rem] h-[13rem] object-cover" /* use this w-full h-auto instead for  w-[100rem] h-[13rem]*/
             src={imageSrc}
             alt="The Landing"
           />

@@ -7,6 +7,8 @@ import Pagination from './pagination.jsx';
 import Adbook from '../../assets/Adbook.png';
 import kadee from '../../assets/kadee.png';
 import Exchnge from '../../assets/static-exchnge.png';
+import QuoteGen from '../../assets/quote-generator.png';
+import KehadCalc from '../../assets/kehad-calc.png';
 
 // import MobilePagination from "../Paginations/mobilePagination";
 // import DesktopPagination from '../Paginations/desktopPaginaton';
@@ -36,6 +38,22 @@ const worksData = [
       'Your premier decentralized crypto platform. Trade, earn, and win on this secure, user-friendly space. Explore various cryptocurrencies and lucrative earning opportunities. Join contests for stellar crypto rewards. Embark on an interstellar journey of financial possibilities today!',
     website: 'https://static-exchnge.onrender.com/',
     imageSrc: Exchnge,
+  },
+  {
+    id: 'm4',
+    name: 'Kehad Quote Generator', // Quote park
+    description:
+      "Kehad Quote Generator is a dynamic and inspiring website designed to inject a spark of wisdom, motivation, and reflection into your daily life. Whether you're seeking a boost of positivity, a moment of contemplation, or a dash of humor, QuoteSpark delivers an endless stream of randomly generated quotes from a vast collection of timeless sayings by notable authors, philosophers, celebrities, and everyday people..",
+    website: 'https://kehad-quotes-generator.onrender.com/',
+    imageSrc: QuoteGen,
+  },
+  {
+    id: 'm5',
+    name: 'Kehad Calculator', // Quote park
+    description:
+      "Kehad Calculator is a versatile and user-friendly online calculator website designed to meet all your calculation needs, with basic arithmetic. Whether you're a student, professional, or anyone in need of quick and accurate calculations, Kehad Calculator is your go-to resource.",
+    website: 'https://kehad-calculator.onrender.com/',
+    imageSrc: KehadCalc,
   },
 ];
 

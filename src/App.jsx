@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import AboutMe from './components/aboutme/about-me';
@@ -16,13 +17,15 @@ import Skills from './components/skills/skills';
 import Works from './components/works/works';
 
 function App() {
-  const [inMenu, setInMenu] = useState(false);
+  // const [inMenu, setInMenu] = useState(false);
+  // const menuHandler = (menuActive) => {
+  //   // console.log('menuHandler');
+  //   console.log(menuActive);
+  //   setInMenu(menuActive);
+  // };
 
-  const menuHandler = (menuActive) => {
-    console.log('menuHandler');
-    console.log(menuActive);
-    setInMenu(menuActive);
-  };
+  const inMenu = useSelector((state) => state.menu.menuState);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -31,15 +34,17 @@ function App() {
     navigate('/home');
     // Clean up the timer
   }, []);
-  console.log('App');
+  // console.log('App');
 
-  console.log(inMenu);
+  // console.log(inMenu);
 
   return (
     <div>
-      {inMenu && <Backdrop menuActive={menuHandler} />}
+      {/* {inMenu && <Backdrop menuActive={menuHandler} menu={inMenu} />} */}
+      {inMenu && <Backdrop />}
       <Layout>
-        <Header menuActive={menuHandler} />
+        {/* <Header menuActive={menuHandler} /> */}
+        <Header />
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">
           <div className="">
             <Nav />
@@ -50,6 +55,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/about-me" element={<AboutMe />} />
+              {/* <Route
+                path="/skills"
+                element={<Skills menuActive={menuHandler} />}
+              /> */}
               <Route
                 path="/skills"
                 element={<Skills menuActive={menuHandler} />}

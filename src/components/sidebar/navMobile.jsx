@@ -7,25 +7,35 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const NavMobile = function (props) {
   const { navStatus } = props;
-  console.log(navStatus);
+  // console.log(navStatus);
   const { pathname } = useLocation();
 
   const [isMenuActive, setIsMenuActive] = useState(false);
 
-  console.log(pathname);
+  const handleNavStatus = (event) => {
+    // event.preventDefault();
+    // const element = document.documentElement;
+    // console.log(element);
+    // element.classList.remove('dark');
+    // navStatus(event, isMenuActive);
+  };
 
   return (
     <nav className="">
       <div className="flex flex-col justify-center w-max pt-14 pb-14 gap-511 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden">
-        <div className="my-4 transition transition-all duration-500">
+        <div
+          className="my-4 transition transition-all duration-500"
+          // onClick={navStatus}
+          onClick={handleNavStatus}
+        >
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/home"
-            onClick={navStatus}
+            onClick={handleNavStatus}
           >
             {/* <span className="material-symbols-rounded">home</span> */}
             <HomeIcon
@@ -41,11 +51,14 @@ const NavMobile = function (props) {
           </NavLink>
         </div>
 
-        <div className="my-4 transition transition-all duration-500">
+        <div
+          className="my-4 transition transition-all duration-500"
+          onClick={handleNavStatus}
+        >
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/skills"
-            onClick={navStatus}
+            // onClick={handleNavStatus}
           >
             {/* <i className="material-icons material-icons-round"> */}
             {/* integration_instructions */}

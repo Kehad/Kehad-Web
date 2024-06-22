@@ -4,19 +4,27 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import Nav from '../sidebar/nav.jsx';
 import NavMobile from '../sidebar/navMobile.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { menuHandler } from '../../redux/menuSlice.jsx';
 
 function Header(props) {
-  const { menuActive } = props;
-  const [isMenuActive, setIsMenuActive] = useState(false);
+  // const { menuActive } = props;
+  // const [isMenuActive, setIsMenuActive] = useState(false);
+  // const trueMenuHandler = () => {
+  //   setIsMenuActive(true);
+  // };
+  // const falseMenuHandler = (event, name) => {
+  //   event.preventDefault();
+  //   console.log(name);
+  //   setIsMenuActive(name);
+  //   const element = document.documentElement;
+  //   console.log(element);
+  // };
+  // menuActive(isMenuActive);
 
-  const trueMenuHandler = () => {
-    setIsMenuActive(true);
-  };
-  const falseMenuHandler = (e) => {
-    setIsMenuActive(false);
-  };
-  menuActive(isMenuActive);
-
+  const isMenu = useSelector((state) => state.menu.menuState);
+  // console.log(isM);
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="flex justify-between">
@@ -56,7 +64,8 @@ function Header(props) {
           <MenuRoundedIcon
             className="text-primary cursor-pointer"
             style={{ width: '40px', height: '40px' }}
-            onClick={trueMenuHandler}
+            // onClick={trueMenuHandler}
+            onClick={() => dispatch(menuHandler(true))}
           />
         </div>
 
@@ -65,7 +74,7 @@ function Header(props) {
         </div>
 
         {/*  side Navigation for mobile view */}
-        {isMenuActive ? (
+        {isMenu ? (
           <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidden">
             <div className="flex justify-between flex-col gap-4 ">
               {/* to close side nav for mobile view */}
@@ -76,10 +85,12 @@ function Header(props) {
                   height: '40px',
                   margin: '15px',
                 }}
-                onClick={falseMenuHandler}
+                // onClick={falseMenuHandler}
+                // onClick={falseMenuHandler}
               />
               {/* nav for mobile view */}
-              <NavMobile navStatus={falseMenuHandler} />
+              <NavMobile />
+              {/* <NavMobile navStatus={falseMenuHandler} /> */}
             </div>
             {/* toggle for mobile view */}
             <Toggle />

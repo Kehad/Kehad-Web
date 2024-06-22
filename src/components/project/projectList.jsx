@@ -36,7 +36,7 @@ const ProjectData = [
     id: 'm2',
     name: 'Wondabite',
     description:
-      "CalcXpert is your trusted source for accurate and user-friendly simple online calculators. Whether you're a student, professional, or simply need a reliable tool for calculations, we have you covered. Say goodbye to distractions and explore the world of precise online calculations with CalcXpert.",
+      "Welcome to WondaBite, your go-to online store for a delightful variety of snacks! Whether you're craving something sweet, savory, or healthy, WondaBite has it all. Our user-friendly website allows you to easily browse through a wide selection of snacks, add your favorites to a personalized list, and conveniently add items to your cart for a seamless shopping experience. Enjoy exclusive deals, read customer reviews, and get your favorite snacks delivered right to your doorstep with WondaBite!",
     website: 'https://wondabite.onrender.com/',
     imageSrc: wondabite,
   },

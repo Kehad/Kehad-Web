@@ -6,6 +6,7 @@ const Toggle = function (props) {
   //   localStorage.getItem('lightMode') === 'true'
   // );
   const [theme, setTheme] = useState('system');
+  console.log(theme);
 
   // useEffect(() => {
   //   if (lightMode) {
@@ -22,7 +23,9 @@ const Toggle = function (props) {
   // };
 
   const element = document.documentElement;
+  console.log(element);
 
+  // to run immediately the page reloads or the theme value changes
   useEffect(() => {
     switch (theme) {
       case 'dark':
@@ -30,14 +33,19 @@ const Toggle = function (props) {
         break;
       case 'light':
         element.classList.remove('dark');
-
-      default:
+        // element.classList.add('medium');
         break;
+      default:
     }
   }, [theme]);
 
-  // The original theme of the website is the dark mode
-  // and the dark class i.e dark: will change the theme to light mode
+  const darkMe = () => {
+    setTheme('light');
+    setTheme('medium');
+  };
+
+  // The original theme of the website is the light mode
+  // and using the dark class i.e dark: will change the theme to dark mode
 
   return (
     <div onClick="" className="">
@@ -48,6 +56,7 @@ const Toggle = function (props) {
             theme === 'dark' ? 'bg-primary' : ''
           } ${theme === 'system' ? 'bg-primary' : ''} transition duration-300`}
           onClick={() => setTheme('dark')}
+          // onClick={darkMe}
         >
           <svg
             width="25"
@@ -70,7 +79,7 @@ const Toggle = function (props) {
         <div
           className={`flex items-center justify-center h-full w-2/4 rounded-3xl  rounded-tl-none rounded-bl-none  transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] cursor-pointer  ${
             theme === 'light' ? 'bg-primary' : ''
-          } `}
+          } ${theme === 'medium' ? 'bg-primary' : ''} `}
           onClick={() => setTheme('light')}
         >
           <div

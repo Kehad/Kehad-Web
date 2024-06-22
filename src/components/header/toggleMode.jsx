@@ -1,32 +1,23 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { themeHandler } from '../../redux/menuSlice';
 
 const Toggle = function (props) {
   // const { onAction } = props;
   // const [lightMode, setLightMode] = useState(
   //   localStorage.getItem('lightMode') === 'true'
   // );
-  const [theme, setTheme] = useState('system');
-  console.log(theme);
-
-  // useEffect(() => {
-  //   if (lightMode) {
-  //     document.documentElement.classList.add('light');
-  //     localStorage.setItem('lightMode', true);
-  //   } else {
-  //     document.documentElement.classList.remove('light');
-  //     localStorage.setItem('lightMode', false);
-  //   }
-  // }, [lightMode]);
-
-  // const toggleLightMode = () => {
-  //   setLightMode(!lightMode);
-  // };
+  // const [theme, setTheme] = useState('system');
+  // console.log(theme);
+  const theme = useSelector((state) => state.menu.themeState);
+  const dispatch = useDispatch();
 
   const element = document.documentElement;
   console.log(element);
 
   // to run immediately the page reloads or the theme value changes
   useEffect(() => {
+    console.log(theme);
     switch (theme) {
       case 'dark':
         element.classList.add('dark');
@@ -55,7 +46,11 @@ const Toggle = function (props) {
           className={`cursor-pointer w-2/4 rounded-3xl rounded-tr-none rounded-br-none h-full flex items-center justify-center ${
             theme === 'dark' ? 'bg-primary' : ''
           } ${theme === 'system' ? 'bg-primary' : ''} transition duration-300`}
-          onClick={() => setTheme('dark')}
+          onClick={(e) => {
+            // e.preventDefault();
+            // setTheme('dark');
+            dispatch(themeHandler('dark'));
+          }}
           // onClick={darkMe}
         >
           <svg
@@ -80,7 +75,11 @@ const Toggle = function (props) {
           className={`flex items-center justify-center h-full w-2/4 rounded-3xl  rounded-tl-none rounded-bl-none  transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] cursor-pointer  ${
             theme === 'light' ? 'bg-primary' : ''
           } ${theme === 'medium' ? 'bg-primary' : ''} `}
-          onClick={() => setTheme('light')}
+          onClick={(e) => {
+            // e.preventDefault();
+            // setTheme('light');
+            dispatch(themeHandler('light'));
+          }}
         >
           <div
             className="flex items-center justify-center flex-row rounded-full bg-primary  border-0 py-0.4 px-0.4 gap-2 cursor-pointer"

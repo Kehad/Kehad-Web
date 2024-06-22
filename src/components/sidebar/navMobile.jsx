@@ -8,20 +8,26 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import { menuHandler } from '../../redux/menuSlice';
-import { useDispatch } from 'react-redux';
+import { menuHandler, themeHandler } from '../../redux/menuSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NavMobile = function (props) {
   const { navStatus } = props;
   const dispatch = useDispatch();
+  const theme = useSelector((state) => state.menu.themeState);
   // console.log(navStatus);
   const { pathname } = useLocation();
 
   const [isMenuActive, setIsMenuActive] = useState(false);
 
   const handleNavStatus = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     dispatch(menuHandler(false));
+    if (theme === 'system' || theme === 'dark') {
+      dispatch(themeHandler('dark'));
+    } else {
+      dispatch(themeHandler('light'));
+    }
   };
 
   const handleNavLinkClick = (path) => {

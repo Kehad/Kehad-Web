@@ -23,8 +23,15 @@ function Header(props) {
   // menuActive(isMenuActive);
 
   const isMenu = useSelector((state) => state.menu.menuState);
-  // console.log(isM);
   const dispatch = useDispatch();
+
+  const trueMenuHandler = () => {
+    dispatch(menuHandler(true));
+  };
+  const falseMenuHandler = (event) => {
+    event.preventDefault();
+    dispatch(menuHandler(false));
+  };
   return (
     <div>
       <div className="flex justify-between">
@@ -64,8 +71,7 @@ function Header(props) {
           <MenuRoundedIcon
             className="text-primary cursor-pointer"
             style={{ width: '40px', height: '40px' }}
-            // onClick={trueMenuHandler}
-            onClick={() => dispatch(menuHandler(true))}
+            onClick={trueMenuHandler}
           />
         </div>
 
@@ -85,12 +91,10 @@ function Header(props) {
                   height: '40px',
                   margin: '15px',
                 }}
-                // onClick={falseMenuHandler}
-                // onClick={falseMenuHandler}
+                onClick={falseMenuHandler}
               />
               {/* nav for mobile view */}
               <NavMobile />
-              {/* <NavMobile navStatus={falseMenuHandler} /> */}
             </div>
             {/* toggle for mobile view */}
             <Toggle />

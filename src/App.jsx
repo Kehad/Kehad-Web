@@ -59,10 +59,7 @@ function App() {
                 path="/skills"
                 element={<Skills menuActive={menuHandler} />}
               /> */}
-              <Route
-                path="/skills"
-                element={<Skills menuActive={menuHandler} />}
-              />
+              <Route path="/skills" element={<Skills />} />
               <Route path="/works" element={<Works />} />
               <Route path="/side-project" element={<Project />} />
               <Route path="/contact-me" element={<Contact />} />

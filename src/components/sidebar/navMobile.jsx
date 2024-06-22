@@ -8,30 +8,33 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
+import { menuHandler } from '../../redux/menuSlice';
+import { useDispatch } from 'react-redux';
 
 const NavMobile = function (props) {
   const { navStatus } = props;
+  const dispatch = useDispatch();
   // console.log(navStatus);
   const { pathname } = useLocation();
 
   const [isMenuActive, setIsMenuActive] = useState(false);
 
   const handleNavStatus = (event) => {
-    // event.preventDefault();
-    // const element = document.documentElement;
-    // console.log(element);
-    // element.classList.remove('dark');
-    // navStatus(event, isMenuActive);
+    event.preventDefault();
+    dispatch(menuHandler(false));
+  };
+
+  const handleNavLinkClick = (path) => {
+    // Custom function logic here
+    console.log(`Navigating to ${path}`);
+    // Perform the navigation
+    // navigate(path);
   };
 
   return (
     <nav className="">
       <div className="flex flex-col justify-center w-max pt-14 pb-14 gap-511 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden">
-        <div
-          className="my-4 transition transition-all duration-500"
-          // onClick={navStatus}
-          onClick={handleNavStatus}
-        >
+        <div className="my-4 transition transition-all duration-500">
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/home"
@@ -81,7 +84,7 @@ const NavMobile = function (props) {
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/works"
-            onClick={navStatus}
+            onClick={handleNavStatus}
           >
             {/* <i className="material-icons material-icons-round">work</i> */}
             <WorkspacesIcon
@@ -100,7 +103,12 @@ const NavMobile = function (props) {
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/side-project"
-            onClick={navStatus}
+            // onClick={handleNavStatus}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavLinkClick('/contact');
+              dispatch(menuHandler(false));
+            }}
           >
             {/* <i className="material-icons material-icons-round">workspaces</i> */}
             <WorkspacePremiumIcon
@@ -123,7 +131,7 @@ const NavMobile = function (props) {
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
             to="/about-me"
-            onClick={navStatus}
+            onClick={handleNavStatus}
           >
             {/* <i className="material-icons material-icons-round">person</i> */}
             <PersonIcon
@@ -146,7 +154,7 @@ const NavMobile = function (props) {
           <NavLink
             className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition  transition-all duration-500 group hover:text-primary"
             to="/contact-me"
-            onClick={navStatus}
+            onClick={handleNavStatus}
           >
             {/* <i className="material-icons material-icons-round">email</i> */}
             <ContactPageIcon

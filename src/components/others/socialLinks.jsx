@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SocialLinks = function (props) {
+const SocialLinks = function () {
   return (
     <div className="">
       <div className="flex gap-2 lg:gap-3 mb-6">

@@ -8,8 +8,10 @@ import MyComponent from './autoType.jsx';
 // import Button from '../layout/button.jsx';
 // import ButtonType2 from '../layout/buttonType2.jsx';
 // import SocialLinks from '../layout/socialLinks.jsx';
+import React from 'react';
 
 const Home = function () {
+  
   return (
     <div className="flex flex-col mt-0 ">
       <h1 className="text-primary font-Judson mb-4 text-5xl sm:text-5xl md:text-5xl lg:text-7xl xl:">
@@ -36,6 +38,8 @@ const Home = function () {
         <ButtonPlain name={'about me'} link={'/about-me'} />
       </div>
       {/* <MusicPlayer /> */}
+
+
     </div>
   );
 };

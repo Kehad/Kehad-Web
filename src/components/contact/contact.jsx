@@ -135,7 +135,7 @@ const Contact = function (props) {
       <form
         ref={form}
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 md:p-8 lg:p-8 bg-sup dark:bg-sub rounded-3xl sm:w-full lg:w-40rem"
+        className="flex flex-col p-4 md:p-8 lg:p-8 bg-sup dark:bg-sub rounded-3xl sm:w-full lg:w-35rem"
       >
         <div className="flex gap-4 mb-6">
           <input

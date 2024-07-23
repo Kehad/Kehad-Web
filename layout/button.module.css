@@ -1,0 +1,30 @@
+.button__link---box {
+    display: flex;
+    gap: 9rem;
+    align-items: center;
+    /* margin-top: 3rem; */
+}
+
+.button__profile {
+    background-color: #07C51A;
+    color: #000;
+     border: 1px solid #07C51A;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: 3.1875rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transform: all 0.5s;
+}
+
+.button__profile:hover {
+     border: 1px solid #07C51A;
+    color: #07C51A;
+    background: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .button__profile {
+        font-size: 1rem;
+    }
+}

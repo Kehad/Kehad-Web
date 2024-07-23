@@ -1,0 +1,9 @@
+.iconing {
+  /* display: none !important; */
+}
+
+.iconing:hover .home-icon,
+.iconing:hover .home-text {
+  color: #3490dc !important;
+  fill: #3490dc !important; /* Change this to your desired hover color */
+}

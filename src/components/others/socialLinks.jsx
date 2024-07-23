@@ -6,7 +6,7 @@ const SocialLinks = function (props) {
       <div className="flex gap-2 lg:gap-3 mb-6">
         <a
           href="https://www.linkedin.com/in/kehinde-adigun-/"
-          className="p-3 rounded hover:bg-sup dark:hover:bg-mainOpacity"
+          className="p-3 rounded hover:bg-su dark:hover:bg-mainOpacity border border-transparent hover:border-primary hover:border dark:border-transparent"
           target="_blank"
         >
           <svg
@@ -26,8 +26,8 @@ const SocialLinks = function (props) {
         </a>
 
         <a
-          href="https://github.com/KhingKehad"
-          className="p-3 rounded hover:bg-sup dark:hover:bg-mainOpacity"
+          href="https://github.com/Kehad"
+          className="p-3 rounded hover:bg-su dark:hover:bg-mainOpacity border border-transparent hover:border-primary hover:border dark:border-transparent"
           target="_blank"
         >
           <svg
@@ -46,7 +46,7 @@ const SocialLinks = function (props) {
 
         <a
           href="https://twitter.com/Littlegenius01"
-          className="p-3 rounded hover:bg-sup dark:hover:bg-mainOpacity"
+          className="p-3 rounded hover:bg-su dark:hover:bg-mainOpacity border border-transparent hover:border-primary hover:border dark:border-transparent"
           target="_blank"
         >
           <svg

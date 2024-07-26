@@ -13,8 +13,8 @@ const Project = function (props) {
 
   return (
     <div className="mt-10 relative">
-      <h1 className="text-5xl sm:text-5xl lg:text-6xl font-judson text-primary mb-4">
-        Project
+      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-judson text-primary mb-4">
+        My Projects
       </h1>
 
       <ProjectList />

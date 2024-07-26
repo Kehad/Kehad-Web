@@ -19,7 +19,8 @@ const ProjectItem = function (props) {
       <div className="flex items-center justify-between gap-12 flex-col sm:flex-col lg:flex-row">
         <div className="">
           <h2 className="text-3xl text-primary mb-4 font-judson">{name}</h2>
-          <p className=" text-xl sm:text-xl lg:text-2xl font-judson mb-10 leading-tight sm:leading-tight lg:leading-relaxed">
+          {/* <p className="text-xl sm:text-xl lg:text-2xl font-judson mb-10 leading-tight sm:leading-tight lg:leading-relaxed"> */}
+          <p className="text-xl leading-tight sm:text-xl sm:leading-tight font-judson mb-10 leading-relaxed">
             {description}
           </p>
         </div>

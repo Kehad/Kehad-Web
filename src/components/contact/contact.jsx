@@ -118,14 +118,14 @@ const Contact = function (props) {
 
   return (
     <div className="mt-0">
-      <h1 className="font-judson text-primary  mb-4 text-3xl lg:text-7xl">
+      <h1 className="font-judson text-primary  mb-4 text-3xl lg:text-5xl">
         Hello
       </h1>
-      <p className="text-2xl mb-6 font-bold">
+      <p className="text-xl lg:text-[1.3rem] mb-6 font-bold">
         Looking to start a project and need that magical touch?
         <span>
           <a
-            className="text-primary no-underline "
+            className="text-primary no-underline"
             href="mailto:keahnney01@gmail.com"
           >
             Reach out!!!

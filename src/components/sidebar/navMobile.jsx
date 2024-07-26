@@ -111,7 +111,7 @@ const NavMobile = function (props) {
             to="/side-project"
             // onClick={handleNavStatus}
             onClick={(e) => {
-              e.preventDefault();
+              // e.preventDefault();
               handleNavLinkClick('/contact');
               dispatch(menuHandler(false));
             }}

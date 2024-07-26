@@ -6,10 +6,10 @@ import SocialLinks from '../others/socialLinks';
 const AboutMe = function () {
   return (
     <div className="">
-      <h1 className="text-primary font-judson text-5xl sm:text-5xl lg:text-6xl mb-10">
+      <h1 className="text-primary font-judson text-3xl sm:text-xl lg:text-5xl mb-10">
         About me.
       </h1>
-      <p className="mt-8 mb-12 font-judson text-2xl sm:text-2xl  lg:text-4xl">
+      <p className="mt-8 mb-12 font-judson text-xl sm:text-xl  lg:text-xl">
         I'm popularly known as <span className="text-primary">Kehad</span>, and
         I love creating intuitive and visually appealing digital experiences. I
         thrive on new challenges and am always eager to learn and grow. My

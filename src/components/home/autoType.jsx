@@ -25,7 +25,7 @@ function MyComponent(props) {
       style={{
         color: '#07C51A',
       }}
-      className="text-gray-200 font-Judson  font-normal mt-0.5 mb-0.7 text-[2rem] lg:text-5xl"
+      className="text-gray-200 font-Judson  font-normal mt-0.5 mb-0.7 text-[2rem] lg:text-3xl"
       ref={el}
     />
   );

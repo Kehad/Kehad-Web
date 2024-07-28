@@ -15,6 +15,7 @@ import Nav from './components/sidebar/nav';
 import NavMobile from './components/sidebar/navMobile';
 import Skills from './components/skills/skills';
 import Works from './components/works/works';
+import NavClone from './components/sidebar/navClone.jsx';
 
 function App() {
   // const [inMenu, setInMenu] = useState(false);
@@ -48,6 +49,7 @@ function App() {
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">
           <div className="">
             <Nav />
+            {/* <NavClone /> */}
             {/* <NavMobile navStatus={menuHandler} /> */}
           </div>
           <div className="flex-1 ">

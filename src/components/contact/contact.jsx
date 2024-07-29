@@ -115,7 +115,12 @@ const Contact = function (props) {
   }, 7000);
 
   return (
-    <motion.div className="mt-0" initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity: 0}}>
+    <motion.div
+      className="mt-0"
+      initial={{ width: 0 }}
+      animate={{ width: "100%" }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
+    >
       <h1 className="font-judson text-primary  mb-4 text-3xl lg:text-5xl">
         Hello
       </h1>
@@ -164,7 +169,7 @@ const Contact = function (props) {
         ></textarea>
         <div className="flex justify-between items-center mt-8">
           <SocialLinks />
-          <Button action={handleSubmit} to={'/home'} name={'send'} />
+          <Button action={handleSubmit} to={"/home"} name={"send"} />
           {authenticated && (
             <Notify
               head="Success"

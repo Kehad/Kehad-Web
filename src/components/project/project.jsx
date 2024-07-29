@@ -15,9 +15,9 @@ const Project = function (props) {
   return (
     <motion.div
       className="mt-10 relative"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ width: 0 }}
+      animate={{ width: "100%" }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
     >
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-judson text-primary mb-4">
         My Projects

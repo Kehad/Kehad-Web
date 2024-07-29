@@ -168,9 +168,9 @@ const Skills = function (props) {
     <motion.div
       className=""
       onClick={hideDownloadOptions}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ width: 0 }}
+      animate={{ width: "100%" }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
     >
       <h1 className="font-judson mb-12 text-primary text-4xl sm:text-5xl md:text-6xl">
         My Skills

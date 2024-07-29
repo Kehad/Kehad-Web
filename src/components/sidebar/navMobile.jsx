@@ -39,6 +39,7 @@ const NavMobile = function (props) {
 
   return (
     <nav className="">
+      {/* <div className="flex flex-col justify-center w-max pt-14 pb-14 gap-511 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden"> */}
       <div className="flex flex-col justify-center w-max pt-14 pb-14 gap-511 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden">
         <div className="my-4 transition transition-all duration-500">
           <NavLink
@@ -59,7 +60,6 @@ const NavMobile = function (props) {
             </span>
           </NavLink>
         </div>
-
         <div
           className="my-4 transition transition-all duration-500"
           onClick={handleNavStatus}

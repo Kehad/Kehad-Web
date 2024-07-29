@@ -1,11 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-
+import { motion } from 'framer-motion';
 import Button from '../others/button';
 import SocialLinks from '../others/socialLinks';
 
 const AboutMe = function () {
   return (
-    <div className="">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h1 className="text-primary font-judson text-3xl sm:text-xl lg:text-5xl mb-10">
         About me.
       </h1>
@@ -20,8 +24,8 @@ const AboutMe = function () {
         <br /> <br /> &copy; 2024, Kehad
       </p>
       <SocialLinks />
-      <Button name={'Hire me'} link={'/contact-me'} />
-    </div>
+      <Button name={"Hire me"} link={"/contact-me"} />
+    </motion.div>
   );
 };
 

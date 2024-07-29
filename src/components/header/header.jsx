@@ -81,7 +81,7 @@ function Header(props) {
 
         {/*  side Navigation for mobile view */}
         {isMenu ? (
-          <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidden">
+          <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidde ">
             <div className="flex justify-between flex-col gap-4 ">
               {/* to close side nav for mobile view */}
               <CloseIcon

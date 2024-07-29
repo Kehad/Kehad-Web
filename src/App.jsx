@@ -4,18 +4,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-import AboutMe from './components/aboutme/about-me';
-import Contact from './components/contact/contact';
-import Header from './components/header/header.jsx';
-import Home from './components/home/home';
+
+import AnimatedRoutes from './components/AnimatedAppRoute.jsx';
+import Backdrop from './components/others/backDrop.jsx';
 import Layout from './components/layout/layout.jsx';
-import Backdrop from './components/others/backDrop';
-import Project from './components/project/project';
-import Nav from './components/sidebar/nav';
-import NavMobile from './components/sidebar/navMobile';
-import Skills from './components/skills/skills';
-import Works from './components/works/works';
-import NavClone from './components/sidebar/navClone.jsx';
+import Header from './components/header/header.jsx';
+import Nav from './components/sidebar/nav.jsx';
 
 function App() {
   // const [inMenu, setInMenu] = useState(false);
@@ -53,20 +47,16 @@ function App() {
             {/* <NavMobile navStatus={menuHandler} /> */}
           </div>
           <div className="flex-1 ">
-            <Routes>
+            <AnimatedRoutes />
+            {/* <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/about-me" element={<AboutMe />} />
-              {/* <Route
-                path="/skills"
-                element={<Skills menuActive={menuHandler} />}
-              /> */}
               <Route path="/skills" element={<Skills />} />
               <Route path="/works" element={<Works />} />
               <Route path="/side-project" element={<Project />} />
               <Route path="/contact-me" element={<Contact />} />
-              {/* <Route path="*" element={<Home />} /> */}
-            </Routes>
+            </Routes> */}
           </div>
         </div>
       </Layout>

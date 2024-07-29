@@ -1,19 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
-// import React from 'react';
+import React from 'react';
+
+import {motion} from 'framer-motion'
+
 import Button from '../others/button.jsx';
 import ButtonPlain from '../others/buttonPlain.jsx';
 import SocialLinks from '../others/socialLinks.jsx';
 import MyComponent from './autoType.jsx';
-// import classes from './home.module.css';
-// import Button from '../layout/button.jsx';
-// import ButtonType2 from '../layout/buttonType2.jsx';
-// import SocialLinks from '../layout/socialLinks.jsx';
-import React from 'react';
+
 
 const Home = function () {
   
   return (
-    <div className="flex flex-col mt-0 ">
+    <motion.div className="flex flex-col mt-0 " initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity: 0}}>
       <h1 className="text-primary font-Judson mb-4 text-5xl sm:text-5xl md:text-5xl lg:text-5xl xl:">
         Hi.
       </h1>
@@ -40,7 +39,7 @@ const Home = function () {
       {/* <MusicPlayer /> */}
 
 
-    </div>
+    </motion.div>
   );
 };
 

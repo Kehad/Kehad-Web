@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 // import classes from './works.module.css';
 import ProjectList from './projectList';
@@ -12,7 +13,12 @@ const Project = function (props) {
   // const numbers = [...Array(npage + 1).keys()].slice(1);
 
   return (
-    <div className="mt-10 relative">
+    <motion.div
+      className="mt-10 relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-judson text-primary mb-4">
         My Projects
       </h1>
@@ -20,7 +26,7 @@ const Project = function (props) {
       <ProjectList />
       {/* <NewList /> */}
       {/* <MyComponent /> */}
-    </div>
+    </motion.div>
   );
 };
 

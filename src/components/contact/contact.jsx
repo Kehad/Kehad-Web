@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-// import classes from './contact.module.css';
+import { motion } from 'framer-motion';
+
 import SocialLinks from '../others/socialLinks';
-// import Notify from './notification/notify';
-// import ButtonType2 from '../layout/buttonType2';
-// import ButtonSend from '../layout/buttonSend';
 import { useNavigate } from 'react-router-dom';
 import Button from '../others/button';
 import Not from './not';
 import Notify from './notify';
-// import Not from './notification/not';
+
 
 const Contact = function (props) {
   const form = useRef();
@@ -117,7 +115,7 @@ const Contact = function (props) {
   }, 7000);
 
   return (
-    <div className="mt-0">
+    <motion.div className="mt-0" initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity: 0}}>
       <h1 className="font-judson text-primary  mb-4 text-3xl lg:text-5xl">
         Hello
       </h1>
@@ -195,7 +193,7 @@ const Contact = function (props) {
           )} */}
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

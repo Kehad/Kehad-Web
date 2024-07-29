@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
-import cv2 from '../../assets/Kehinde-Gabriel-Adigun-Resume.jpg';
-import cv from '../../assets/Kehinde-Gabriel-Adigun-Resume.pdf';
-import tailwinding from '../../assets/tailwind.svg';
-import Button from '../others/button';
-import SkillsList from './skillsList';
+import { useState, useRef } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import cv2 from "../../assets/Kehinde-Gabriel-Adigun-Resume.jpg";
+import cv from "../../assets/Kehinde-Gabriel-Adigun-Resume.pdf";
+import tailwinding from "../../assets/tailwind.svg";
+import Button from "../others/button";
+import SkillsList from "./skillsList";
+
+import { motion } from "framer-motion";
 
 const Skills = function (props) {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
   const [inMenu, setInMenu] = useState(false);
+  const nodeRef = useRef(null);
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value); // console.log(selectedOption);
@@ -16,8 +20,8 @@ const Skills = function (props) {
   // console.log(selectedOption);
   const itemList = [
     {
-      id: 'm1',
-      name: 'HTML',
+      id: "m1",
+      name: "HTML",
       link: (
         // <svg
         //   width="30"
@@ -52,8 +56,8 @@ const Skills = function (props) {
       ),
     },
     {
-      id: 'm2',
-      name: 'CSS',
+      id: "m2",
+      name: "CSS",
       link: (
         <img
           alt="svgImg"
@@ -63,8 +67,8 @@ const Skills = function (props) {
       ),
     },
     {
-      id: 'm3',
-      name: 'JS',
+      id: "m3",
+      name: "JS",
       link: (
         <img
           alt="svgImg"
@@ -74,8 +78,8 @@ const Skills = function (props) {
       ),
     },
     {
-      id: 'm4',
-      name: 'REACT',
+      id: "m4",
+      name: "REACT",
       link: (
         <img
           className="h-9 sm:h-9 md:h-11"
@@ -85,8 +89,8 @@ const Skills = function (props) {
       ),
     },
     {
-      id: 'm5',
-      name: 'TAILWIND CSS',
+      id: "m5",
+      name: "TAILWIND CSS",
       link: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 54 33">
           <g clip-path="url(#prefix__clip0)">
@@ -132,8 +136,8 @@ const Skills = function (props) {
   // for the list element using the download resume button
   const pdfResume = (event) => {
     event.preventDefault();
-    const link = document.createElement('a');
-    link.download = 'Kehinde Gabriel Adigun CV';
+    const link = document.createElement("a");
+    link.download = "Kehinde Gabriel Adigun CV";
     link.href = cv;
     link.click();
 
@@ -141,9 +145,9 @@ const Skills = function (props) {
   };
   const imgResume = (event) => {
     event.preventDefault();
-    console.log('Download Img resume');
-    const link = document.createElement('a');
-    link.download = 'Kehinde Gabriel Adigun CV';
+    console.log("Download Img resume");
+    const link = document.createElement("a");
+    link.download = "Kehinde Gabriel Adigun CV";
     link.href = cv2;
     link.click();
 
@@ -161,7 +165,13 @@ const Skills = function (props) {
   // console.log(props);
 
   return (
-    <div className="" onClick={hideDownloadOptions}>
+    <motion.div
+      className=""
+      onClick={hideDownloadOptions}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h1 className="font-judson mb-12 text-primary text-4xl sm:text-5xl md:text-6xl">
         My Skills
       </h1>
@@ -174,22 +184,34 @@ const Skills = function (props) {
         <Button link="" name="Download Resume" action={showDownloadOptions} />
 
         {inMenu ? (
-          <ul className="sm:w-[250px] md:w-[300px] p-2 flex flex-col gap-2 rounded  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
-            <li
-              className="cursor-pointer border-b  border-primary hover:text-primary"
-              onClick={pdfResume}
+          <TransitionGroup>
+            <CSSTransition
+              // in={showMessage}
+              // nodeRef={nodeRef}
+              timeout={30000}
+              classNames="fade"
+              // unmountOnExit
+              // onEnter={() => setShowButton(false)}
+              // onExited={() => setShowButton(true)}
             >
-              Download pdf
-            </li>
-            <li
-              className="cursor-pointer hover:text-primary"
-              onClick={imgResume}
-            >
-              Download Image
-            </li>
-          </ul>
+              <ul className="sm:w-[250px] md:w-[300px] p-2 flex flex-col gap-2 rounded dark:border-primary  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
+                <li
+                  className="cursor-pointer border-b  border-primary hover:text-primary"
+                  onClick={pdfResume}
+                >
+                  Download pdf
+                </li>
+                <li
+                  className="cursor-pointer hover:text-primary"
+                  onClick={imgResume}
+                >
+                  Download Image
+                </li>
+              </ul>
+            </CSSTransition>
+          </TransitionGroup>
         ) : (
-          ''
+          ""
         )}
       </div>
       {/* 
@@ -238,7 +260,7 @@ const Skills = function (props) {
           </div>
         </div>
       </div> */}
-    </div>
+    </motion.div>
   );
 };
 

@@ -6,12 +6,12 @@ import SocialLinks from '../others/socialLinks';
 const AboutMe = function () {
   return (
     <motion.div
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // exit={{ opacity: 0 }}
-      initial={{ width: 0 }}
-      animate={{ width: "100%" }}
-      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      // initial={{ width: 0 }}
+      // animate={{ width: "100%" }}
+      // exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
     >
       <h1 className="text-primary font-judson text-3xl sm:text-xl lg:text-5xl mb-10">
         About me.

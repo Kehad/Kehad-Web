@@ -7,14 +7,12 @@ export const menuSlice = createSlice({
     menuState: false,
     themeState: 'system',
   },
-  // initialState: 8,
   reducers: {
     menuHandler: (state, action) => {
-      console.log(state, action, action.payload);
       state.menuState = action.payload;
     },
     themeHandler: (state, action) => {
-      console.log(state, action, action.payload);
+      // to change theme from dark mode to light mode and vice versa
       state.themeState = action.payload;
     },
   },

@@ -117,9 +117,9 @@ const Contact = function (props) {
   return (
     <motion.div
       className="mt-0"
-      initial={{ width: 0 }}
-      animate={{ width: "100%" }}
-      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <h1 className="font-judson text-primary  mb-4 text-3xl lg:text-5xl">
         Hello

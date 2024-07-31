@@ -12,33 +12,23 @@ import Header from './components/header/header.jsx';
 import Nav from './components/sidebar/nav.jsx';
 
 function App() {
-  // const [inMenu, setInMenu] = useState(false);
-  // const menuHandler = (menuActive) => {
-  //   // console.log('menuHandler');
-  //   console.log(menuActive);
-  //   setInMenu(menuActive);
-  // };
 
   const inMenu = useSelector((state) => state.menu.menuState);
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
+  console.log(inMenu)
 
   useEffect(() => {
     // Redirect to /about after 2 seconds
     navigate('/home');
     // Clean up the timer
   }, []);
-  // console.log('App');
 
-  // console.log(inMenu);
 
   return (
     <div>
-      {/* {inMenu && <Backdrop menuActive={menuHandler} menu={inMenu} />} */}
       {inMenu && <Backdrop />}
       <Layout>
-        {/* <Header menuActive={menuHandler} /> */}
+
         <Header />
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">
           <div className="">

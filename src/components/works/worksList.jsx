@@ -66,12 +66,8 @@ const WorkList = function (props) {
   const recordsPerPage = 1;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  // console.log(currentPage);
-  // console.log(recordsPerPage);
-  // console.log(lastIndex);
-  // console.log(firstIndex);
+
   const records = worksData.slice(firstIndex, lastIndex);
-  console.log(records);
 
   // console.log(npage, numbers);
   // const paginate = () => {

@@ -156,21 +156,44 @@ const Skills = function (props) {
 
   const showDownloadOptions = (event) => {
     event.stopPropagation();
-    setInMenu(true);
+    // setInMenu(true);
+    setInMenu(state => !state)
   };
   const hideDownloadOptions = () => {
     setInMenu(false);
   };
   // props.menuActive(inMenu);
   // console.log(props);
+    const pageVariants = {
+      initial: {
+        opacity: 0,
+        x: "-100vw",
+      },
+      in: {
+        opacity: 1,
+        x: 0,
+      },
+      out: {
+        opacity: 0,
+        x: "100vw",
+      },
+    };
+
+    const pageTransition = {
+      type: "tween",
+      ease: "anticipate",
+      duration: 0.5,
+    };
 
   return (
     <motion.div
       className=""
       onClick={hideDownloadOptions}
-      initial={{ width: 0 }}
-      animate={{ width: "100%" }}
-      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
     >
       <h1 className="font-judson mb-12 text-primary text-4xl sm:text-5xl md:text-6xl">
         My Skills
@@ -181,9 +204,48 @@ const Skills = function (props) {
         ))}
       </div>
 
-
-      <div className="skills__button mt-12 flex sm:flex-row md:flex-col md:gap-2">
-        <Button link="" name="Download Resume" action={showDownloadOptions} />
+      <div className="skills__button mt-12 flex flex-col sm:flex-col md:flex-col md:gap-2">
+        {/* <Button link="" name="Download Resume" action={showDownloadOptions} /> */}
+        <button
+          className="flex justify-between items-center w-max gap-4 py-4 px-6 border rounded-full transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer group hover:text-primary hover:border-primary hover:bg-transparent"
+          onClick={showDownloadOptions}
+        >
+          Download Resume
+          <span className="custom-selet-wapper white flex flex-col">
+            {inMenu ? (
+              <svg // arrow up
+                width="1.5rem"
+                height="1.5rem"
+                viewBox="0 0 24 24"
+                fill="black"
+                className="group-hover:fill-primary"
+                xmlns="http://www.w3.org/2000/svg"
+                // className="fill-black"
+              >
+                <path
+                  d="M18.2929 15.2893C18.6834 14.8988 18.6834 14.2656 18.2929 13.8751L13.4007 8.98766C12.6195 8.20726 11.3537 8.20757 10.5729 8.98835L5.68257 13.8787C5.29205 14.2692 5.29205 14.9024 5.68257 15.2929C6.0731 15.6835 6.70626 15.6835 7.09679 15.2929L11.2824 11.1073C11.673 10.7168 12.3061 10.7168 12.6966 11.1073L16.8787 15.2893C17.2692 15.6798 17.9024 15.6798 18.2929 15.2893Z"
+                  // fill="black"
+                  // className="fill-black"
+                />
+              </svg>
+            ) : (
+              <svg // arrow down
+                width="1.5rem"
+                height="1.5rem"
+                viewBox="0 0 24 24"
+                fill="#000"
+                className="group-hover:fill-primary"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z"
+                  // fill="green"
+                  className="text-yellow"
+                />
+              </svg>
+            )}
+          </span>
+        </button>
 
         {inMenu ? (
           <TransitionGroup>
@@ -196,7 +258,7 @@ const Skills = function (props) {
               // onEnter={() => setShowButton(false)}
               // onExited={() => setShowButton(true)}
             >
-              <ul className="sm:w-[250px] md:w-[300px] p-2 flex flex-col gap-2 rounded dark:border-primary  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
+              <ul className="sm:w-[250px] md:w-[300px] w-max p-2 mt-8  flex flex-col gap-2 rounded dark:border-primary  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
                 <li
                   className="cursor-pointer border-b  border-primary hover:text-primary"
                   onClick={pdfResume}
@@ -217,51 +279,20 @@ const Skills = function (props) {
         )}
       </div>
 
-      <select
+      {/* <select
         id="fruit"
         className="py-4 mt-12 custom-select-wrapper px-6 border rounded-full appearance-none transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent"
         name="fruit"
         // onChange={downloadHandler}
       >
-        <option value="download-pdf">Download pdf</option>
-        <option value="download-img">Download Image</option>
-      </select>
+        <option value="download-pdf" onClick={pdfResume}>
+          Download pdf
+        </option>
+        <option value="download-img" onClick={imgResume}>
+          Download Image
+        </option>
+      </select> */}
 
-      {/* <div className="w-[400px] sm:w-[400px] md:w-[500px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-        <div
-          className={`bg-black text-white p-4  flex-col m-0 mx-auto ${
-            !inMenu ? 'hidden' : 'block'
-          } `}
-        >
-          <div className="border-b border-gray-300 pb-1 text-xl ">
-            Download via
-          </div>
-          <div className="flex flex-col gap-3 pt-4 border-b border-gray-300 pb-1">
-            <a
-              href="#"
-              onClick={downloadOptions}
-              className="p-2 bg-red-500 w-max cursor-pointer"
-            >
-              Download Image
-            </a>
-            <a
-              href="#"
-              onClick={downloadOptions}
-              className="p-2 bg-red-500 w-max cursor-pointer"
-            >
-              Download pdf
-            </a>
-          </div>
-          <div className="flex justify-end p-2 flex-wrap">
-            <a
-              className=" fflex-wrap bg-red-500 px-4 py-2 cursor-pointer  rounded inline-block"
-              onClick={downloadOptions}
-            >
-              close
-            </a>
-          </div>
-        </div>
-      </div> */}
     </motion.div>
   );
 };

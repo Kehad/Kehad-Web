@@ -24,18 +24,14 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about-me" element={<AboutMe />} />
-        {/* <Route
-                path="/skills"
-                element={<Skills menuActive={menuHandler} />}
-              /> */}
         <Route path="/skills" element={<Skills />} />
         <Route path="/works" element={<Works />} />
         <Route path="/side-project" element={<Project />} />
         <Route path="/contact-me" element={<Contact />} />
-        {/* <Route path="*" element={<Home />} /> */}
       </Routes>
     </AnimatePresence>
   );
 }
+{/* <Route path="*" element={<Home />} /> */}
 
 export default AnimatedRoutes;

@@ -21,7 +21,7 @@ const WorksItem = function (props) {
 
   return (
     // <Slider {...settings}>
-    <div className="classes.worksItem">
+    <div className="worksItem">
       <div className="flex items-center justify-between gap-12 flex-col sm:flex-col lg:flex-row">
         <div className="">
           <h2 className="text-3xl text-primary mb-4 font-judson">{name}</h2>

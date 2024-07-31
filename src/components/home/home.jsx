@@ -14,9 +14,9 @@ const Home = function () {
   return (
     <motion.div
       className="flex flex-col mt-0 "
-      initial={{ width: 0 }}
-      animate={{ width: "100%" }}
-      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <h1 className="text-primary font-Judson mb-4 text-5xl sm:text-5xl md:text-5xl lg:text-5xl xl:">
         Hi.
@@ -28,7 +28,7 @@ const Home = function () {
         I'm Kehinde Adigun.
       </h3> */}
       <p className=" font-judson  font-normal mt-3 mb-3 text-[1.5rem] sm:text-[1.5rem] md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-2xl lg:leading-normal">
-        I am a <span className="text-primary">web developer</span> with over 3
+        I am a <span className="text-primary">Web developer</span> with over 5
         years of experience, specializing in creating dynamic and responsive web
         applications. Currently, I am on a journey to become a full stack and
         mobile app developer, expanding my skills to include backend

@@ -14,7 +14,7 @@ const Works = function (props) {
       className="mt-10 relative"
       initial={{ width: 0 }}
       animate={{ width: "100%" }}
-      exit={{ x: window.innerWidth, transition: {duration: 0.3}}}
+      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
     >
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-judson text-primary mb-4">
         My Works

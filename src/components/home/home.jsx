@@ -16,7 +16,7 @@ const Home = function () {
       className="flex flex-col mt-0 "
       initial={{ width: 0 }}
       animate={{ width: "100%" }}
-      exit={{ x: window.innerWidth, transition: { duration: 0.3 }}}
+      exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
     >
       <h1 className="text-primary font-Judson mb-4 text-5xl sm:text-5xl md:text-5xl lg:text-5xl xl:">
         Hi.

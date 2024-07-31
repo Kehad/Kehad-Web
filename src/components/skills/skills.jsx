@@ -180,7 +180,9 @@ const Skills = function (props) {
           <SkillsList key={item.id} name={item.name} link={item.link} />
         ))}
       </div>
-      {/* <div className="skills__button mt-12 flex sm:flex-row md:flex-col md:gap-2">
+
+
+      <div className="skills__button mt-12 flex sm:flex-row md:flex-col md:gap-2">
         <Button link="" name="Download Resume" action={showDownloadOptions} />
 
         {inMenu ? (
@@ -213,11 +215,11 @@ const Skills = function (props) {
         ) : (
           ""
         )}
-      </div> */}
+      </div>
 
       <select
         id="fruit"
-        className="py-4 custom-select-wrapper px-6 border rounded-full appearance-none transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent"
+        className="py-4 mt-12 custom-select-wrapper px-6 border rounded-full appearance-none transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer hover:text-primary hover:border-primary hover:bg-transparent"
         name="fruit"
         // onChange={downloadHandler}
       >

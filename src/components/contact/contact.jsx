@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
-import SocialLinks from '../others/socialLinks';
-import { useNavigate } from 'react-router-dom';
-import Button from '../others/button';
-import Not from './not';
-import Notify from './notify';
-
+import SocialLinks from "../others/socialLinks";
+import { useNavigate } from "react-router-dom";
+import Button from "../others/button";
+import Not from "./not";
+import Notify from "./notify";
+import TransitionMovement from "../transitionMovement.jsx";
 
 const Contact = function (props) {
   const form = useRef();
@@ -29,22 +29,22 @@ const Contact = function (props) {
   const sendEmail = () => {
     emailjs
       .sendForm(
-        'service_d447m7b',
-        'template_nxsssjd',
+        "service_d447m7b",
+        "template_nxsssjd",
         form.current,
-        'bQptP5N6peueuwXVE'
+        "bQptP5N6peueuwXVE"
       )
       .then(
         (result) => {
           console.log(result);
           console.log(result.text);
-          console.log('message sent');
+          console.log("message sent");
           // (result && <Notify
           //   head={"Success"}
           //   text={"You have successfully sent the email"}
           // />)
-          if (result.text === 'OK') {
-            console.log('correct');
+          if (result.text === "OK") {
+            console.log("correct");
             setIsSuccess(true);
             setIsDisable(true); // 09139116045 -- ini
             // <Notify
@@ -65,7 +65,7 @@ const Contact = function (props) {
   };
 
   const dontClick = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   console.log(formData);
@@ -92,13 +92,13 @@ const Contact = function (props) {
     if (
       username.length >= 5 &&
       words.length >= 5 &&
-      email.includes('@gmail.com')
+      email.includes("@gmail.com")
     ) {
-      console.log('correct');
+      console.log("correct");
       setAuthenticated(true);
-      console.log('correct');
+      console.log("correct");
       sendEmail();
-      console.log('correct');
+      console.log("correct");
       setTimeout(() => {
         dontClick();
       }, 3000);
@@ -115,12 +115,7 @@ const Contact = function (props) {
   }, 7000);
 
   return (
-    <motion.div
-      className="mt-0"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <TransitionMovement className="mt-0">
       <h1 className="font-judson text-primary  mb-4 text-3xl lg:text-5xl">
         Hello
       </h1>
@@ -198,8 +193,15 @@ const Contact = function (props) {
           )} */}
         </div>
       </form>
-    </motion.div>
+    </TransitionMovement>
   );
 };
 
 export default Contact;
+
+//  <motion.div
+//       className="mt-0"
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 1 }}
+//       exit={{ opacity: 0 }}
+//     ></motion.div>

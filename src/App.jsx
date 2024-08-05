@@ -33,8 +33,7 @@ function App() {
         <div className="grid lg:grid-cols-column md:grid-cols-columnMd gap-15 mt-16">
           <div className="">
             <Nav />
-            {/* <NavClone /> */}
-            {/* <NavMobile navStatus={menuHandler} /> */}
+
           </div>
           <div className="flex-1 ">
             <AnimatedRoutes />

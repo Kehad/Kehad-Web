@@ -1,18 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import { motion } from 'framer-motion';
-import Button from '../others/button';
-import SocialLinks from '../others/socialLinks';
+import { motion } from "framer-motion";
+import Button from "../others/button";
+import SocialLinks from "../others/socialLinks";
+import TransitionMovement from "../transitionMovement.jsx";
 
 const AboutMe = function () {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      // initial={{ width: 0 }}
-      // animate={{ width: "100%" }}
-      // exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
-    >
+    <TransitionMovement>
       <h1 className="text-primary font-judson text-3xl sm:text-xl lg:text-5xl mb-10">
         About me.
       </h1>
@@ -28,8 +22,17 @@ const AboutMe = function () {
       </p>
       <SocialLinks />
       <Button name={"Hire me"} link={"/contact-me"} />
-    </motion.div>
+    </TransitionMovement>
   );
 };
 
 export default AboutMe;
+
+//  <motion.div
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 1 }}
+//       exit={{ opacity: 0 }}
+//       // initial={{ width: 0 }}
+//       // animate={{ width: "100%" }}
+//       // exit={{ x: window.innerWidth, transition: { duration: 0.3 } }}
+//     ></motion.div>

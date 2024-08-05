@@ -3,11 +3,10 @@ import { useState, useRef } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import cv2 from "../../assets/Kehinde-Gabriel-Adigun-Resume.jpg";
 import cv from "../../assets/Kehinde-Gabriel-Adigun-Resume.pdf";
-import tailwinding from "../../assets/tailwind.svg";
-import Button from "../others/button";
+
 import SkillsList from "./skillsList";
 
-import { motion } from "framer-motion";
+import TransitionMovement from "../transitionMovement.jsx";
 
 const Skills = function (props) {
   const [selectedOption, setSelectedOption] = useState("");
@@ -157,44 +156,15 @@ const Skills = function (props) {
   const showDownloadOptions = (event) => {
     event.stopPropagation();
     // setInMenu(true);
-    setInMenu(state => !state)
+    setInMenu((state) => !state);
   };
   const hideDownloadOptions = () => {
     setInMenu(false);
   };
-  // props.menuActive(inMenu);
-  // console.log(props);
-    const pageVariants = {
-      initial: {
-        opacity: 0,
-        x: "-100vw",
-      },
-      in: {
-        opacity: 1,
-        x: 0,
-      },
-      out: {
-        opacity: 0,
-        x: "100vw",
-      },
-    };
 
-    const pageTransition = {
-      type: "tween",
-      ease: "anticipate",
-      duration: 0.5,
-    };
 
   return (
-    <motion.div
-      className=""
-      onClick={hideDownloadOptions}
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <TransitionMovement onClick={hideDownloadOptions}>
       <h1 className="font-judson mb-12 text-primary text-4xl sm:text-5xl md:text-6xl">
         My Skills
       </h1>
@@ -292,9 +262,20 @@ const Skills = function (props) {
           Download Image
         </option>
       </select> */}
-
-    </motion.div>
+    </TransitionMovement>
   );
 };
 
 export default Skills;
+
+{
+  /* <motion.div
+      className=""
+      onClick={hideDownloadOptions}
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+    ></motion.div> */
+}

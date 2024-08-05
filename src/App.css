@@ -1,9 +1,19 @@
-.iconing {
-  /* display: none !important; */
+.slide-in {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #0f0f0f;
+  transform-origin: bottom;
 }
 
-.iconing:hover .home-icon,
-.iconing:hover .home-text {
-  color: #3490dc !important;
-  fill: #3490dc !important; /* Change this to your desired hover color */
+.slide-out {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #0f0f0f;
+  transform-origin: top;
 }

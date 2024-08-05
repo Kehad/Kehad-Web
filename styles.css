@@ -1,3 +1,28 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.span-el {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+  font-size: 0rem;
+  -webkit-transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+  -moz-transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+  -ms-transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+  -o-transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+.nav-div:hover .span-el {
+  max-width: 190px; /* or a value that fits the content */
+  opacity: 1;
+  font-size: 1.25rem;
+}
+
+.nav-link:hover .span-el,
+.nav-link:hover svg {
+  fill: #07c514;
+  color: #07c514;
+}
+

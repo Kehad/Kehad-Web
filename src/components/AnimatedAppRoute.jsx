@@ -14,24 +14,29 @@ import Works from "./works/works";
 import NavClone from "./sidebar/navClone.jsx";
 
 import { AnimatePresence } from "framer-motion";
+
 // import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 function AnimatedRoutes() {
   const location = useLocation();
+
   return (
-    <AnimatePresence>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about-me" element={<AboutMe />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/works" element={<Works />} />
-        <Route path="/side-project" element={<Project />} />
-        <Route path="/contact-me" element={<Contact />} />
-      </Routes>
-    </AnimatePresence>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about-me" element={<AboutMe />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/works" element={<Works />} />
+          <Route path="/side-project" element={<Project />} />
+          <Route path="/contact-me" element={<Contact />} />
+        </Routes>
+      </AnimatePresence>
   );
 }
 {/* <Route path="*" element={<Home />} /> */}
+{
+  /* <Route path="/" element={<Home />} /> */
+}
 
 export default AnimatedRoutes;

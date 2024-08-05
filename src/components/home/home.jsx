@@ -1,23 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React from "react";
 
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 
-import Button from '../others/button.jsx';
-import ButtonPlain from '../others/buttonPlain.jsx';
-import SocialLinks from '../others/socialLinks.jsx';
-import MyComponent from './autoType.jsx';
-
+import Button from "../others/button.jsx";
+import ButtonPlain from "../others/buttonPlain.jsx";
+import SocialLinks from "../others/socialLinks.jsx";
+import MyComponent from "./autoType.jsx";
+import TransitionMovement from "../transitionMovement.jsx";
 
 const Home = function () {
-  
   return (
-    <motion.div
-      className="flex flex-col mt-0 "
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <TransitionMovement>
       <h1 className="text-primary font-Judson mb-4 text-5xl sm:text-5xl md:text-5xl lg:text-5xl xl:">
         Hi.
       </h1>
@@ -42,8 +36,15 @@ const Home = function () {
         <ButtonPlain name={"about me"} link={"/about-me"} />
       </div>
       {/* <MusicPlayer /> */}
-    </motion.div>
+    </TransitionMovement>
   );
 };
 
 export default Home;
+
+//  <motion.div
+//       className="flex flex-col mt-0 "
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 1 }}
+//       exit={{ opacity: 0 }}
+//     ></motion.div>

@@ -26,3 +26,20 @@
   color: #07c514;
 }
 
+.about-name{
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+}
+
+.about-name:hover {
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  transform: rotate(5deg) scale(1.3);
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.4s;
+
+}
+

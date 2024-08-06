@@ -1,8 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 
-import { motion } from "framer-motion";
-
 import Button from "../others/button.jsx";
 import ButtonPlain from "../others/buttonPlain.jsx";
 import SocialLinks from "../others/socialLinks.jsx";
@@ -18,9 +16,6 @@ const Home = function () {
       <h3 className="mb-5 text-[2rem] lg:text-3xl">
         I'm <MyComponent name={"Kehinde Gabriel Adigun."} />
       </h3>
-      {/* <h3 className="text-gray-200 font-Judson text-2.5xl font-normal mt-0.5 mb-0.7">
-        I'm Kehinde Adigun.
-      </h3> */}
       <p className=" font-judson  font-normal mt-3 mb-3 text-[1.5rem] sm:text-[1.5rem] md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-2xl lg:leading-normal">
         I am a <span className="text-primary">Web developer</span> with over 5
         years of experience, specializing in creating dynamic and responsive web
@@ -41,10 +36,3 @@ const Home = function () {
 };
 
 export default Home;
-
-//  <motion.div
-//       className="flex flex-col mt-0 "
-//       initial={{ opacity: 0 }}
-//       animate={{ opacity: 1 }}
-//       exit={{ opacity: 0 }}
-//     ></motion.div>

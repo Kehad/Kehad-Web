@@ -48,6 +48,25 @@
     }
 }
 
+@media screen and (min-width: 768px) {
+    .pagination__arrow--left,
+    .pagination__arrow--right {
+        height: 2.4rem;
+    }
+    .pagination__arrow--left {
+        left: -52%;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .pagination__arrow--left,
+    .pagination__arrow--right {
+        height: 4rem;
+    }
+     .pagination__arrow--left {
+        left: -90px !important;
+    }
+}
+
 @media screen and (max-width: 769px) {
     .pagination__small--left {
         /* left: -50px;

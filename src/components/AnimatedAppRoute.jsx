@@ -11,7 +11,7 @@ import Project from "./project/project";
 import Nav from "./sidebar/nav";
 import NavMobile from "./sidebar/navMobile";
 import Works from "./works/works";
-import NavClone from "./sidebar/navClone.jsx";
+
 
 import { AnimatePresence } from "framer-motion";
 

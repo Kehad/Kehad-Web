@@ -1,12 +1,13 @@
+import { NavLink, useLocation } from "react-router-dom";
+import classNames from "classnames";
+import { useState } from "react";
+
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import IntegrationInstructionsIcon from "@mui/icons-material/IntegrationInstructions";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
-import { NavLink, useLocation } from "react-router-dom";
-import classNames from "classnames";
-import { useState } from "react";
 
 
 const Nav = function (props) {
@@ -35,7 +36,7 @@ const Nav = function (props) {
       {/* <div className="lg:flex flex-col justify-center rounded-7 bg-sup w-max pt-20 pb-20 lg:pr-[1.5rem] md:pr-6 lg:pl-[1.5rem] md:pl-6 gp-4 duration-500 border-1 border-sub flex hover:flex dark:bg-mainOpacity dark:text-white dark:border-primary dark:border-1 hidden sm:hidden md:block transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] hover:transition hover:transition-all hover:duration-[500ms]"> */}
       <div
         className="nav-div flex lg:flex flex-col gap-8 justify-center rounded-7 bg-sup w-max
-        py-20 px-10 
+        py-20 px-10 md:gap-[1.5rem]  md:flex md:px-6 
        duration-500 border-1 border-sub dark:bg-mainOpacity
        dark:text-white dark:border-primary dark:border-1 hidden sm:hidden md:block
        transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms]
@@ -47,15 +48,15 @@ const Nav = function (props) {
             to="/home"
           >
             <HomeIcon
-              className={classNames(
+              className={`${classNames(
                 pathname === "/home"
                   ? "text-primary"
                   : "text-white hover:text-primary"
-              )}
+              )} !h-[1.1rem] lg:!h-[1em] lg:!h-[1em] `}
             />
             <span
               className={`${pathname === "/home" ? "text-primary" : ""}
-                span-el `}
+                span-el  `}
               // max-w-0 opacity-0 text-[0px] group-hover:text-xl group-hover:opacity-100 group-hover:max-w-[190px] transition-[max-width] duration-300 transiton-[opacity]`}
             >
               Home
@@ -68,11 +69,11 @@ const Nav = function (props) {
             to="/skills"
           >
             <IntegrationInstructionsIcon
-              className={classNames(
+              className={`${classNames(
                 pathname === "/skills"
                   ? " text-primary"
                   : "text-white hover:text-primary"
-              )}
+              )} !h-[1.1rem] lg:!h-[1em]`}
             />
             <span
               className={`${pathname === "/skills" ? "text-primary" : ""} 
@@ -88,11 +89,11 @@ const Nav = function (props) {
             to="/works"
           >
             <WorkspacesIcon
-              className={classNames(
+              className={`${classNames(
                 pathname === "/works"
                   ? " text-primary"
                   : "text-white hover:text-primary"
-              )}
+              )} !h-[1.1rem] lg:!h-[1em]`}
             />
             <span
               className={`${pathname === "/works" ? "text-primary" : ""} 
@@ -108,11 +109,11 @@ const Nav = function (props) {
             to="/side-project"
           >
             <WorkspacePremiumIcon
-              className={classNames(
+              className={`${classNames(
                 pathname === "/side-project"
                   ? " text-primary"
                   : "text-white hover:text-primary "
-              )}
+              )} !h-[1.1rem] lg:!h-[1em]`}
             />
             <span
               className={`${pathname === "/side-project" ? "text-primary" : ""} 
@@ -128,11 +129,11 @@ const Nav = function (props) {
             to="/about-me"
           >
             <PersonIcon
-              className={classNames(
+              className={`${classNames(
                 pathname === "/about-me"
                   ? " text-primary"
                   : "text-white hover:text-primary"
-              )}
+              )} !h-[1.1rem] lg:!h-[1em]`}
             />
             <span
               className={`${pathname === "/about-me" ? "text-primary" : ""} 
@@ -148,11 +149,11 @@ const Nav = function (props) {
             to="/contact-me"
           >
             <ContactPageIcon
-              className={classNames(
+              className={`${classNames(
                 pathname === "/contact-me"
                   ? " text-primary"
                   : "iconFill-secndary text-white hover:text-primary "
-              )}
+              )} !h-[1.1rem] lg:!h-[1em]`}
             />
             <span
               className={`${

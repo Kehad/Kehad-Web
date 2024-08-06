@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion";
+
 
 import SocialLinks from "../others/socialLinks";
 import { useNavigate } from "react-router-dom";
@@ -9,14 +9,8 @@ import Not from "./not";
 import Notify from "./notify";
 import TransitionMovement from "../transitionMovement.jsx";
 
-const Contact = function (props) {
+const Contact = function () {
   const form = useRef();
-  const [isSuccess, setIsSuccess] = useState(false);
-  // const [nameState, setNameState] = useState("");
-  // const [emailState, setEmailState] = useState("");
-  // const [messageState, setMessageState] = useState("");
-  const [disable, setIsDisable] = useState(false);
-  const [test, setTest] = useState(false);
   const [formData, setFormData] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [authenticatedError, setAuthenticatedError] = useState(false);
@@ -36,30 +30,10 @@ const Contact = function (props) {
       )
       .then(
         (result) => {
-          console.log(result);
-          console.log(result.text);
-          console.log("message sent");
-          // (result && <Notify
-          //   head={"Success"}
-          //   text={"You have successfully sent the email"}
-          // />)
-          if (result.text === "OK") {
-            console.log("correct");
-            setIsSuccess(true);
-            setIsDisable(true); // 09139116045 -- ini
-            // <Notify
-            //   head="Success"
-            //   text="You have successfully sent the email"
-            // />;
-            // const aa = <Notify
-            //   head="Success"
-            //   text="You have successfully sent the email"
-            // />;
-          }
-          // return aa;
+         
         },
         (error) => {
-          console.log(error.text);
+
         }
       );
   };
@@ -68,7 +42,6 @@ const Contact = function (props) {
     navigate("/home");
   };
 
-  console.log(formData);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -87,28 +60,22 @@ const Contact = function (props) {
     if (!formData) return;
     const { username, email, message } = formData;
     const words = message.trim().split(/\s+/);
-    console.log(words);
-    console.log(username, username.length);
     if (
       username.length >= 5 &&
       words.length >= 5 &&
       email.includes("@gmail.com")
     ) {
-      console.log("correct");
       setAuthenticated(true);
-      console.log("correct");
       sendEmail();
-      console.log("correct");
       setTimeout(() => {
         dontClick();
       }, 3000);
     } else {
-      // alert("Authentication failed. Please check your username and password.")
-      // { !authenticated && <p>ss</p> };
       setAuthenticatedError(true);
     }
   };
 
+  // to remove the notify or not modal from the dom
   setTimeout(() => {
     setAuthenticated(false);
     setAuthenticatedError(false);
@@ -139,7 +106,7 @@ const Contact = function (props) {
           <input
             type="text"
             placeholder="name"
-            className="rounded-md border border-solid border-primary p-4 bg-transparent text-white font-judson w-full text-xl outline-none sm:text-lg sm:p-2"
+            className="rounded-md border border-solid border-primary p-4 bg-transparent text-xl text-primary w-full outline-none sm:text-lg sm:p-2"
             name="user_name"
             ref={nameInput}
             onChange={handleChange}
@@ -148,15 +115,15 @@ const Contact = function (props) {
             type="email"
             placeholder="email"
             name="user_email"
-            className="rounded-md border border-solid border-primary p-4 bg-transparent text-white font-judson w-full text-xl outline-none sm:text-lg sm:p-2"
+            className="rounded-md border border-solid border-primary p-4 bg-transparent text-xl text-primary w-full outline-none sm:text-lg sm:p-2"
             ref={emailInput}
             onChange={handleChange}
           />
         </div>
         <textarea
-          placeholder="Message..."
+          placeholder="message..."
           maxLength="500"
-          className="resize-none h-20 bg-transparent rounded-md border border-solid border-primary p-4 outline-none text-xl text-white font-judson sm:text-lg sm:p-2"
+          className="rounded-md border border-solid border-primary p-4 bg-transparent text-xl outline-none text-primary sm:text-lg sm:p-2 resize-none h-20"
           name="message"
           ref={messageInput}
           onChange={handleChange}

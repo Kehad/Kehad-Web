@@ -1,27 +1,15 @@
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
-import Slider from 'react-slick';
-// import classes from './worksList.module.css';
-import WorksItem from './projectItem.jsx';
-// import Pagination from './pagination.jsx';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+
 import Piccon from '../../assets/Piccon.png';
 import wondabite from '../../assets/wondabite.png';
 
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import { Navigation, Pagination } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
 import Button from '../others/button.jsx';
 import ProjectItem from './projectItem.jsx';
 import Pagination from './pagination.jsx';
+import { AnimatePresence, motion } from 'framer-motion';
 
-// import './swiperStyles.css';
+
 
 const ProjectData = [
   {
@@ -41,89 +29,91 @@ const ProjectData = [
     imageSrc: wondabite,
   },
 ];
-const ProjectList = function (props) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [initDisable, setInitDisable] = useState(false);
-  const [prevDisable, setPrevDisable] = useState(false);
-  const [forDisable, setForDisable] = useState(false);
-  const recordsPerPage = 1;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = ProjectData.slice(firstIndex, lastIndex);
-  console.log(records);
-  function handleBackClick() {
-    console.log('Back clicked');
 
-    if (currentPage === 1) {
-      setCurrentPage(ProjectData.length);
-      return;
-    }
-    setCurrentPage(currentPage - 1);
-  }
-  function handleNextClick() {
-    if (ProjectData.length === currentPage) {
-      setCurrentPage(1);
-      return;
-    }
-    setCurrentPage(currentPage + 1);
-  }
+const variants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
+const ProjectList = function (props) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextElement = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % ProjectData.length);
+  };
+
+  const prevElement = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + ProjectData.length) % ProjectData.length
+    );
+  };
+ 
 
   return (
     <div className="md:relative">
-      {records.map((data) => (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={ProjectData[currentIndex].id}
+          variants={variants}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{ duration: 0.5 }}
+        >
         <ProjectItem
-          key={data.id}
-          id={data.id}
-          name={data.name}
-          description={data.description}
-          website={data.website}
-          imageSrc={data.imageSrc}
-          next={handleNextClick}
-          back={handleBackClick}
-        />
-      ))}
+          key={ProjectData[currentIndex].id}
+          id={ProjectData[currentIndex].id}
+          name={ProjectData[currentIndex].name}
+          description={ProjectData[currentIndex].description}
+          website={ProjectData[currentIndex].website}
+          imageSrc={ProjectData[currentIndex].imageSrc}
+          next={nextElement}
+          back={prevElement}
+          />
+          </motion.div>
+      </AnimatePresence>
 
-      <Pagination back={handleBackClick} next={handleBackClick} />
+      <div
+        className="nextEl hidden sm:hidden md:block md:block"
+        onClick={() => nextElement()}
+      >
+        &#9654;
+      </div>
+      <div
+        className="prevEl hidden sm:hidden md:block md:block"
+        onClick={() => prevElement()}
+      >
+        &#9664;
+      </div>
+
+      <div className="flex items-center justify-between">
+        <Button
+          link={ProjectData[currentIndex].website}
+          target={"_blank"}
+          name={"Visit Website"}
+        />
+        <div className="flex sm:flex md:hidden lg:hidden">
+          <div className="prevEl-mobile" onClick={() => prevElement()}>
+            &#9664;
+          </div>
+          <div className="nextEl-mobile" onClick={() => nextElement()}>
+            &#9654;
+          </div>
+        </div>
+      </div>
+      {/* <Pagination back={handleBackClick} next={handleBackClick} /> */}
     </div>
   );
 
-  // return (
-  //   <div className="md:relative">
-  //     <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-  //       {ProjectData.map((data) => (
-  //         <SwiperSlide key={data.id}>
-  //           <div className="classes.projectItem w-4">
-  //             <div className="flex items-center justify-between gap-12">
-  //               <div className="">
-  //                 <h2 className="text-3xl text-primary mb-4 font-judson">
-  //                   {data.name}
-  //                 </h2>
-  //                 <p className="text-2xl font-judson mb-10 leading-relaxed">
-  //                   {data.description}
-  //                 </p>
-  //               </div>
-  //               <div className="flex items-center justify-center p-12 bg-sub rounded-xl">
-  //                 <img
-  //                   className="w-full h-auto object-cover"
-  //                   src={data.imageSrc}
-  //                   alt="The Landing"
-  //                 />
-  //               </div>
-  //             </div>
-  //             <div className="flex items-center">
-  //               <Button
-  //                 link={data.website}
-  //                 target={'_blank'}
-  //                 name={'Visit Website'}
-  //               />
-  //               {/* <MobilePagination next={next} back={back} /> */}
-  //             </div>
-  //           </div>
-  //         </SwiperSlide>
-  //       ))}
-  //     </Swiper>
-  //   </div>
-  // );
 };
 
 export default ProjectList;

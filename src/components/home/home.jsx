@@ -6,7 +6,7 @@ import ButtonPlain from "../others/buttonPlain.jsx";
 import SocialLinks from "../others/socialLinks.jsx";
 import MyComponent from "./autoType.jsx";
 import TransitionMovement from "../others/transitionMovement.jsx";
-import Slider from "../others/newSlider.jsx";
+;
 
 const Home = function () {
   return (
@@ -32,7 +32,6 @@ const Home = function () {
         <ButtonPlain name={"about me"} link={"/about-me"} />
       </div>
       {/* <MusicPlayer /> */}
-      <Slider />
     </TransitionMovement>
   );
 };

@@ -32,10 +32,7 @@ const ProjectItem = function (props) {
           />
         </div>
       </div>
-      <div className="flex items-center">
-        <Button link={website} target={'_blank'} name={'Visit Website'} />
-        {/* <MobilePagination next={next} back={back} /> */}
-      </div>
+      
     </div>
   );
 };

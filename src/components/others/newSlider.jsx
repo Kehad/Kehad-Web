@@ -1,13 +1,27 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Button from "./button";
 
 const elements = [
   { id: 1, content: "Element 1" },
   { id: 2, content: "Element 2" },
   { id: 3, content: "Element 3" },
 ];
-
-const Slider = () => {
+const variants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
+const Slider = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextElement = () => {
@@ -22,7 +36,6 @@ const Slider = () => {
 
   return (
     <div className="slider">
-      <button onClick={prevElement}>Previous</button>
       <AnimatePresence mode="wait">
         <motion.div
           key={elements[currentIndex].id}
@@ -31,12 +44,40 @@ const Slider = () => {
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.5 }}
         >
-          {elements[currentIndex].content}
+          {props.children}
         </motion.div>
       </AnimatePresence>
-      <button onClick={nextElement}>Next</button>
+
+      <div
+        className="nextEl hidden sm:hidden md:block md:block"
+        onClick={() => nextElement()}
+      >
+        &#9654;
+      </div>
+      <div
+        className="prevEl hidden sm:hidden md:block md:block"
+        onClick={() => prevElement()}
+      >
+        &#9664;
+      </div>
+
+      <div className="flex items-center justify-between">
+        <Button
+          link={elements[currentIndex].website}
+          target={"_blank"}
+          name={"Visit Website"}
+        />
+        <div className="flex sm:flex md:hidden lg:hidden">
+          <div className="prevEl-mobile" onClick={() => prevElement()}>
+            &#9664;
+          </div>
+          <div className="nextEl-mobile" onClick={() => nextElement()}>
+            &#9654;
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Slider;
+// export default Slider;

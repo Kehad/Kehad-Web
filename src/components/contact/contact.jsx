@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../others/button";
 import Not from "./not";
 import Notify from "./notify";
-import TransitionMovement from "../transitionMovement.jsx";
+import TransitionMovement from "../others/transitionMovement.jsx";
 
 const Contact = function () {
   const form = useRef();
@@ -100,7 +100,7 @@ const Contact = function () {
       <form
         ref={form}
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 md:p-8 lg:p-8 bg-sup dark:bg-sub rounded-3xl sm:w-full lg:w-35rem"
+        className="flex flex-col p-4 md:p-8 lg:p-8 bg-sup dark:bg-[#263328] rounded-3xl sm:w-full lg:w-35rem"
       >
         <div className="flex gap-4 mb-6">
           <input
@@ -165,10 +165,3 @@ const Contact = function () {
 };
 
 export default Contact;
-
-//  <motion.div
-//       className="mt-0"
-//       initial={{ opacity: 0 }}
-//       animate={{ opacity: 1 }}
-//       exit={{ opacity: 0 }}
-//     ></motion.div>

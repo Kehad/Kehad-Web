@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 // import classes from './works.module.css';
 import WorkList from "./worksList";
-import TransitionMovement from "../transitionMovement.jsx";
+import TransitionMovement from "../others/transitionMovement.jsx";
 // import NewList from './worksListcopy';
 
 const Works = function (props) {

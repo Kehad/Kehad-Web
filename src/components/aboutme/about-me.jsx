@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import Button from "../others/button";
 import SocialLinks from "../others/socialLinks";
-import TransitionMovement from "../transitionMovement.jsx";
+import TransitionMovement from "../others/transitionMovement.jsx";
+import Slider from "../others/Slider.jsx";
 
 const AboutMe = function () {
   return (
@@ -22,6 +23,7 @@ const AboutMe = function () {
       </p>
       <SocialLinks />
       <Button name={"Hire me"} link={"/contact-me"} />
+      <Slider />
     </TransitionMovement>
   );
 };

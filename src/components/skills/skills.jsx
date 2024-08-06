@@ -6,7 +6,7 @@ import cv from "../../assets/Kehinde-Gabriel-Adigun-Resume.pdf";
 
 import SkillsList from "./skillsList";
 
-import TransitionMovement from "../transitionMovement.jsx";
+import TransitionMovement from "../others/transitionMovement.jsx";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Skills = function () {

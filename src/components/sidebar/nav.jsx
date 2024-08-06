@@ -37,7 +37,7 @@ const Nav = function (props) {
       <div
         className="nav-div flex lg:flex flex-col gap-8 justify-center rounded-7 bg-sup w-max
         py-20 px-10 md:gap-[1.5rem]  md:flex md:px-6 
-       duration-500 border-1 border-sub dark:bg-mainOpacity
+       duration-500 border-1 border-sub dark:bg-sup
        dark:text-white dark:border-primary dark:border-1 hidden sm:hidden md:block
        transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms]
        hover:transition hover:transition-all hover:duration-[500ms]"

@@ -24,7 +24,7 @@ function TransitionMovement(props) {
     duration: 0.5,
   };
 
-  return (
+  return ( 
     <motion.div
       initial="initial"
       animate="in"

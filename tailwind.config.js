@@ -18,7 +18,8 @@ export default {
       },
       backgroundColor: {
         main: "#1a1a1a",
-        sub: "#232323",
+        sub: "#263328",
+        // sub: "#232323",
         primary: "#07c514",
         sup: "#263328", // 263328
         error: "rgb(236, 166, 166)",

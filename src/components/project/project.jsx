@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import ProjectList from "./projectList";
-import TransitionMovement from "../transitionMovement.jsx";
+import TransitionMovement from "../others/transitionMovement.jsx";
 const Project = function (props) {
   // const records = Slice(firstIndex, lastIndex);
   // const npage = Math.ceil(props.data.length / recordsPerPage);

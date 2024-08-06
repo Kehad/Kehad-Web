@@ -9,7 +9,7 @@ import 'slick-carousel/slick/slick-theme.css';
 // import MobilePagination from "../Paginations/mobilePagination";
 
 const WorksItem = function (props) {
-  const { name, description, website, imageSrc, next, back } = props;
+  const { name, description, website, imageSrc, next, prev } = props;
 
   var settings = {
     dots: true,
@@ -37,10 +37,7 @@ const WorksItem = function (props) {
           />
         </div>
       </div>
-      <div className="flex items-center">
-        <Button link={website} target={'_blank'} name={'Visit Website'} />
-        {/* <MobilePagination next={next} back={back} /> */}
-      </div>
+      
     </div>
     // </Slider>
   );

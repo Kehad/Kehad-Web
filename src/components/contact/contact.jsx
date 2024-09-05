@@ -30,10 +30,10 @@ const Contact = function () {
       )
       .then(
         (result) => {
-         
+          alert(" You have successfully sent the message")
         },
         (error) => {
-
+          alert("Message not send due to " + error.message);
         }
       );
   };

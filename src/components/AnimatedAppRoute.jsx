@@ -1,15 +1,9 @@
-import react from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import AboutMe from "./aboutme/about-me";
 import Skills from "./skills/skills";
 import Home from "./home/home";
 import Contact from "./contact/contact";
-import Header from "./header/header.jsx";
-import Layout from "./layout/layout.jsx";
-import Backdrop from "./others/backDrop";
 import Project from "./project/project";
-import Nav from "./sidebar/nav";
-import NavMobile from "./sidebar/navMobile";
 import Works from "./works/works";
 
 

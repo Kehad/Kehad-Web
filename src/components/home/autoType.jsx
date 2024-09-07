@@ -1,7 +1,7 @@
 import React from 'react';
 import Typed from 'typed.js';
 
-function MyComponent(props) {
+function AutoType(props) {
   // Create reference to store the DOM element containing the animation
   const el = React.useRef(null);
 
@@ -31,4 +31,4 @@ function MyComponent(props) {
   );
 }
 
-export default MyComponent;
+export default AutoType;

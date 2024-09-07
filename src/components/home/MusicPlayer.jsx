@@ -1,7 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import { useEffect, useState } from "react";
+import { fetchToken } from "../others/fetchToken";
 
 const MusicPlayer = function () {
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const fetchApiHandler = async () => {
+      const token = await fetchToken();
+      console.log(token);
+      setToken(token);
+    };
+    fetchApiHandler();
+  }, []);
+  // Create Base64 encoded credentials
+
+  // Call the function to request token
+  //   requestToken();
   return (
     <div className="flex flex-row p-4 bg-[#DFFEE2] gap-4 w-max rounded-md">
       <div className="">
@@ -24,3 +40,7 @@ const MusicPlayer = function () {
 };
 
 export default MusicPlayer;
+
+// const token =
+//   "BQDaTcqMyeRXPw9d68pebQkQ3yqpsC5dGiz9MBQPe8cxOYCCnF0KKoNATlCoasuXjYco6RWoGOxTvcS_CNvNS6n0Ms5gUy57ACdDDjXPPPQJkPcukqQmvQLwQi_zecnt8Ad5qM4lTI4NrI67dO8czl-ZSSH5xFJg83uRA1vWvcd5idR7Hl48dz3uDtBtTSgpEbvsvDUpDSinrFYryOKPdBPItHd9Ln2j3Yv4ik_H4pTMvIc1giqckj_GslYA7aOcEvDmnCk9Maa0pcbucw5xa2ffy1eBv9xV";
+

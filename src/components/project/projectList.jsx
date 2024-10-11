@@ -57,6 +57,7 @@ const ProjectList = function (props) {
     );
   };
  
+  console.log(currentIndex);
 
   return (
     <div className="md:relative">

@@ -26,11 +26,7 @@ function Layout(props) {
   // console.log(dimensions);
 
   return (
-    <div
-      className="bg-main min-h-screen w-screen text-white py-16 lg:px-28  font-judson dark:bg-white dark:text-black px-7  sm:px-12 md:px-16 transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms]"
-      // className=" h-screen w-screen"
-      // style={dimensions}
-    >
+    <div className="bg-main min-h-screen w-screen text-white py-16 lg:px-28  font-judson dark:bg-white dark:text-black px-7  sm:px-12 md:px-16 transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms]">
       {props.children}
     </div>
   );

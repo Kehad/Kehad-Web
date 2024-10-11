@@ -12,9 +12,15 @@ const MusicPlayer = function () {
       console.log(token);
       setToken(token);
     };
-    fetchApiHandler();
+    // fetchApiHandler();
   }, []);
-  // Create Base64 encoded credentials
+    // Create Base64 encoded credentials
+    async function getTopTracks(token) {
+    //   const data = await fetchWebApi(token); // Fetch data using the hardcoded fetchWebApi
+    //   return data.items; // Return the top tracks
+        // console.log(data.items);
+    }
+    // getTopTracks(token);
 
   // Call the function to request token
   //   requestToken();

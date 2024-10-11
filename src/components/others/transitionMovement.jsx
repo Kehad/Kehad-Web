@@ -31,7 +31,7 @@ function TransitionMovement(props) {
       exit="out"
       variants={pageVariants}
       // transition={pageTransition}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
       {props.children}
     </motion.div>

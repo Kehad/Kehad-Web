@@ -13,11 +13,11 @@ const Toggle = function (props) {
   const dispatch = useDispatch();
 
   const element = document.documentElement;
-  console.log(element);
+  // console.log(element);
 
   // to run immediately the page reloads or the theme value changes
   useEffect(() => {
-    console.log(theme);
+    // console.log(theme);
     switch (theme) {
       case 'dark':
         element.classList.add('dark');
@@ -30,10 +30,8 @@ const Toggle = function (props) {
     }
   }, [theme]);
 
-  const darkMe = () => {
-    setTheme('light');
-    setTheme('medium');
-  };
+
+
 
   // The original theme of the website is the light mode
   // and using the dark class i.e dark: will change the theme to dark mode
@@ -44,14 +42,10 @@ const Toggle = function (props) {
         <div
           title="light mode"
           className={`cursor-pointer w-2/4 rounded-3xl rounded-tr-none rounded-br-none h-full flex items-center justify-center ${
-            theme === 'dark' ? 'bg-primary' : ''
-          } ${theme === 'system' ? 'bg-primary' : ''} transition duration-300`}
-          onClick={(e) => {
-            // e.preventDefault();
-            // setTheme('dark');
-            dispatch(themeHandler('dark'));
-          }}
-          // onClick={darkMe}
+            theme === "dark" ? "bg-primary" : ""
+          } ${theme === "system" ? "bg-primary" : ""} transition duration-300`}
+          onClick={() => dispatch(themeHandler("dark"))}
+
         >
           <svg
             width="25"
@@ -73,13 +67,9 @@ const Toggle = function (props) {
         </div>
         <div
           className={`flex items-center justify-center h-full w-2/4 rounded-3xl  rounded-tl-none rounded-bl-none  transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] cursor-pointer  ${
-            theme === 'light' ? 'bg-primary' : ''
-          } ${theme === 'medium' ? 'bg-primary' : ''} `}
-          onClick={(e) => {
-            // e.preventDefault();
-            // setTheme('light');
-            dispatch(themeHandler('light'));
-          }}
+            theme === "light" ? "bg-primary" : ""
+          } ${theme === "medium" ? "bg-primary" : ""} `}
+          onClick={() => dispatch(themeHandler("light"))}
         >
           <div
             className="flex items-center justify-center flex-row rounded-full bg-primary  border-0 py-0.4 px-0.4 gap-2 cursor-pointer"

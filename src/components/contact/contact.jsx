@@ -144,7 +144,7 @@ const Contact = function () {
               text="Your username/message must be at least 5 texts/words long and gmail must be a valid email address "
             />
           )}
-          {/* <Not /> */}
+         
           {/* <Notify /> */}
           {/* {!disable && (
             <ButtonSend action={sendEmail} to={'/home'} name={'send'} />

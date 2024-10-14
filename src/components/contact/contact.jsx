@@ -145,7 +145,7 @@ const Contact = function () {
             />
           )}
          
-          {/* <Notify /> */}
+         
           {/* {!disable && (
             <ButtonSend action={sendEmail} to={'/home'} name={'send'} />
           )}

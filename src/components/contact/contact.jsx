@@ -151,11 +151,11 @@ const Contact = function () {
           )}
           {disable && (
             <ButtonType2
-              action={dontClick}
+             
              
              
               
-              disable={disable}
+              
             />
           )} */}
         </div>

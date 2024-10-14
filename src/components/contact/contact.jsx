@@ -154,7 +154,7 @@ const Contact = function () {
               action={dontClick}
               newClass={'disabledLink'}
               to={'/home'}
-              name={'send'}
+              
               disable={disable}
             />
           )} */}

@@ -153,7 +153,7 @@ const Contact = function () {
             <ButtonType2
               action={dontClick}
               newClass={'disabledLink'}
-              to={'/home'}
+             
               
               disable={disable}
             />

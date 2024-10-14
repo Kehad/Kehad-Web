@@ -152,7 +152,7 @@ const Contact = function () {
           {disable && (
             <ButtonType2
               action={dontClick}
-              newClass={'disabledLink'}
+             
              
               
               disable={disable}

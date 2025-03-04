@@ -151,3 +151,50 @@ To execute tests for the project, run:
 ```bash
 npm run test
 ```
+
+---
+
+## Troubleshooting
+
+This section provides steps to mitigate common errors you might encounter:
+
+### Vulnerability Warnings
+
+After installing packages, you might see vulnerability warnings. To fix these:
+- Run:
+
+  ```bash
+  npm audit fix
+  ```
+
+- To address all issues (including potential breaking changes), run:
+
+  ```bash
+  npm audit fix --force
+  ```
+
+*Note:* Forcing fixes might update packages to major versions; review changes and test your application accordingly.
+
+### "Bus error (core dumped)" on Dev Server
+
+If you encounter a "Bus error (core dumped)" when running:
+
+```bash
+npm run dev
+```
+
+Try the following:
+- **Update dependencies:** Run the audit fix with force if necessary:
+
+  ```bash
+  npm audit fix --force
+  ```
+
+- **Reinstall packages:** Remove existing modules and reinstall:
+
+  ```bash
+  rm -rf node_modules package-lock.json
+  npm install
+  ```
+
+- Ensure you're using a stable version of Vite and related dependencies.

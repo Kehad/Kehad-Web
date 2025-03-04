@@ -146,7 +146,7 @@ Check out the live demo here: [Demo Link](https://kehad.onrender.com)
 
 ## Running Tests
 
-To execute tests for the project, run:
+To execute tests for the project on npm, run:
 
 ```bash
 npm run test
@@ -156,7 +156,7 @@ npm run test
 
 ## Troubleshooting
 
-This section provides steps to mitigate common errors you might encounter:
+This section provides steps to mitigate common errors you might encounter on npm:
 
 ### Vulnerability Warnings
 

@@ -7,6 +7,7 @@ import SocialLinks from "../others/socialLinks.jsx";
 import AutoType from "./autoType.jsx";
 import TransitionMovement from "../others/transitionMovement.jsx";
 import MusicPlayer from "./MusicPlayer.jsx";
+import SpotifyPlaylist from "../others/spotifyplaylist.jsx";
 const Home = function () {
   return (
     <TransitionMovement>
@@ -33,6 +34,7 @@ const Home = function () {
         </div>
         <div className="self-end">
           <MusicPlayer />
+          <SpotifyPlaylist />
         </div>
       </div>
     </TransitionMovement>

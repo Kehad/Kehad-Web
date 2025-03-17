@@ -33,7 +33,7 @@ const Home = function () {
           <ButtonPlain name={"about me"} link={"/about-me"} />
         </div>
         <div className="self-end">
-          <MusicPlayer />
+          {/* <MusicPlayer /> */}
           <SpotifyPlaylist />
         </div>
       </div>

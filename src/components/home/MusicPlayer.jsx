@@ -1,25 +1,27 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 
 import { useEffect, useState } from "react";
 import { fetchToken } from "../others/fetchToken";
 
-const MusicPlayer = function () {
-  const [token, setToken] = useState("");
+const MusicPlayer = function ({ track }) {
+  // const [token, setToken] = useState("");
+  console.log(track)
 
-  useEffect(() => {
-    const fetchApiHandler = async () => {
-      const token = await fetchToken();
-      console.log(token);
-      setToken(token);
-    };
-    // fetchApiHandler();
-  }, []);
-    // Create Base64 encoded credentials
-    async function getTopTracks(token) {
-    //   const data = await fetchWebApi(token); // Fetch data using the hardcoded fetchWebApi
-    //   return data.items; // Return the top tracks
-        // console.log(data.items);
-    }
+  // useEffect(() => {
+  //   const fetchApiHandler = async () => {
+  //     const token = await fetchToken();
+  //     console.log(token);
+  //     setToken(token);
+  //   };
+  //   // fetchApiHandler();
+  // }, []);
+  //   // Create Base64 encoded credentials
+  //   async function getTopTracks(token) {
+  //   //   const data = await fetchWebApi(token); // Fetch data using the hardcoded fetchWebApi
+  //   //   return data.items; // Return the top tracks
+  //       // console.log(data.items);
+  //   }
     // getTopTracks(token);
 
   // Call the function to request token
@@ -38,8 +40,17 @@ const MusicPlayer = function () {
         </svg>
       </div>
       <div className="flex flex-col pr-[20px]">
-        <p>Asiwaju</p>
-        <p className="text-[8px]">Ruger</p>
+        <p>{track?.name}</p>
+        <p className="text-[8px]">
+          {track?.artists?.[0]?.name || "Unknown Artist"}
+        </p>
+      </div>
+      <div className="">
+        <img
+          src={track?.album.images[0].url}
+          alt={track?.name}
+          width="40"
+        />
       </div>
     </div>
   );

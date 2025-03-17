@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import MusicPlayer from "../home/MusicPlayer";
+import Toast from "./toast";
 
-const CLIENT_ID = "acfc9d182abf48f2843c9047db71dff3";
-const CLIENT_SECRET = "166fe1965a4f480684b7ede47aed5a9e";
+const CLIENT_ID = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
+const CLIENT_SECRET = import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = "http://localhost:5173/home"; // Change this to your app's redirect URI
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const PLAYLIST_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 const CURRENT_TRACK_ENDPOINT =
-  "https://api.spotify.com/v1/me/player/currently-playing"; 
+  "https://api.spotify.com/v1/me/player/currently-playing";
 
 const SpotifyPlaylist = () => {
   const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -28,20 +33,13 @@ const SpotifyPlaylist = () => {
     setToken(storedToken);
   }, []);
 
-  const getPlaylists = async () => {
-    if (!token) return;
-    try {
-      const response = await fetch(PLAYLIST_ENDPOINT, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
-      setPlaylists(data.items || []);
-    } catch (error) {
-      console.error("Error fetching playlists:", error);
+  useEffect(() => {
+    if (token && !currentTrack) {
+      toast.info("You are logged in but no current track is playing on Spotify.");
     }
-  };
+  }, [token, currentTrack]);
+
+ 
 
   const getCurrentTrack = async () => {
     if (!token) return;
@@ -60,22 +58,48 @@ const SpotifyPlaylist = () => {
 
   return (
     <div>
+      {/* {!currentTrack && <ToastContainer />} */}
+      {/* {!token && <ToastContainer />} */}
+      {!token && (
+        <Toast
+          message="Login to your spotify account"
+          onClose={() => setShowToast(false)}
+        />
+      )}
+      {token && !currentTrack && (
+        <Toast
+          message="You are logged in but no current track is playing on Spotify."
+          onClose={() => setShowToast(false)}
+        />
+      )}
       {!token ? (
         <a
           href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${REDIRECT_URI}&scope=playlist-read-private user-read-currently-playing user-read-playback-state`}
+          className="bg-[#DFFEE2] dark:text-black text-black hover:text-white p-3 rounded-full border-[#dffee2] border-2 hover:border-2 hover:border-[#dffee2] hover:bg-transparent"
         >
           Login to Spotify
         </a>
       ) : (
         <>
-          <button onClick={getPlaylists}>Get Playlists</button>
-          <button onClick={getCurrentTrack}>Get Current Track</button>
-          <ul>
-            {playlists.map((playlist) => (
-              <li key={playlist.id}>{playlist.name}</li>
-            ))}
-          </ul>
-          {currentTrack && (
+          {/* <button onClick={getPlaylists}>Get Playlists</button> */}
+          {!currentTrack ? (
+            <button
+              className="bg-[#DFFEE2] dark:text-black text-black hover:text-white p-3 rounded-full border-[#dffee2] border-2 hover:border-2 hover:border-[#dffee2] hover:bg-transparent"
+              onClick={getCurrentTrack}
+            >
+              Get Current Your Track
+            </button>
+          ) : (
+            <>
+              <ul>
+                {playlists.map((playlist) => (
+                  <li key={playlist.id}>{playlist.name}</li>
+                ))}
+              </ul>
+              <MusicPlayer track={currentTrack} />
+            </>
+          )}
+          {/* {currentTrack && (
             <div>
               <h3>Now Playing:</h3>
               <p>
@@ -88,7 +112,7 @@ const SpotifyPlaylist = () => {
                 width="100"
               />
             </div>
-          )}
+          )} */}
         </>
       )}
     </div>
@@ -96,4 +120,3 @@ const SpotifyPlaylist = () => {
 };
 
 export default SpotifyPlaylist;
-

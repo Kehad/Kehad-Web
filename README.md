@@ -1,35 +1,64 @@
-
 # Kehad Portfolio Website
 
-Welcome to my portfolio website! This project showcases my skills and projects using **React.js** and **Tailwind CSS**, built with **Vite** for a fast and modern development experience.
+Welcome to my portfolio website! This project showcases my skills and projects using **React.js** and **Tailwind CSS**, built with **Vite** for a fast, modern, and optimized development experience.
+
+---
+
+## Table of Contents
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Running the Project Locally](#running-the-project-locally)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Learn More](#learn-more)
+- [Deploy on Render](#deploy-on-render)
+- [Demo](#demo)
+- [Running Tests](#running-tests)
+
+---
+
+## Overview
+
+This project is a personal portfolio website designed to effectively showcase my projects and technical skills in web development. It is built with performance and user experience in mind.
+
+---
 
 ## Getting Started
 
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (with npm, or an alternative like yarn, pnpm, or bun)
+- [Git](https://git-scm.com/)
 
+### Installation
 
-## Run Locally
+1. **Clone the repository:**
 
-Clone the project
+   ```bash
+   git clone https://github.com/Kehad/Kehad-Web.git
+   ```
 
-```bash
-  git clone https://github.com/Kehad/Kehad-Web.git
-```
+2. **Navigate to the project directory:**
 
-Go to the project directory
+   ```bash
+   cd Kehad-Web
+   ```
 
-```bash
-  cd kehad
-```
+3. **Install dependencies:**
 
-Install dependencies
+   ```bash
+   npm install
+   ```
 
-```bash
-  npm install
-```
+---
 
-Start the server
+## Running the Project Locally
+
+Start the development server using one of the following commands:
 
 ```bash
 npm run dev
@@ -41,63 +70,15 @@ pnpm dev
 bun dev
 ```
 
-First, run the development server:
+Open [http://localhost:5173](http://localhost:5173) in your browser. The page auto-updates as you modify files (e.g., `src/App.jsx`).
 
+---
 
-```
-# My React Portfolio
+## Usage
 
-Open [http://localhost:5173](http://localhost:5173) in your browser to see the result.
+### Example Code
 
-You can start editing the page by modifying `src/App.jsx`. The page auto-updates as you edit the file.
-
-This project uses **Tailwind CSS** for styling, providing a utility-first CSS framework that enables rapid UI development.
-
-## Learn More
-
-To learn more about React.js, check out the following resources:
-
-- [ReactJS Documentation](https://react.dev/) - Learn about ReactJS.
-- [Vite Documentation](https://vitejs.dev/guide/) - Understand how to use Vite.
-- [Learn ReactJS](https://reactjs.org/tutorial/tutorial.html) - An interactive React tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Render
-
-To easily deploy your React app, follow these steps:
-
-1. **Create a Render Account**: Sign up at [Render.com](https://render.com/).
-2. **Connect GitHub**: Authorize Render to access your GitHub repositories.
-3. **Create a New Web Service**:
-   - Click "New" and select "Web Service."
-   - Fill in the details:
-     - **Name**: Your service name.
-     - **Branch**: Choose the branch to deploy (e.g., `main`).
-     - **Build Command**: `npm install`.
-     - **Start Command**: `npm run build && npm run serve`.
-4. **Add Environment Variables**: If your app requires them, add under "Environment."
-5. **Deploy**: Click "Create Web Service" to start deployment.
-6. **Access Your App**: Once deployed, you'll receive a URL to your live app.
-
-For more details, check the [Render documentation](https://render.com/docs/deploy-react).
-
-
-
-
-## Demo
-https://kehad.onrender.com
-
-## Running Tests
-
-To run tests, run the following command
-
-```bash
-  npm run test
-```
-
-
-## Usage/Examples
+Here's a simple example demonstrating how to import and use a component:
 
 ```javascript
 import Component from 'my-project'
@@ -107,4 +88,113 @@ function App() {
 }
 ```
 
+This section can be expanded with more detailed examples as the project grows.
 
+---
+
+## Contributing
+
+Contributions are welcome! To help improve this project:
+- **Report Bugs:** Open an issue on [GitHub](https://github.com/Kehad/Kehad-Web/issues).
+- **Feature Requests:** Share your ideas or suggest improvements.
+- **Pull Requests:** Fork the repository, implement your changes, and submit a pull request.
+
+Please review our [contributing guidelines](CONTRIBUTING.md) for more details.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Please see the LICENSE file for further details.
+
+---
+
+## Learn More
+
+Enhance your knowledge with these resources:
+- [ReactJS Documentation](https://react.dev/) – Learn about React.js.
+- [Vite Documentation](https://vitejs.dev/guide/) – Understand the Vite build tool.
+- [Tailwind CSS Documentation](https://tailwindcss.com/) – Explore Tailwind CSS.
+
+---
+
+## Deploy on Render
+
+Deploy your React app with Render by following these steps:
+1. **Create a Render Account:** Sign up at [Render.com](https://render.com/).
+2. **Connect GitHub:** Allow Render access to your repositories.
+3. **Create a New Web Service:**
+   - Click **New** and select **Web Service**.
+   - Fill in:
+     - **Name:** Your service name.
+     - **Branch:** e.g., `main`.
+     - **Build Command:** `npm install`.
+     - **Start Command:** `npm run build && npm run serve`.
+4. **Add Environment Variables:** If needed, configure them under "Environment."
+5. **Deploy:** Click **Create Web Service** to start the deployment.
+6. **Access Your App:** Once deployed, use the provided URL to view your live app.
+
+For more information, refer to the [Render documentation](https://render.com/docs/deploy-react).
+
+---
+
+## Demo
+
+Check out the live demo here: [Demo Link](https://kehad.onrender.com)
+
+---
+
+## Running Tests
+
+To execute tests for the project on npm, run:
+
+```bash
+npm run test
+```
+
+---
+
+## Troubleshooting
+
+This section provides steps to mitigate common errors you might encounter on npm:
+
+### Vulnerability Warnings
+
+After installing packages, you might see vulnerability warnings. To fix these:
+- Run:
+
+  ```bash
+  npm audit fix
+  ```
+
+- To address all issues (including potential breaking changes), run:
+
+  ```bash
+  npm audit fix --force
+  ```
+
+*Note:* Forcing fixes might update packages to major versions; review changes and test your application accordingly.
+
+### "Bus error (core dumped)" on Dev Server
+
+If you encounter a "Bus error (core dumped)" when running:
+
+```bash
+npm run dev
+```
+
+Try the following:
+- **Update dependencies:** Run the audit fix with force if necessary:
+
+  ```bash
+  npm audit fix --force
+  ```
+
+- **Reinstall packages:** Remove existing modules and reinstall:
+
+  ```bash
+  rm -rf node_modules package-lock.json
+  npm install
+  ```
+
+- Ensure you're using a stable version of Vite and related dependencies.

@@ -64,8 +64,8 @@ const SpotifyPlaylist = () => {
 
   return (
     <div>
-      {/* {!currentTrack && <ToastContainer />} */}
-      {/* {!token && <ToastContainer />} */}
+      {token && <ToastContainer />}
+       {/* <ToastContainer /> */}
       {!token && (
         <Toast
           message="Login to your spotify account"

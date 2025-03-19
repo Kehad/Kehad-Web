@@ -7,7 +7,7 @@ const Toast = ({ message, onClose }) => {
     const timer = setTimeout(() => {
       setVisible(false);
       onClose();
-    }, 1000); // Auto-close after 1 second
+    }, 1000); // Auto-close after 1 seconds
 
     return () => clearTimeout(timer);
   }, [onClose]);
@@ -15,14 +15,14 @@ const Toast = ({ message, onClose }) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed top-5 right-5 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg">
+    <div className="fixed top-2 right-5 bg-[#DFFEE2] dark:bg-primary/50 text-black dark:text-white px-4 py-2 rounded-lg shadow-lg">
       <span>{message}</span>
       <button
         onClick={() => {
           setVisible(false);
           onClose();
         }}
-        className="ml-4 bg-red-500 px-2 py-1 rounded"
+        className="ml-4 bg-white px-2 py-1 rounded text-primary"
       >
         ✖
       </button>

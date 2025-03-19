@@ -45,17 +45,17 @@ const Nav = function (props) {
         <div className="">
           <NavLink
             className="nav-link flex items-center gap-2.5 no-underline text-lg hover:text-primary"
-            to="/home"
+            to="/"
           >
             <HomeIcon
               className={`${classNames(
-                pathname === "/home"
+                pathname === "/"
                   ? "text-primary"
                   : "text-white hover:text-primary"
               )} !h-[1.1rem] lg:!h-[1em] lg:!h-[1em] `}
             />
             <span
-              className={`${pathname === "/home" ? "text-primary" : ""}
+              className={`${pathname === "/" ? "text-primary" : ""}
                 span-el  `}
               // max-w-0 opacity-0 text-[0px] group-hover:text-xl group-hover:opacity-100 group-hover:max-w-[190px] transition-[max-width] duration-300 transiton-[opacity]`}
             >

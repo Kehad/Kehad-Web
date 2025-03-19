@@ -7,7 +7,7 @@ const Toast = ({ message, onClose }) => {
     const timer = setTimeout(() => {
       setVisible(false);
       onClose();
-    }, 6000); // Auto-close after 6 seconds
+    }, 1000); // Auto-close after 1 second
 
     return () => clearTimeout(timer);
   }, [onClose]);

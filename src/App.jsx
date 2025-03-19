@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     // Redirect to /about after 2 seconds
-    navigate("/home");
+    // navigate("/home");
     // Clean up the timer
   }, []);
 

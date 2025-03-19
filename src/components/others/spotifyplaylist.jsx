@@ -20,6 +20,11 @@ const SpotifyPlaylist = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [showToast, setShowToast] = useState(false);
 
+  console.log(
+    "Client ID:",
+    import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_SECRET
+  );
+
   useEffect(() => {
     const hash = window.location.hash;
     let storedToken = localStorage.getItem("spotify_token");

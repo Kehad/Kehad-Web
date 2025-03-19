@@ -6,7 +6,7 @@ import Toast from "./toast";
 
 const CLIENT_ID = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_REACT_APP_SPOTIFY_CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:5173/home"; // Change this to your app's redirect URI
+const REDIRECT_URI = "https://kehad.onrender.com"; // Change this to your app's redirect URI
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const PLAYLIST_ENDPOINT = "https://api.spotify.com/v1/me/playlists";

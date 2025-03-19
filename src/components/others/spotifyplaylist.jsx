@@ -66,13 +66,13 @@ const SpotifyPlaylist = () => {
     <div>
       {/* {token && <ToastContainer />} */}
        <ToastContainer />
-      {token && (
+      {!token && (
         <Toast
           message="Login to your spotify account"
           onClose={() => setShowToast(false)}
         />
       )}
-      {!token && !currentTrack && (
+      {token && !currentTrack && (
         <Toast
           message="You are logged in but no current track is playing on Spotify."
           onClose={() => setShowToast(false)}

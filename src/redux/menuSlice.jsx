@@ -5,7 +5,7 @@ export const menuSlice = createSlice({
   name: 'menu',
   initialState: {
     menuState: false,
-    themeState: 'system',
+    themeState: 'light', // 'light', 'dark', or 'system'
   },
   reducers: {
     menuHandler: (state, action) => {
@@ -17,7 +17,7 @@ export const menuSlice = createSlice({
     },
   },
 });
-
+  
 export const { menuHandler, themeHandler } = menuSlice.actions;
 
 export default menuSlice.reducer;

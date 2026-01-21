@@ -6,7 +6,7 @@ import ButtonPlain from "../others/buttonPlain.jsx";
 import SocialLinks from "../others/socialLinks.jsx";
 import AutoType from "./autoType.jsx";
 import TransitionMovement from "../others/transitionMovement.jsx";
-import MusicPlayer from "./MusicPlayer.jsx";
+// import MusicPlayer from "./MusicPlayer.jsx";
 import SpotifyPlaylist from "../others/spotifyplaylist.jsx";
 const Home = function () {
   return (
@@ -19,7 +19,7 @@ const Home = function () {
           I'm <AutoType name={"Kehinde Gabriel Adigun."} />
         </h3>
         <p className=" font-judson  font-normal mt-3 mb-3 text-[1.5rem] sm:text-[1.5rem] md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-2xl lg:leading-normal">
-          I am a <span className="text-primary">Web developer</span> with over 3
+          I am a <span className="text-primary">Web developer</span> with over 4
           years of experience, specializing in creating dynamic and responsive
           web applications. Currently, I am on a journey to become a full stack
           and mobile app developer, expanding my skills to include backend

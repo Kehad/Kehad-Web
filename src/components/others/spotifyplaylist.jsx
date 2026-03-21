@@ -137,8 +137,7 @@ import Toast from "./toast";
 
 const CLIENT_ID = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
 const REDIRECT_URI =
-  import.meta.env.VITE_APP_SPOTIFY_REDIRECT_URI ||
-  "https://localhost:5174/";
+  import.meta.env.VITE_APP_SPOTIFY_REDIRECT_URI 
 
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const CURRENT_TRACK_ENDPOINT =

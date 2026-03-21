@@ -18,14 +18,14 @@ const Home = function () {
         <h3 className="mb-5 text-[2rem] lg:text-3xl">
           I'm <AutoType name={"Kehinde Gabriel Adigun."} />
         </h3>
+       
         <p className=" font-judson  font-normal mt-3 mb-3 text-[1.5rem] sm:text-[1.5rem] md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-2xl lg:leading-normal">
-          I am a <span className="text-primary">Web developer</span> with over 4
-          years of experience, specializing in creating dynamic and responsive
-          web applications. Currently, I am on a journey to become a full stack
-          and mobile app developer, expanding my skills to include backend
-          technologies and mobile development. My passion lies in crafting
-          seamless user experiences and continuously learning to stay ahead in
-          the ever-evolving tech landscape.
+          I'm a <span className="text-primary">full-stack software developer</span> with over <span className="text-primary">five</span> years of experience building complete <span className="text-primary">web and mobile applications</span>. 
+          My focus is on mobile development and scalable full-stack systems, where I design clean architectures, build dependable APIs, and craft intuitive, user-centered experiences. 
+          I also bring <span className="text-primary">AI</span> into real-world products, transforming ideas into practical and intelligent solutions.
+          I'm continuously improving my skills, with a growing passion for <span className="text-primary">machine learning</span> and data-driven development. 
+          I enjoy exploring how intelligent systems can enhance applications and solve real problems. 
+          I pay close attention to detail, performance, and maintainability, and I’m driven by the goal of creating software that people find useful, reliable, and enjoyable to use.
         </p>
         <SocialLinks />
         <div className="flex items-center gap-2">

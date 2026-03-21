@@ -11,6 +11,8 @@ import KehadCalc from "../../assets/kehad-calc.png";
 import { AnimatePresence, motion } from 'framer-motion';
 import Adbook from "../../assets/Adbook.png";
 import taxnaija from "../../assets/taxnaija.png";
+import xo from "../../assets/xo.png";
+import artisanhub from "../../assets/artisanHub.jpeg";
 
 
 const ProjectData = [
@@ -29,6 +31,20 @@ const ProjectData = [
       "Piccon is your go-to platform for comparing designs and logos to check for originality. Easily upload your designs and verify their uniqueness against a comprehensive database. Our advanced algorithms ensure accurate and reliable results, helping you avoid copyright issues. With a user-friendly interface, you can navigate and compare effortlessly. Protect your creativity and ensure your designs stand out with PicCon..",
     website: 'https://piccon.onrender.com/',
     imageSrc: Piccon,
+  },
+  {
+    id: "m7",
+    name: "ArtisanHub",
+    description: "ArtisanHub is a comprehensive mobile platform designed to empower artisans by providing tools for business management, portfolio showcasing, job connection, and skills training.",
+    website: "",
+    imageSrc: artisanhub      
+  },
+  {
+    id: "m8",
+    name: "Tic Tac Toe",
+    description: "Tic Tac Toe game is a simple and fun game that can be played by two players via local mode or online mode. It is a game of strategy and skill, and it is a great way to pass the time.",
+    website: "",
+    imageSrc: xo      
   },
    {
     id: "m2",

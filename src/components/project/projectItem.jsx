@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Pagination } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../others/button';
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
@@ -11,6 +11,9 @@ import Button from '../others/button';
 
 const ProjectItem = function (props) {
   const { name, description, website, imageSrc, next, back } = props;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     // <Slider {...settings}>
@@ -24,15 +27,41 @@ const ProjectItem = function (props) {
             {description}
           </p>
         </div>
-        <div className="flex items-center justify-center p-12 bg-sub rounded-xl mb-8 sm:mb-8">
+        <div 
+          className="flex items-center justify-center p-12 bg-sub rounded-xl mb-8 sm:mb-8 cursor-pointer hover:opacity-90 transition-opacity" 
+          onClick={toggleModal}
+        >
           <img
-            className=" w-[100rem] h-[13rem] object-cover" /* use this w-full h-auto instead for  w-[100rem] h-[13rem]*/
+            className="w-[100rem] h-[13rem] object-cover" /* use this w-full h-auto instead for  w-[100rem] h-[13rem]*/
             src={imageSrc}
             alt="The Landing Page of the website"
           />
         </div>
       </div>
       
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-80 p-4"
+          onClick={toggleModal}
+        >
+          <div 
+            className="relative max-w-7xl w-full flex justify-center items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute -top-12 right-0 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition-colors z-[110]"
+              onClick={toggleModal}
+            >
+              &times;
+            </button>
+            <img
+              className="max-w-full max-h-[90vh] object-contain rounded-xl"
+              src={imageSrc}
+              alt={`${name} preview`}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

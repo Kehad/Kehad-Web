@@ -137,7 +137,9 @@ import Toast from "./toast";
 
 const CLIENT_ID = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
 const REDIRECT_URI =
-  import.meta.env.VITE_APP_SPOTIFY_REDIRECT_URI || 'https://kehad.onrender.com' || 'https://kehad.onrender.com/home'
+  import.meta.env.VITE_APP_SPOTIFY_REDIRECT_URI || window.location.origin + '/';
+
+const BACKEND_URL = import.meta.env.VITE_APP_BACKEND_URL || 'http://localhost:3000';
 
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const CURRENT_TRACK_ENDPOINT =
@@ -160,7 +162,7 @@ const SpotifyPlaylist = () => {
 
     if (code) {
       // 🔥 Call your backend
-      fetch(`http://localhost:3000/api/spotify/token?code=${code}`)
+      fetch(`${BACKEND_URL}/api/spotify/token?code=${code}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.access_token) {

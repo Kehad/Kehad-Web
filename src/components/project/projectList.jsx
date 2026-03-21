@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Adbook from "../../assets/Adbook.png";
 import taxnaija from "../../assets/taxnaija.png";
 import xo from "../../assets/xo.png";
-import artisanhub from "../../assets/artisanhub.jpeg";
+import artisanhub from "../../assets/artisanhub.png";
 
 
 const ProjectData = [

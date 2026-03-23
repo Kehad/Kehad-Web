@@ -15,17 +15,21 @@ interface Track {
 const MusicPlayer = () => {
   const [track, setTrack] = useState<Track | null>(null);
   const [loading, setLoading] = useState(true);
+  const [needsLogin, setNeedsLogin] = useState(false);
 
   const fetchNowPlaying = async () => {
     try {
       const response = await fetch("/api/spotify/now-playing");
-      console.log("response",response);
       const data = await response.json();
-      console.log("data",data);
       
-      if (data.isPlaying) {
+      if (data.requiresLogin) {
+        setNeedsLogin(true);
+        setTrack(null);
+      } else if (data.isPlaying) {
+        setNeedsLogin(false);
         setTrack(data);
       } else {
+        setNeedsLogin(false);
         setTrack(null);
       }
     } catch (error) {
@@ -51,6 +55,23 @@ const MusicPlayer = () => {
           <div className="h-2 bg-[#DFFEE2] rounded w-1/2" />
         </div>
       </div>
+    );
+  }
+
+  if (needsLogin) {
+    return (
+      <a 
+        href="/api/spotify/login"
+        className="flex flex-row p-4 bg-[#DFFEE2]/10 border border-[#DFFEE2]/30 hover:bg-[#DFFEE2]/30 transition-all duration-300 gap-4 w-max rounded-xl backdrop-blur-sm group cursor-pointer"
+      >
+        <div className="opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+           <SpotifyIcon color="#1DB954" />
+        </div>
+        <div className="flex flex-col pr-4 justify-center">
+          <p className="text-sm font-semibold text-black dark:text-white">Login to Spotify</p>
+          <p className="text-[10px] opacity-60">To see Now Playing</p>
+        </div>
+      </a>
     );
   }
 

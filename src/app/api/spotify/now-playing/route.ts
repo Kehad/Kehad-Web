@@ -5,19 +5,17 @@ export async function GET() {
   try {
     const response = await getNowPlaying();
 
-    if (!response || !response.item) {
+    if (!response || response.requiresLogin) {
+      return NextResponse.json({ isPlaying: false, requiresLogin: response?.requiresLogin || false });
+    }
+
+    if (!response.item) {
       return NextResponse.json({ isPlaying: false });
     }
 
     const { item, is_playing: isPlaying } = response;
     const { name, artists, album } = item;
-    console.log("item", item);
-    console.log("isPlaying", isPlaying);
-    console.log("name", name);
-    console.log("artists", artists);
-    console.log("album", album);
     
-
     return NextResponse.json({
       isPlaying,
       name,

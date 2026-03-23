@@ -1,11 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import TransitionMovement from "@/components/others/transitionMovement";
-import React from "react";
 import Button from "@/components/others/button";
 import ButtonPlain from "@/components/others/buttonPlain";
 import SocialLinks from "@/components/others/socialLinks";
 import AutoType from "./modal/autoType";
-import SpotifyPlaylist from "@/components/others/spotifyplaylist";
 import MusicPlayer from "./modal/MusicPlayer";
 
 

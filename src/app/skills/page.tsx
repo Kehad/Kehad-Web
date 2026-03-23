@@ -138,31 +138,7 @@ const Skills = function () {
     },
   ];
 
-  // <img
-  //   className="h-9 sm:h-9 md:h-11"
-  //   alt="svgImg"
-  //   src={electronjs} />
 
-  // for the select element
-  // const downloadHandler = (event) => {
-  //   event.preventDefault();
-  //   console.log(event);
-  //   setSelectedOption(event.target.value);
-
-  //   const link = document.createElement('a');
-  //   link.download = 'Kehinde Gabriel Adigun CV';
-
-  //   if (selectedOption === 'download-img') {
-  //     link.href = cv;
-  //     setInMenu(false);
-  //   }
-  //   if (selectedOption === 'download-pdf') {
-  //     link.href = cv2;
-  //     setInMenu(false);
-  //   }
-
-  //   link.click();
-  // };
 
   // for the list element using the download resume button
   const pdfResume = (event: { preventDefault: () => void; }) => {
@@ -248,7 +224,7 @@ const Skills = function () {
 
         {inMenu ? (
           <AnimatePresence mode="wait">
-            <motion.dev
+            <motion.div
               key="box"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -269,7 +245,7 @@ const Skills = function () {
                   Download Image
                 </li>
               </ul>
-            </motion.dev>
+            </motion.div>
           </AnimatePresence>
         ) : (
           ""

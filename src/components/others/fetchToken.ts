@@ -99,8 +99,8 @@ export async function fetchToken() {
 
 
 // Function to fetch the currently playing track from Spotify Web API
-export async function fetchCurrentlyPlaying(token) {
-  const res = await fetch("https://api.spotify.com/v1/me", {
+export async function fetchCurrentlyPlaying(token: any) {
+  const res = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
     headers: {
       Authorization: `Bearer ${token}`, // Pass the token
       "Content-Type": "application/json",
@@ -109,30 +109,28 @@ export async function fetchCurrentlyPlaying(token) {
   });
     console.log(`token token ${token}`);
 
-  // Check if the response is OK and there is a currently playing track
-//   if (res.status === 204 || res.status > 299) {
-//       console.log('No content or error with the request');
-//       console.log(res);
-//     return null;
-//   }
-  console.log(res)
+  // Check if the response is OK and handle 204 (No Content) which Spotify returns when nothing is playing
+  if (res.status === 204 || res.status > 299) {
+      console.log('No content or error with the request');
+      return null;
+  }
+
   // Parse and return the response JSON
   return await res.json();
 }
 
 // Function to get currently playing track
-async function getCurrentlyPlayingTrack(token) {
+async function getCurrentlyPlayingTrack(token: any) {
   const data = await fetchCurrentlyPlaying(token); // Fetch data using the currently playing endpoint
 
-//   // If no track is currently playing, return null
-//   if (!data || !data.item) {
-//     console.log('No track is currently playing');
-//     return null;
-    //   }
+  // If no track is currently playing, return null
+  if (!data || !data.item) {
+    console.log('No track is currently playing');
+    return null;
+  }
     
-    console.log(`data ${data}`) ;
-//   const { name, artists } = data.item; // Extract track name and artists
-//   return `${name} by ${artists.map(artist => artist.name).join(', ')}`; // Return formatted string
+  const { name, artists } = data.item; // Extract track name and artists
+  return `${name} by ${artists.map((artist: any) => artist.name).join(', ')}`; // Return formatted string
 }
 
 // Example usage

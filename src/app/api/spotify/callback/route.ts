@@ -3,14 +3,15 @@ import { cookies } from "next/headers";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
+  console.log("url",url);
   const code = url.searchParams.get("code");
 
   if (!code) {
     return NextResponse.json({ error: "No code provided" }, { status: 400 });
   }
 
-  const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "acfc9d182abf48f2843c9047db71dff3";
-  const client_secret = process.env.SPOTIFY_CLIENT_SECRET || "166fe1965a4f480684b7ede47aed5a9e";
+  const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "993fe9ccf251424583d1b79eae09def1";
+  const client_secret = process.env.SPOTIFY_CLIENT_SECRET || "3acb5762008f4cbe847cda1850ebcdea";
   
   const redirect_uri = `${url.protocol}//${url.host}/api/spotify/callback`;
 
@@ -31,6 +32,7 @@ export async function GET(request: Request) {
     });
 
     const data = await response.json();
+    console.log("data",data)
 
     if (data.error) {
       return NextResponse.json(data, { status: 400 });

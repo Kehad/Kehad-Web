@@ -13,7 +13,8 @@ export async function GET(request: Request) {
   const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "993fe9ccf251424583d1b79eae09def1";
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET || "3acb5762008f4cbe847cda1850ebcdea";
   
-  const redirect_uri = `${url.protocol}//${url.host}/api/spotify/callback`;
+  // const redirect_uri = `${url.protocol}//${url.host}/api/spotify/callback`;
+  const redirect_uri = `https://kehad-web.onrender.com/api/spotify/callback`;
 
   const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 

@@ -1,5 +1,5 @@
 {
-  "name": "next-pro",
+  "name": "kehad-my-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,33 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/material": "^7.3.9",
+    "@mui/material-nextjs": "^7.3.9",
+    "@reduxjs/toolkit": "^2.11.2",
+    "autotypejs": "^1.0.6",
+    "classnames": "^2.5.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.577.0",
     "next": "16.2.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "next-themes": "^0.4.6",
+    "postcss": "^8.5.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.13.1",
+    "react-slick": "^0.31.0",
+    "react-toastify": "^11.0.5",
+    "react-transition-group": "^4.4.5",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^12.1.2",
+    "typed.js": "^3.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
@@ -21,7 +45,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5"
   }
 }

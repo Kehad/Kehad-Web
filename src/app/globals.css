@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
+@theme {
+  /* Colors */
+  --color-primary: #07c514;
+  --color-main: #1a1a1a;
+  --color-sub: #263328;
+  --color-sup: #263328;
+  --color-error: rgb(236, 166, 166);
+  --color-success: rgb(83, 96, 83);
+  --color-main-opacity: rgba(50, 49, 49, 0.855);
+
+  /* Icon Specific Colors */
+  --color-icon-fill-primary: #FF0000;
+  --color-icon-fill-secondary: #00FF00;
+
+  /* Grid & Layout */
+  --grid-template-columns-16: repeat(16, minmax(0, 1fr));
+  --grid-template-columns-column: 20rem 1fr;
+  --grid-template-columns-column-md: 14rem 1fr;
+
+  /* Borders & Radius */
+  --radius-7: 7rem;
+  --radius-10: 10.5rem;
+  --border-color-primary: #07c514;
+  --border-color-sub: #232323;
+
+  /* Typography */
+  --font-judson: var(--font-judson), serif;
+
+  /* Spacing & Utilities */
+  --spacing-40rem: 43rem;
+  
+  /* Fill */
+  --fill-primary: #07c514;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+@layer components {
+  .nav-div {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .span-el {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out, margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem; /* Constant font size prevents layout jitter */
+    margin-left: 0;
+  }
+
+  /* Expand when the container is hovered */
+  .nav-div:hover .span-el {
+    max-width: 250px;
+    opacity: 1;
+    margin-left: 1rem;
+  }
+
+  /* Link specific hover effects */
+  .nav-link:hover .span-el,
+  .nav-link:hover svg {
+    color: var(--color-primary) !important;
+    fill: var(--color-primary) !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1a1a1a;
     --foreground: #ededed;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #ededed;
+}
+
+
+
+.about-name{
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+}
+
+.about-name:hover {
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  transform: rotate(5deg) scale(1.3);
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.4s;
+
+}
+
+
+.nextEl,
+.prevEl {
+    font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* background: rgba(0, 0, 0, 0.5); */
+  color: #07c514;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+}
+
+.nextEl {
+    right: -90px;
+}
+
+.prevEl {
+  left: -90px;
+}
+
+@media screen and (max-width: 768px) {
+.nextEl-mobile,
+.prevEl-mobile {
+    font-size: 3rem;
+  color: #07c514;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+}
+}
+
+
+

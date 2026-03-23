@@ -8,6 +8,8 @@ export async function GET(
   try {
     const { id: playlistId } = await params;
     const data = await getPlaylist(playlistId);
+    console.log("data", data);
+    
 
     if (!data) {
       return NextResponse.json({ error: "Playlist not found" }, { status: 404 });

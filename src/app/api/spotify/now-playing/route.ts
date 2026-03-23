@@ -11,6 +11,12 @@ export async function GET() {
 
     const { item, is_playing: isPlaying } = response;
     const { name, artists, album } = item;
+    console.log("item", item);
+    console.log("isPlaying", isPlaying);
+    console.log("name", name);
+    console.log("artists", artists);
+    console.log("album", album);
+    
 
     return NextResponse.json({
       isPlaying,

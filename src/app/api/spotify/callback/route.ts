@@ -13,10 +13,9 @@ export async function GET(request: Request) {
   const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "993fe9ccf251424583d1b79eae09def1";
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET || "3acb5762008f4cbe847cda1850ebcdea";
   
-  const isProd = process.env.NODE_ENV === "production";
-  const redirect_uri = isProd 
-    ? "https://kehad-web.onrender.com/api/spotify/callback"
-    : "http://localhost:3000/api/spotify/callback";
+  // const isProd = process.env.NODE_ENV === "production";
+  const redirect_uri = "https://kehad-web.onrender.com/api/spotify/callback"
+  
 
   const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 
@@ -44,15 +43,20 @@ export async function GET(request: Request) {
     const cookieStore = await cookies();
     if (data.access_token) {
       cookieStore.set("spotify_access_token", data.access_token, { maxAge: data.expires_in, path: "/" });
+      localStorage.setItem("spotify_access_token", data.access_token);
     }
     if (data.refresh_token) {
       // Store the refresh token securely in a cookie
       // You can also copy this token from the application cookies to put into your .env file
       cookieStore.set("spotify_refresh_token", data.refresh_token, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+      localStorage.setItem("spotify_refresh_token", data.refresh_token);
     }
 
     // Redirect back to the home page or wherever the user was
-    return NextResponse.redirect(new URL("/", request.url));
+    const baseUrl = "https://kehad-web.onrender.com";
+    console.log(baseUrl)
+    console.log(new URL("/", baseUrl))
+    return NextResponse.redirect(new URL("/", baseUrl));
   } catch (error) {
     console.error("Error during Spotify token exchange:", error);
     return NextResponse.json({ error: "Failed to exchange token" }, { status: 500 });

@@ -8,7 +8,8 @@ import { useTheme } from 'next-themes';
 const Toggle = function () {
   // const theme = useSelector((state: any) => state.menu.themeState);
   const dispatch = useDispatch();
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  console.log("theme:", theme, "resolvedTheme:", resolvedTheme)
 
   // 1. Prevent Hydration Mismatch
   // We don't want the server to render one thing and the client another.
@@ -23,20 +24,12 @@ const Toggle = function () {
     return <div className="w-[130px] h-[43px]" />;
   }
 
-  // 2. Handle the Class Logic
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const element = document.documentElement;
-  //     if (theme === 'dark') {
-  //       element.classList.add('dark');
-  //     } else {
-  //       element.classList.remove('dark');
-  //     }
-  //   }
-  // }, [theme]);
-
   // If the component hasn't "mounted" on the client yet, return a skeleton or null
   // to avoid the "Text content does not match" error.
+  
+  // Determine which mode is active, resolving 'system' to actual 'light' or 'dark'
+  const isLight = theme === "light" || (theme === "system" && resolvedTheme === "light");
+  const isDark = theme === "dark" || (theme === "system" && resolvedTheme === "dark");
 
   return (
     <div className="">
@@ -45,8 +38,8 @@ const Toggle = function () {
         {/* Light Mode Button (Triggers 'light') */}
         <div
           title="Switch to Light Mode"
-          className={`cursor-pointer w-2/4 rounded-3xl rounded-tr-none rounded-br-none h-full flex items-center justify-center ${theme === "light" ? "bg-primary" : ""
-            } ${theme === "system" ? "" : ""} transition duration-300`}
+          className={`cursor-pointer w-2/4 rounded-3xl rounded-tr-none rounded-br-none h-full flex items-center justify-center ${isLight ? "bg-primary" : ""
+            } transition duration-300`}
           onClick={() => setTheme("light")}
         >
           <svg
@@ -55,8 +48,6 @@ const Toggle = function () {
             viewBox="0 0 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-          // onClick={() => setTheme('dark')}
-          // title="light"
           >
             <g id="material-symbols:light-mode">
               <path
@@ -71,18 +62,14 @@ const Toggle = function () {
         {/* Dark Mode Button (Triggers 'dark') */}
         <div
           title="Switch to Dark Mode"
-          className={`flex items-center justify-center h-full w-2/4 rounded-3xl  rounded-tl-none rounded-bl-none  transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] cursor-pointer  ${theme === "dark" ? "bg-primary" : ""
-            } ${theme === "medium" ? "" : ""} `}
+          className={`flex items-center justify-center h-full w-2/4 rounded-3xl  rounded-tl-none rounded-bl-none  transition-all duration-[2000ms] dark:transition-all dark:duration-[2000ms] cursor-pointer  ${isDark ? "bg-primary" : ""
+            } `}
           onClick={() => setTheme("dark")}
         >
           <div
             className="flex items-center justify-center flex-row rounded-full bg-primary  border-0 py-0.4 px-0.4 gap-2 cursor-pointer"
-            // onClick={setDarkMode(false)}
-            // onClick={toggleLightMode}
             title="dark mode"
-          // onClick={() => setTheme('light')}
           >
-
             <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
               <path d="M12.3241 3.32703C10.5441 3.32703 8.80401 3.85487 7.32397 4.8438C5.84393 5.83273 4.69037 7.23834 4.00918 8.88288C3.328 10.5274 3.14977 12.337 3.49703 14.0828C3.8443 15.8287 4.70147 17.4323 5.96014 18.691C7.21881 19.9497 8.82246 20.8068 10.5683 21.1541C12.3141 21.5014 14.1237 21.3231 15.7683 20.6419C17.4128 19.9608 18.8184 18.8072 19.8073 17.3272C20.7963 15.8471 21.3241 14.1071 21.3241 12.327C21.3241 11.867 21.2841 11.407 21.2241 10.967C20.7244 11.6677 20.0642 12.2385 19.2987 12.6317C18.5332 13.0249 17.6847 13.229 16.8241 13.227C15.6793 13.2271 14.5641 12.8635 13.6393 12.1887C12.7145 11.5139 12.0279 10.5628 11.6786 9.47263C11.3293 8.38243 11.3353 7.20946 11.6958 6.12288C12.0562 5.03631 12.7525 4.09231 13.6841 3.42703C13.2441 3.36703 12.7841 3.32703 12.3241 3.32703Z" fill="black" />
             </svg>

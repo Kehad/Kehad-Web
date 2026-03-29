@@ -3,16 +3,16 @@ import React from 'react';
 
 import Typed from 'typed.js';
 
-function AutoType(props: { name: string }) {
+function AutoType(props: { strings: string[] }) {
   // Create reference to store the DOM element containing the animation
   const el = React.useRef(null);
 
   React.useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: [props.name],
-      typeSpeed: 100,
-      backSpeed: 100,
-      backDelay: 1000,
+      strings: props.strings,
+      typeSpeed: 60,
+      backSpeed: 40,
+      backDelay: 2000,
       loop: true,
     });
 

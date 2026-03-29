@@ -45,7 +45,7 @@ const ProjectData = [
     id: "m8",
     name: "Tic Tac Toe",
     description: "Tic Tac Toe game is a simple and fun game that can be played by two players via local mode or online mode. It is a game of strategy and skill, and it is a great way to pass the time.",
-    website: "",
+    website: "https://xo-game-z2zf.onrender.com/",
     imageSrc: xo      
   },
    {
@@ -155,14 +155,14 @@ const ProjectList = function () {
         className="nextEl hidden sm:hidden md:block md:block"
         onClick={() => nextElement()}
       >
-               <ChevronLeft size={48} />
 
+      <ChevronRight size={48} />
       </div>
       <div
         className="prevEl hidden sm:hidden md:block md:block"
         onClick={() => prevElement()}
       >
-                <ChevronRight size={48} />
+               <ChevronLeft size={48} />
         
       </div>
 

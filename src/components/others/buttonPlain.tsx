@@ -11,7 +11,7 @@ const ButtonPlain = function (props: any) {
         <Link
           href={props.link}
           onClick={props.action}
-          className="py-4 px-6 border rounded-full transition-all duration-500 font-bold cursor-pointer text-base sm:text-base lg:text-3xl hover:bg-primary hover:text-black hover:border-primary  text-primary border-primary bg-transparent "
+          className="py-4 px-6 border rounded-full transition-all duration-500 font-bold cursor-pointer text-base sm:text-base lg:text-3xl hover:bg-primary hover:text-black hover:border-primary text-primary border-primary bg-transparent hover:shadow-[0_0_20px_rgba(7,197,20,0.5)]"
           download={props.download}
           target={props.target}
           style={props.style}

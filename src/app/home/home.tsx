@@ -14,8 +14,8 @@ const Home = function () {
         <h1 className="text-primary font-Judson mb-4 text-5xl sm:text-5xl md:text-5xl lg:text-5xl xl:">
           Hi.
         </h1>
-        <h3 className="mb-5 text-[2rem] lg:text-3xl">
-          I'm <AutoType name={"Kehinde Gabriel Adigun."} />
+        <h3 className="mb-5 text-[2rem] lg:text-4xl font-semibold">
+          I'm <AutoType strings={["Kehinde Gabriel Adigun.", "a Software Engineer.", "a Frontend Developer.", "a Next.js Specialist."]} />
         </h3>
        
         <p className=" font-judson  font-normal mt-3 mb-3 text-[1.5rem] sm:text-[1.5rem] md:text-[1.5rem] md:text-3xl md:leading-tight lg:text-2xl lg:leading-normal">

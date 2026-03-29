@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { X } from "lucide-react";
 import Button from '../../../components/others/button';
 // import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -59,10 +60,10 @@ const WorksItem = function (props: any) {
             onClick={(e: any) => e.stopPropagation()}
           >
             <button
-              className="absolute -top-12 right-0 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition-colors z-[110]"
+              className="absolute -top-12 right-0 text-white cursor-pointer hover:text-gray-300 transition-colors z-[110]"
               onClick={toggleModal}
             >
-              &times;
+              <X size={40} />
             </button>
             <Image
               className="max-w-full max-h-[90vh] object-contain rounded-xl"

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 // import classes from './worksList.module.css';
 import WorksItem from "./worksItem";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 import tenminuteslegal from "../../../assets/10minuteslegal.png";
 import lokatalent from "../../../assets/lokatalent.png";
@@ -87,13 +88,13 @@ const WorkList = function () {
         className="nextEl hidden sm:hidden md:block md:block"
         onClick={() => nextElement()}
       >
-        &#9654;
+        <ChevronRight size={48} />
       </div>
       <div
         className="prevEl hidden sm:hidden md:block md:block"
         onClick={() => prevElement()}
       >
-        &#9664;
+        <ChevronLeft size={48} />
       </div>
 
   
@@ -105,10 +106,10 @@ const WorkList = function () {
         />
         <div className="flex sm:flex md:hidden lg:hidden">
           <div className="prevEl-mobile" onClick={() => prevElement()}>
-            &#9664;
+            <ChevronLeft size={48} />
           </div>
           <div className="nextEl-mobile" onClick={() => nextElement()}>
-            &#9654;
+            <ChevronRight size={48} />
           </div>
         </div>
       </div>

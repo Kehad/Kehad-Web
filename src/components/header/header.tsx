@@ -3,6 +3,10 @@
 import React, { useState } from 'react';
 import Toggle from './toggleMode';
 import NavMobile from '../sidebar/navMobile';
+import { Menu } from 'lucide-react';
+import { menuHandler } from '@/redux/menuSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnimatePresence, motion } from 'framer-motion';
 
 // import { Menu, X } from 'lucide-react';
 
@@ -26,15 +30,15 @@ function Header(props: any) {
   // menuActive(isMenuActive);
 
   // Temporary variable until Redux is set up
-  const isMenu = false;
-  // const dispatch = useDispatch();
+  const isMenu = useSelector((state: any) => state.menu.menuState);
+  const dispatch = useDispatch();
 
   const trueMenuHandler = () => {
-    // dispatch(menuHandler(true));
+    dispatch(menuHandler(true));
   };
   const falseMenuHandler = (event: any) => {
     event.preventDefault();
-    // dispatch(menuHandler(false));
+    dispatch(menuHandler(false));
   };
   return (
     <div>
@@ -72,11 +76,11 @@ function Header(props: any) {
         {/*  To open side Navigation butto for mobile view */}
         <div className="sm:block md:hidden lg:hidden">
           {/* <Menu className="text-primary" /> */}
-          {/* <Menu
+          <Menu
             className="text-primary cursor-pointer"
             style={{ width: '40px', height: '40px' }}
             onClick={trueMenuHandler}
-          /> */}
+          />
         </div>
 
         <div className="hidden sm:hidden md:block lg:block">
@@ -84,28 +88,13 @@ function Header(props: any) {
         </div>
 
         {/*  side Navigation for mobile view */}
-        {isMenu ? (
-          <div className="h-full bg-[#1A1A1A] w-40 fixed top-0 right-0 flex flex-col items-center gap-4 transition-all duration-500 z-[100] flex justify-between items-center py-8 sm:flex lg:hidde ">
-            <div className="flex justify-between flex-col gap-4 ">
-              {/* to close side nav for mobile view */}
-              {/* <CloseIco
-                className="text-primary cursor-pointer"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  margin: '15px',
-                }}
-                onClick={falseMenuHandler}
-              /> */}
-              {/* nav for mobile view */}
+        <AnimatePresence>
+          {isMenu && (
+            <div className="lg:hidden">
               <NavMobile />
             </div>
-            {/* toggle for mobile view */}
-            <Toggle />
-          </div>
-        ) : (
-          ''
-        )}
+          )}
+        </AnimatePresence>
       </div>
       <div></div>
     </div>

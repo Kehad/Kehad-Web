@@ -12,6 +12,7 @@ import TransitionMovement from "@/components/others/transitionMovement";
 // const ee = 
 
 import { AnimatePresence, motion } from "framer-motion";
+import { FileText, Image as ImageIcon } from "lucide-react";
 
 const Skills = function () {
   const [inMenu, setInMenu] = useState(false);
@@ -180,7 +181,7 @@ const Skills = function () {
         ))}
       </div>
 
-      <div className="skills__button mt-12 flex flex-col sm:flex-col md:flex-col md:gap-2">
+      <div className="skills__button relative mt-12 flex flex-col sm:flex-col md:flex-col md:gap-2">
         <button
           className="flex justify-between items-center w-max gap-4 py-4 px-6 border rounded-full transition-all duration-500 font-bold bg-primary text-black text-base sm:text-base lg:text-3xl border-primary cursor-pointer group hover:text-primary hover:border-primary hover:bg-transparent"
           onClick={showDownloadOptions}
@@ -222,34 +223,35 @@ const Skills = function () {
           </span>
         </button>
 
-        {inMenu ? (
-          <AnimatePresence mode="wait">
+        <AnimatePresence>
+          {inMenu && (
             <motion.div
-              key="box"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              transition={{ duration: 0.5 }}
+              key="download-dropdown"
+              initial={{ opacity: 0, y: -15, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -15, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="absolute top-full left-0 z-50 mt-4 origin-top-left"
             >
-              <ul className="sm:w-[250px] md:w-[300px] w-max p-2 mt-8  flex flex-col gap-2 rounded dark:border-primary  bg-white/30 backdrop-blur-lg border border-white/20 rounded-lg max-w-sm">
+              <ul className="w-[280px] p-3 flex flex-col gap-2 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl overflow-hidden font-judson text-xl">
                 <li
-                  className="cursor-pointer border-b  border-primary hover:text-primary"
+                  className="flex items-center gap-4 p-4 cursor-pointer rounded-xl hover:bg-black/5 dark:hover:bg-white/10 hover:text-primary transition-all duration-300"
                   onClick={pdfResume}
                 >
-                  Download pdf
+                  <FileText className="w-6 h-6" />
+                  <span className="font-semibold">Download PDF</span>
                 </li>
                 <li
-                  className="cursor-pointer hover:text-primary"
+                  className="flex items-center gap-4 p-4 cursor-pointer rounded-xl hover:bg-black/5 dark:hover:bg-white/10 hover:text-primary transition-all duration-300"
                   onClick={imgResume}
                 >
-                  Download Image
+                  <ImageIcon className="w-6 h-6" />
+                  <span className="font-semibold">Download Image</span>
                 </li>
               </ul>
             </motion.div>
-          </AnimatePresence>
-        ) : (
-          ""
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </TransitionMovement>
   );

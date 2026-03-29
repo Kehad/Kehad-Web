@@ -1,196 +1,86 @@
-/* eslint-disable react/prop-types */
 "use client";
-import { Home, User, Code, Briefcase, Award, Contact } from "lucide-react";
+import { Home, User, Code, Briefcase, Award, Contact, X } from "lucide-react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
-import { menuHandler, themeHandler } from '../../redux/menuSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { menuHandler, themeHandler } from '../../redux/menuSlice';
+import { motion } from 'framer-motion';
+import Toggle from '../header/toggleMode';
 
-const NavMobile = function (props: any) {
-  const { navStatus } = props;
+const NAV_LINKS = [
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Skills', href: '/skills', icon: Code },
+  { name: 'Works', href: '/works', icon: Briefcase },
+  { name: 'Side project', href: '/side-project', icon: Award },
+  { name: 'About me', href: '/about-me', icon: User },
+  { name: 'Contact me', href: '/contact-me', icon: Contact },
+];
+
+const NavMobile = function ({ navStatus }: any) {
   const dispatch = useDispatch();
   const theme = useSelector((state: any) => state.menu.themeState);
-  // console.log(navStatus);
   const pathname = usePathname();
 
-  const [isMenuActive, setIsMenuActive] = useState(false);
-
-  const handleNavStatus = (event: any) => {
-    // event.preventDefault();
+  const handleNavStatus = () => {
     dispatch(menuHandler(false));
-    if (theme === 'system' || theme === 'dark') {
-      dispatch(themeHandler('dark'));
-    } else {
-      dispatch(themeHandler('light'));
-    }
-  };
-
-  const handleNavLinkClick = (path: string) => {
-    // Custom function logic here
-    console.log(`Navigating to ${path}`);
-    // Perform the navigation
-    // navigate(path);
+    // Keep theme consistent on click
+    const targetTheme = (theme === 'system' || theme === 'dark') ? 'dark' : 'light';
+    dispatch(themeHandler(targetTheme));
   };
 
   return (
-    <nav className="">
-      {/* <div className="flex flex-col justify-center w-max pt-14 pb-14 gap-511 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden"> */}
-      <div className="flex flex-col justify-center w-max pt-14 pb-14 gap-511 transition transition-all duration-500 sm:flex  dark:text-white  block sm:block md:hidden lg:hidden">
-        <div className="my-4 transition transition-all duration-500">
-          <Link
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
-            href="/"
-            onClick={handleNavStatus}
-          >
-            {/* <span className="material-symbols-rounded">home</span> */}
-            <Home
-              className={classNames(
-                pathname === '/'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white hover:text-primary'
-              )}
-            />
-            <span className={`${pathname === '/' ? 'text-primary' : ''}  `}>
-              Home
-            </span>
-          </Link>
-        </div>
-        <div
-          className="my-4 transition transition-all duration-500"
+    // Removed md:hidden temporarily so you can see it during development
+    <motion.nav 
+      initial={{ x: '100%', opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: '100%', opacity: 0 }}
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+      className="fixed w-[50%] inset-0 z-[110] bg-[#1a1a1a] p-10 md:relative md:bg-transparent flex flex-col justify-between"
+    >
+      <div>
+        <button 
           onClick={handleNavStatus}
+          className="absolute top-8 right-8 text-white hover:text-primary hover:rotate-90 transition-all duration-300 md:hidden"
+          aria-label="Close menu"
         >
-          <Link
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
-            href="/skills"
-            // onClick={handleNavStatus}
-          >
-            {/* <i className="material-icons material-icons-round"> */}
-            {/* integration_instructions */}
-            {/* </i> */}
-            <Code
-              className={classNames(
-                pathname === '/skills'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white hover:text-primary'
-              )}
-            />
-            <span
-              className={`${pathname === '/skills' ? 'text-primary' : ''} `}
-            >
-              Skills
-            </span>
-          </Link>
-        </div>
-        <div className="my-4 transition transition-all duration-500">
-          <Link
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
-            href="/works"
-            onClick={handleNavStatus}
-          >
-            {/* <i className="material-icons material-icons-round">work</i> */}
-            <Briefcase
-              className={classNames(
-                pathname === '/works'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white hover:text-primary'
-              )}
-            />
-            <span className={`${pathname === '/works' ? 'text-primary' : ''} `}>
-              Works
-            </span>
-          </Link>
-        </div>
-        <div className="my-4 transition transition-all duration-500">
-          <Link
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
-            href="/side-project"
-            // onClick={handleNavStatus}
-            onClick={(e) => {
-              // e.preventDefault();
-              handleNavLinkClick('/contact');
-              dispatch(menuHandler(false));
-            }}
-          >
-            {/* <i className="material-icons material-icons-round">workspaces</i> */}
-            <Award
-              className={classNames(
-                pathname === '/side-project'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white hover:text-primary '
-              )}
-            />
-            <span
-              className={`${
-                pathname === '/side-project' ? 'text-primary' : ''
-              } `}
-            >
-              Side project
-            </span>
-          </Link>
-        </div>
-        <div className="my-4 transition transition-all duration-500">
-          <Link
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition transition-all duration-500 hover:text-primary"
-            href="/about-me"
-            onClick={handleNavStatus}
-          >
-            {/* <i className="material-icons material-icons-round">person</i> */}
-            <User
-              className={classNames(
-                pathname === '/about-me'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white hover:text-primary'
-              )}
-            />
-            <span
-              className={`${
-                pathname === '/about-me' ? 'text-primary' : ''
-              } hidde group-hover:fle`}
-            >
-              About me
-            </span>
-          </Link>
-        </div>
-        <div className="my-4 transition transition-all duration-500">
-          <Link
-            className="flex items-center text-base no-underline gap-3.5 text-lg ml-2 font-josefin-sans transition  transition-all duration-500 group hover:text-primary"
-            href="/contact-me"
-            onClick={handleNavStatus}
-          >
-            {/* <i className="material-icons material-icons-round">email</i> */}
-            <Contact
-              className={classNames(
-                pathname === '/contact-me'
-                  ? ' text-primary'
-                  : 'iconFill-secondary text-white group hover:text-primary'
-              )}
-            />
-            <span
-              className={`${pathname === '/contact-me' ? 'text-primary' : ''} `}
-            >
-              Contact me
-            </span>
-          </Link>
+          <X size={36} />
+        </button>
+
+        <div className="flex flex-col gap-6 mt-12 md:mt-0">
+          {NAV_LINKS.map((link) => {
+            const Icon = link.icon;
+            const isActive = pathname === link.href;
+
+            return (
+              <div key={link.href} className="transition-all duration-500">
+                <Link
+                  href={link.href}
+                  onClick={handleNavStatus}
+                  className="flex items-center gap-4 text-lg font-josefin-sans hover:text-primary transition-colors"
+                >
+                  <Icon
+                    className={classNames(
+                      "w-6 h-6",
+                      isActive ? 'text-primary' : 'text-white'
+                    )}
+                  />
+                  <span className={isActive ? 'text-primary' : 'text-white'}>
+                    {link.name}
+                  </span>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </nav>
+
+      {/* Theme Toggle for mobile view */}
+      <div className="md:hidden pb-10">
+        <Toggle />
+      </div>
+    </motion.nav>
   );
 };
 
 export default NavMobile;
-
-{
-  /* <div className={classes["nav__container---box"]}>
-  <Link
-    className={classes["nav__container---box--link"]}
-    style=""
-    href="/home"
-  >
-    <i className="material-icons material-icons-round">home</i>
-    <i className="fa fa-bullseye nav__container---box--icon"></i>
-    <span className={classes["nav__container---box--name"]}>Home</span>
-  </Link>
-</div>; */
-}

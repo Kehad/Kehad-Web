@@ -14,6 +14,7 @@ import Adbook from "../../../assets/Adbook.png";
 import taxnaija from "../../../assets/taxnaija.png";
 import xo from "../../../assets/xo.png";
 import artisanhub from "../../../assets/artisanhub.png";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 
 const ProjectData = [
@@ -154,13 +155,15 @@ const ProjectList = function () {
         className="nextEl hidden sm:hidden md:block md:block"
         onClick={() => nextElement()}
       >
-        &#9654;
+               <ChevronLeft size={48} />
+
       </div>
       <div
         className="prevEl hidden sm:hidden md:block md:block"
         onClick={() => prevElement()}
       >
-        &#9664;
+                <ChevronRight size={48} />
+        
       </div>
 
       <div className="flex items-center justify-between">
@@ -171,10 +174,12 @@ const ProjectList = function () {
         />
         <div className="flex sm:flex md:hidden lg:hidden">
           <div className="prevEl-mobile" onClick={() => prevElement()}>
-            &#9664;
+                    <ChevronLeft size={48} />
+
           </div>
           <div className="nextEl-mobile" onClick={() => nextElement()}>
-            &#9654;
+                   <ChevronRight size={48} />
+
           </div>
         </div>
       </div>

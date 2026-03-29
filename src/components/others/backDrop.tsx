@@ -20,9 +20,8 @@ const Backdrop = function (props: any) {
 
   return (
     <div
-      className="fixed inset-0 w-full h-full z-80 bg-black bg-opacity-75 z-10"
-      // onClick={downloadOptions}
-      // onClick={dispatch(menuHandler(false))}
+      className="fixed inset-0 w-full h-full z-80 bg-black opacity-75 z-10"
+      onClick={() => dispatch(menuHandler(false))}
     ></div>
   );
 };

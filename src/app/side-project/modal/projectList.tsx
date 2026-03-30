@@ -45,7 +45,7 @@ const ProjectData = [
     id: "m8",
     name: "Tic Tac Toe",
     description: "Tic Tac Toe game is a simple and fun game that can be played by two players via local mode or online mode. It is a game of strategy and skill, and it is a great way to pass the time.",
-    website: "https://xo-game-z2zf.onrender.com/",
+    website: "https://xo-game-a1z0.onrender.com",
     imageSrc: xo      
   },
    {

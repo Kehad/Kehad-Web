@@ -76,31 +76,72 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[100] bg-[#1a1a1a] flex flex-col items-center justify-center pointer-events-none text-white font-sans"
+          className="fixed inset-0 z-[100] bg-[#1a1a1a] flex flex-col items-center justify-center pointer-events-none text-white font-sans gap-8 scale-150 sm:scale-100"
         >
-          <div className="w-[85vw] md:w-[60vw] max-w-3xl flex flex-col gap-2">
-            <div className="text-sm md:text-base font-medium opacity-90">Welcome...</div>
-            
-            <div className="relative h-8 md:h-10 bg-[#e5e5e5] w-full flex items-center overflow-hidden">
-              {/* Green fill */}
-              <div 
-                className="absolute top-0 left-0 h-full bg-primary transition-all duration-75 ease-linear"
-                style={{ width: `${Math.min(progress, 100)}%` }}
-              />
-              
-              {/* Percentage text */}
-              <div 
-                className="absolute top-0 h-full flex items-center text-black text-sm md:text-base font-bold whitespace-nowrap"
-                style={{ 
-                  left: `calc(min(${progress}%, 100% - 48px))`,
-                  paddingLeft: '8px'
-                }}
+          {/* Custom RGB/CMY Spinner */}
+          <div className="relative w-32 h-32 flex items-center justify-center isolate">
+            <motion.div
+              className="absolute inset-0 w-full h-full"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+            >
+              {/* Red Ring */}
+              <motion.div
+                className="absolute inset-0 origin-center"
+                animate={{ rotate: [0, 15, 0, -15, 0] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
               >
-                {Math.max(0, Math.min(100, Math.floor(progress)))}%
-              </div>
-            </div>
-            
-            <div className="text-sm md:text-base font-medium opacity-90">Starting...</div>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={`red-${i}`}
+                    className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full mix-blend-screen"
+                    style={{
+                      backgroundColor: "#ff0000",
+                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-44px)`,
+                    }}
+                  />
+                ))}
+              </motion.div>
+              {/* Green Ring */}
+              <motion.div
+                className="absolute inset-0 origin-center"
+                animate={{ rotate: [0, -10, 0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              >
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={`green-${i}`}
+                    className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full mix-blend-screen"
+                    style={{
+                      backgroundColor: "#00ff00",
+                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-30px)`,
+                    }}
+                  />
+                ))}
+              </motion.div>
+              {/* Blue Ring */}
+              <motion.div
+                className="absolute inset-0 origin-center"
+                animate={{ rotate: [0, 20, 0, -20, 0] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              >
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={`blue-${i}`}
+                    className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full mix-blend-screen"
+                    style={{
+                      backgroundColor: "#0000ff",
+                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-16px)`,
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
+          </div>
+          
+          <div className="flex flex-col items-center gap-2 mt-4 sm:mt-0">
+            <div className="text-xl md:text-2xl font-medium opacity-90 tracking-widest uppercase">Loading</div>
+            <div className="text-sm opacity-60 font-mono">{Math.max(0, Math.min(100, Math.floor(progress)))}% Complete</div>
           </div>
         </motion.div>
       )}

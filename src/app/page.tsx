@@ -16,7 +16,7 @@ export default function Home() {
       {splashDone && (
         <Canvas camera={{ position: [0, 0.5, 8], fov: 45 }} className="relative z-10">
           <Suspense fallback={null}>
-            <ScrollControls pages={3.5} damping={0.25}>
+            <ScrollControls pages={1.5} damping={0.25}>
               <Scene />
             </ScrollControls>
           </Suspense>

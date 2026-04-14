@@ -11,6 +11,7 @@ export default function ModernComputer() {
   const terminalInputRef = useRef<any>(null);
   const scroll = useScroll();
   const { viewport } = useThree();
+  const maxScrollRef = useRef(0);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -37,42 +38,47 @@ export default function ModernComputer() {
   const extraText3Ref = useRef<any>(null);
 
   useFrame(({ clock }) => {
+    if (scroll.offset > maxScrollRef.current) {
+      maxScrollRef.current = scroll.offset;
+    }
+    const safeOffset = maxScrollRef.current;
+
     if (group.current) {
       // Calculate target scale to exactly fit/cover the viewport at Z=0
       // Monitor screen is ~3.45 width and 2.05 height. We give a tiny 2% bleed so no edges show.
       const targetScale = Math.max(viewport.width / 3.4, viewport.height / 2.0) * 1.02;
       
-      const scale = THREE.MathUtils.lerp(0.3, targetScale, scroll.offset);
+      const scale = THREE.MathUtils.lerp(0.3, targetScale, safeOffset);
       group.current.scale.set(scale, scale, scale);
 
       // Start rotated so we see its side, then face directly forward
-      group.current.rotation.y = THREE.MathUtils.lerp(Math.PI / 4, 0, scroll.offset);
-      group.current.rotation.x = THREE.MathUtils.lerp(0.15, 0, scroll.offset);
+      group.current.rotation.y = THREE.MathUtils.lerp(Math.PI / 4, 0, safeOffset);
+      group.current.rotation.x = THREE.MathUtils.lerp(0.15, 0, safeOffset);
 
       // Adjust Y so the center of the screen accurately aligns with the camera lookAt center
       // Camera looks at Y=0. The inner screen is offset by Y=0.4 natively in the group.
       const targetY = -0.4 * targetScale;
-      group.current.position.y = THREE.MathUtils.lerp(-0.5, targetY, scroll.offset);
-      group.current.position.z = THREE.MathUtils.lerp(0, 0, scroll.offset); // kept at 0 to easily map viewport
+      group.current.position.y = THREE.MathUtils.lerp(-0.5, targetY, safeOffset);
+      group.current.position.z = THREE.MathUtils.lerp(0, 0, safeOffset); // kept at 0 to easily map viewport
     }
     
     if (blurPlaneMaterialRef.current) {
-      blurPlaneMaterialRef.current.opacity = THREE.MathUtils.lerp(0.98, 0, Math.min(1, scroll.offset * 1.5));
+      blurPlaneMaterialRef.current.opacity = THREE.MathUtils.lerp(0.98, 0, Math.min(1, safeOffset * 1.5));
     }
     
     if (kehadTextRef.current) {
-      // kehadTextRef.current.scale.x = THREE.MathUtils.lerp(1, 15, Math.pow(scroll.offset, 3));
-      kehadTextRef.current.fillOpacity = Math.max(0, Math.min(1, (scroll.offset - 0.4) * 4));
+      // kehadTextRef.current.scale.x = THREE.MathUtils.lerp(1, 15, Math.pow(safeOffset, 3));
+      kehadTextRef.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.4) * 4));
     }
 
     if (extraText1Ref.current) {
-      extraText1Ref.current.fillOpacity = Math.max(0, Math.min(1, (scroll.offset - 0.4) * 4));
+      extraText1Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.4) * 4));
     }
     if (extraText2Ref.current) {
-      extraText2Ref.current.fillOpacity = Math.max(0, Math.min(1, (scroll.offset - 0.6) * 4));
+      extraText2Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.6) * 4));
     }
     if (extraText3Ref.current) {
-      extraText3Ref.current.fillOpacity = Math.max(0, Math.min(1, (scroll.offset - 0.8) * 4));
+      extraText3Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.8) * 4));
     }
 
     if (terminalInputRef.current) {

@@ -9,15 +9,21 @@ import ModernComputer from "./ModernComputer";
 export default function Scene() {
   const scroll = useScroll();
   const shadowRef = useRef<any>(null);
+  const maxScrollRef = useRef(0);
 
   // Fade out the shadow and external scroll indicator
   useFrame(() => {
+    if (scroll.offset > maxScrollRef.current) {
+      maxScrollRef.current = scroll.offset;
+    }
+    const safeOffset = maxScrollRef.current;
+
     if (shadowRef.current) {
-      shadowRef.current.opacity = Math.max(0, 0.65 - scroll.offset);
+      shadowRef.current.opacity = Math.max(0, 0.65 - safeOffset);
     }
     const indicatorEl = document.getElementById('scroll-indicator');
     if (indicatorEl) {
-      indicatorEl.style.opacity = Math.max(0, 1 - scroll.offset * 6).toString();
+      indicatorEl.style.opacity = Math.max(0, 1 - safeOffset * 6).toString();
     }
   });
 

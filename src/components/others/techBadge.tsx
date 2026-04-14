@@ -1,4 +1,4 @@
-type TechItem = {
+export type TechItem = {
   name: string;
   icon: string; // The slug for Simple Icons
   color?: string; // Optional hex color
@@ -15,7 +15,7 @@ const myStack: TechItem[] = [
   { name: "Google Cloud", icon: "googlecloud", color: "4285F4" },
 ];
 
-type ExperienceItem = {
+export type ExperienceItem = {
   role: string;
   company: string;
   duration: string;

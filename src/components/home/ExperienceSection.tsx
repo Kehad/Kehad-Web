@@ -1,26 +1,64 @@
 import React from 'react';
-import { TechBadge } from '../others/techBadge';
+import { ExperienceCard, ExperienceItem } from '../others/techBadge';
 
-const myStack = [
-  { name: "Next.js", icon: "nextdotjs", color: "white" },
-  { name: "TypeScript", icon: "typescript", color: "3178C6" },
-  { name: "React", icon: "react", color: "61DAFB" },
-  { name: "Node.js", icon: "nodedotjs", color: "339933" },
-  { name: "PostgreSQL", icon: "postgresql", color: "4169E1" },
-  { name: "MongoDB", icon: "mongodb", color: "47A248" },
-  { name: "Docker", icon: "docker", color: "2496ED" },
-  { name: "Google Cloud", icon: "googlecloud", color: "4285F4" },
-];
-
-const myStack2 = [
-  { name: "Next.js", icon: "nextdotjs", color: "white" },
-  { name: "TypeScript", icon: "typescript", color: "3178C6" },
-  { name: "React", icon: "react", color: "61DAFB" },
-  { name: "Node.js", icon: "nodedotjs", color: "339933" },
-  { name: "PostgreSQL", icon: "postgresql", color: "4169E1" },
-  { name: "MongoDB", icon: "mongodb", color: "47A248" },
-  { name: "Docker", icon: "docker", color: "2496ED" },
-  { name: "Google Cloud", icon: "googlecloud", color: "4285F4" },
+const experiences: ExperienceItem[] = [
+  {
+    role: "Mobile Application Developer",
+    company: "QUIDROP",
+    duration: "Jan 2025 - Dec 2025",
+    accentColor: "blue-600",
+    description: [
+      "Collaborated with backend developers to integrate APIs for dynamic data management.",
+      "Developed the Quidrop interface, ensuring a seamless user experience.",
+      "Implemented responsive design to ensure optimal performance across all devices.",
+      "Worked closely with UI/UX designers to translate designs into functional, user-friendly interfaces.",
+      "Optimized website performance, enhancing load times and interactivity.",
+      "Ensured cross-browser compatibility for a consistent user experience."
+    ],
+    skills: [
+      { name: "React Native", icon: "react", color: "61DAFB" },
+      { name: "TypeScript", icon: "typescript", color: "3178C6" },
+      { name: "Next.js", icon: "nextdotjs", color: "ffffff" },
+      { name: "Node.js", icon: "nodedotjs", color: "339933" },
+      { name: "Tailwind", icon: "tailwindcss", color: "06B6D4" },
+    ]
+  },
+  {
+    role: "Junior Frontend Developer (Contract)",
+    company: "LOKATALENT",
+    duration: "Aug 2024 - Jan 2025",
+    accentColor: "orange-600",
+    description: [
+      "Built the dashboard for both the user and the service provider.",
+      "Collaborated with the backend developer to integrate the API.",
+      "Worked with UX/UI designers to implement visually appealing and user-friendly interfaces.",
+      "Ensured the website was mobile responsive.",
+      "Integrated third-party APIs seamlessly into existing systems, expanding feature sets and capabilities."
+    ],
+    skills: [
+      { name: "React", icon: "react", color: "61DAFB" },
+      { name: "Next.js", icon: "nextdotjs", color: "ffffff" },
+      { name: "TypeScript", icon: "typescript", color: "3178C6" },
+      { name: "Tailwind", icon: "tailwindcss", color: "06B6D4" },
+    ]
+  },
+  {
+    role: "Web Developer Intern",
+    company: "CR8IVITI",
+    duration: "July 2023 - Aug 2024",
+    accentColor: "emerald-600",
+    description: [
+      "Created custom websites by harnessing HTML, CSS and JavaScript skills.",
+      "Collaborated with web designers to match visual design intent.",
+      "Designed web pages to enhance branding and navigation."
+    ],
+    skills: [
+      { name: "HTML5", icon: "html5", color: "E34F26" },
+      { name: "CSS3", icon: "css3", color: "1572B6" },
+      { name: "JavaScript", icon: "javascript", color: "F7DF1E" },
+      { name: "React", icon: "react", color: "61DAFB" },
+    ]
+  }
 ];
 
 export default function ExperienceSection() {
@@ -32,83 +70,9 @@ export default function ExperienceSection() {
       </div>
 
       <div className="flex flex-col gap-10">
-        {/* Card 1 */}
-        <div className="bg-[#0c101a] border border-gray-800 rounded-2xl p-8 md:p-10 relative overflow-hidden group hover:border-gray-700 transition duration-300 shadow-2xl">
-           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
-
-           <div className="flex flex-col md:flex-row md:items-start justify-between mb-3 relative z-10">
-             <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">Full Stack Developer</h3>
-             <span className="bg-[#151a24] border border-gray-800 text-gray-300 font-semibold text-sm px-4 py-1.5 rounded-full mt-3 md:mt-0 w-fit whitespace-nowrap shadow-sm">Dec 2024 - Present</span>
-           </div>
-           <p className="text-gray-400 font-bold text-lg mb-8 tracking-wide relative z-10">OmniNexus Sdn Bhd</p>
-           
-           <ul className="space-y-4 mb-10 text-base md:text-lg relative z-10">
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Built a custom image editor from scratch, cutting $4.8k/year in SaaS costs.
-             </li>
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Architected async job queues processing 1k+ AI tasks daily with bulletproof reliability.
-             </li>
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Optimized media delivery pipeline, slashing asset load times by 40%.
-             </li>
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Shipped high-impact features end-to-end from requirements to production.
-             </li>
-           </ul>
-
-           <div className="flex flex-wrap gap-3 relative z-10">
-            {
-               myStack.map((item) => (
-                  <TechBadge key={item.name} name={item.name} icon={item.icon} color={item.color} />
-               ))
-            }
-              
-           </div>
-        </div>
-
-        {/* Card 2 */}
-        <div className="bg-[#0c101a] border border-gray-800 rounded-2xl p-8 md:p-10 relative overflow-hidden group hover:border-gray-700 transition duration-300 shadow-2xl">
-           <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
-
-           <div className="flex flex-col md:flex-row md:items-start justify-between mb-3 relative z-10">
-             <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">Freelance Full Stack Developer</h3>
-             <span className="bg-[#151a24] border border-gray-800 text-gray-300 font-semibold text-sm px-4 py-1.5 rounded-full mt-3 md:mt-0 w-fit whitespace-nowrap shadow-sm">Apr 2022 - Dec 2024</span>
-           </div>
-           <p className="text-gray-400 font-bold text-lg mb-8 tracking-wide relative z-10">Self-employed</p>
-           
-           <ul className="space-y-4 mb-10 text-base md:text-lg relative z-10">
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Transformed chaotic Excel sheets into polished internal tools for various clients.
-             </li>
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Shipped dashboards and custom CMS platforms tailored to each client's workflow.
-             </li>
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Automated repetitive processes, improving efficiency and reducing human error.
-             </li>
-             <li className="flex items-start text-gray-300 font-medium leading-relaxed">
-                <span className="mr-3 text-white mt-0.5 font-bold">•</span>
-                Focused on clean, maintainable code and interfaces that users actually enjoy.
-             </li>
-           </ul>
-
-           <div className="flex flex-wrap gap-3 relative z-10">
-             {
-               myStack2.map((item) => (
-                  <TechBadge key={item.name} name={item.name} icon={item.icon} color={item.color} />
-               ))
-            }
-              
-           </div>
-        </div>
+        {experiences.map((exp, index) => (
+          <ExperienceCard key={index} {...exp} />
+        ))}
       </div>
     </section>
   );

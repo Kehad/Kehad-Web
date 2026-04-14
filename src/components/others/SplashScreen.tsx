@@ -1,7 +1,49 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { Creepster } from "next/font/google"; // Using a highly stylized display font
 import { AnimatePresence, motion } from "framer-motion";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
+
+function AnimatedText3D() {
+  const letters = "KEHAD".split("");
+  const groupRef = useRef<any>(null);
+  
+  useFrame(({ clock }) => {
+    if (groupRef.current) {
+      const t = clock.getElapsedTime();
+      
+      // Gentle floating letter-by-letter bouncing motion
+      groupRef.current.children.forEach((child: any, i: number) => {
+        child.position.y = Math.sin(t * 3 + i * 0.5) * 0.15;
+      });
+
+      // Very slight 3D tilt for the entire word
+      groupRef.current.rotation.y = Math.sin(t * 0.5) * 0.1;
+      groupRef.current.rotation.x = Math.cos(t * 0.5) * 0.05;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {letters.map((char, i) => (
+        <Text 
+          key={i}
+          position={[(i - 2) * 1.0, 0, 0]} 
+          fontSize={1.2} 
+          color="#10b981" 
+          anchorX="center" 
+          anchorY="middle"
+          material-toneMapped={false}
+        >
+          {char}
+        </Text>
+      ))}
+    </group>
+  );
+}
+// Inside your SplashScreen return...
+// Adjusted Canvas camera for better framing of smaller text
 
 const creepster = Creepster({
   weight: "400",
@@ -56,16 +98,17 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] bg-[#1a1a1a] flex flex-col items-center justify-center pointer-events-none"
+          className="fixed inset-0 z-[100] bg-transparent flex flex-col items-center justify-center pointer-events-none"
         >
-          <motion.h1
-            initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className={`${creepster.className} text-primary text-6xl sm:text-8xl md:text-9xl tracking-[0.2em] drop-shadow-[0_0_15px_rgba(7,197,20,0.4)] uppercase`}
-          >
-            KEHAD
-          </motion.h1>
+          {/* Phase 1: Custom 3D Animation Text */}
+          <div className="w-full h-full absolute inset-0">
+            <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+              <ambientLight intensity={2} />
+              <Suspense fallback={null}>
+                <AnimatedText3D />
+              </Suspense>
+            </Canvas>
+          </div>
         </motion.div>
       )}
 
@@ -76,10 +119,14 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[100] bg-[#1a1a1a] flex flex-col items-center justify-center pointer-events-none text-white font-sans gap-8 scale-150 sm:scale-100"
+          className="fixed inset-0 z-[100] bg-transparent flex flex-col items-center justify-center pointer-events-none text-white font-sans gap-12"
         >
-          {/* Custom RGB/CMY Spinner */}
-          <div className="relative w-32 h-32 flex items-center justify-center isolate">
+          {/* Custom RGB/CMY Spinner - Made Bigger with Custom Scale Pulse Animation */}
+          <motion.div 
+            className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center isolate"
+            animate={{ scale: [1, 1.15, 1] }} 
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
             <motion.div
               className="absolute inset-0 w-full h-full"
               animate={{ rotate: 360 }}
@@ -94,10 +141,10 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={`red-${i}`}
-                    className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full mix-blend-screen"
+                    className="absolute left-1/2 top-1/2 w-8 h-8 rounded-full mix-blend-screen"
                     style={{
                       backgroundColor: "#ff0000",
-                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-44px)`,
+                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-80px)`,
                     }}
                   />
                 ))}
@@ -111,10 +158,10 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={`green-${i}`}
-                    className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full mix-blend-screen"
+                    className="absolute left-1/2 top-1/2 w-8 h-8 rounded-full mix-blend-screen"
                     style={{
                       backgroundColor: "#00ff00",
-                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-30px)`,
+                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-54px)`,
                     }}
                   />
                 ))}
@@ -128,20 +175,20 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={`blue-${i}`}
-                    className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full mix-blend-screen"
+                    className="absolute left-1/2 top-1/2 w-8 h-8 rounded-full mix-blend-screen"
                     style={{
                       backgroundColor: "#0000ff",
-                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-16px)`,
+                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-28px)`,
                     }}
                   />
                 ))}
               </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
           
           <div className="flex flex-col items-center gap-2 mt-4 sm:mt-0">
-            <div className="text-xl md:text-2xl font-medium opacity-90 tracking-widest uppercase">Loading</div>
-            <div className="text-sm opacity-60 font-mono">{Math.max(0, Math.min(100, Math.floor(progress)))}% Complete</div>
+            <div className="text-xl md:text-3xl font-medium opacity-90 tracking-widest uppercase">Loading</div>
+            <div className="text-base opacity-60 font-mono">{Math.max(0, Math.min(100, Math.floor(progress)))}% Complete</div>
           </div>
         </motion.div>
       )}

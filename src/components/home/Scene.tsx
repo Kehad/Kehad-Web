@@ -6,10 +6,11 @@ import ModernComputer from "./ModernComputer";
 
 // Overlay removed, handled securely outside Canvas for true fixed positioning
 
-export default function Scene() {
+export default function Scene({ onEnter }: { onEnter?: () => void }) {
   const scroll = useScroll();
   const shadowRef = useRef<any>(null);
   const maxScrollRef = useRef(0);
+  const enteredRef = useRef(false);
 
   // Fade out the shadow and external scroll indicator
   useFrame(() => {
@@ -24,6 +25,15 @@ export default function Scene() {
     const indicatorEl = document.getElementById('scroll-indicator');
     if (indicatorEl) {
       indicatorEl.style.opacity = Math.max(0, 1 - safeOffset * 6).toString();
+    }
+
+    if (safeOffset >= 0.99 && !enteredRef.current) {
+      enteredRef.current = true;
+      if (onEnter) {
+        setTimeout(() => {
+          onEnter();
+        }, 300);
+      }
     }
   });
 

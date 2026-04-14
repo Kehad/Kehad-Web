@@ -8,6 +8,7 @@ import { Text } from "@react-three/drei";
 function AnimatedText3D() {
   const letters = "KEHAD".split("");
   const groupRef = useRef<any>(null);
+  console.log('Letters')
   
   useFrame(({ clock }) => {
     if (groupRef.current) {

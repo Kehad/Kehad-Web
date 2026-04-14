@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="hidden sm:block h-5 w-px bg-gray-700 mx-1"></div>
           
           <p className="text-gray-400 font-bold text-xs sm:text-sm tracking-wide text-center sm:text-left">
-            © 2026 Kehad (Naresh Khatri). All rights reserved.
+            © 2026 Kehad. All rights reserved.
           </p>
         </div>
 

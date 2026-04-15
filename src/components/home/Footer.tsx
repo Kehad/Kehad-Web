@@ -8,8 +8,8 @@ export default function Footer() {
         {/* Left Side: Links and Copyright */}
         <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
           <div className="flex items-center gap-6">
-            <a href="#" className="text-gray-700 dark:text-white font-black text-sm tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer">Blog</a>
-            <a href="#" className="text-gray-700 dark:text-white font-black text-sm tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer">Newsletter</a>
+            <a href="#" className="text-gray-700 dark:text-white font-black text-sm tracking-wide hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-12 transition cursor-pointer">Blog</a>
+            <a href="#" className="text-gray-700 dark:text-white font-black text-sm tracking-wide hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-12 transition cursor-pointer">Newsletter</a>
           </div>
           
           <div className="hidden sm:block h-5 w-px bg-gray-300 dark:bg-gray-700 mx-1"></div>

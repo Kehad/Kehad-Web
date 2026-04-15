@@ -63,10 +63,10 @@ const experiences: ExperienceItem[] = [
 
 export default function ExperienceSection() {
   return (
-    <section className="w-full max-w-[1000px] mx-auto px-6 py-32 z-10 relative">
-      <div className="text-center mb-20 drop-shadow-lg">
-        <h2 className="text-[4rem] sm:text-[5rem] md:text-[6rem] font-black text-white tracking-tighter mb-2 leading-none" style={{ textShadow: '0 4px 20px rgba(255,255,255,0.05)' }}>Experience</h2>
-        <p className="text-gray-400 font-bold text-lg md:text-xl tracking-wide">My professional journey.</p>
+    <section className="w-full max-w-[1000px] mx-auto px-6 py-32 z-10 relative" id="experience">
+      <div className="text-center mb-20 drop-shadow-sm dark:drop-shadow-lg">
+        <h2 className="text-[4rem] sm:text-[5rem] md:text-[6rem] font-black text-gray-900 dark:text-white tracking-tighter mb-2 leading-none" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>Experience</h2>
+        <p className="text-gray-600 dark:text-gray-400 font-bold text-lg md:text-xl tracking-wide">My professional journey.</p>
       </div>
 
       <div className="flex flex-col gap-10">

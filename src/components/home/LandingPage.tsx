@@ -37,12 +37,11 @@ export default function LandingPage() {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       transition={{ duration: 1.2, ease: "easeInOut" }}
-      className="w-full h-screen bg-[#0B0F19] text-white relative flex flex-col font-sans overflow-x-hidden overflow-y-auto cursor-none"
-      style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '48px 48px' }}
+      className="w-full h-screen bg-gray-50 dark:bg-[#0B0F19] text-gray-900 dark:text-white relative flex flex-col font-sans overflow-x-hidden overflow-y-auto cursor-none transition-colors duration-500 bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.06)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)]"
+      style={{ backgroundSize: '48px 48px' }}
     >
       {/* Decorative Starry Background & Floating Blobs */}
-      {/* <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '48px 48px' }}></div> */}
-      <div className="absolute top-[15%] left-[30%] w-16 h-12 bg-white rounded-[40%_60%_70%_30%] opacity-90 blur-[1px] rotate-12 shadow-[0_0_20px_rgba(255,255,255,0.8)]"></div>
+      <div className="absolute top-[15%] left-[30%] w-16 h-12 bg-white rounded-[40%_60%_70%_30%] opacity-90 blur-[1px] rotate-12 shadow-[0_0_20px_rgba(200,200,200,0.8)] dark:shadow-[0_0_20px_rgba(255,255,255,0.8)]"></div>
 
       {/* Hero Wrapper max out at 100vh for scroll effect */}
       <HeroSection />

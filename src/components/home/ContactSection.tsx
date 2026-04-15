@@ -15,7 +15,7 @@ export default function ContactSection() {
            
            <h3 className="text-3xl font-black text-white mb-2">Contact Form</h3>
            <p className="text-gray-400 font-medium text-sm md:text-base leading-relaxed mb-8">
-             Please contact me directly at <span className="font-bold text-white">naresh.khatri2345(at)gmail.com</span> or drop your info here.
+             Please contact me directly at <span className="font-bold text-white">keahnney01@gmail.com</span> or drop your info here.
            </p>
 
            <form className="flex flex-col gap-6 relative z-10" onSubmit={(e) => e.preventDefault()}>

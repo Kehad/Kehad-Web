@@ -11,9 +11,9 @@ export default function Home() {
   const [entered, setEntered] = useState(false);
 
   return (
-    <div className="w-full h-screen relative overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900 via-gray-900 to-black">
+    <div className="w-full h-screen relative overflow-hidden bg-gray-50 dark:bg-[#0B0F19] transition-colors duration-500">
       {/* Optional: Add animated subtle noise overlay or extra grid for modern look */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
       
       {/* 3D Modern Computer Application (Phase 3) */}
       {/* {!entered && splashDone && (

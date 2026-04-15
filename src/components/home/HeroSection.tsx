@@ -5,6 +5,8 @@ import { useTheme } from 'next-themes';
 import { Sun, Moon, Download, Briefcase } from 'lucide-react';
 import cv from '@/assets/Kehinde-Adigun-Resume.jpg';
 import Keyboard3d from '../others/keyboard';
+import MenuSection from './MenuSection';
+import AutoType from '../others/autoType';
 // import cv2 from '@/assets/Kehinde-Adigun-Resume.pdf';
 
 
@@ -16,15 +18,6 @@ export default function HeroSection() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [isMenuOpen]);
 
   
 
@@ -86,8 +79,8 @@ export default function HeroSection() {
         {/* Left Side: Hero Text */}
         <div className="flex flex-col items-center xl:items-start text-center xl:text-left xl:w-5/12 mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
           <p className="text-gray-600 dark:text-gray-300 font-semibold mb-2 text-base md:text-xl tracking-wide uppercase">Hi, I am</p>
-          <h1 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] font-black text-gray-900 dark:text-white leading-[0.9] tracking-tight mb-4 sm:mb-6">
-            Kehad
+          <h1 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] font-black text-gray-900 dark:text-white leading-[0.9] tracking-tight mb-4 sm:mb-6 min-h-[4rem] sm:min-h-[6rem] md:min-h-[8rem] lg:min-h-[9rem]">
+            <AutoType strings={['Kehinde Adigun', 'Kehad']} loop={true} />
           </h1>
           <p className="text-blue-600 dark:text-gray-400 font-bold text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 tracking-wide">A Full Stack Web Developer</p>
           
@@ -133,47 +126,10 @@ export default function HeroSection() {
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-7 h-12 border-2 border-gray-400 dark:border-gray-600 rounded-full hidden sm:flex justify-center p-1.5 opacity-80 backdrop-blur-sm pointer-events-none z-10">
         <div className="w-1.5 h-3 bg-gray-500 dark:bg-white rounded-full animate-bounce"></div>
       </div>
-      {/* Full-Screen Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-[1000] bg-white/95 dark:bg-[#0c101a]/95 backdrop-blur-3xl flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'}`}
-      >
-        {/* Close Button */}
-        <button 
-          onClick={() => setIsMenuOpen(false)}
-          className="absolute top-6 right-6 sm:top-8 sm:right-8 p-3 rounded-2xl bg-gray-100 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white transition-all hover:scale-105 cursor-pointer z-50 pointer-events-auto shadow-sm"
-          aria-label="Close menu"
-        >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+      
+      {/* External Full-Screen Menu Section */}
+      <MenuSection isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
-        <div className="absolute top-8 left-8 sm:top-12 sm:left-12">
-           <div className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Kehad</div>
-        </div>
-
-        <nav className="flex flex-col items-center gap-10 md:gap-14 text-center pointer-events-auto">
-          {['Experience', 'Projects', 'Contact'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`}
-              onClick={() => setIsMenuOpen(false)}
-              className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
-            >
-              {item}
-            </a>
-          ))}
-          <a
-            href={cv.src}
-            download="Kehinde Gabriel Adigun CV.jpg"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
-          >
-            Resume
-          </a>
-        </nav>
-      </div>
     </div>
   );
 }

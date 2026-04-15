@@ -4,48 +4,27 @@ import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Sun, Moon, Download, Briefcase } from 'lucide-react';
 import cv from '@/assets/Kehinde-Adigun-Resume.jpg';
+import Keyboard3d from '../others/keyboard';
 // import cv2 from '@/assets/Kehinde-Adigun-Resume.pdf';
 
-const keyboardGrid = [
-    [
-      { id: "js", label: "JS", icon: "javascript", bg: "bg-yellow-500", shadow: "#ca8a04" },
-      { id: "ts", label: "TS", icon: "typescript", bg: "bg-blue-500", shadow: "#1d4ed8" },
-      { id: "html", label: "H5", icon: "html5", bg: "bg-orange-600", shadow: "#c2410c" },
-      { id: "css", label: "C3", icon: "css3", bg: "bg-blue-600", shadow: "#1e3a8a" },
-      { id: "react", label: "Re", icon: "react", bg: "bg-cyan-400", shadow: "#0891b2" },
-      { id: "vue", label: "Vu", icon: "vuedotjs", bg: "bg-emerald-500", shadow: "#047857" },
-    ],
-    [
-      { id: "next", label: "Nx", icon: "nextdotjs", bg: "bg-zinc-900", shadow: "#000000" },
-      { id: "tailwind", label: "Tw", icon: "tailwindcss", bg: "bg-cyan-500", shadow: "#0369a1" },
-      { id: "node", label: "No", icon: "nodedotjs", bg: "bg-green-600", shadow: "#15803d" },
-      { id: "express", label: "Ex", icon: "express", bg: "bg-gray-700", shadow: "#374151" },
-      { id: "graphql", label: "GQ", icon: "graphql", bg: "bg-pink-600", shadow: "#be185d" },
-      { id: "wp", label: "WP", icon: "wordpress", bg: "bg-blue-800", shadow: "#1e3a8a" },
-    ],
-    [
-      { id: "git", label: "Git", icon: "git", bg: "bg-orange-600", shadow: "#c2410c" },
-      { id: "github", label: "GH", icon: "github", bg: "bg-zinc-800", shadow: "#27272a" },
-      { id: "docker", label: "Dk", icon: "docker", bg: "bg-blue-500", shadow: "#1d4ed8" },
-      { id: "npm", label: "npm", icon: "npm", bg: "bg-red-600", shadow: "#dc2626" },
-      { id: "aws", label: "AWS", icon: "amazonaws", bg: "bg-orange-400", shadow: "#f97316" },
-      { id: "nginx", label: "Ngx", icon: "nginx", bg: "bg-emerald-600", shadow: "#059669" },
-    ],
-    [
-      { id: "empty1", label: "", bg: "bg-gray-900", shadow: "#111827" },
-      { id: "linux", label: "Lx", icon: "linux", bg: "bg-yellow-600", shadow: "#a16207" },
-      { id: "space", label: "SPACE", bg: "bg-zinc-900", shadow: "#000000", colSpan: 2 },
-      { id: "enter", label: "ENT", bg: "bg-[#e11d48]", shadow: "#be123c", colSpan: 2 },
-    ]
-  ];
 
 export default function HeroSection() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMenuOpen]);
 
   
 
@@ -91,7 +70,10 @@ export default function HeroSection() {
              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           </div>
           
-          <button className="flex items-center gap-2 px-3 sm:px-4 h-10 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900/50 hover:bg-gray-200 dark:hover:bg-gray-800 transition text-sm font-semibold text-gray-700 dark:text-gray-200 cursor-pointer shadow-sm">
+          <button 
+            onClick={() => setIsMenuOpen(true)}
+            className="flex items-center gap-2 px-3 sm:px-4 h-10 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900/50 hover:bg-gray-200 dark:hover:bg-gray-800 transition text-sm font-semibold text-gray-700 dark:text-gray-200 cursor-pointer shadow-sm pointer-events-auto"
+          >
              Menu
              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
@@ -143,68 +125,54 @@ export default function HeroSection() {
           <p className="text-gray-500 dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mb-6 sm:mb-12">(hint: hover a key)</p>
 
           {/* Main Keyboard Base (Wrapper for scrolling on mobile) */}
-          <div className="w-full max-w-[100vw] overflow-x-auto overflow-y-visible pb-10 px-4 sm:px-10 flex justify-center no-scrollbar">
-            <div 
-              className="origin-center transition-transform duration-700 ease-out bg-gray-100 dark:bg-[#1A1F2B] p-3 sm:p-5 md:p-6 rounded-3xl sm:rounded-[2.5rem] border border-gray-300 dark:border-gray-700/50 shadow-[0_12px_30px_rgba(0,0,0,0.1)] dark:shadow-[-16px_24px_0_#060910,-24px_36px_50px_rgba(0,0,0,0.8)] relative before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/5 dark:before:from-white/5 before:to-transparent before:rounded-3xl sm:before:rounded-[2.5rem] min-w-max"
-              style={{ transform: "rotateX(55deg) rotateZ(-35deg) scale(0.85) sm:scale(1)", transformStyle: "preserve-3d" }}
-              onMouseEnter={(e) => { 
-                if (window.innerWidth >= 1024) {
-                  e.currentTarget.style.transform = "rotateX(50deg) rotateZ(-30deg) scale(1.02)"; 
-                }
-              }}
-              onMouseLeave={(e) => { 
-                if (window.innerWidth >= 1024) {
-                  e.currentTarget.style.transform = "rotateX(55deg) rotateZ(-35deg) title scale(1.0)"; 
-                }
-              }}
-            >
-              {/* Inner Grid */}
-              <div className="flex flex-col gap-2.5 sm:gap-4 relative z-10 w-full">
-                {keyboardGrid.map((row, rIdx) => (
-                  <div key={rIdx} className="flex gap-2.5 sm:gap-4 justify-center w-full">
-                    {row.map((k, kIdx) => (
-                      <div 
-                        key={kIdx} 
-                        className={`relative flex items-center justify-center rounded-xl sm:rounded-2xl font-bold text-white transition-all duration-150 cursor-pointer border-t border-l border-white/20 hover:brightness-110 active:translate-x-[-2px] active:translate-y-[2px] active:shadow-none
-                        ${k.bg} text-xs sm:text-lg md:text-2xl
-                        ${k.colSpan === 2 ? 'w-[4.625rem] sm:w-[9rem] md:w-[11rem]' : 'w-8 sm:w-16 md:w-20'}
-                        h-8 sm:h-16 md:h-20
-                        `}
-                        style={{ 
-                          boxShadow: `-4px 6px 0 ${k.shadow}, -4px 6px 8px rgba(0,0,0,0.2)`,
-                          transform: 'translate(2px, -2px)'
-                        }}
-                        onMouseDown={(e) => {
-                            e.currentTarget.style.boxShadow = '0 0 0 transparent';
-                            e.currentTarget.style.transform = 'translate(-2px, 4px)';
-                        }}
-                        onMouseUp={(e) => {
-                            e.currentTarget.style.boxShadow = `-4px 6px 0 ${k.shadow}, -4px 6px 8px rgba(0,0,0,0.2)`;
-                            e.currentTarget.style.transform = 'translate(2px, -2px)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.boxShadow = `-4px 6px 0 ${k.shadow}, -4px 6px 8px rgba(0,0,0,0.2)`;
-                            e.currentTarget.style.transform = 'translate(2px, -2px)';
-                        }}
-                      >
-                        {k.icon ? (
-                           <img src={`https://cdn.simpleicons.org/${k.icon}/white`} alt={k.label} className="w-4 h-4 sm:w-8 sm:h-8 md:w-10 md:h-10 drop-shadow-md pointer-events-none" />
-                        ) : (
-                           <span className="drop-shadow-md pointer-events-none">{k.label}</span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+            <Keyboard3d />
         </div>
       </main>
 
       {/* Decorative center pill - Scroll Indicator */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-7 h-12 border-2 border-gray-400 dark:border-gray-600 rounded-full hidden sm:flex justify-center p-1.5 opacity-80 backdrop-blur-sm pointer-events-none z-10">
         <div className="w-1.5 h-3 bg-gray-500 dark:bg-white rounded-full animate-bounce"></div>
+      </div>
+      {/* Full-Screen Menu Overlay */}
+      <div 
+        className={`fixed inset-0 z-[1000] bg-white/95 dark:bg-[#0c101a]/95 backdrop-blur-3xl flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'}`}
+      >
+        {/* Close Button */}
+        <button 
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-6 right-6 sm:top-8 sm:right-8 p-3 rounded-2xl bg-gray-100 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white transition-all hover:scale-105 cursor-pointer z-50 pointer-events-auto shadow-sm"
+          aria-label="Close menu"
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div className="absolute top-8 left-8 sm:top-12 sm:left-12">
+           <div className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Kehad</div>
+        </div>
+
+        <nav className="flex flex-col items-center gap-10 md:gap-14 text-center pointer-events-auto">
+          {['Experience', 'Projects', 'Contact'].map((item) => (
+            <a 
+              key={item} 
+              href={`#${item.toLowerCase()}`}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
+            >
+              {item}
+            </a>
+          ))}
+          <a
+            href={cv.src}
+            download="Kehinde Gabriel Adigun CV.jpg"
+            onClick={() => setIsMenuOpen(false)}
+            className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
+          >
+            Resume
+          </a>
+        </nav>
       </div>
     </div>
   );

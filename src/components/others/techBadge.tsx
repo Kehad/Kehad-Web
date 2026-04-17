@@ -60,7 +60,7 @@ export const ExperienceCard = ({
   accentColor = "orange-600" 
 }: ExperienceItem) => {
   return (
-    <div className="bg-white dark:bg-[#0c101a] border border-gray-200 dark:border-gray-800 rounded-2xl p-8 md:p-10 relative overflow-hidden group hover:border-gray-300 dark:hover:border-gray-700 transition duration-300 shadow-xl dark:shadow-2xl">
+    <div className="bg-white w-full dark:bg-[#0c101a] border border-gray-200 dark:border-gray-800 rounded-2xl p-8 md:p-10 relative overflow-hidden group hover:border-gray-300 dark:hover:border-gray-700 transition duration-300 shadow-xl dark:shadow-2xl">
       {/* Dynamic Background Gradient */}
       <div className={`absolute inset-0 bg-gradient-to-tr from-${accentColor}/10 dark:from-${accentColor}/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none`}></div>
 

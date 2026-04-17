@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useRef, useState, useEffect } from 'react';
 import { ExperienceCard, ExperienceItem } from '../others/techBadge';
 
 const experiences: ExperienceItem[] = [
@@ -62,19 +64,161 @@ const experiences: ExperienceItem[] = [
 ];
 
 export default function ExperienceSection() {
-  return (
-    <section className="w-full max-w-[1000px] mx-auto px-6 py-32 z-10 relative" id="experience">
-      <div className="text-center mb-20 drop-shadow-sm dark:drop-shadow-lg">
-        <h2 className="text-[4rem] sm:text-[5rem] md:text-[6rem] font-black text-gray-900 dark:text-white tracking-tighter mb-2 leading-none hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4 " style={{ textShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>Experience</h2>
-        <p className="text-gray-600 dark:text-gray-400 font-bold text-lg md:text-xl tracking-wide">My professional journey.</p>
-      </div>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-      <div className="flex flex-col gap-10">
-        {experiences.map((exp, index) => (
-          <ExperienceCard key={index} {...exp} />
-        ))}
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const totalHeight = container.offsetHeight - window.innerHeight;
+      
+      // Calculate scroll progress (0 to 1)
+      let progress = -rect.top / totalHeight;
+      progress = Math.min(Math.max(progress, 0), 1);
+
+      const totalCards = experiences.length;
+      const segment = 1 / totalCards;
+
+      experiences.forEach((_, index) => {
+        const card = cardRefs.current[index];
+        const dot = dotRefs.current[index];
+        if (!card || !dot) return;
+
+        const isFirst = index === 0;
+        const isLast = index === totalCards - 1;
+        
+        const start = index * segment;
+        const end = (index + 1) * segment;
+        
+        // Entrance timing (widened to 40% of the segment)
+        const entranceEnd = start + (segment * 0.4);
+        
+        let opacity = 0;
+        let x = 120;
+        let scale = 0.95;
+
+        // Reset active state
+        card.classList.remove('active');
+        dot.classList.remove('active');
+
+        // Logic check for current card in focus
+        if (progress >= start && progress <= end) {
+          const localProgress = (progress - start) / (entranceEnd - start);
+          const easedProgress = Math.min(Math.max(localProgress, 0), 1);
+          
+          opacity = easedProgress;
+          x = 120 * (1 - easedProgress);
+          scale = 0.95 + (0.05 * easedProgress);
+          
+          if (progress > entranceEnd) {
+            opacity = 1;
+            x = 0;
+            scale = 1;
+          }
+          
+          // Exit logic for non-last cards
+          if (!isLast && progress > (end - (segment * 0.2))) {
+            const exitStart = end - (segment * 0.2);
+            const exitProgress = (progress - exitStart) / (end - exitStart);
+            opacity = 1 - exitProgress;
+            scale = 1 - (0.05 * exitProgress);
+          }
+
+          card.classList.add('active');
+          dot.classList.add('active');
+        } else if (isFirst && progress < start) {
+          // Keep first card active until scrolled
+          opacity = 1;
+          x = 0;
+          scale = 1;
+          card.classList.add('active');
+          dot.classList.add('active');
+        } else if (isLast && progress > start) {
+          // Keep last card active at end of scroll
+          opacity = 1;
+          x = 0;
+          scale = 1;
+          card.classList.add('active');
+          dot.classList.add('active');
+        }
+
+        // Apply styles to the DOM directly
+        card.style.opacity = opacity.toString();
+        card.style.transform = `translateX(${x}%) scale(${scale})`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); 
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <section 
+      ref={containerRef} 
+      className="relative w-full bg-[#0a0a0a]" 
+      id="experience"
+      style={{ height: '450vh' }}
+    >
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+        
+        {/* Background ambient glows */}
+        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-blue-600/10 filter blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-orange-600/10 filter blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="relative z-10 w-full max-w-[850px] text-center px-6">
+          <header className="mb-12">
+            <h1 className="text-[clamp(3rem,10vw,7rem)] font-black text-white m-0 tracking-tighter leading-none pointer-events-none">
+              Experience
+            </h1>
+            <p className="text-gray-500 uppercase tracking-[0.3em] font-bold mt-2 text-sm md:text-base">
+              My professional journey
+            </p>
+          </header>
+
+          <div className="relative h-[550px] mt-12 flex items-center justify-center">
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                ref={el => { cardRefs.current[index] = el }}
+                className="absolute top-0 left-0 w-full pointer-events-none transition-[transform,opacity] duration-150 ease-linear"
+                style={{ 
+                  opacity: 0, 
+                  transform: 'translateX(120%) scale(0.95)',
+                  zIndex: index + 1 // New cards stack on top of old ones
+                }}
+              >
+                <div className="pointer-events-auto">
+                    <ExperienceCard {...exp} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Progress dots */}
+          <div className="flex gap-2.5 justify-center mt-12 z-20 relative">
+            {experiences.map((_, i) => (
+              <div
+                key={i}
+                ref={el => { dotRefs.current[i] = el }}
+                className="h-2 w-2 bg-orange-500 rounded-full opacity-20 transition-all duration-300 [&.active]:w-8 [&.active]:opacity-100"
+              />
+            ))}
+          </div>
+
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+            <div className="w-[1px] h-12 bg-gradient-to-b from-orange-500 to-transparent animate-bounce opacity-70" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">
+              Scroll to progress
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-  

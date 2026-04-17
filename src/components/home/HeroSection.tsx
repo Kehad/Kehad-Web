@@ -7,6 +7,7 @@ import cv from '@/assets/Kehinde-Adigun-Resume.jpg';
 import Keyboard3d from '../others/keyboard';
 import MenuSection from './MenuSection';
 import AutoType from '../others/autoType';
+import IsometricRoom from './main/setup';
 // import cv2 from '@/assets/Kehinde-Adigun-Resume.pdf';
 
 
@@ -114,11 +115,12 @@ export default function HeroSection() {
         {/* Right Side: Isometric Tech Stack Keyboard */}
         <div className="xl:w-7/12 flex flex-col items-center justify-center p-0 sm:p-4 lg:p-12 mt-6 xl:mt-0 select-none w-full xl:max-w-none max-w-[100vw] overflow-x-hidden" style={{ perspective: '3000px' }}>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2" style={{ transform: "translateZ(50px)" }}>Tech Stack</h2>
-          <p className="text-gray-500 dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mb-6 sm:mb-12">(hint: hover a key)</p>
+          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2" style={{ transform: "translateZ(50px)" }}>Tech Stack</h2>
+          <p className="text-gray-500 dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mb-6 sm:mb-12">(hint: hover a key)</p> */}
 
           {/* Main Keyboard Base (Wrapper for scrolling on mobile) */}
-            <Keyboard3d />
+            {/* <Keyboard3d /> */}
+            <IsometricRoom />
         </div>
       </main>
 

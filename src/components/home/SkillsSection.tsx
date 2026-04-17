@@ -112,7 +112,7 @@ export default function SkillsSection() {
         </p> */}
 
         {/* Main Keyboard Base (Wrapper for scrolling on mobile) */}
-        {/* <Keyboard3d /> */}
+        <Keyboard3d />
       </div>
 
       {/* Foreground light blobs */}

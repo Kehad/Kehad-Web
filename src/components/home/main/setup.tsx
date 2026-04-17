@@ -69,22 +69,22 @@ const RoomArchitecture = () => (
       </RoundedBox>
       <Text
         position={[2, 2.2, 0.3]}
-        fontSize={2.5}
+        fontSize={1}
         color="white"
         anchorX="center"
         anchorY="middle"
       >
-        01
+        Welcome to 
       </Text>
       <Text
         position={[2, 0.8, 0.3]}
-        fontSize={0.6}
+        fontSize={1.5}
         color="white"
         anchorX="center"
         anchorY="middle"
         letterSpacing={0.1}
       >
-        Basics
+        Kehad's 
       </Text>
     </group>
 
@@ -315,15 +315,15 @@ export default function IsometricRoom() {
   }
 
   return (
-    <div className="w-full aspect-square lg:aspect-video xl:aspect-square 2xl:aspect-video flex flex-col items-center justify-center p-0 lg:p-4">
-      <div className="w-full h-full bg-[#0c0a1f] rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] relative border border-white/5 group">
+    <div className="w-full h-full flex flex-col items-center justify-center p-0">
+      <div className="w-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
           camera={{ position: [18, 16, 18], fov: 25 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
-          <color attach="background" args={['#1a1030']} />
-          <fog attach="fog" args={['#1a1030', 25, 65]} />
+          {/* <color attach="background" args={['#1a1030']} /> */}
+          {/* <fog attach="fog" args={['#1a1030', 25, 65]} /> */}
           <ambientLight intensity={0.4} />
           <pointLight 
              position={[10, 20, 10]} 
@@ -372,20 +372,41 @@ export default function IsometricRoom() {
             dampingFactor={0.05}
           />
         </Canvas>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-4 group-hover:translate-y-0">
+
+        {/* Studio Info Label */}
+        <div className="absolute bottom-8 left-8 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-4 group-hover:translate-y-0">
           <div className="px-5 py-2.5 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 flex items-center gap-3 shadow-2xl">
             <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
             <span className="text-white/60 text-[11px] font-bold tracking-[0.3em] uppercase transition-all">
-              Studio Setup 01 / Three.js
+              Kehad Studio
             </span>
           </div>
         </div>
+
+        {/* LAT/LNG Coordinates */}
         <div className="absolute top-8 right-8 z-10 pointer-events-none opacity-20 group-hover:opacity-60 transition-opacity">
            <div className="text-white text-[10px] font-mono text-right">
               LAT: 6.5244° N<br/>
               LNG: 3.3792° E
            </div>
         </div>
+      </div>
+
+      {/* Navigation Controls (Reference: Arrows + Dots) */}
+      <div className="mt-8 flex items-center gap-6">
+         <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+         </button>
+         
+         <div className="flex gap-2">
+            {[1, 2, 3].map((i) => (
+               <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === 1 ? 'w-6 bg-indigo-500' : 'w-1.5 bg-white/20'}`} />
+            ))}
+         </div>
+
+         <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+         </button>
       </div>
     </div>
   );

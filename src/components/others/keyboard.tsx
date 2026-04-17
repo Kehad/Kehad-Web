@@ -82,7 +82,7 @@ const Keyboard3d = () => {
                   h-8 sm:h-16 md:h-20
                   `}
                   style={{ 
-                    boxShadow: `-4px 12px 0 ${k.shadow}, -4px 12px 10px rgba(0,0,0,0.2)`,
+                    boxShadow: `-4px 8px 0 ${k.shadow}, -4px 8px 10px rgba(0,0,0,0.2)`,
                     transform: 'translate(4px, -4px)'
                   }}
                   onMouseEnter={(e) => {
@@ -92,7 +92,7 @@ const Keyboard3d = () => {
                   }}
                   onMouseLeave={(e) => {
                     setActiveLabel("WELCOME");
-                    e.currentTarget.style.boxShadow = `-4px 12px 0 ${k.shadow}, -4px 12px 10px rgba(0,0,0,0.2)`;
+                    e.currentTarget.style.boxShadow = `-4px 8px 0 ${k.shadow}, -4px 8px 10px rgba(0,0,0,0.2)`;
                     e.currentTarget.style.transform = 'translate(4px, -4px)';
                   }}
                 >

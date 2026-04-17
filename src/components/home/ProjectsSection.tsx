@@ -90,7 +90,7 @@ export default function ProjectsSection() {
   return (
     <section className="w-full max-w-[1300px] mx-auto px-6 py-20 z-10 relative" id="projects">
       <div className="text-center mb-16 drop-shadow-lg relative">
-        <h2 className="text-[4rem] sm:text-[5rem] md:text-[6rem] font-black text-gray-900 dark:text-white tracking-tighter mb-2 leading-none relative z-10" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>Projects</h2>
+        <h2 className="text-[4rem] sm:text-[5rem] md:text-[6rem] font-black text-gray-900 dark:text-white tracking-tighter mb-2 leading-none relative z-10 hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4 " style={{ textShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>Projects</h2>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] sm:w-[600px] sm:h-[300px] bg-black/5 dark:bg-white/5 rounded-full blur-[80px] pointer-events-none z-0"></div>
       </div>
 

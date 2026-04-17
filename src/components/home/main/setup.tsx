@@ -58,7 +58,7 @@ const RoomArchitecture = () => (
       <RoundedBox args={[0.4, 8, 0.5]} radius={0.05} position={[0, 0, 0]}>
         <meshStandardMaterial color={Colors.wallLeft} />
       </RoundedBox>
-      <RoundedBox args={[1.2, 0.1, 9]} radius={0.02} position={[0.6, -0.5, 0]}>
+      <RoundedBox args={[1.2, 0.1, 9]} radius={0.02} position={[0.6, -1.3, 0]}>
         <meshStandardMaterial color={Colors.wallLeft} />
       </RoundedBox>
     </group>
@@ -68,50 +68,50 @@ const RoomArchitecture = () => (
         <meshStandardMaterial color={Colors.wallRight} metalness={0.1} roughness={0.6} />
       </RoundedBox>
       <Text
-        position={[2, 2.2, 0.3]}
-        fontSize={1}
+        position={[1.5, 2.5, 0.3]}
+        fontSize={1.2}
         color="white"
-        anchorX="center"
+        anchorX="right"
         anchorY="middle"
       >
-        Welcome to 
+        Hi, I'm
       </Text>
       <Text
-        position={[2, 0.8, 0.3]}
-        fontSize={1.5}
+        position={[1.5, 1.2, 0.3]}
+        fontSize={2}
         color="white"
         anchorX="center"
         anchorY="middle"
         letterSpacing={0.1}
       >
-        Kehad's 
+        Kehad
       </Text>
     </group>
 
-    <RoundedBox args={[6, 0.05, 7]} radius={0.05} position={[1, 0.03, 1]}>
+    <RoundedBox args={[8.5, 0.06, 7.5]} radius={0.05} position={[0.2, 0.03, 0.2]}>
       <meshStandardMaterial color={Colors.rug} roughness={0.8} />
     </RoundedBox>
   </group>
 );
 
 const ArcadeMachine = () => (
-  <group position={[-3.2, 0, -1.2]} rotation={[0, Math.PI / 8, 0]}>
-    <RoundedBox args={[2.4, 4.2, 2]} radius={0.1} position={[0, 2.1, 0]}>
+  <group position={[-3.6, 0, 1]} rotation={[0, Math.PI / 2, 0]}>
+    <RoundedBox args={[3.2, 4.4, 2]} radius={0.1} position={[0, 2.2, 0]}>
       <meshStandardMaterial color={Colors.arcadeBody} />
     </RoundedBox>
-    <group position={[0, 3, 0.8]}>
-      <RoundedBox args={[1.8, 1.4, 0.5]} radius={0.05}>
+    <group position={[0, 3.2, 0.8]}>
+      <RoundedBox args={[2.2, 1.6, 0.5]} radius={0.05}>
          <meshStandardMaterial color="#000000" />
       </RoundedBox>
-      <RoundedBox args={[1.7, 1.3, 0.1]} position={[0, 0, 0.25]}>
+      <RoundedBox args={[2.1, 1.5, 0.1]} position={[0, 0, 0.25]}>
          <meshStandardMaterial color={Colors.arcadeScreen} emissive={Colors.arcadeScreen} emissiveIntensity={0.5} />
       </RoundedBox>
     </group>
-    <RoundedBox args={[0.4, 4.21, 2.1]} radius={0.05} position={[0, 2.1, 0]}>
+    <RoundedBox args={[0.4, 4.41, 2.1]} radius={0.05} position={[0, 2.2, 0]}>
        <meshStandardMaterial color={Colors.arcadeAccent} />
     </RoundedBox>
     <group position={[0, 2.3, 1.1]} rotation={[Math.PI / 8, 0, 0]}>
-       <RoundedBox args={[2, 0.4, 0.6]} radius={0.05}>
+       <RoundedBox args={[2.4, 0.4, 0.6]} radius={0.05}>
           <meshStandardMaterial color={Colors.arcadeBody} />
        </RoundedBox>
        <Cylinder args={[0.04, 0.04, 0.4]} position={[0, 0.3, 0]}>
@@ -120,8 +120,8 @@ const ArcadeMachine = () => (
        <Sphere args={[0.12]} position={[0, 0.5, 0]}>
           <meshStandardMaterial color="#fb923c" />
        </Sphere>
-       {[-0.5, -0.3, 0.3, 0.5].map((x, i) => (
-          <Cylinder key={i} args={[0.08, 0.08, 0.05]} position={[x, 0.2, 0.1]}>
+       {[-0.6, -0.3, 0.3, 0.6].map((x, i) => (
+          <Cylinder key={i} args={[0.1, 0.1, 0.05]} position={[x, 0.2, 0.1]}>
              <meshStandardMaterial color={i % 2 === 0 ? "#fb923c" : "#ffffff"} />
           </Cylinder>
        ))}
@@ -130,7 +130,7 @@ const ArcadeMachine = () => (
 );
 
 const DeskSetup = () => (
-  <group position={[2, 0, -1]}>
+  <group position={[1.5, 0, -2.2]}>
     <RoundedBox args={[4.8, 0.15, 2.2]} radius={0.05} position={[0, 1.8, 0]}>
       <meshStandardMaterial color={Colors.desk} />
     </RoundedBox>
@@ -149,7 +149,7 @@ const DeskSetup = () => (
       <RoundedBox args={[0.8, 0.05, 0.6]} radius={0.02} position={[0, 0, -0.1]}>
         <meshStandardMaterial color="#ffffff" />
       </RoundedBox>
-      <group position={[0.4, 1.1, 0.1]} rotation={[0, 0.2, 0.1]}>
+      <group position={[1.1, 1.1, 0.1]} rotation={[0, -0.2, 0.1]}>
          <Torus args={[0.4, 0.06, 16, 32, Math.PI]} rotation={[Math.PI, 0, 0]}>
             <meshStandardMaterial color={Colors.headset} />
          </Torus>
@@ -171,13 +171,13 @@ const DeskSetup = () => (
 );
 
 const Chair = () => (
-  <group position={[3.8, 0, 1.2]} rotation={[0, -Math.PI / 6, 0]}>
-    <RoundedBox args={[1.3, 0.15, 1.3]} radius={0.1} position={[0, 1.3, 0]}>
+  <group position={[2.4, 0, 0.8]} rotation={[0, -Math.PI / 8, 0]}>
+    <RoundedBox args={[1.4, 0.15, 1.4]} radius={0.1} position={[0, 1.3, 0]}>
       <meshStandardMaterial color={Colors.chair} />
     </RoundedBox>
     <group position={[0, 2.1, -0.6]}>
        {[0, 0.3, 0.6].map((y, i) => (
-         <RoundedBox key={i} args={[1.3, 0.25, 0.2]} radius={0.05} position={[0, y, 0]}>
+         <RoundedBox key={i} args={[1.4, 0.25, 0.2]} radius={0.05} position={[0, y, 0]}>
             <meshStandardMaterial color={Colors.chair} />
          </RoundedBox>
        ))}
@@ -200,42 +200,42 @@ const Chair = () => (
 
 const DecorativeProps = () => (
   <group>
-    <group position={[4.2, 0, -3.8]}>
-      <RoundedBox args={[0.8, 3, 0.8]} radius={0.3} position={[0, 1.5, 0]}>
+    <group position={[1.4, 0, -4.1]}>
+      <RoundedBox args={[0.7, 3.2, 0.7]} radius={0.3} position={[0, 1.6, 0]}>
         <meshStandardMaterial color={Colors.cactus} roughness={0.8} />
       </RoundedBox>
-      <group position={[0.4, 2.1, 0]} rotation={[0, 0, Math.PI / 4]}>
-         <RoundedBox args={[0.4, 1.2, 0.4]} radius={0.15}>
+      <group position={[0.4, 2.2, 0]} rotation={[0, 0, Math.PI / 4]}>
+         <RoundedBox args={[0.4, 1.4, 0.4]} radius={0.15}>
             <meshStandardMaterial color={Colors.cactus} />
          </RoundedBox>
-         <RoundedBox args={[0.4, 1, 0.4]} radius={0.15} position={[0.3, 0.4, 0]} rotation={[0, 0, -Math.PI/2]}>
+         <RoundedBox args={[0.4, 1.2, 0.4]} radius={0.15} position={[0.3, 0.5, 0]} rotation={[0, 0, -Math.PI/2]}>
             <meshStandardMaterial color={Colors.cactus} />
          </RoundedBox>
       </group>
     </group>
-    <group position={[1.5, 0.1, 3.5]} rotation={[0, 0.2, 0]}>
-      <RoundedBox args={[2, 0.06, 0.6]} radius={0.03}>
+    <group position={[0.5, 0.1, 2.8]} rotation={[0, 0.4, 0]}>
+      <RoundedBox args={[2.2, 0.06, 0.7]} radius={0.03}>
         <meshStandardMaterial color={Colors.skateboard} />
       </RoundedBox>
-      {[[-0.6, -0.25], [-0.6, 0.25], [0.6, -0.25], [0.6, 0.25]].map((pos, i) => (
-        <Cylinder key={i} args={[0.12, 0.12, 0.15]} position={[pos[0], -0.1, pos[1]]} rotation={[Math.PI / 2, 0, 0]}>
+      {[[-0.7, -0.3], [-0.7, 0.3], [0.7, -0.3], [0.7, 0.3]].map((pos, i) => (
+        <Cylinder key={i} args={[0.14, 0.14, 0.18]} position={[pos[0], -0.1, pos[1]]} rotation={[Math.PI / 2, 0, 0]}>
           <meshStandardMaterial color={Colors.skateboardWheel} />
         </Cylinder>
       ))}
     </group>
-    <group position={[-1, 0, -2.8]} rotation={[0, -Math.PI / 4, 0]}>
+    <group position={[-1.2, 0, -2.2]} rotation={[0, -Math.PI / 3, 0]}>
       {[0, 1, 2].map(i => (
-         <Cylinder key={i} args={[0.03, 0.03, 2.8]} position={[0, 1.4, 0]} rotation={[0.2, (i * Math.PI * 2) / 3, 0.2]}>
+         <Cylinder key={i} args={[0.03, 0.03, 3]} position={[0, 1.5, 0]} rotation={[0.2, (i * Math.PI * 2) / 3, 0.2]}>
             <meshStandardMaterial color="#fb923c" />
          </Cylinder>
       ))}
-      <RoundedBox args={[0.7, 0.7, 1]} radius={0.1} position={[0, 2.9, 0]}>
+      <RoundedBox args={[0.8, 0.8, 1.1]} radius={0.1} position={[0, 3, 0]}>
         <meshStandardMaterial color="white" />
       </RoundedBox>
-      <Cylinder args={[0.25, 0.25, 0.1]} position={[0, 2.9, 0.5]} rotation={[Math.PI / 2, 0, 0]}>
+      <Cylinder args={[0.3, 0.3, 0.1]} position={[0, 3, 0.55]} rotation={[Math.PI / 2, 0, 0]}>
         <meshStandardMaterial color="#1e293b" />
       </Cylinder>
-      <Sphere args={[0.1]} position={[0, 3.3, 0]}>
+      <Sphere args={[0.1]} position={[0, 3.5, 0]}>
          <meshStandardMaterial color="#fb923c" />
       </Sphere>
     </group>
@@ -244,55 +244,58 @@ const DecorativeProps = () => (
 
 const FloatingElements = () => (
   <group>
-    <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-      <group position={[-3.5, 6.5, 2]} rotation={[0.4, 0, 0.4]}>
-         <RoundedBox args={[1, 1, 1]} radius={0.02}>
-            <meshStandardMaterial color="#f472b6" wireframe wireframeLinewidth={2} />
-         </RoundedBox>
+    {/* Shelf Items */}
+    <group position={[-4.1, 2.5, 0]}>
+      <Float speed={2} rotationIntensity={1} floatIntensity={1}>
+        <group position={[0, 0.6, -2.5]} rotation={[0.4, 0, 0.4]}>
+           <RoundedBox args={[0.8, 0.8, 0.8]} radius={0.02}>
+              <meshStandardMaterial color="#2dd4bf" wireframe wireframeLinewidth={2} />
+           </RoundedBox>
+        </group>
+      </Float>
+      <Float speed={1.5} rotationIntensity={2} floatIntensity={1.2}>
+        <group position={[0, 0.8, -0.8]} rotation={[0.8, 0, 0]}>
+           <Cylinder args={[0, 0.6, 1, 4]} rotation={[0, Math.PI / 4, 0]}>
+              <meshStandardMaterial color="#4ade80" wireframe wireframeLinewidth={2} />
+           </Cylinder>
+        </group>
+      </Float>
+      <group position={[0, 0, 1.5]}>
+         {[0, 0.35, 0.7].map(x => [0, 0.35, 0.7].map(y => [0, 0.35].map(z => (
+            <Sphere key={`${x}-${y}-${z}`} args={[0.14]} position={[x - 0.35, y + 0.15, z - 0.15]}>
+              <meshStandardMaterial 
+                 color={["#f472b6", "#4ade80", "#fb923c", "#8b5cf6"][(Math.floor(x*10 + y*5 + z*2)) % 4]} 
+                 roughness={0.3}
+              />
+            </Sphere>
+         ))))}
       </group>
-    </Float>
-    <Float speed={1.5} rotationIntensity={2} floatIntensity={1.2}>
-      <group position={[-1.5, 6, 1]} rotation={[0.8, 0, 0]}>
-         <Cylinder args={[0, 0.8, 1.2, 4]} rotation={[0, Math.PI / 4, 0]}>
-            <meshStandardMaterial color="#4ade80" wireframe wireframeLinewidth={2} />
-         </Cylinder>
-      </group>
-    </Float>
-    <group position={[-3.8, 4.35, 0]}>
-       {[0, 0.4, 0.8].map(x => [0, 0.4, 0.8].map(y => [0, 0.4].map(z => (
-          <Sphere key={`${x}-${y}-${z}`} args={[0.16]} position={[x - 0.4, y, z - 0.2]}>
-            <meshStandardMaterial 
-               color={["#f472b6", "#4ade80", "#fb923c", "#8b5cf6"][(Math.floor(x*10 + y*5 + z*2)) % 4]} 
-               roughness={0.3}
-            />
-          </Sphere>
-       ))))}
     </group>
   </group>
 );
 
 const DogInBed = () => (
-  <group position={[4.2, 0, 3.8]}>
-    <Torus args={[0.9, 0.2, 16, 32]} position={[0, 0.2, 0]} rotation={[Math.PI / 2, 0, 0]}>
+  <group position={[4.1, 0, 2.5]} rotation={[0, -Math.PI / 4, 0]}>
+    <Torus args={[0.8, 0.18, 16, 32]} position={[0, 0.18, 0]} rotation={[Math.PI / 2, 0, 0]}>
       <meshStandardMaterial color={Colors.dogBed} />
     </Torus>
-    <Sphere args={[0.85, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]} position={[0, 0, 0]} scale={[1, 0.3, 1]}>
+    <Sphere args={[0.75, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]} position={[0, 0, 0]} scale={[1, 0.3, 1]}>
        <meshStandardMaterial color="#134e4a" />
     </Sphere>
-    <group position={[0, 0.6, 0]} rotation={[0, -Math.PI / 4, 0]}>
-      <RoundedBox args={[0.6, 0.7, 0.9]} radius={0.25} position={[0, 0, 0]}>
+    <group position={[0, 0.55, 0]} rotation={[0, -Math.PI / 4, 0]}>
+      <RoundedBox args={[0.55, 0.65, 0.85]} radius={0.25} position={[0, 0, 0]}>
          <meshStandardMaterial color={Colors.dog} />
       </RoundedBox>
-      <RoundedBox args={[0.55, 0.55, 0.5]} radius={0.2} position={[0, 0.4, 0.4]}>
+      <RoundedBox args={[0.5, 0.5, 0.45]} radius={0.2} position={[0, 0.35, 0.35]}>
          <meshStandardMaterial color={Colors.dog} />
       </RoundedBox>
-      <RoundedBox args={[0.15, 0.35, 0.05]} radius={0.05} position={[0.2, 0.75, 0.4]} rotation={[0, 0, -0.1]}>
+      <RoundedBox args={[0.13, 0.32, 0.05]} radius={0.05} position={[0.18, 0.7, 0.35]} rotation={[0, 0, -0.1]}>
          <meshStandardMaterial color={Colors.dog} />
       </RoundedBox>
-      <RoundedBox args={[0.15, 0.35, 0.05]} radius={0.05} position={[-0.2, 0.75, 0.4]} rotation={[0, 0, 0.1]}>
+      <RoundedBox args={[0.13, 0.32, 0.05]} radius={0.05} position={[-0.18, 0.7, 0.35]} rotation={[0, 0, 0.1]}>
          <meshStandardMaterial color={Colors.dog} />
       </RoundedBox>
-      <RoundedBox args={[0.62, 0.12, 0.7]} radius={0.05} position={[0, 0.2, 0.3]}>
+      <RoundedBox args={[0.58, 0.1, 0.65]} radius={0.05} position={[0, 0.18, 0.3]}>
          <meshStandardMaterial color="#fb923c" />
       </RoundedBox>
     </group>
@@ -319,57 +322,43 @@ export default function IsometricRoom() {
       <div className="w-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
-          camera={{ position: [18, 16, 18], fov: 25 }} 
+          camera={{ position: [25, 20, 25], fov: 15 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
-          {/* <color attach="background" args={['#1a1030']} /> */}
-          {/* <fog attach="fog" args={['#1a1030', 25, 65]} /> */}
-          <ambientLight intensity={0.4} />
-          <pointLight 
-             position={[10, 20, 10]} 
-             intensity={2} 
-             castShadow 
-             shadow-mapSize={[2048, 2048]} 
-             shadow-bias={-0.0001}
-          />
+          {/* <color attach="background" args={['']} /> */}
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 20, 10]} intensity={2} castShadow shadow-mapSize={[1024, 1024]} />
           <pointLight position={[-15, 10, -10]} intensity={1} color="#8b5cf6" />
-          <pointLight position={[0, 5, 20]} intensity={0.5} color="#4ade80" />
-          <spotLight 
-             position={[0, 25, 0]} 
-             intensity={1.5} 
-             angle={0.6} 
-             penumbra={1} 
-             castShadow 
-          />
+          <spotLight position={[0, 25, 0]} intensity={1.5} angle={0.6} penumbra={1} castShadow />
+          
           <Suspense fallback={null}>
             <group rotation={[0, -Math.PI / 4, 0]} position={[0, -3.2, 0]}>
               <RoomArchitecture />
               <ArcadeMachine />
-              <DeskSetup />
               <Chair />
+              <DeskSetup />
               <DecorativeProps />
               <FloatingElements />
               <DogInBed />
               <ContactShadows 
                 position={[0, 0, 0]} 
-                opacity={0.65} 
-                scale={18} 
-                blur={2.8} 
+                opacity={0.6} 
+                scale={15} 
+                blur={2.5} 
                 far={10} 
-                resolution={1024}
               />
             </group>
             <Environment preset="city" />
           </Suspense>
+
           <OrbitControls 
             enableZoom={true} 
             makeDefault 
             minPolarAngle={Math.PI / 4} 
             maxPolarAngle={Math.PI / 2.2}
-            minAzimuthAngle={-Math.PI / 4}
-            maxAzimuthAngle={Math.PI / 4}
+            minAzimuthAngle={-Math.PI / 2}
+            maxAzimuthAngle={Math.PI / 2}
             enableDamping={true}
-            dampingFactor={0.05}
           />
         </Canvas>
 

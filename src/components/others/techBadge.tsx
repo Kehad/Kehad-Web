@@ -60,7 +60,7 @@ export const ExperienceCard = ({
   accentColor = "orange-600" 
 }: ExperienceItem) => {
   return (
-    <div className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition duration-500 shadow-2xl">
+    <div className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition duration-500 shadow-2xl cursor-pointer">
       {/* Glow Effect */}
       <div className={`absolute -top-24 -right-24 w-64 h-64 bg-${accentColor}/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-${accentColor}/20 transition-all duration-700`}></div>
       <div className={`absolute inset-0 bg-gradient-to-tr from-${accentColor}/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none`}></div>

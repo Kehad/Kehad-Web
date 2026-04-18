@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-
+import { motion } from 'framer-motion';
+import CustomCursor from '../others/CustomCursor';
 import HeroSection from './HeroSection';
 import SkillsSection from './SkillsSection';
 import ExperienceSection from './ExperienceSection';
@@ -18,8 +18,11 @@ export default function LandingPage() {
       className="w-full h-screen bg-gray-50 dark:bg-[#0B0F19] text-gray-900 dark:text-white relative flex flex-col font-sans overflow-x-hidden overflow-y-auto transition-colors duration-500 bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.06)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)]"
       style={{ backgroundSize: '48px 48px' }}
     >
+      <CustomCursor />
+      
       {/* Decorative Starry Background & Floating Blobs */}
       <div className="absolute top-[15%] left-[30%] w-16 h-12 bg-white rounded-[40%_60%_70%_30%] opacity-90 blur-[1px] rotate-12 shadow-[0_0_20px_rgba(200,200,200,0.8)] dark:shadow-[0_0_20px_rgba(255,255,255,0.8)]"></div>
+
 
       {/* Hero Wrapper max out at 100vh for scroll effect */}
       <HeroSection />
@@ -39,15 +42,6 @@ export default function LandingPage() {
       {/* Footer */}
       <Footer />
 
-      {/* Custom Framer Motion Mouse Cursors */}
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-white/80 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-        // style={{ x: cursorXSpring, y: cursorYSpring }}
-      />
-      <motion.div 
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-        // style={{ x: cursorXRaw, y: cursorYRaw }}
-      />
     </motion.div>
   );
 }

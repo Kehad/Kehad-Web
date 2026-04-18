@@ -31,23 +31,23 @@ export default function LandingPage() {
       <ExperienceSection />
 
       {/* Projects Section */}
-      {/* <ProjectsSection /> */}
+      <ProjectsSection />
 
       {/* Contact Section */}
-      {/* <ContactSection /> */}
+      <ContactSection />
 
       {/* Footer */}
-      {/* <Footer /> */}
+      <Footer />
 
       {/* Custom Framer Motion Mouse Cursors */}
-      {/* <motion.div
+      <motion.div
         className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-white/80 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
+        // style={{ x: cursorXSpring, y: cursorYSpring }}
       />
       <motion.div 
         className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-        style={{ x: cursorXRaw, y: cursorYRaw }}
-      /> */}
+        // style={{ x: cursorXRaw, y: cursorYRaw }}
+      />
     </motion.div>
   );
 }

@@ -94,63 +94,63 @@ export default function ExperienceSection() {
         const start = index * segment;
         const end = (index + 1) * segment;
         
-        // Entrance timing (widened to 40% of the segment)
-        const entranceEnd = start + (segment * 0.4);
-        
+        // Displacement configuration
         let opacity = 0;
-        let x = 120;
-        let scale = 0.95;
+        let x = 100; // Start at right
+        let rotY = 15; // Start with slight tilt
+        let scale = 0.9;
 
-        // Reset active state
-        card.classList.remove('active');
-        dot.classList.remove('active');
+        // Entrance Timing (first 40% of the segment)
+        const entranceEnd = start + (segment * 0.4);
+        // Exit Timing (last 40% of the segment)
+        const exitStart = end - (segment * 0.4);
 
-        // Logic check for current card in focus
         if (progress >= start && progress <= end) {
-          const localProgress = (progress - start) / (entranceEnd - start);
-          const easedProgress = Math.min(Math.max(localProgress, 0), 1);
-          
-          opacity = easedProgress;
-          x = 120 * (1 - easedProgress);
-          scale = 0.95 + (0.05 * easedProgress);
-          
-          if (progress > entranceEnd) {
+          if (isFirst && progress <= entranceEnd) {
+            opacity = 1;
+            x = 0;
+            scale = 1;
+          } else if (progress <= entranceEnd) {
+            const p = (progress - start) / (entranceEnd - start);
+            opacity = p;
+            x = 120 * (1 - p);
+            scale = 0.95 + (0.05 * p);
+          } else if (progress >= exitStart && !isLast) {
+            const p = (progress - exitStart) / (end - exitStart);
+            opacity = 1 - p;
+            x = -120 * p;
+            scale = 1 - (0.05 * p);
+          } else {
             opacity = 1;
             x = 0;
             scale = 1;
           }
-          
-          // Exit logic for non-last cards
-          if (!isLast && progress > (end - (segment * 0.2))) {
-            const exitStart = end - (segment * 0.2);
-            const exitProgress = (progress - exitStart) / (end - exitStart);
-            opacity = 1 - exitProgress;
-            scale = 1 - (0.05 * exitProgress);
-          }
-
           card.classList.add('active');
           dot.classList.add('active');
         } else if (isFirst && progress < start) {
-          // Keep first card active until scrolled
           opacity = 1;
           x = 0;
           scale = 1;
           card.classList.add('active');
           dot.classList.add('active');
-        } else if (isLast && progress > start) {
-          // Keep last card active at end of scroll
+        } else if (isLast && progress >= end) {
           opacity = 1;
           x = 0;
           scale = 1;
           card.classList.add('active');
           dot.classList.add('active');
+        } else {
+          card.classList.remove('active');
+          dot.classList.remove('active');
         }
 
-        // Apply styles to the DOM directly
+        // Apply high-performance transforms
         card.style.opacity = opacity.toString();
         card.style.transform = `translateX(${x}%) scale(${scale})`;
+        card.style.visibility = opacity > 0 ? 'visible' : 'hidden';
       });
     };
+    console.log(cardRefs, 'cardrefs')
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); 
@@ -161,11 +161,11 @@ export default function ExperienceSection() {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full bg-[#0a0a0a]" 
+      className="relativ w-full" 
       id="experience"
-      style={{ height: '450vh' }}
+      // style={{ height: '450vh' }}
     >
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="ticky top-0 -screen w-full flex items-center justify-center verflow-hidden">
         
         {/* Background ambient glows */}
         <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-blue-600/10 filter blur-[120px] rounded-full pointer-events-none" />
@@ -181,16 +181,16 @@ export default function ExperienceSection() {
             </p>
           </header>
 
-          <div className="relative h-[550px] mt-12 flex items-center justify-center">
+          <div className="relative -[550px] mt-12 flex flex-col space-y-10 items-center justify-center">
             {experiences.map((exp, index) => (
               <div
                 key={index}
-                ref={el => { cardRefs.current[index] = el }}
-                className="absolute top-0 left-0 w-full pointer-events-none transition-[transform,opacity] duration-150 ease-linear"
+                // ref={el => { cardRefs.current[index] = el }}
+                className="bsolute top-0 left-0 w-full pointer-events-none transition-[transform,opacity] duration-150 ease-linear"
                 style={{ 
-                  opacity: 0, 
-                  transform: 'translateX(120%) scale(0.95)',
-                  zIndex: index + 1 // New cards stack on top of old ones
+                  // opacity: 1, 
+                  // transform: 'translateX(120%) scale(0.95)',
+                  // zIndex: index + 1 // New cards stack on top of old ones
                 }}
               >
                 <div className="pointer-events-auto">

@@ -60,9 +60,10 @@ export const ExperienceCard = ({
   accentColor = "orange-600" 
 }: ExperienceItem) => {
   return (
-    <div className="bg-white w-full dark:bg-[#0c101a] border border-gray-200 dark:border-gray-800 rounded-2xl p-8 md:p-10 relative overflow-hidden group hover:border-gray-300 dark:hover:border-gray-700 transition duration-300 shadow-xl dark:shadow-2xl">
-      {/* Dynamic Background Gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-tr from-${accentColor}/10 dark:from-${accentColor}/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none`}></div>
+    <div className="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition duration-500 shadow-2xl">
+      {/* Glow Effect */}
+      <div className={`absolute -top-24 -right-24 w-64 h-64 bg-${accentColor}/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-${accentColor}/20 transition-all duration-700`}></div>
+      <div className={`absolute inset-0 bg-gradient-to-tr from-${accentColor}/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none`}></div>
 
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-start justify-between mb-3 relative z-10">

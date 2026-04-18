@@ -67,7 +67,7 @@ const RoomArchitecture = () => (
       <RoundedBox args={[10, 8, 0.4]} radius={0.05}>
         <meshStandardMaterial color={Colors.wallRight} metalness={0.1} roughness={0.6} />
       </RoundedBox>
-      <Text
+      {/* <Text
         position={[1.5, 2.5, 0.3]}
         fontSize={1.2}
         color="white"
@@ -75,7 +75,7 @@ const RoomArchitecture = () => (
         anchorY="middle"
       >
         Hi, I'm
-      </Text>
+      </Text> */}
       <Text
         position={[1.5, 1.2, 0.3]}
         fontSize={2}
@@ -322,7 +322,7 @@ export default function IsometricRoom() {
       <div className="w-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
-          camera={{ position: [25, 20, 25], fov: 15 }} 
+          camera={{ position: [45, 40, 45], fov: 15 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
           {/* <color attach="background" args={['']} /> */}
@@ -352,7 +352,7 @@ export default function IsometricRoom() {
           </Suspense>
 
           <OrbitControls 
-            enableZoom={true} 
+            enableZoom={false} 
             makeDefault 
             minPolarAngle={Math.PI / 4} 
             maxPolarAngle={Math.PI / 2.2}

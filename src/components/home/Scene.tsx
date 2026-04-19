@@ -1,8 +1,9 @@
 "use client";
-import React, { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Environment, ContactShadows, useScroll, Html } from "@react-three/drei";
+import { Environment, ContactShadows, useScroll, Html, ScrollControls } from "@react-three/drei";
 import ModernComputer from "./ModernComputer";
+import { Canvas } from "@react-three/fiber";
 
 // Overlay removed, handled securely outside Canvas for true fixed positioning
 
@@ -39,15 +40,38 @@ export default function Scene({ onEnter }: { onEnter?: () => void }) {
 
   return (
     <>
-      <color attach="background" args={['#010101']} />
+      <color attach="background" args={["#020202"]} />
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 20, 10]} intensity={1200} color="#ffffff" />
-      <Environment preset="city" />
+      <pointLight position={[-10, 5, 5]} intensity={400} color="#3b82f6" />
+      <Environment preset="night" />
 
+      {/* <div></div> */}
+      
       <ModernComputer />
-
-      {/* Ground soft shadow moved lower for the cabinet */}
-      <ContactShadows ref={shadowRef} position={[0, -3.5, 0]} opacity={0.4} scale={40} blur={2.5} far={10} color="#000" />
     </>
   );  
 }
+export const FinalScene = ({setEntered}: {setEntered: (value: boolean) => void}) => (
+  <div className="relative w-full h-screen overflow-hidden">
+    {/* The Background Image */}
+    <div 
+      className="absolute inset-0 z-0"
+      style={{
+        // backgroundImage: 'url("/your-background-image.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: "red",
+      }}
+    />
+  
+    {/* Your Canvas */}
+    <Canvas camera={{ position: [0, 0.5, 8], fov: 45 }} className="relative z-10">
+      <Suspense fallback={null}>
+        <ScrollControls pages={3} damping={0.25}>
+          <Scene onEnter={() => setEntered(true)} />
+        </ScrollControls>
+      </Suspense>
+    </Canvas>
+  </div>
+)

@@ -2,14 +2,16 @@
 import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
-import Scene from "@/components/home/Scene";
+import Scene, { FinalScene } from "@/components/home/Scene";
 import SplashScreen from "@/components/others/SplashScreen";
 import LandingPage from "@/components/home/LandingPage";
 
 export default function Home() {
-  const [splashDone, setSplashDone] = useState(false);
-  const [entered, setEntered] = useState(false);
-
+  // const [splashDone, setSplashDone] = useState(false); // normaly false
+  // const [entered, setEntered] = useState(false); // normaly false
+  
+  const [splashDone, setSplashDone] = useState(true); 
+  const [entered, setEntered] = useState(false); 
   return (
     <div className="w-full h-screen relative overflow-hidden bg-gray-50 dark:bg-[#0B0F19] transition-colors duration-500">
       {/* Optional: Add animated subtle noise overlay or extra grid for modern look */}
@@ -17,13 +19,9 @@ export default function Home() {
       
       {/* 3D Modern Computer Application (Phase 3) */}
       {!entered && splashDone && (
-        <Canvas camera={{ position: [0, 0.5, 8], fov: 45 }} className="relative z-10">
-          <Suspense fallback={null}>
-            <ScrollControls pages={1.5} damping={0.25}>
-              <Scene onEnter={() => setEntered(true)} />
-            </ScrollControls>
-          </Suspense>
-        </Canvas>
+         <div className="relative w-full h-screen overflow-hidden">
+            <FinalScene setEntered={setEntered} />
+         </div>
       )}
 
       {/* True Fixed Scroll Indicator outside Canvas bounds */}

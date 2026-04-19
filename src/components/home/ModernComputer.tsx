@@ -1,9 +1,12 @@
-
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useScroll, Text } from "@react-three/drei";
+import { useScroll, Text, RoundedBox, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { ScrollControls } from "@react-three/drei";
+import Scene from "./Scene";
+
 
 export default function ModernComputer() {
   const group = useRef<THREE.Group>(null);
@@ -19,11 +22,7 @@ export default function ModernComputer() {
       if (e.key === "Backspace") {
         setInputText((prev) => prev.slice(0, -1));
       } else if (e.key === "Enter") {
-        if (inputText.trim().toLowerCase() === "help") {
-          setInputText("");
-        } else {
-          setInputText("");
-        }
+        setInputText("");
       } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
         setInputText((prev) => prev + e.key);
       }
@@ -33,10 +32,10 @@ export default function ModernComputer() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [inputText]);
 
-  const kehadTextRef = useRef<any>(null);
-  const extraText1Ref = useRef<any>(null);
-  const extraText2Ref = useRef<any>(null);
-  const extraText3Ref = useRef<any>(null);
+  const mainTextRef = useRef<any>(null);
+  const subText1Ref = useRef<any>(null);
+  const subText2Ref = useRef<any>(null);
+  const subText3Ref = useRef<any>(null);
 
   useFrame(({ clock }) => {
     if (scroll.offset > maxScrollRef.current) {
@@ -45,61 +44,55 @@ export default function ModernComputer() {
     const safeOffset = maxScrollRef.current;
 
     if (group.current) {
-      // Calculate target scale to exactly fit/cover the viewport at Z=0
-      // Monitor screen is ~3.45 width and 2.05 height. We give a tiny 2% bleed so no edges show.
       const targetScale = Math.max(viewport.width / 3.4, viewport.height / 2.0) * 1.02;
-      
       const scale = THREE.MathUtils.lerp(0.3, targetScale, safeOffset);
       group.current.scale.set(scale, scale, scale);
 
-      // Start rotated so we see its side, then face directly forward
       group.current.rotation.y = THREE.MathUtils.lerp(Math.PI / 4, 0, safeOffset);
       group.current.rotation.x = THREE.MathUtils.lerp(0.15, 0, safeOffset);
 
-      // Adjust Y so the center of the screen accurately aligns with the camera lookAt center
-      // Camera looks at Y=0. The inner screen is offset by Y=0.4 natively in the group.
       const targetY = -0.4 * targetScale;
       group.current.position.y = THREE.MathUtils.lerp(-0.5, targetY, safeOffset);
-      group.current.position.z = THREE.MathUtils.lerp(0, 0, safeOffset); // kept at 0 to easily map viewport
+      group.current.position.z = THREE.MathUtils.lerp(0, 0, safeOffset);
     }
-    
+
     if (blurPlaneMaterialRef.current) {
       blurPlaneMaterialRef.current.opacity = THREE.MathUtils.lerp(0.98, 0, Math.min(1, safeOffset * 1.5));
     }
-    
-    if (kehadTextRef.current) {
-      // kehadTextRef.current.scale.x = THREE.MathUtils.lerp(1, 15, Math.pow(safeOffset, 3));
-      kehadTextRef.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.4) * 4));
+
+    if (mainTextRef.current) {
+      mainTextRef.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.3) * 4));
     }
 
-    if (extraText1Ref.current) {
-      extraText1Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.4) * 4));
+    if (subText1Ref.current) {
+      subText1Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.5) * 4));
     }
-    if (extraText2Ref.current) {
-      extraText2Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.6) * 4));
+    if (subText2Ref.current) {
+      subText2Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.65) * 4));
     }
-    if (extraText3Ref.current) {
-      extraText3Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.8) * 4));
+    if (subText3Ref.current) {
+      subText3Ref.current.fillOpacity = Math.max(0, Math.min(1, (safeOffset - 0.8) * 4));
     }
 
     if (terminalInputRef.current) {
       const blink = Math.floor(clock.getElapsedTime() * 2) % 2 === 0;
-      terminalInputRef.current.text = `user: ~& ${inputText}${blink ? "_" : ""}`;
+      terminalInputRef.current.text = `user@terminal:~$ ${inputText}${blink ? "_" : ""}`;
     }
   });
 
   return (
     <group ref={group}>
+
       {/* Stand Base */}
       <mesh position={[0, -1.0, -0.5]}>
         <boxGeometry args={[1.5, 0.05, 1]} />
-        <meshStandardMaterial color="#b0b0b0" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#a0a0a0" metalness={0.9} roughness={0.15} />
       </mesh>
 
       {/* Stand Pillar */}
       <mesh position={[0, -0.4, -0.8]} rotation={[0.05, 0, 0]}>
         <boxGeometry args={[0.2, 1.2, 0.1]} />
-        <meshStandardMaterial color="#b0b0b0" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#a0a0a0" metalness={0.9} roughness={0.15} />
       </mesh>
 
       {/* Main Monitor Chassis */}
@@ -107,67 +100,125 @@ export default function ModernComputer() {
         {/* Back panel */}
         <mesh>
           <boxGeometry args={[3.6, 2.2, 0.1]} />
-          <meshStandardMaterial color="#d0d0d0" metalness={0.9} roughness={0.2} />
+          <meshStandardMaterial color="#c8c8c8" metalness={0.95} roughness={0.1} />
         </mesh>
 
         {/* Screen Bezel (thin black) */}
         <mesh position={[0, 0, 0.06]}>
           <boxGeometry args={[3.5, 2.1, 0.02]} />
-          <meshStandardMaterial color="#111111" roughness={0.9} />
+          <meshStandardMaterial color="#0a0a0a" roughness={0.9} />
         </mesh>
 
         {/* Display Glass Surface */}
         <mesh position={[0, 0, 0.075]}>
           <planeGeometry args={[3.45, 2.05]} />
-          <meshPhysicalMaterial color="#000000" metalness={0.9} roughness={0.1} transparent opacity={0.65} clearcoat={1.0} clearcoatRoughness={0.1} />
+          <meshPhysicalMaterial
+            color="#000000"
+            metalness={0.95}
+            roughness={0.05}
+            transparent
+            opacity={0.7}
+            clearcoat={1.0}
+            clearcoatRoughness={0.05}
+          />
         </mesh>
 
-        {/* Terminal Screen & Content */}
+        {/* Screen Content */}
         <group position={[0, 0, 0.07]}>
+          {/* Dark background */}
           <mesh position={[0, 0, -0.01]}>
             <planeGeometry args={[3.45, 2.05]} />
-            <meshBasicMaterial color="#050505" />
+            <meshBasicMaterial color="#030712" />
           </mesh>
 
+          {/* Blur overlay */}
           <mesh position={[0, 0, 0.01]}>
             <planeGeometry args={[3.45, 2.05]} />
-            <meshBasicMaterial ref={blurPlaneMaterialRef} color="#050505" transparent opacity={0.98} />
+            <meshBasicMaterial
+              ref={blurPlaneMaterialRef}
+              color="#030712"
+              transparent
+              opacity={0.98}
+            />
           </mesh>
 
-          {/* Terminal Text Renderings placed in front of blur plane */}
+          {/* Content Layer */}
           <group position={[0, 0, 0.02]}>
-            <Text ref={kehadTextRef} position={[0, 0.4, 0]} color="#10b981" fontSize={0.6} anchorX="center" anchorY="middle">
-              KEHAD
-            </Text>
-            
-            <Text ref={extraText1Ref} position={[0, -0.1, 0]} color="#f1f5f9" fontSize={0.15} anchorX="center" anchorY="middle">
-              System Initializing...
-            </Text>
-            
-            <Text ref={extraText2Ref} position={[0, -0.3, 0]} color="#38bdf8" fontSize={0.12} anchorX="center" anchorY="middle">
-              Loading Modules...
-            </Text>
-
-            <Text ref={extraText3Ref} position={[0, -0.5, 0]} color="#f43f5e" fontSize={0.12} anchorX="center" anchorY="middle">
-              Welcome to the New Era.
+            {/* Main Brand Text */}
+            <Text
+              ref={mainTextRef}
+              position={[0, 0.3, 0]}
+              color="#ffffff"
+              fontSize={0.7}
+              anchorX="center"
+              anchorY="middle"
+              letterSpacing={0.05}
+            >
+              KOOKIE
             </Text>
 
-            <Text ref={terminalInputRef} position={[-1.6, -0.85, 0]} color="#10b981" fontSize={0.1} anchorX="left" anchorY="top">
-              user: ~& _
+            {/* Subtitle */}
+            <Text
+              ref={subText1Ref}
+              position={[0, -0.15, 0]}
+              color="#94a3b8"
+              fontSize={0.13}
+              anchorX="center"
+              anchorY="middle"
+            >
+              Next Generation Experience
+            </Text>
+
+            {/* Feature text */}
+            <Text
+              ref={subText2Ref}
+              position={[0, -0.4, 0]}
+              color="#60a5fa"
+              fontSize={0.11}
+              anchorX="center"
+              anchorY="middle"
+            >
+              Powered by Advanced Technology
+            </Text>
+
+            {/* Call to action */}
+            <Text
+              ref={subText3Ref}
+              position={[0, -0.6, 0]}
+              color="#f59e0b"
+              fontSize={0.11}
+              anchorX="center"
+              anchorY="middle"
+            >
+              Scroll to Explore
+            </Text>
+
+            {/* Terminal Input */}
+            <Text
+              ref={terminalInputRef}
+              position={[-1.6, -0.88, 0]}
+              color="#22c55e"
+              fontSize={0.09}
+              anchorX="left"
+              anchorY="top"
+            >
+              user@terminal:~$ _
             </Text>
           </group>
         </group>
       </group>
 
-      {/* Sleek Magic Keyboard */}
+      {/* Keyboard */}
       <mesh position={[0, -0.98, 0.5]} rotation={[0.05, 0, 0]}>
-        <boxGeometry args={[2.0, 0.04, 0.8]} />
-        <meshStandardMaterial color="#d0d0d0" metalness={0.6} roughness={0.3} />
+        <boxGeometry args={[2.2, 0.04, 0.85]} />
+        <meshStandardMaterial color="#c8c8c8" metalness={0.7} roughness={0.25} />
       </mesh>
       <mesh position={[0, -0.95, 0.5]} rotation={[0.05, 0, 0]}>
-        <boxGeometry args={[1.9, 0.02, 0.7]} />
-        <meshStandardMaterial color="#222222" roughness={0.8} />
+        <boxGeometry args={[2.1, 0.02, 0.75]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.7} />
       </mesh>
     </group>
   );
 }
+
+

@@ -39,15 +39,15 @@ export default function Scene({ onEnter }: { onEnter?: () => void }) {
 
   return (
     <>
+      <color attach="background" args={['#010101']} />
       <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 15, 10]} intensity={1.5} castShadow />
-      <directionalLight position={[-10, -5, -10]} intensity={0.5} />
+      <pointLight position={[10, 20, 10]} intensity={1200} color="#ffffff" />
       <Environment preset="city" />
 
       <ModernComputer />
 
-      {/* Ground soft shadow */}
-      <ContactShadows ref={shadowRef} position={[0, -1.2, 0]} opacity={0.65} scale={20} blur={3} far={5} color="#000" />
+      {/* Ground soft shadow moved lower for the cabinet */}
+      <ContactShadows ref={shadowRef} position={[0, -3.5, 0]} opacity={0.4} scale={40} blur={2.5} far={10} color="#000" />
     </>
   );  
 }

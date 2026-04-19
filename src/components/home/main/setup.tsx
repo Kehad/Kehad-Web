@@ -311,18 +311,18 @@ export default function IsometricRoom() {
 
   if (!mounted) {
     return (
-      <div className="w-full aspect-square lg:aspect-video xl:aspect-square 2xl:aspect-video flex flex-col items-center justify-center p-0 lg:p-4 animate-pulse">
-        <div className="w-full h-full bg-[#0c0a1f] rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] relative border border-white/5" />
+      <div className="w-full h-[500px] lg:h-[75vh] xl:h-[85vh] flex flex-col items-center justify-center p-0 lg:p-4 animate-pulse">
+        <div className="w-full h-full bg-[#0c0a1f]/50 rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.3)] relative border border-white/5" />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-0">
-      <div className="w-full flex-1 rounded-[3rem] overflow-hidden relative group">
+    <div className="w-full h-[500px] lg:h-[75vh] xl:h-[85vh] flex flex-col items-center justify-center p-0">
+      <div className="w-full h-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
-          camera={{ position: [45, 40, 45], fov: 15 }} 
+          camera={{ position: [38, 34, 38], fov: 12 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
           {/* <color attach="background" args={['']} /> */}

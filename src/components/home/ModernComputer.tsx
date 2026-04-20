@@ -275,7 +275,7 @@ function ScreenContent({ isLight, colors }: { isLight: boolean; colors: any }) {
         anchorY="middle"
         letterSpacing={-0.085}
       >
-        KOOKIE
+        KEHAD
       </Text>
 
       {/* Browser header */}
@@ -291,8 +291,8 @@ function ScreenContent({ isLight, colors }: { isLight: boolean; colors: any }) {
             <meshBasicMaterial color={col} />
           </mesh>
         ))}
-        <Text position={[-0.1, 0, 0.03]} color={isLight ? "#64748b" : "#94a3b8"} fontSize={0.046}>
-          https://www.kookie-kollective.com
+        <Text position={[-0.1, 0, 0.03]} color={isLight ? "#000000" : "#ffffff"} fontSize={0.106}>
+          https://www.kehad.onrender.com
         </Text>
       </group>
 

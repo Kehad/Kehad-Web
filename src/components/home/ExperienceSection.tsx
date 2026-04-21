@@ -161,11 +161,11 @@ export default function ExperienceSection() {
   return (
     <section 
       ref={containerRef} 
-      className="relativ w-full" 
+      className="relative w-full" 
       id="experience"
-      // style={{ height: '450vh' }}
+      style={{ height: '450vh' }}
     >
-      <div className="ticky top-0 -screen w-full flex items-center justify-center verflow-hidden">
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         
         {/* Background ambient glows */}
         <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-blue-600/10 filter blur-[120px] rounded-full pointer-events-none" />
@@ -181,16 +181,16 @@ export default function ExperienceSection() {
             </p>
           </header>
 
-          <div className="relative -[550px] mt-12 flex flex-col space-y-10 items-center justify-center">
+          <div className="relative h-[550px] mt-12 w-full flex items-center justify-center">
             {experiences.map((exp, index) => (
               <div
                 key={index}
-                // ref={el => { cardRefs.current[index] = el }}
-                className="bsolute top-0 left-0 w-full pointer-events-none transition-[transform,opacity] duration-150 ease-linear"
+                ref={el => { cardRefs.current[index] = el; }}
+                className="absolute top-0 left-0 w-full pointer-events-none transition-[transform,opacity] duration-150 ease-linear"
                 style={{ 
-                  // opacity: 1, 
-                  // transform: 'translateX(120%) scale(0.95)',
-                  // zIndex: index + 1 // New cards stack on top of old ones
+                  opacity: 0, 
+                  transform: 'translateX(120%) scale(0.95)',
+                  zIndex: index + 1 // New cards stack on top of old ones
                 }}
               >
                 <div className="pointer-events-auto">

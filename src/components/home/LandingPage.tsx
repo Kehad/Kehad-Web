@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import CustomCursor from '../others/CustomCursor';
 import HeroSection from './HeroSection';
+import ServicesSection from './ServicesSection';
 import SkillsSection from './SkillsSection';
 import ExperienceSection from './ExperienceSection';
 import ProjectsSection from './ProjectsSection';
@@ -26,6 +27,9 @@ export default function LandingPage() {
 
       {/* Hero Wrapper max out at 100vh for scroll effect */}
       <HeroSection />
+
+      {/* Services Section */}
+      <ServicesSection />
 
       {/* Skills Section */}
       <SkillsSection />

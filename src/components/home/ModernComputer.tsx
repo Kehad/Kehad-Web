@@ -115,62 +115,83 @@ export default function ModernComputer() {
       </group>
 
       {/* === LAPTOP (centered, floating style) === */}
-      <group position={[0, -0.85, 0]}>
-        {/* Base */}
-        <RoundedBox args={[3.9, 0.11, 2.75]} radius={0.14} position={[0, 0.05, 0]}>
+      <group position={[0, -0.95, 0]}>   {/* Adjusted base position for better balance */}
+
+  {/* Base / Body - Thin and wide like modern MacBook */}
+  <RoundedBox 
+    args={[4.12, 0.18, 2.98]} 
+    radius={0.20} 
+    position={[0, 0, 0]}
+  >
+    <meshStandardMaterial 
+      color={Colors.laptopMetal} 
+      metalness={isLight ? 0.78 : 0.97} 
+      roughness={isLight ? 0.22 : 0.07} 
+    />
+  </RoundedBox>
+
+  {/* Keyboard deck inset (darker area) */}
+  <RoundedBox 
+    args={[3.75, 0.035, 2.55]} 
+    radius={0.06} 
+    position={[0, 0.075, 0.12]}
+  >
+    <meshStandardMaterial 
+      color={isLight ? "#2a2f36" : "#0a0d12"} 
+      metalness={0.35} 
+      roughness={0.75} 
+    />
+  </RoundedBox>
+
+  {/* Screen Group - Slim profile, natural angle */}
+  <group position={[0, 0.25, -1.52]} ref={laptopGripRef}>
+    <group position={[0, 1.45, 0]}>   {/* Higher pivot for realistic opening */}
+
+      {/* Screen Back Cover - Very thin and flat */}
+      <RoundedBox 
+        args={[4.05, 2.68, 0.075]} 
+        radius={0.10}
+      >
+        <meshStandardMaterial 
+          color={Colors.laptopMetal} 
+          metalness={isLight ? 0.75 : 0.96} 
+          roughness={isLight ? 0.20 : 0.06} 
+        />
+      </RoundedBox>
+
+      {/* Thin Modern Bezel */}
+      <group position={[0, 0, 0.055]}>
+        <RoundedBox 
+          args={[3.82, 2.35, 0.035]} 
+          radius={0.05}
+        >
           <meshStandardMaterial 
-            color={Colors.laptopMetal} 
-            metalness={isLight ? 0.7 : 0.95} 
-            roughness={isLight ? 0.25 : 0.08} 
+            color={Colors.screenBezel} 
+            metalness={0.15} 
+            roughness={0.85} 
           />
         </RoundedBox>
 
-        {/* Screen */}
-        <group position={[0, 0.18, -1.42]} ref={laptopGripRef}>
-          <group position={[0, 1.22, 0]}>
-            <RoundedBox args={[3.95, 2.38, 0.07]} radius={0.11}>
-              <meshStandardMaterial 
-                color={Colors.laptopMetal} 
-                metalness={isLight ? 0.7 : 0.95} 
-                roughness={isLight ? 0.25 : 0.08} 
-              />
-            </RoundedBox>
+        {/* Screen Content Area */}
+        <group position={[0, -0.01, 0.065]}>
+          <Suspense fallback={null}>
+            <ScreenContent isLight={isLight} colors={Colors} />
+          </Suspense>
 
-            <group position={[0, 0, 0.05]}>
-              <mesh>
-                <planeGeometry args={[3.82, 2.18]} />
-                <meshStandardMaterial color={Colors.screenBezel} />
-              </mesh>
-
-              <group position={[0, -0.02, 0.06]}>
-                <Suspense fallback={null}>
-                  <ScreenContent isLight={isLight} colors={Colors} />
-                </Suspense>
-
-                <mesh position={[0, 0, 0.07]}>
-                  <planeGeometry args={[3.82, 2.18]} />
-                  <meshBasicMaterial 
-                    ref={blurPlaneMaterialRef} 
-                    color={isLight ? "#f8fafc" : "#02040a"} 
-                    transparent 
-                    opacity={0.96} 
-                  />
-                </mesh>
-
-                <Text
-                  ref={terminalInputRef}
-                  position={[-1.78, -0.92, 0.08]}
-                  color={isLight ? "#0ea5e9" : "#22c55e"}
-                  fontSize={0.052}
-                  anchorX="left"
-                >
-                  admin:~$
-                </Text>
-              </group>
-            </group>
-          </group>
+          {/* Subtle glass / anti-reflective layer */}
+          <mesh position={[0, 0, 0.08]}>
+            <planeGeometry args={[3.76, 2.29]} />
+            <meshBasicMaterial 
+              color={Colors.glassColor} 
+              transparent 
+              opacity={Colors.glassOpacity} 
+            />
+          </mesh>
         </group>
       </group>
+    </group>
+  </group>
+</group>
 
       {/* Lighting - tuned per mode */}
       {isLight ? (
@@ -256,65 +277,65 @@ function ModernSpeakerDriver({ colors, isLight, scale = 1 }: any) {
 }
 
 /* ====================== SCREEN CONTENT ====================== */
-function ScreenContent({ isLight, colors }: { isLight: boolean; colors: any }) {
-  const texture = useTexture("/images/kookie-bg.png");
+// function ScreenContent({ isLight, colors }: { isLight: boolean; colors: any }) {
+//   const texture = useTexture("/images/kookie-bg.png");
 
-  return (
-    <group>
-      <mesh>
-        <planeGeometry args={[3.82, 2.18]} />
-        <meshBasicMaterial map={texture} toneMapped={false} />
-      </mesh>
+//   return (
+//     <group>
+//       <mesh>
+//         <planeGeometry args={[3.82, 2.18]} />
+//         <meshBasicMaterial map={texture} toneMapped={false} />
+//       </mesh>
 
-      <Text
-        position={[0, 0.32, 0.03]}
-        color={colors.text}
-        fontSize={0.98}
-        fontWeight={900}
-        anchorX="center"
-        anchorY="middle"
-        letterSpacing={-0.085}
-      >
-        KEHAD
-      </Text>
+//       <Text
+//         position={[0, 0.32, 0.03]}
+//         color={colors.text}
+//         fontSize={0.98}
+//         fontWeight={900}
+//         anchorX="center"
+//         anchorY="middle"
+//         letterSpacing={-0.085}
+//       >
+//         KEHAD
+//       </Text>
 
-      {/* Browser header */}
-      <group position={[0, 1.0, 0.04]}>
-        <mesh>
-          <planeGeometry args={[3.82, 0.17]} />
-          <meshBasicMaterial color={isLight ? "#f1f5f9" : "#0f172a"} transparent opacity={0.9} />
-        </mesh>
-        {/* Traffic lights */}
-        {["#ff5f56", "#ffbd2e", "#27c93f"].map((col, i) => (
-          <mesh key={i} position={[-1.75 + i * 0.085, 0, 0.02]}>
-            <circleGeometry args={[0.021]} />
-            <meshBasicMaterial color={col} />
-          </mesh>
-        ))}
-        <Text position={[-0.1, 0, 0.03]} color={isLight ? "#000000" : "#ffffff"} fontSize={0.106}>
-          https://www.kehad.onrender.com
-        </Text>
-      </group>
+//       {/* Browser header */}
+//       <group position={[0, 1.0, 0.04]}>
+//         <mesh>
+//           <planeGeometry args={[3.82, 0.17]} />
+//           <meshBasicMaterial color={isLight ? "#f1f5f9" : "#0f172a"} transparent opacity={0.9} />
+//         </mesh>
+//         {/* Traffic lights */}
+//         {["#ff5f56", "#ffbd2e", "#27c93f"].map((col, i) => (
+//           <mesh key={i} position={[-1.75 + i * 0.085, 0, 0.02]}>
+//             <circleGeometry args={[0.021]} />
+//             <meshBasicMaterial color={col} />
+//           </mesh>
+//         ))}
+//         <Text position={[-0.1, 0, 0.03]} color={isLight ? "#000000" : "#ffffff"} fontSize={0.106}>
+//           https://www.kehad.onrender.com
+//         </Text>
+//       </group>
 
-      {/* Toolbar */}
-      <group position={[0, -0.89, 0.05]}>
-        <mesh>
-          <planeGeometry args={[3.35, 0.31]} />
-          <meshBasicMaterial color={colors.toolbarBg} transparent opacity={0.96} />
-        </mesh>
-        <group position={[0, 0, 0.02]}>
-          <ToolbarButton label="W." x={-1.45} width={0.18} colors={colors} isLight={isLight} />
-          <ToolbarButton label="Creator" x={-1.05} active width={0.39} colors={colors} isLight={isLight} />
-          <ToolbarButton label="Font & Color" x={-0.45} width={0.52} colors={colors} isLight={isLight} />
-          <ToolbarButton label="Details" x={0.22} width={0.31} colors={colors} isLight={isLight} />
-          <ToolbarButton label="Elements" x={0.65} width={0.37} colors={colors} isLight={isLight} />
-          <ToolbarButton label="Score" x={1.08} width={0.29} colors={colors} isLight={isLight} />
-          <ToolbarButton label="Visit Site" x={1.48} width={0.46} color={colors.accentGold} labelColor={isLight ? "#fff" : "#000"} colors={colors} isLight={isLight} />
-        </group>
-      </group>
-    </group>
-  );
-}
+//       {/* Toolbar */}
+//       <group position={[0, -0.89, 0.05]}>
+//         <mesh>
+//           <planeGeometry args={[3.35, 0.31]} />
+//           <meshBasicMaterial color={colors.toolbarBg} transparent opacity={0.96} />
+//         </mesh>
+//         <group position={[0, 0, 0.02]}>
+//           <ToolbarButton label="W." x={-1.45} width={0.18} colors={colors} isLight={isLight} />
+//           <ToolbarButton label="Creator" x={-1.05} active width={0.39} colors={colors} isLight={isLight} />
+//           <ToolbarButton label="Font & Color" x={-0.45} width={0.52} colors={colors} isLight={isLight} />
+//           <ToolbarButton label="Details" x={0.22} width={0.31} colors={colors} isLight={isLight} />
+//           <ToolbarButton label="Elements" x={0.65} width={0.37} colors={colors} isLight={isLight} />
+//           <ToolbarButton label="Score" x={1.08} width={0.29} colors={colors} isLight={isLight} />
+//           <ToolbarButton label="Visit Site" x={1.48} width={0.46} color={colors.accentGold} labelColor={isLight ? "#fff" : "#000"} colors={colors} isLight={isLight} />
+//         </group>
+//       </group>
+//     </group>
+//   );
+// }
 
 function ToolbarButton({ label, x, width, active = false, color, labelColor, colors, isLight }: any) {
   return (
@@ -355,6 +376,94 @@ function BoxFrame({ width, height, depth, thickness = 0.2, color }: any) {
         </mesh>
       ))}
       {/* Add more bars as needed from your original BoxFrame */}
+    </group>
+  );
+}
+
+function ScreenContent({ isLight, colors }: { isLight: boolean; colors: any }) {
+  const texture = useTexture("/images/kookie-bg.png");
+
+  return (
+    <group>
+      {/* Main screen background */}
+      <mesh>
+        <planeGeometry args={[3.72, 2.22]} />
+        <meshBasicMaterial map={texture} toneMapped={false} />
+      </mesh>
+
+      {/* Big Title */}
+      <Text
+        position={[0, 0.25, 0.04]}
+        color={colors.text}
+        fontSize={0.95}
+        fontWeight={900}
+        anchorX="center"
+        anchorY="middle"
+        letterSpacing={-0.09}
+      >
+        KEHAD
+      </Text>
+
+      {/* Mac-style Browser Header (more accurate) */}
+      <group position={[0, 1.02, 0.05]}>
+        <mesh>
+          <planeGeometry args={[3.72, 0.19]} />
+          <meshBasicMaterial 
+            color={isLight ? "#f1f5f9" : "#1f252f"} 
+            transparent 
+            opacity={0.95} 
+          />
+        </mesh>
+
+        {/* Traffic lights (more accurate spacing) */}
+        {["#ff5f57", "#ffbd2e", "#28c840"].map((col, i) => (
+          <mesh 
+            key={i} 
+            position={[-1.68 + i * 0.09, 0, 0.03]}
+          >
+            <circleGeometry args={[0.022]} />
+            <meshBasicMaterial color={col} />
+          </mesh>
+        ))}
+
+        <Text 
+          position={[-0.05, 0, 0.04]} 
+          color={isLight ? "#1f2937" : "#e2e8f0"} 
+          fontSize={0.085}
+        >
+          https://www.kehad.onrender.com
+        </Text>
+      </group>
+
+      {/* Toolbar (slightly thinner + better positioning) */}
+      <group position={[0, -0.92, 0.06]}>
+        <mesh>
+          <planeGeometry args={[3.45, 0.29]} />
+          <meshBasicMaterial 
+            color={colors.toolbarBg} 
+            transparent 
+            opacity={0.97} 
+          />
+        </mesh>
+
+        <group position={[0, 0.01, 0.03]}>
+          <ToolbarButton label="W." x={-1.52} width={0.19} colors={colors} isLight={isLight} />
+          <ToolbarButton label="Creator" x={-1.08} active width={0.41} colors={colors} isLight={isLight} />
+          <ToolbarButton label="Font & Color" x={-0.45} width={0.55} colors={colors} isLight={isLight} />
+          <ToolbarButton label="Details" x={0.25} width={0.33} colors={colors} isLight={isLight} />
+          <ToolbarButton label="Elements" x={0.72} width={0.39} colors={colors} isLight={isLight} />
+          <ToolbarButton label="Score" x={1.15} width={0.30} colors={colors} isLight={isLight} />
+          <ToolbarButton 
+            label="Visit Site" 
+            x={1.52} 
+            width={0.48} 
+            color={colors.accentGold} 
+            labelColor={isLight ? "#fff" : "#111"} 
+            colors={colors} 
+            isLight={isLight} 
+          />
+        </group>
+      </group>
     </group>
   );
 }

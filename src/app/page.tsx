@@ -7,11 +7,11 @@ import SplashScreen from "@/components/others/SplashScreen";
 import LandingPage from "@/components/home/LandingPage";
 
 export default function Home() {
-  // const [splashDone, setSplashDone] = useState(false); // normaly false
-  // const [entered, setEntered] = useState(false); // normaly false
+  const [splashDone, setSplashDone] = useState(false); // normaly false
+  const [entered, setEntered] = useState(false); // normaly false
   
-  const [splashDone, setSplashDone] = useState(true); 
-  const [entered, setEntered] = useState(false); 
+  // const [splashDone, setSplashDone] = useState(true); 
+  // const [entered, setEntered] = useState(false); 
   return (
     <div className="w-full h-screen relative overflow-hidden bg-gray-50 dark:bg-[#0B0F19] transition-colors duration-500">
       {/* Optional: Add animated subtle noise overlay or extra grid for modern look */}
@@ -42,6 +42,7 @@ export default function Home() {
       
       {/* The 2-step Loading Flow Container */}
       {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
+       {/* <SplashScreen onComplete={() => setSplashDone(false)} /> */}
     </div>
   );
 }

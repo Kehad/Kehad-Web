@@ -12,6 +12,7 @@ export default function ModernComputer() {
   const laptopGripRef = useRef<THREE.Group>(null);
   const blurPlaneMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
   const [inputText, setInputText] = useState("");
+  const [showGuide, setShowGuide] = useState(true);
   const terminalInputRef = useRef<any>(null);
   const scroll = useScroll();
   const { viewport } = useThree();
@@ -50,6 +51,59 @@ export default function ModernComputer() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // Auto-scroll and guide logic
+  useEffect(() => {
+    if (!scroll?.el) return;
+    let timeoutId: NodeJS.Timeout;
+    let isAutoScrolling = false;
+
+    const startAutoScroll = () => {
+      if (isAutoScrolling) return;
+      isAutoScrolling = true;
+      setShowGuide(false);
+      
+      let currentScroll = scroll.el.scrollTop;
+      const targetScroll = scroll.el.scrollHeight - scroll.el.clientHeight;
+      const duration = 4000;
+      const startTime = performance.now();
+
+      const animateScroll = (time: number) => {
+         // Stop if user interacted
+         if (!isAutoScrolling) return;
+         
+         const elapsed = time - startTime;
+         const progress = Math.min(elapsed / duration, 1);
+         const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+         scroll.el.scrollTop = currentScroll + ease * (targetScroll - currentScroll);
+         if (progress < 1) requestAnimationFrame(animateScroll);
+      };
+      requestAnimationFrame(animateScroll);
+    };
+
+    const handleInteraction = (e: Event) => {
+      // Allow the animation to run, only cancel if the user actually touches/scrolls their mouse/keyboard.
+      isAutoScrolling = false;
+      setShowGuide(false);
+      clearTimeout(timeoutId);
+    };
+
+    timeoutId = setTimeout(startAutoScroll, 5000);
+    const el = scroll.el;
+    // We do NOT listen to 'scroll' because 'scrollTop = ...' triggers it programmatically, immediately canceling our animation!
+    el.addEventListener('pointerdown', handleInteraction);
+    el.addEventListener('wheel', handleInteraction, { passive: true });
+    el.addEventListener('touchstart', handleInteraction, { passive: true });
+    window.addEventListener('keydown', handleInteraction);
+
+    return () => {
+      clearTimeout(timeoutId);
+      el.removeEventListener('pointerdown', handleInteraction);
+      el.removeEventListener('wheel', handleInteraction);
+      el.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+    };
+  }, [scroll]);
+
   useFrame(({ clock }) => {
     if (scroll.offset > maxScrollRef.current) maxScrollRef.current = scroll.offset;
     const safeOffset = maxScrollRef.current;
@@ -82,6 +136,21 @@ export default function ModernComputer() {
 
   return (
     <group ref={group}>
+      {/* 0. INTERACTION GUIDE */}
+      {showGuide && (
+         <Suspense fallback={null}>
+           <Text 
+             position={[0, -2.8, 2]} 
+             color={Colors.text} 
+             fontSize={0.25} 
+             anchorX="center" 
+             anchorY="middle" 
+           >
+              {isLight ? "↑ SCROLL TO EXPLORE ↓" : "◈ SCROLL OR WAIT TO ENTER ◈"}
+           </Text>
+         </Suspense>
+      )}
+
       {/* Environment */}
       <group position={[0, -0.6, -7]}>
         {/* Backdrop wall with subtle gradient feel */}
@@ -275,67 +344,6 @@ function ModernSpeakerDriver({ colors, isLight, scale = 1 }: any) {
     </group>
   );
 }
-
-/* ====================== SCREEN CONTENT ====================== */
-// function ScreenContent({ isLight, colors }: { isLight: boolean; colors: any }) {
-//   const texture = useTexture("/images/kookie-bg.png");
-
-//   return (
-//     <group>
-//       <mesh>
-//         <planeGeometry args={[3.82, 2.18]} />
-//         <meshBasicMaterial map={texture} toneMapped={false} />
-//       </mesh>
-
-//       <Text
-//         position={[0, 0.32, 0.03]}
-//         color={colors.text}
-//         fontSize={0.98}
-//         fontWeight={900}
-//         anchorX="center"
-//         anchorY="middle"
-//         letterSpacing={-0.085}
-//       >
-//         KEHAD
-//       </Text>
-
-//       {/* Browser header */}
-//       <group position={[0, 1.0, 0.04]}>
-//         <mesh>
-//           <planeGeometry args={[3.82, 0.17]} />
-//           <meshBasicMaterial color={isLight ? "#f1f5f9" : "#0f172a"} transparent opacity={0.9} />
-//         </mesh>
-//         {/* Traffic lights */}
-//         {["#ff5f56", "#ffbd2e", "#27c93f"].map((col, i) => (
-//           <mesh key={i} position={[-1.75 + i * 0.085, 0, 0.02]}>
-//             <circleGeometry args={[0.021]} />
-//             <meshBasicMaterial color={col} />
-//           </mesh>
-//         ))}
-//         <Text position={[-0.1, 0, 0.03]} color={isLight ? "#000000" : "#ffffff"} fontSize={0.106}>
-//           https://www.kehad.onrender.com
-//         </Text>
-//       </group>
-
-//       {/* Toolbar */}
-//       <group position={[0, -0.89, 0.05]}>
-//         <mesh>
-//           <planeGeometry args={[3.35, 0.31]} />
-//           <meshBasicMaterial color={colors.toolbarBg} transparent opacity={0.96} />
-//         </mesh>
-//         <group position={[0, 0, 0.02]}>
-//           <ToolbarButton label="W." x={-1.45} width={0.18} colors={colors} isLight={isLight} />
-//           <ToolbarButton label="Creator" x={-1.05} active width={0.39} colors={colors} isLight={isLight} />
-//           <ToolbarButton label="Font & Color" x={-0.45} width={0.52} colors={colors} isLight={isLight} />
-//           <ToolbarButton label="Details" x={0.22} width={0.31} colors={colors} isLight={isLight} />
-//           <ToolbarButton label="Elements" x={0.65} width={0.37} colors={colors} isLight={isLight} />
-//           <ToolbarButton label="Score" x={1.08} width={0.29} colors={colors} isLight={isLight} />
-//           <ToolbarButton label="Visit Site" x={1.48} width={0.46} color={colors.accentGold} labelColor={isLight ? "#fff" : "#000"} colors={colors} isLight={isLight} />
-//         </group>
-//       </group>
-//     </group>
-//   );
-// }
 
 function ToolbarButton({ label, x, width, active = false, color, labelColor, colors, isLight }: any) {
   return (

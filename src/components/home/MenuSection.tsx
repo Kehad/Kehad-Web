@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -47,37 +47,33 @@ export default function MenuSection({ isMenuOpen, setIsMenuOpen }: MenuSectionPr
              <div className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Kehad</div>
           </div>
 
-          <nav className="flex flex-col items-center gap-10 md:gap-14 text-center pointer-events-auto">
-            {/* Standard Anchor Links for sections */}
-            {['Experience', 'Projects', 'Contact'].map((item, index) => (
-              <motion.a 
-                key={item} 
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setIsMenuOpen(false)}
+          <nav className="flex flex-col items-center gap-6 md:gap-8 text-center pointer-events-auto h-full max-h-[70vh] overflow-y-auto no-scrollbar py-4">
+            {[
+              { name: 'Home', href: '/' },
+              // { name: 'Experience', href: '/#experience' },
+              // { name: 'Projects', href: '/#projects' },
+              { name: 'About', href: '/about' },
+              { name: 'Gear', href: '/uses' },
+              { name: 'Blog', href: '/blog' },
+              // { name: 'Contact', href: '/#contact' }
+            ].map((item, index) => (
+              <motion.div
+                key={item.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
-                className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
+                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
               >
-                {item}
-              </motion.a>
+                <Link 
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide inline-block"
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
             ))}
-            {/* New Link to About Page */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.4, delay: 3 * 0.1, ease: "easeOut" }}
-            >
-              <Link
-                href="/about"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
-              >
-                About
-              </Link>
-            </motion.div>
+            
             <motion.a
               href={cv.src}
               download="Kehinde Gabriel Adigun CV.jpg"
@@ -85,8 +81,8 @@ export default function MenuSection({ isMenuOpen, setIsMenuOpen }: MenuSectionPr
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.4, delay: 3 * 0.1, ease: "easeOut" }}
-              className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
+              transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+              className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide w-full"
             >
               Resume
             </motion.a>

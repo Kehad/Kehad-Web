@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { ExperienceCard, ExperienceItem } from '../others/techBadge';
 
 const experiences: ExperienceItem[] = [
@@ -64,159 +65,43 @@ const experiences: ExperienceItem[] = [
 ];
 
 export default function ExperienceSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const rect = container.getBoundingClientRect();
-      const totalHeight = container.offsetHeight - window.innerHeight;
-      
-      // Calculate scroll progress (0 to 1)
-      let progress = -rect.top / totalHeight;
-      progress = Math.min(Math.max(progress, 0), 1);
-
-      const totalCards = experiences.length;
-      const segment = 1 / totalCards;
-
-      experiences.forEach((_, index) => {
-        const card = cardRefs.current[index];
-        const dot = dotRefs.current[index];
-        if (!card || !dot) return;
-
-        const isFirst = index === 0;
-        const isLast = index === totalCards - 1;
-        
-        const start = index * segment;
-        const end = (index + 1) * segment;
-        
-        // Displacement configuration
-        let opacity = 0;
-        let x = 100; // Start at right
-        let rotY = 15; // Start with slight tilt
-        let scale = 0.9;
-
-        // Entrance Timing (first 40% of the segment)
-        const entranceEnd = start + (segment * 0.4);
-        // Exit Timing (last 40% of the segment)
-        const exitStart = end - (segment * 0.4);
-
-        if (progress >= start && progress <= end) {
-          if (isFirst && progress <= entranceEnd) {
-            opacity = 1;
-            x = 0;
-            scale = 1;
-          } else if (progress <= entranceEnd) {
-            const p = (progress - start) / (entranceEnd - start);
-            opacity = p;
-            x = 120 * (1 - p);
-            scale = 0.95 + (0.05 * p);
-          } else if (progress >= exitStart && !isLast) {
-            const p = (progress - exitStart) / (end - exitStart);
-            opacity = 1 - p;
-            x = -120 * p;
-            scale = 1 - (0.05 * p);
-          } else {
-            opacity = 1;
-            x = 0;
-            scale = 1;
-          }
-          card.classList.add('active');
-          dot.classList.add('active');
-        } else if (isFirst && progress < start) {
-          opacity = 1;
-          x = 0;
-          scale = 1;
-          card.classList.add('active');
-          dot.classList.add('active');
-        } else if (isLast && progress >= end) {
-          opacity = 1;
-          x = 0;
-          scale = 1;
-          card.classList.add('active');
-          dot.classList.add('active');
-        } else {
-          card.classList.remove('active');
-          dot.classList.remove('active');
-        }
-
-        // Apply high-performance transforms
-        card.style.opacity = opacity.toString();
-        card.style.transform = `translateX(${x}%) scale(${scale})`;
-        card.style.visibility = opacity > 0 ? 'visible' : 'hidden';
-      });
-    };
-    console.log(cardRefs, 'cardrefs')
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); 
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <section 
-      ref={containerRef} 
-      className="relative w-full" 
+      className="w-full relative py-20 flex flex-col items-center justify-center" 
       id="experience"
-      style={{ height: '450vh' }}
     >
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        
-        {/* Background ambient glows */}
-        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-blue-600/10 filter blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-orange-600/10 filter blur-[120px] rounded-full pointer-events-none" />
+      {/* Background ambient glows */}
+      <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-blue-600/10 filter blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-orange-600/10 filter blur-[120px] rounded-full pointer-events-none" />
 
-        <div className="relative z-10 w-full max-w-[850px] text-center px-6">
-          <header className="mb-12">
-            <h1 className="text-[clamp(3rem,10vw,7rem)] font-black text-white m-0 tracking-tighter leading-none pointer-events-none">
-              Experience
-            </h1>
-            <p className="text-gray-500 uppercase tracking-[0.3em] font-bold mt-2 text-sm md:text-base">
-              My professional journey
-            </p>
-          </header>
+      <div className="relative z-10 w-full max-w-[850px] px-6">
+        <header className="mb-16 text-center">
+          <h1 className="text-[clamp(3rem,10vw,7rem)] font-black text-white m-0 tracking-tighter leading-none pointer-events-none">
+            Experience
+          </h1>
+          <p className="text-gray-500 uppercase tracking-[0.3em] font-bold mt-2 text-sm md:text-base">
+            My professional journey
+          </p>
+        </header>
 
-          <div className="relative h-[550px] mt-12 w-full flex items-center justify-center">
-            {experiences.map((exp, index) => (
-              <div
-                key={index}
-                ref={el => { cardRefs.current[index] = el; }}
-                className="absolute top-0 left-0 w-full pointer-events-none transition-[transform,opacity] duration-150 ease-linear"
-                style={{ 
-                  opacity: 0, 
-                  transform: 'translateX(120%) scale(0.95)',
-                  zIndex: index + 1 // New cards stack on top of old ones
-                }}
-              >
-                <div className="pointer-events-auto">
-                    <ExperienceCard {...exp} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Progress dots */}
-          <div className="flex gap-2.5 justify-center mt-12 z-20 relative">
-            {experiences.map((_, i) => (
-              <div
-                key={i}
-                ref={el => { dotRefs.current[i] = el }}
-                className="h-2 w-2 bg-orange-500 rounded-full opacity-20 transition-all duration-300 [&.active]:w-8 [&.active]:opacity-100"
-              />
-            ))}
-          </div>
-
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-            <div className="w-[1px] h-12 bg-gradient-to-b from-orange-500 to-transparent animate-bounce opacity-70" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">
-              Scroll to progress
-            </span>
-          </div>
+        <div className="w-full flex flex-col gap-10">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 80, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                type: "spring", 
+                bounce: 0.35,
+                delay: index * 0.15
+              }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="w-full"
+            >
+              <ExperienceCard {...exp} />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

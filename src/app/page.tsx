@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import Scene, { FinalScene } from "@/components/home/Scene";
@@ -7,11 +7,32 @@ import SplashScreen from "@/components/others/SplashScreen";
 import LandingPage from "@/components/home/LandingPage";
 
 export default function Home() {
-  const [splashDone, setSplashDone] = useState(false); // normaly false
-  const [entered, setEntered] = useState(false); // normaly false
-  
-  // const [splashDone, setSplashDone] = useState(true); 
-  // const [entered, setEntered] = useState(false); 
+  const [splashDone, setSplashDone] = useState(false); 
+  const [entered, setEntered] = useState(false); 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if the user has already visited the site in this session
+    const hasVisited = sessionStorage.getItem("kehad_has_visited");
+    if (hasVisited) {
+      setSplashDone(true);
+      setEntered(true);
+    }
+    setIsLoading(false);
+  }, []);
+
+  const handleEnter = (val: boolean) => {
+    setEntered(val);
+    if (val) {
+      sessionStorage.setItem("kehad_has_visited", "true");
+    }
+  };
+
+  // Prevent hydration mismatch by blocking render until we check sessionStorage
+  if (isLoading) {
+    return <div className="w-full h-screen bg-[#0B0F19]" />;
+  }
+
   return (
     <div className="w-full h-screen relative overflow-hidden bg-gray-50 dark:bg-[#0B0F19] transition-colors duration-500">
       {/* Optional: Add animated subtle noise overlay or extra grid for modern look */}
@@ -20,7 +41,7 @@ export default function Home() {
       {/* 3D Modern Computer Application (Phase 3) */}
       {!entered && splashDone && (
          <div className="relative w-full h-screen overflow-hidden">
-            <FinalScene setEntered={setEntered} />
+            <FinalScene setEntered={handleEnter} />
          </div>
       )}
 
@@ -38,11 +59,9 @@ export default function Home() {
           <LandingPage />
         </div>
       )}
-      {/* <LandingPage /> */}
       
       {/* The 2-step Loading Flow Container */}
       {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
-       {/* <SplashScreen onComplete={() => setSplashDone(false)} /> */}
     </div>
   );
 }

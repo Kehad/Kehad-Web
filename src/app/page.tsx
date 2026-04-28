@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     // Check if the user has already visited the site in this session
-    const hasVisited = sessionStorage.getItem("kehad_has_visited");
+    const hasVisited = localStorage.getItem("kehad_has_visited");
     if (hasVisited) {
       setSplashDone(true);
       setEntered(true);
@@ -24,7 +24,7 @@ export default function Home() {
   const handleEnter = (val: boolean) => {
     setEntered(val);
     if (val) {
-      sessionStorage.setItem("kehad_has_visited", "true");
+      localStorage.setItem("kehad_has_visited", "true");
     }
   };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { TechBadge, TechItem } from "../others/techBadge";
 import dynamic from "next/dynamic";
 import Keyboard3d from "../others/keyboard";

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 function TransitionMovement(props: any) {
   const pageVariants = {
@@ -41,7 +41,7 @@ function TransitionMovement(props: any) {
 
 export default TransitionMovement;
 
-// import { motion } from "framer-motion";
+// import { motion } from "motion/react";
 // import React from "react";
 
 // const transition = (OgComponent) => {

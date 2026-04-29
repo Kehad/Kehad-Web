@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import CustomCursor from '../others/CustomCursor';
 import HeroSection from './HeroSection';
 import ServicesSection from './ServicesSection';

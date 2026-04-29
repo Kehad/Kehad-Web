@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ArrowLeft, Code, Cpu, Globe, Rocket, User } from 'lucide-react';
 import Link from 'next/link';
 import RotatingCube3d from '@/components/about/RotatingCube3d';

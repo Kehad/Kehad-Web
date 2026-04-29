@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import MenuSection from "@/components/home/MenuSection";
 
 const articles = [
@@ -20,7 +20,7 @@ const articles = [
     readTime: "5 min read",
     tag: "DESIGN",
     description: "Stop building static websites. Here is my practical guide on injecting life into your UI components using layout animations, scroll tracking, and spring physics.",
-    slug: "mastering-framer-motion-interfaces"
+    slug: "mastering-motion/react-interfaces"
   },
   {
     title: "The Subtle Art of Glassmorphism & Dark Mode",

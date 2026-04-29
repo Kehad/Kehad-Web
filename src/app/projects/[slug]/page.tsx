@@ -3,7 +3,7 @@
 import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Center, Float, Text3D, Environment, ContactShadows } from "@react-three/drei";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import MenuSection from "@/components/home/MenuSection";

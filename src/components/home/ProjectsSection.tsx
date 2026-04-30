@@ -98,10 +98,10 @@ const projectsData = [
 
 export default function ProjectsSection() {
   return (
-    <section className="w-full max-w-[1300px] mx-auto px-6 py-20 z-10 relative" id="projects">
-      <div className="text-center mb-16 drop-shadow-lg relative">
-        <h2 className="text-[4rem] sm:text-[5rem] md:text-[6rem] font-black text-gray-900 dark:text-white tracking-tighter mb-2 leading-none relative z-10 hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4 " style={{ textShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>Projects</h2>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] sm:w-[600px] sm:h-[300px] bg-black/5 dark:bg-white/5 rounded-full blur-[80px] pointer-events-none z-0"></div>
+    <section className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 py-16 sm:py-20 z-10 relative" id="projects">
+      <div className="text-center mb-12 sm:mb-16 drop-shadow-lg relative">
+        <h2 className="text-[3.2rem] sm:text-[5rem] md:text-[6rem] font-black text-gray-900 dark:text-white tracking-tighter mb-2 leading-none relative z-10 hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4 " style={{ textShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>Projects</h2>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[140px] sm:w-[600px] sm:h-[300px] bg-black/5 dark:bg-white/5 rounded-full blur-[80px] pointer-events-none z-0"></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -125,7 +125,7 @@ export default function ProjectsSection() {
                   />
                   <div className="absolute inset-0 bg-black/5 dark:bg-transparent transition-colors duration-500"></div>
                 </div>
-                <div className="p-6 md:p-8 flex items-center justify-between flex-grow">
+                <div className="p-5 sm:p-6 md:p-8 flex items-center justify-between flex-grow">
                   <div>
                     <h3 className="text-2xl lg:text-3xl font-black text-gray-900 dark:text-white tracking-tight">{project.name}</h3>
                     <p className="text-gray-500 dark:text-gray-400 text-sm mt-1.5 font-semibold tracking-wide">{project.Tag}</p>
@@ -140,7 +140,7 @@ export default function ProjectsSection() {
               
               {/* === BACK FACE === */}
               <div 
-                className="col-start-1 row-start-1 w-full h-full bg-white dark:bg-[#0c101a] border border-gray-200 dark:border-gray-800 rounded-[1.25rem] overflow-hidden shadow-xl flex flex-col p-6 md:p-8"
+                className="col-start-1 row-start-1 w-full h-full bg-white dark:bg-[#0c101a] border border-gray-200 dark:border-gray-800 rounded-[1.25rem] overflow-hidden shadow-xl flex flex-col p-5 sm:p-6 md:p-8"
                 style={{ 
                   backfaceVisibility: 'hidden', 
                   WebkitBackfaceVisibility: 'hidden',

@@ -42,9 +42,9 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative min-h-[90vh] flex flex-col w-full z-10 transition-colors duration-500 bg-white dark:bg-transparent">
+    <div className="relative min-h-[90vh] sm:min-h-[100dvh] flex flex-col w-full z-10 transition-colors duration-500 bg-white dark:bg-transparent overflow-x-hidden">
       {/* Top Navbar */}
-      <header className="px-4 sm:px-6 py-4 sm:py-6 flex flex-wrap justify-between items-center w-full max-w-[1500px] mx-auto relative z-50">
+      <header className="px-4 sm:px-6 py-4 sm:py-6 flex flex-wrap justify-between items-center w-full max-w-[1500px] mx-auto relative z-50 gap-y-4">
         <div className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-gray-300 transition cursor-pointer">Kehad</div>
         
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-4 sm:mt-0">
@@ -75,15 +75,15 @@ export default function HeroSection() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col xl:flex-row items-center justify-between px-4 sm:px-8 py-10 max-w-[1500px] mx-auto w-full z-10 relative">
+      <main className="flex-1 flex flex-col xl:flex-row items-center justify-center xl:justify-between px-4 sm:px-8 py-6 sm:py-10 max-w-[1500px] mx-auto w-full z-10 relative">
         
         {/* Left Side: Hero Text */}
-        <div className="flex flex-col items-center xl:items-start text-center xl:text-left xl:w-5/12 mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
-          <p className="text-gray-600 dark:text-gray-300 font-semibold mb-2 text-base md:text-xl tracking-wide uppercase">Hi, I am</p>
-          <h1 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[9rem] font-black text-gray-900 dark:text-white leading-[0.9] tracking-tight mb-4 sm:mb-6 min-h-[4rem] sm:min-h-[6rem] md:min-h-[8rem] lg:min-h-[9rem]">
+        <div className="flex flex-col items-center xl:items-start text-center xl:text-left xl:w-5/12 mb-10 sm:mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
+          <p className="text-gray-600 dark:text-gray-300 font-semibold mb-2 text-sm sm:text-base md:text-xl tracking-wide uppercase">Hi, I am</p>
+          <h1 className="text-[3.2rem] sm:text-[5rem] md:text-[7rem] lg:text-[8rem] font-black text-gray-900 dark:text-white leading-[1] sm:leading-[0.9] tracking-tight mb-4 sm:mb-6 min-h-[3.2rem] sm:min-h-[5rem] md:min-h-[7rem] lg:min-h-[8rem] w-full">
             <AutoType strings={['Kehinde Adigun', 'Kehad']} loop={true} />
           </h1>
-          <p className="text-blue-600 dark:text-gray-400 font-bold text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 tracking-wide">A Full Stack Web Developer</p>
+          <p className="text-blue-600 dark:text-gray-400 font-bold text-base sm:text-lg md:text-2xl mb-8 sm:mb-12 tracking-wide">A Full Stack Web Developer</p>
           
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center xl:justify-start gap-4 sm:gap-3 w-full sm:w-auto">
             <button onClick={pdfResume} className="flex items-center gap-2 bg-blue-600 dark:bg-white text-white dark:text-black px-6 py-3.5 rounded-lg font-bold hover:bg-blue-700 dark:hover:bg-gray-200 transition text-base shadow-md w-full sm:w-auto justify-center cursor-pointer pointer-events-auto">
@@ -113,7 +113,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right Side: Isometric Tech Stack Keyboard */}
-        <div className="xl:w-7/12 flex flex-col items-center justify-center p-0 sm:p-4 lg:p-12 mt-6 xl:mt-0 select-none w-full xl:max-w-none max-w-[100vw] overflow-x-hidden" style={{ perspective: '3000px' }}>
+        <div className="xl:w-7/12 flex flex-col items-center justify-center p-0 sm:p-4 lg:p-12 mt-6 xl:mt-0 select-none w-full xl:max-w-none max-w-[100vw] overflow-hidden min-h-[300px] sm:min-h-[400px] relative" style={{ perspective: '3000px' }}>
           
           {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2" style={{ transform: "translateZ(50px)" }}>Tech Stack</h2>
           <p className="text-gray-500 dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mb-6 sm:mb-12">(hint: hover a key)</p> */}

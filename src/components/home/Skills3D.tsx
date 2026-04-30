@@ -96,7 +96,7 @@ function FloatingShapes() {
 
 export default function Skills3D() {
   return (
-    <div className="absolute inset-0 -z-10 pointer-events-none opacity-40 dark:opacity-20 w-full h-full">
+    <div className="absolute inset-0 -z-10 pointer-events-none opacity-40 dark:opacity-20 w-full h-full overflow-hidden">
       <Canvas camera={{ position: [0, 0, 10], fov: 50 }} style={{ width: '100%', height: '100%' }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />

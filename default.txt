@@ -860,7 +860,7 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
 }
 
 
-//Home page with Modern Computer Scene
+// Home page for Kehad
 "use client";
 import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";

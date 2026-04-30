@@ -36,16 +36,16 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="w-full max-w-[1200px] mx-auto px-6 py-32 z-10 relative mb-20">
-      <div className="text-center mb-16">
-        <h2 className="text-[3.5rem] sm:text-[4.5rem] md:text-[5.5rem] font-black dark:text-white text-black tracking-tighter leading-none shadow-sm drop-shadow-xl hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4" style={{ textShadow: '0 4px 20px rgba(255,255,255,0.05)' }}>
+    <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-20 sm:py-32 z-10 relative mb-12 sm:mb-20">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-[3rem] sm:text-[4.5rem] md:text-[5.5rem] font-black dark:text-white text-black tracking-tighter leading-none shadow-sm drop-shadow-xl hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4" style={{ textShadow: '0 4px 20px rgba(255,255,255,0.05)' }}>
           Let's Work<br/>Together
         </h2>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-center">
         {/* Contact Form Card */}
-        <div className="flex-1 w-full max-w-2xl bg-[#090b10] bg-opacity-80 backdrop-blur-md border border-gray-800 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div className="flex-1 w-full max-w-2xl bg-[#090b10] bg-opacity-80 backdrop-blur-md border border-gray-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
            
            <h3 className="text-3xl font-black text-white mb-2">Contact Form</h3>
            <p className="text-gray-400 font-medium text-sm md:text-base leading-relaxed mb-8">

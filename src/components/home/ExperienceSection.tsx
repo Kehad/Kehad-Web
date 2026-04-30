@@ -4,16 +4,16 @@ import type { Variants } from "motion/react";
 
 export default function ScrollTriggered() {
   return (
-    <section className="w-full -screen py-24 sm:py-32 relative">
+    <section className="w-full min-h-screen py-16 sm:py-24 md:py-32 relative overflow-x-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 md:gap-12 relative pb-[20vh]">
         
         {/* Section Header */}
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-12 md:mb-24">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500 tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500 tracking-tight px-2"
           >
             Professional Experience
           </motion.h2>
@@ -64,7 +64,7 @@ function Card({ exp, num }: { exp: any; num: number }) {
         {/* Subtle Glow Behind Card */}
         <div className={`absolute -inset-0.5 bg-gradient-to-r ${colorTheme.gradientFrom} ${colorTheme.gradientTo} rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-700`}></div>
 
-        <div className="relative w-full bg-[#0d0d0d]/90 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 md:p-12 overflow-hidden shadow-2xl hover:border-white/20 transition-all duration-500">
+        <div className="relative w-full bg-[#0d0d0d]/90 backdrop-blur-3xl border border-white/10 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 md:p-12 overflow-hidden shadow-2xl hover:border-white/20 transition-all duration-500">
           
           {/* Background Accent Mesh/Gradient */}
           <div className={`absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br ${colorTheme.gradientFrom} ${colorTheme.gradientTo} blur-[120px] opacity-20 rounded-full pointer-events-none group-hover:opacity-30 transition-opacity duration-700`}></div>

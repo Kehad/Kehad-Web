@@ -1,16 +1,13 @@
 "use client";
-import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 import CustomCursor from '../others/CustomCursor';
 import HeroSection from './HeroSection';
 import ServicesSection from './ServicesSection';
 import SkillsSection from './SkillsSection';
-import ExperienceSection from './ExperienceSection';
 import ProjectsSection from './ProjectsSection';
 import ContactSection from './ContactSection';
 import Footer from './Footer';
 import ScrollTriggered from './ExperienceSection';
-import ScrollTriggered2 from './subDummy';
 
 export default function LandingPage() {
   return (

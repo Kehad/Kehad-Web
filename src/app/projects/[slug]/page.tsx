@@ -3,7 +3,7 @@
 import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Center, Float, Text3D, Environment, ContactShadows } from "@react-three/drei";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, Variants } from "motion/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import MenuSection from "@/components/home/MenuSection";
@@ -68,7 +68,7 @@ export default function ProjectDetail() {
     overview: "This project pushes the boundaries of web development, focusing on high-end performance and seamless visuals."
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -76,7 +76,7 @@ export default function ProjectDetail() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
@@ -115,34 +115,7 @@ export default function ProjectDetail() {
           </button>
         </motion.nav>
 
-        {/* Hero 3D Section */}
-        {/* <header className="relative w-full h-[50vh] flex items-end justify-center bg-gradient-to-b from-gray-900 via-[#0B0F19] to-[#0B0F19]">
-          <div className="absolute inset-0 z-0">
-            <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
-              <ambientLight intensity={1.5} />
-              <pointLight position={[10, 10, 10]} intensity={2} color="#ffffff" />
-              <Environment preset="city" />
-              <Suspense fallback={null}>
-                <Project3DTitle title={project.title} color={project.color} />
-                <ContactShadows position={[0, -1.5, 0]} opacity={0.5} scale={10} blur={2.5} far={4} />
-              </Suspense>
-            </Canvas>
-          </div>
-          
-          Decorative Overlay
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0F19] to-transparent z-10" />
 
-          Scroll Down Indicator
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            className="absolute bottom-10 z-20 flex flex-col items-center gap-2"
-          >
-            <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent animate-bounce" />
-            <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-white/50">Scroll</span>
-          </motion.div>
-        </header> */}
 
         {/* Main Content */}
         <main className="relative z-20 w-full max-w-[1200px] mx-auto px-6 py-12 md:py-24 flex-1 flex flex-col gap-16">

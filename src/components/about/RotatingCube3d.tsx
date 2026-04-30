@@ -1,4 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import image1 from '@/assets/images/1.png'
+import image2 from '@/assets/images/2.png'
+import image3 from '@/assets/images/3.jpg'
+import image4 from '@/assets/images/4.jpg'
+import image5 from '@/assets/images/5.jpg'
+import image6 from '@/assets/images/6.png'
+import image7 from '@/assets/images/7.jpg'
+import image8 from '@/assets/images/8.jpg'
 
 const RotatingCube3D: React.FC = () => {
   const [rotation, setRotation] = useState({ x: -20, y: 0 });
@@ -83,12 +91,14 @@ const RotatingCube3D: React.FC = () => {
 
   // Example images - you can replace these with your own
   const images = [
-    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=400&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&h=400&fit=crop'
+    image1.src,
+    image2.src,
+    image3.src,
+    image4.src,
+    image5.src,
+    image6.src,
+    image7.src,
+    image8.src,
   ];
 
   return (

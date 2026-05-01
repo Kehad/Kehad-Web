@@ -36,7 +36,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-20 sm:py-32 z-10 relative mb-12 sm:mb-20">
+    <section id="contact" className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-20 sm:py-32 z-10 relative mb-12 sm:mb-20">
       <div className="text-center mb-12 sm:mb-16">
         <h2 className="text-[3rem] sm:text-[4.5rem] md:text-[5.5rem] font-black dark:text-white text-black tracking-tighter leading-none shadow-sm drop-shadow-xl hover:scale-110 hover:text-shadow-[0_1rem_2rem_rgba(0,0,0,0.4)] hover:rotate-4" style={{ textShadow: '0 4px 20px rgba(255,255,255,0.05)' }}>
           Let's Work<br/>Together

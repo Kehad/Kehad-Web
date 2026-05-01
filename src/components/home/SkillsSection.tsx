@@ -64,7 +64,7 @@ export default function SkillsSection() {
 
   return (
     <section
-      className="w-full max-w-[1400px] mx-auto px-6 py-32 z-10 relative overflow-hidde"
+      className="w-full max-w-[1400px] mx-auto px-6 py-32 pb-0 z-10 relative overflow-hidde"
       id="skills"
     >
       {/* 3D Background */}

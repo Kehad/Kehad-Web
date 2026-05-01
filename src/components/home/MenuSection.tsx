@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import cv from '@/assets/Kehinde-Adigun-Resume.jpg'; 
+import cv from '../../assets/Kehinde-Adigun-Resume.jpg'; 
 
 interface MenuSectionProps {
   isMenuOpen: boolean;

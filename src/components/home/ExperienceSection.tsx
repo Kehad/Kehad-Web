@@ -8,7 +8,7 @@ export default function ScrollTriggered() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 md:gap-12 relative pb-[20vh]">
         
         {/* Section Header */}
-        <div className="text-center mb-12 md:mb-24">
+        <div className="text-center mb-12 md:mb-24 z-200">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -50,12 +50,12 @@ function Card({ exp, num }: { exp: any; num: number }) {
     <div
       className="sticky"
       style={{ 
-        top: `calc(100px + ${num * 30}px)`,
+        top: `calc(200px + ${num * 30}px)`,
         zIndex: num + 10,
       }}
     >
       <motion.div
-        initial="offscreen"
+        // initial="offscreen"
         whileInView="onscreen"
         viewport={{ once: true, amount: 0.2 }}
         variants={cardVariants}

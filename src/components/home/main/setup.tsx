@@ -334,7 +334,8 @@ export default function IsometricRoom() {
           <spotLight position={[0, 25, 0]} intensity={1.5} angle={0.6} penumbra={1} castShadow />
           
           <Suspense fallback={null}>
-            <group rotation={[0, -Math.PI / 4, 0]} position={[0, -3.2, 0]}>
+            {/* <group rotation={[0, Math.PI / 5, 0]} position={[0, -3.2, 0]}> */}
+            <group rotation={[0, -Math.PI / 4, 0.1]} position={[0, -1, 0]}>
               <RoomArchitecture />
               <ArcadeMachine />
               <Chair />

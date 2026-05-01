@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import cv from '@/assets/Kehinde-Adigun-Resume.jpg'; 
 
 interface MenuSectionProps {
@@ -65,7 +65,7 @@ export default function MenuSection({ isMenuOpen, setIsMenuOpen }: MenuSectionPr
                 transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
               >
                 <Link 
-                  href={item.href}
+                  to={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 hover:from-blue-600 hover:to-blue-400 dark:hover:from-blue-400 dark:hover:to-blue-600 transition-all duration-500 transform hover:scale-105 hover:tracking-wide inline-block"
                 >
@@ -75,7 +75,7 @@ export default function MenuSection({ isMenuOpen, setIsMenuOpen }: MenuSectionPr
             ))}
             
             <motion.a
-              href={cv.src}
+              href={cv}
               download="Kehinde Gabriel Adigun CV.jpg"
               onClick={() => setIsMenuOpen(false)}
               initial={{ opacity: 0, y: 20 }}

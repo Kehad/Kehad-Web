@@ -223,9 +223,11 @@ export default function ScrollTriggered() {
   const [activeCard, setActiveCard] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  console.log('scroll triggered')
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log('handle scroll')
       if (!sectionRef.current || !containerRef.current) return;
 
       const section = sectionRef.current;
@@ -236,6 +238,7 @@ export default function ScrollTriggered() {
       // Calculate which card should be active based on scroll position
       const viewportCenter = window.innerHeight / 2;
       console.log(viewportCenter);
+      console.log('viewport')
       const cards = container.querySelectorAll('[data-card-index]');
      
       
@@ -303,7 +306,7 @@ export default function ScrollTriggered() {
           }} 
         />
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-[100vh]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-[10vh]">
           {experiences.map((exp, i) => (
             <Card 
               num={i} 

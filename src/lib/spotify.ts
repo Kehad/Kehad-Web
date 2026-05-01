@@ -1,21 +1,24 @@
-"use server";
-import { cookies } from "next/headers";
-
 // Spotify API Credentials (move to .env for production!)
 const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "acfc9d182abf48f2843c9047db71dff3";
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET || "166fe1965a4f480684b7ede47aed5a9e";
+const client_secret = process.env.VITE_SPOTIFY_CLIENT_SECRET || "166fe1965a4f480684b7ede47aed5a9e";
 
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 const CURRENT_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 const PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/playlists`; 
 
+const getCookie = (name: string) => {
+  if (typeof document === 'undefined') return undefined;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  return undefined;
+};
+
 /**
  * Gets a fresh Access Token. 
- * If a Refresh Token is available, it uses the refresh_token flow (for user data).
- * Otherwise, it falls back to the client_credentials flow (for public data).
  */
 const getAccessToken = async (refreshToken?: string) => {
-  const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+  const basic = btoa(`${client_id}:${client_secret}`);
 
   const params: Record<string, string> = {
     grant_type: refreshToken ? "refresh_token" : "client_credentials",
@@ -32,7 +35,6 @@ const getAccessToken = async (refreshToken?: string) => {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams(params).toString(),
-    cache: 'no-store',
   });
 
   return response.json();
@@ -40,14 +42,11 @@ const getAccessToken = async (refreshToken?: string) => {
 
 /**
  * Fetches the currently playing track.
- * NOTE: This endpoint requires a Refresh Token (User scope). 
  */
 export const getNowPlaying = async () => {
-  const cookieStore = await cookies();
-  const env_refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-  const cookie_refresh_token = cookieStore.get("spotify_refresh_token")?.value;
+  const env_refresh_token = process.env.VITE_SPOTIFY_REFRESH_TOKEN;
+  const cookie_refresh_token = getCookie("spotify_refresh_token");
   
-  // Try to use the refresh token from env first, then from the cookie
   const refresh_token = env_refresh_token || cookie_refresh_token;
 
   if (!refresh_token) {
@@ -55,9 +54,8 @@ export const getNowPlaying = async () => {
     return { requiresLogin: true };
   }
 
-  let access_token = cookieStore.get("spotify_access_token")?.value;
+  let access_token = getCookie("spotify_access_token");
 
-  // If there's no access token but we have a refresh token, get a new access token
   if (!access_token || env_refresh_token) {
     const data = await getAccessToken(refresh_token);
     if (!data.access_token) {

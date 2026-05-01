@@ -235,6 +235,9 @@ export default function ScrollTriggered() {
       const sectionRect = section.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
 
+      console.log(sectionRect, containerRect, 'rect');
+      console.log(section, container, 'empty')
+
       // Calculate which card should be active based on scroll position
       const viewportCenter = window.innerHeight / 2;
       console.log(viewportCenter);
@@ -264,11 +267,11 @@ export default function ScrollTriggered() {
       ref={sectionRef}
       className="w-full relative"
       style={{ 
-        minHeight: `${100 + (experiences.length * 100)}vh`,
+      // minHeight: `${100 + (experiences.length * 100)}vh`,
       }}
     >
       {/* Sticky Header */}
-      <div className="stick top-0 left-0 right-0 z-50 pointer-events-none">
+      <div className="sticky top-0 left-0 right-0 z-50 pointer-events-none">
         <div className="text-center pt-16 sm:pt-24 md:pt-32 pb-8">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -296,7 +299,7 @@ export default function ScrollTriggered() {
         className="relative"
         style={{ 
           paddingTop: '20vh',
-          paddingBottom: '80vh'
+          paddingBottom: '20vh'
         }}
       >
         {/* Timeline Line */}
@@ -348,7 +351,7 @@ function Card({
   return (
     <div
       data-card-index={num}
-      className="relative"
+      className="relativ hiddn sicky"
     >
       <motion.div
         initial="offscreen"

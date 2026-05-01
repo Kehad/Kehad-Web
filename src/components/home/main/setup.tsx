@@ -1,4 +1,6 @@
-import React, { Suspense } from 'react';
+"use client";
+
+import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { 
   OrbitControls, 

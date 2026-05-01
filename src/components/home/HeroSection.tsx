@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Sun, Moon, Download, Briefcase } from 'lucide-react';
 import cv from '@/assets/Kehinde-Adigun-Resume.jpg';
-import Keyboard3d from '../others/keyboard';
 import MenuSection from './MenuSection';
 import AutoType from '../others/autoType';
 import IsometricRoom from './main/setup';
@@ -135,3 +134,4 @@ export default function HeroSection() {
     </div>
   );
 }
+

@@ -324,7 +324,7 @@ export default function IsometricRoom() {
       <div className="w-full h-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
-          camera={{ position: [30, 30, 30], fov: 12 }} 
+          camera={{ position: [30, 30, 30], fov: 20 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
           {/* <color attach="background" args={['']} /> */}

@@ -40,7 +40,7 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative sm:min-h-[100dvh] flex flex-col w-full z-10 transition-colors duration-500 bg-transparent overflow-x-hidden">
+    <div className="relative sm:min-h-[100dvh] flex flex-col w-full z-10 transition-colors duration-500 bg-transparent">
       {/* Top Navbar */}
       <header className="px-4 sm:px-6 py-4 sm:py-6 flex flex-wrap justify-between items-center w-full max-w-[1500px] mx-auto relative z-50 gap-y-4">
         <div className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-gray-300 transition cursor-pointer">Kehad</div>

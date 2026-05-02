@@ -2,12 +2,13 @@
 
 import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useTheme } from "next-themes";
+
 
 export default function SplashScreen({ onComplete }: { onComplete?: () => void }) {
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { theme } = useTheme();
+  const accentColor = "#3b82f6"; // Blue 500
+  const glowColor = "rgba(59, 130, 246, 0.6)";
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -35,10 +36,7 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
     }, duration / 25);
 
     return () => clearInterval(interval);
-  }, []);
-
-  const accentColor = theme === "light" ? "#2563eb" : "#3b82f6"; // Blue 600 / Blue 500
-  const glowColor = theme === "light" ? "rgba(37, 99, 235, 0.6)" : "rgba(59, 130, 246, 0.6)";
+  }, [progress]);
 
   return (
     <AnimatePresence onExitComplete={() => onComplete?.()}>
@@ -166,7 +164,7 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
                   <polygon points="5,25 95,75" fill="none" stroke={accentColor} strokeWidth="1" strokeOpacity="0.6" />
                   <polygon points="5,75 95,25" fill="none" stroke={accentColor} strokeWidth="1" strokeOpacity="0.6" />
                   <circle cx="50" cy="50" r="35" fill="none" stroke={accentColor} strokeWidth="1" strokeDasharray="3 3" />
-                  <circle cx="50" cy="50" r="6" fill={theme === 'light' ? '#fff' : '#0B0F19'} stroke={accentColor} strokeWidth="2" />
+                  <circle cx="50" cy="50" r="6" fill={'#0B0F19'} stroke={accentColor} strokeWidth="2" />
                 </motion.svg>
               </div>
 

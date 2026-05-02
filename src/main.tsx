@@ -9,7 +9,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ThemeProvider
       attribute="class"
       defaultTheme="dark"
-      enableSystem
+      forcedTheme="dark"
+      enableSystem={false}
       disableTransitionOnChange
     >
       <App />

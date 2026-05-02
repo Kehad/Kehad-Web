@@ -313,18 +313,18 @@ export default function IsometricRoom() {
 
   if (!mounted) {
     return (
-      <div className="w-full h-[500px] lg:h-[75vh] xl:h-[85vh] flex flex-col items-center justify-center p-0 lg:p-4 animate-pulse">
+      <div className="w-full h-[500px] lg:h-[75vh] xl:h-[75vh] flex flex-col items-center justify-center p-0 lg:p-4 animate-pulse">
         <div className="w-full h-full bg-[#0c0a1f]/50 rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.3)] relative border border-white/5" />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[500px] lg:h-[75vh] xl:h-[85vh] flex flex-col items-center justify-center p-0">
+    <div className="w-full h-[400px] lg:h-[75vh] xl:h-[75vh] flex flex-col items-center justify-center p-0">
       <div className="w-full h-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
-          camera={{ position: [35, 30, 35], fov: 14 }} 
+          camera={{ position: [30, 30, 30], fov: 12 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
           {/* <color attach="background" args={['']} /> */}
@@ -364,7 +364,7 @@ export default function IsometricRoom() {
           />
         </Canvas>
 
-        {/* Studio Info Label */}
+        {/* Studio Info Labe */}
         <div className="absolute bottom-8 left-8 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-4 group-hover:translate-y-0">
           <div className="px-5 py-2.5 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 flex items-center gap-3 shadow-2xl">
             <div className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />

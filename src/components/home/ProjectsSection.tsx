@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SuspenseImage } from '../others/SuspenseImage';
 
 import taxnaija from '../../assets/taxnaija.png';
 import Piccon from '../../assets/Piccon.png';
@@ -116,11 +117,14 @@ export default function ProjectsSection() {
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 <div className="h-56 sm:h-64 overflow-hidden relative bg-gray-100 dark:bg-[#111622] shrink-0 border-b border-gray-100 dark:border-transparent">
-                  <img 
-                    src={project.imageSrc} 
-                    alt={project.name} 
-                    className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-700 ease-in-out" 
-                  />
+                  <React.Suspense fallback={<div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse w-full h-full" />}>
+                    <SuspenseImage 
+                      src={project.imageSrc} 
+                      alt={project.name} 
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+                    />
+                  </React.Suspense>
                   <div className="absolute inset-0 bg-black/5 dark:bg-transparent transition-colors duration-500"></div>
                 </div>
                 <div className="p-5 sm:p-6 md:p-8 flex items-center justify-between flex-grow">

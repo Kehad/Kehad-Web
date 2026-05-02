@@ -18,7 +18,7 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
       audioRef.current.play().catch(err => console.log("Autoplay blocked by browser:", err));
     }
 
-    const duration = 4000; // total duration in ms
+    const duration = 400; // total duration in ms
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {

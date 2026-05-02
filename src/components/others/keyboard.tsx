@@ -37,6 +37,33 @@ const keyboardGrid = [
 const Keyboard3d = () => {
   const [activeLabel, setActiveLabel] = useState("WELCOME");
 
+  const playKeySound = () => {
+    try {
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContext) return;
+      
+      const audioCtx = new AudioContext();
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      // Soft mechanical click sound profile
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+
+      gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.05);
+    } catch (e) {
+      console.error("Failed to play key sound", e);
+    }
+  };
+
   return (
     <div className="w-full max-w-[100vw] overflow-x-auto overflow-y-visible pb-10 px-4 sm:px-10 flex flex-col items-center no-scrollbar">
       
@@ -95,9 +122,15 @@ const Keyboard3d = () => {
                     e.currentTarget.style.boxShadow = `-4px 8px 0 ${k.shadow}, -4px 8px 10px rgba(0,0,0,0.2)`;
                     e.currentTarget.style.transform = 'translate(4px, -4px)';
                   }}
+                  onClick={() => {
+                    playKeySound();
+                    // Optional: Visual feedback on click
+                    const el = document.activeElement as HTMLElement;
+                    if(el) el.blur(); // prevent focus state lingering if it's a button
+                  }}
                 >
                   {k.icon ? (
-                     <img src={`https://cdn.simpleicons.org/${k.icon}/white`} alt={k.label} className="w-4 h-4 sm:w-8 sm:h-8 md:w-10 md:h-10 drop-shadow-md pointer-events-none" />
+                     <img src={`https://cdn.simpleicons.org/${k.icon}/white`} alt={k.label} loading="lazy" className="w-4 h-4 sm:w-8 sm:h-8 md:w-10 md:h-10 drop-shadow-md pointer-events-none" />
                   ) : (
                      <span className="drop-shadow-md pointer-events-none">{k.label}</span>
                   )}

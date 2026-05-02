@@ -40,6 +40,7 @@ export const TechBadge = ({ name, icon, color }: TechItem) => {
         <img 
           src={iconUrl} 
           alt={name} 
+          loading="lazy"
           className="w-4 h-4 pointer-events-none transition-transform group-hover:scale-110" 
         />
       ) : (

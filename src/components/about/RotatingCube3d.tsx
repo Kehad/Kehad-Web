@@ -7,6 +7,7 @@ import image5 from '@/assets/images/5.jpg'
 import image6 from '@/assets/images/6.png'
 import image7 from '@/assets/images/7.jpg'
 import image8 from '@/assets/images/8.jpg'
+import { SuspenseImage } from '../others/SuspenseImage';
 
 const RotatingCube3D: React.FC = () => {
   const [rotation, setRotation] = useState({ x: -20, y: 0 });
@@ -137,37 +138,49 @@ const RotatingCube3D: React.FC = () => {
           >
             {/* Front Face */}
             <div className="cube-face cube-front">
-              <img src={images[0]} alt="Front" className="face-image" />
+              <React.Suspense fallback={<div className="w-full h-full bg-purple-500/20 animate-pulse" />}>
+                <SuspenseImage src={images[0]} alt="Front" loading="lazy" className="face-image" />
+              </React.Suspense>
               <div className="face-overlay"></div>
             </div>
 
             {/* Back Face */}
             <div className="cube-face cube-back">
-              <img src={images[1]} alt="Back" className="face-image" />
+              <React.Suspense fallback={<div className="w-full h-full bg-purple-500/20 animate-pulse" />}>
+                <SuspenseImage src={images[1]} alt="Back" loading="lazy" className="face-image" />
+              </React.Suspense>
               <div className="face-overlay"></div>
             </div>
 
             {/* Right Face */}
             <div className="cube-face cube-right">
-              <img src={images[2]} alt="Right" className="face-image" />
+              <React.Suspense fallback={<div className="w-full h-full bg-purple-500/20 animate-pulse" />}>
+                <SuspenseImage src={images[2]} alt="Right" loading="lazy" className="face-image" />
+              </React.Suspense>
               <div className="face-overlay"></div>
             </div>
 
             {/* Left Face */}
             <div className="cube-face cube-left">
-              <img src={images[3]} alt="Left" className="face-image" />
+              <React.Suspense fallback={<div className="w-full h-full bg-purple-500/20 animate-pulse" />}>
+                <SuspenseImage src={images[3]} alt="Left" loading="lazy" className="face-image" />
+              </React.Suspense>
               <div className="face-overlay"></div>
             </div>
 
             {/* Top Face */}
             <div className="cube-face cube-top">
-              <img src={images[4]} alt="Top" className="face-image" />
+              <React.Suspense fallback={<div className="w-full h-full bg-purple-500/20 animate-pulse" />}>
+                <SuspenseImage src={images[4]} alt="Top" loading="lazy" className="face-image" />
+              </React.Suspense>
               <div className="face-overlay"></div>
             </div>
 
             {/* Bottom Face */}
             <div className="cube-face cube-bottom">
-              <img src={images[5]} alt="Bottom" className="face-image" />
+              <React.Suspense fallback={<div className="w-full h-full bg-purple-500/20 animate-pulse" />}>
+                <SuspenseImage src={images[5]} alt="Bottom" loading="lazy" className="face-image" />
+              </React.Suspense>
               <div className="face-overlay"></div>
             </div>
           </div>

@@ -1,11 +1,12 @@
 "use client";
 
 import React, { Suspense, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "motion/react";
+import dynamic from "next/dynamic";
 import MenuSection from "@/components/home/MenuSection";
 
-const Keyboard3d = React.lazy(() => import("@/components/others/keyboard"));
+const Keyboard3d = dynamic(() => import("@/components/others/keyboard"), { ssr: false });
 
 const gear = [
   {
@@ -45,7 +46,7 @@ export default function Uses() {
       
       {/* Navigation */}
       <nav className="fixed top-0 w-full p-4 sm:p-6 z-50 flex justify-between items-center bg-[#0B0F19]/80 backdrop-blur-md pointer-events-auto border-b border-white/5">
-        <Link to="/" className="text-xl font-black tracking-tighter hover:text-orange-400 transition-colors">
+        <Link href="/" className="text-xl font-black tracking-tighter hover:text-orange-400 transition-colors">
           Kehad.
         </Link>
         <button 

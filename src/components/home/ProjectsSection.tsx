@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import taxnaija from '../../assets/taxnaija.png';
 import Piccon from '../../assets/Piccon.png';
@@ -116,10 +117,11 @@ export default function ProjectsSection() {
                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               >
                 <div className="h-56 sm:h-64 overflow-hidden relative bg-gray-100 dark:bg-[#111622] shrink-0 border-b border-gray-100 dark:border-transparent">
-                  <img 
+                  <Image 
                     src={project.imageSrc} 
                     alt={project.name} 
-                    className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+                    fill
+                    className="object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-700 ease-in-out" 
                   />
                   <div className="absolute inset-0 bg-black/5 dark:bg-transparent transition-colors duration-500"></div>
                 </div>
@@ -156,7 +158,7 @@ export default function ProjectsSection() {
                 
                 <div className="mt-auto pointer-events-auto">
                   <Link 
-                    to={`/projects/${project.slug}`} 
+                    href={`/projects/${project.slug}`} 
                     className="flex items-center justify-center gap-2 w-full border border-blue-500/30 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 font-extrabold text-sm px-4 py-3 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-500/20 hover:border-blue-500/50 transition-colors shadow-sm"
                   >
                     View Project Detail

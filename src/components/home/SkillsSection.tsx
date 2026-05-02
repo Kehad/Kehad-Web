@@ -3,8 +3,10 @@
 import React from "react";
 import { motion } from "motion/react";
 import { TechBadge, TechItem } from "../others/techBadge";
+import dynamic from "next/dynamic";
 import Keyboard3d from "../others/keyboard";
-const Skills3D = React.lazy(() => import("./Skills3D"));
+
+const Skills3D = dynamic(() => import("./Skills3D"), { ssr: false });
 
 const frontendSkills: TechItem[] = [
   { name: "React", icon: "react", color: "61DAFB" },

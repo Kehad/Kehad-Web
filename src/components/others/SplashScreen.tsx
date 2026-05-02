@@ -12,7 +12,7 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
 
   useEffect(() => {
     // Attempt to play audio on mount
-    if (audioRef.current && progress >= 50) {
+    if (audioRef.current && progress >= 0) {
       audioRef.current.volume = 0.5;
       audioRef.current.loop = false;
       audioRef.current.play().catch(err => console.log("Autoplay blocked by browser:", err));

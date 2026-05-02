@@ -41,7 +41,7 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative min-h-[90vh] sm:min-h-[100dvh] flex flex-col w-full z-10 transition-colors duration-500 bg-white dark:bg-transparent verflow-x-hidden">
+    <div className="relative sm:min-h-[100dvh] flex flex-col w-full z-10 transition-colors duration-500 bg-white dark:bg-transparent verflow-x-hidden">
       {/* Top Navbar */}
       <header className="px-4 sm:px-6 py-4 sm:py-6 flex flex-wrap justify-between items-center w-full max-w-[1500px] mx-auto relative z-50 gap-y-4">
         <div className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-gray-300 transition cursor-pointer">Kehad</div>
@@ -96,7 +96,7 @@ export default function HeroSection() {
             
             <div className="flex justify-center w-full sm:w-auto gap-3 mt-2 sm:mt-0 pointer-events-auto">
               {/* X / Twitter */}
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white dark:bg-[#151a23] border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-[#1f2633] transition shadow-md text-gray-900 dark:text-white cursor-pointer group">
+              <a href="https://twitter.com/devKehad" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white dark:bg-[#151a23] border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-[#1f2633] transition shadow-md text-gray-900 dark:text-white cursor-pointer group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="group-hover:scale-110 transition-transform"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
               {/* Github */}

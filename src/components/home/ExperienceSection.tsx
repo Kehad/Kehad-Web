@@ -258,6 +258,7 @@ export default function ScrollTriggered() {
     <section 
       ref={sectionRef}
       className="w-full relative"
+      id="experience"
       style={{ 
       // minHeight: `${100 + (experiences.length * 100)}vh`,
       }}
@@ -291,7 +292,7 @@ export default function ScrollTriggered() {
         className="relative"
         style={{ 
           paddingTop: '10vh',
-          paddingBottom: '40vh'
+          paddingBottom: '10vh'
         }}
       >
         {/* Timeline Line */}

@@ -6,15 +6,16 @@ import Scene, { FinalScene } from "@/components/home/Scene";
 import SplashScreen from "@/components/others/SplashScreen";
 import LandingPage from "@/components/home/LandingPage";
 
+// This variable will reset on page refresh, but persist across React route navigations
+let hasShownSplashThisLoad = false;
+
 export default function Home() {
-  const [splashDone, setSplashDone] = useState(false); 
-  const [entered, setEntered] = useState(false); 
+  const [splashDone, setSplashDone] = useState(hasShownSplashThisLoad); 
+  const [entered, setEntered] = useState(hasShownSplashThisLoad); 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if the user has already visited the site in this session
-    const hasVisited = localStorage.getItem("kehad_has_visited");
-    if (hasVisited) {
+    if (hasShownSplashThisLoad) {
       setSplashDone(true);
       setEntered(true);
     }
@@ -24,11 +25,11 @@ export default function Home() {
   const handleEnter = (val: boolean) => {
     setEntered(val);
     if (val) {
-      localStorage.setItem("kehad_has_visited", "true");
+      hasShownSplashThisLoad = true;
     }
   };
 
-  // Prevent hydration mismatch by blocking render until we check sessionStorage
+  // Prevent hydration mismatch by blocking render until we check
   if (isLoading) {
     return <div className="w-full h-screen bg-[#0B0F19]" />;
   }
@@ -48,7 +49,10 @@ export default function Home() {
       )}
       
       {/* The 2-step Loading Flow Container */}
-      {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
+      {!splashDone && <SplashScreen onComplete={() => {
+        setSplashDone(true);
+        hasShownSplashThisLoad = true;
+      }} />}
        {/* <SplashScreen onComplete={() => {}} /> */}
     </div>
   );

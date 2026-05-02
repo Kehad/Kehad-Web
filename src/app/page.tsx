@@ -15,8 +15,8 @@ export default function Home() {
     // Check if the user has already visited the site in this session
     const hasVisited = localStorage.getItem("kehad_has_visited");
     if (hasVisited) {
-      setSplashDone(true);
-      setEntered(true);
+      // setSplashDone(true);
+      // setEntered(true);
     }
     setIsLoading(false);
   }, []);
@@ -49,6 +49,7 @@ export default function Home() {
       
       {/* The 2-step Loading Flow Container */}
       {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
+       {/* <SplashScreen onComplete={() => {}} /> */}
     </div>
   );
 }

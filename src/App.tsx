@@ -4,6 +4,7 @@ import AboutPage from './app/about/page'
 import BlogPage from './app/blog/page'
 import UsesPage from './app/uses/page'
 import ProjectPage from './app/projects/[slug]/page'
+import NotFoundPage from './app/not-found'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/uses" element={<UsesPage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   )

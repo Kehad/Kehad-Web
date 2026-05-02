@@ -552,30 +552,6 @@ const experiences = [
     ],
   },
   {
-    role: "Mobile Application Developer",
-    company: "QUIDROP",
-    duration: "Jan 2025 - Dec 2025",
-    colorTheme: {
-      gradientFrom: "from-blue-500",
-      gradientTo: "to-indigo-500",
-    },
-    description: [
-      "Collaborated with backend developers to integrate APIs for dynamic data management.",
-      "Developed the Quidrop interface, ensuring a seamless user experience.",
-      "Implemented responsive design to ensure optimal performance across all devices.",
-      "Worked closely with UI/UX designers to translate designs into functional, user-friendly interfaces.",
-      "Optimized website performance, enhancing load times and interactivity.",
-      "Ensured cross-browser compatibility for a consistent user experience.",
-    ],
-    skills: [
-      { name: "React Native", icon: "react", color: "61DAFB" },
-      { name: "TypeScript", icon: "typescript", color: "3178C6" },
-      { name: "Next.js", icon: "nextdotjs", color: "ffffff" },
-      { name: "Node.js", icon: "nodedotjs", color: "339933" },
-      { name: "Tailwind", icon: "tailwindcss", color: "06B6D4" },
-    ],
-  },
-  {
     role: "Junior Frontend Developer (Contract)",
     company: "LOKATALENT",
     duration: "Aug 2024 - Jan 2025",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
 
@@ -8,8 +8,16 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const { theme } = useTheme();
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
+    // Attempt to play audio on mount
+    if (audioRef.current && progress >= 50) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.loop = false;
+      audioRef.current.play().catch(err => console.log("Autoplay blocked by browser:", err));
+    }
+
     const duration = 4000; // total duration in ms
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -175,9 +183,9 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
                     {progress}%
                   </motion.span>
                 </div>
-                <div className="text-3xl md:text-6xl font-bold tracking-[0.15em] uppercase mt-1"
+                <div className="text-2xl md:text-6xl font-bold tracking-[0.15em] uppercase mt-1"
                      style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${glowColor})` }}>
-                  Complete
+                  {progress == 100 ? "Kehad is here" : "Kehad is Loading..."}
                 </div>
                 
                 <div className="mt-8 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-500 dark:text-[#777] font-semibold">
@@ -188,8 +196,21 @@ export default function SplashScreen({ onComplete }: { onComplete?: () => void }
               </div>
             </div>
 
-            {/* Bottom Center Logo */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity z-10">
+            {/* Bottom Center Logo & Audio */}
+            <div 
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity z-10 cursor-pointer"
+              onClick={() => {
+                if (audioRef.current) {
+                  if (audioRef.current.paused) {
+                    audioRef.current.play();
+                  } else {
+                    audioRef.current.pause();
+                  }
+                }
+              }}
+              title="Click to toggle audio"
+            >
+              <audio ref={audioRef} src="/dance-beat.mp3" loop />
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: accentColor }}>
                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
                 <polyline points="3.27 6.96 12 12.01 20.73 6.96" />

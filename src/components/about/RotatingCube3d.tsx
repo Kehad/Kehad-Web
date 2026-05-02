@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import image1 from '@/assets/images/1.png'
-import image2 from '@/assets/images/2.png'
-import image3 from '@/assets/images/3.jpg'
-import image4 from '@/assets/images/4.jpg'
-import image5 from '@/assets/images/5.jpg'
-import image6 from '@/assets/images/6.png'
-import image7 from '@/assets/images/7.jpg'
-import image8 from '@/assets/images/8.jpg'
+import image1 from '../../assets/images/1.png'
+import image2 from '../../assets/images/2.png'
+import image3 from '../../assets/images/3.jpg'
+import image4 from '../../assets/images/4.jpg'
+import image5 from '../../assets/images/5.jpg'
+import image6 from '../../assets/images/6.png'
+import image7 from '../../assets/images/7.jpg'
+import image8 from '../../assets/images/8.jpg'
 import { SuspenseImage } from '../others/SuspenseImage';
 
 const RotatingCube3D: React.FC = () => {
@@ -92,14 +92,14 @@ const RotatingCube3D: React.FC = () => {
 
   // Example images - you can replace these with your own
   const images = [
-    image1.src,
-    image2.src,
-    image3.src,
-    image4.src,
-    image5.src,
-    image6.src,
-    image7.src,
-    image8.src,
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+    image7,
+    image8,
   ];
 
   return (

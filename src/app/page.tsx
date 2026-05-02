@@ -15,8 +15,8 @@ export default function Home() {
     // Check if the user has already visited the site in this session
     const hasVisited = localStorage.getItem("kehad_has_visited");
     if (hasVisited) {
-      // setSplashDone(true);
-      // setEntered(true);
+      setSplashDone(true);
+      setEntered(true);
     }
     setIsLoading(false);
   }, []);

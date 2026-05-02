@@ -70,7 +70,7 @@ export default function AboutPage() {
                     <Code className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold">50+</div>
+                    <div className="text-sm font-bold">20+</div>
                     <div className="text-[10px] uppercase tracking-wider text-gray-500">Projects</div>
                   </div>
                </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
                     <Rocket className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold">4+</div>
+                    <div className="text-sm font-bold">5+</div>
                     <div className="text-[10px] uppercase tracking-wider text-gray-500">Years Exp</div>
                   </div>
                </div>

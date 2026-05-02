@@ -324,7 +324,7 @@ export default function IsometricRoom() {
       <div className="w-full h-full flex-1 rounded-[3rem] overflow-hidden relative group">
         <Canvas 
           shadows 
-          camera={{ position: [38, 34, 38], fov: 12 }} 
+          camera={{ position: [35, 30, 35], fov: 14 }} 
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
           {/* <color attach="background" args={['']} /> */}
@@ -334,8 +334,7 @@ export default function IsometricRoom() {
           <spotLight position={[0, 25, 0]} intensity={1.5} angle={0.6} penumbra={1} castShadow />
           
           <Suspense fallback={null}>
-            {/* <group rotation={[0, Math.PI / 5, 0]} position={[0, -3.2, 0]}> */}
-            <group rotation={[0, -Math.PI / 4, 0.1]} position={[0, -1, 0]}>
+            <group rotation={[0, -Math.PI / 4, 0]} position={[0, -2.2, 0]} scale={1.25}>
               <RoomArchitecture />
               <ArcadeMachine />
               <Chair />
@@ -385,7 +384,7 @@ export default function IsometricRoom() {
       </div>
 
       {/* Navigation Controls (Reference: Arrows + Dots) */}
-      <div className="mt-8 flex items-center gap-6">
+      {/* <div className="mt-8 flex items-center gap-6">
          <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-pointer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
          </button>
@@ -399,7 +398,7 @@ export default function IsometricRoom() {
          <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all cursor-pointer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
          </button>
-      </div>
+      </div> */}
     </div>
   );
 }

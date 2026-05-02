@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Code, Cpu, Globe, Rocket, User } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import RotatingCube3d from '@/components/about/RotatingCube3d';
 
 export default function AboutPage() {
@@ -34,7 +34,7 @@ export default function AboutPage() {
           className="mb-12"
         >
           <Link 
-            href="/"
+            to="/"
             className="group inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white transition-all font-semibold"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />

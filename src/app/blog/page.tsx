@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import MenuSection from "@/components/home/MenuSection";
+import MenuSection from "../../components/home/MenuSection"
 
 const articles = [
   {
@@ -40,7 +40,7 @@ export default function BlogIndex() {
       
       {/* Navigation */}
       <nav className="fixed top-0 w-full p-4 sm:p-6 z-50 flex justify-between items-center bg-[#0B0F19]/80 backdrop-blur-md pointer-events-auto border-b border-white/5">
-        <Link href="/" className="text-xl font-black tracking-tighter hover:text-blue-400 transition-colors">
+        <Link to="/" className="text-xl font-black tracking-tighter hover:text-blue-400 transition-colors">
           Kehad.
         </Link>
         <button 

@@ -4,8 +4,7 @@ import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Center, Float, Text3D, Environment, ContactShadows } from "@react-three/drei";
 import { motion, AnimatePresence, Variants } from "motion/react";
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { Link, useParams } from "react-router-dom";
 import MenuSection from "@/components/home/MenuSection";
 
 // Placeholder Project Data
@@ -103,7 +102,7 @@ export default function ProjectDetail() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="fixed top-0 w-full p-4 sm:p-6 z-50 flex justify-between items-center bg-transparent backdrop-blur-sm pointer-events-auto border-b border-white/5"
         >
-          <Link href="/" className="text-xl font-black tracking-tighter hover:text-gray-300 transition-colors">
+          <Link to="/" className="text-xl font-black tracking-tighter hover:text-gray-300 transition-colors">
             Kehad.
           </Link>
           <button 

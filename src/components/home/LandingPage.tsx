@@ -11,10 +11,7 @@ import ScrollTriggered from './ExperienceSection';
 
 export default function LandingPage() {
   return (
-    <motion.div 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
-      transition={{ duration: 1.2, ease: "easeInOut" }}
+    <div 
       className="w-full h-[100dvh] bg-[#0B0F19] text-white relative flex flex-col font-sans overflow-x-hidden overflow-y-auto transition-colors duration-500 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)]"
       style={{ backgroundSize: '48px 48px' }}
     >
@@ -49,6 +46,6 @@ export default function LandingPage() {
       {/* Footer */}
       <Footer />
 
-    </motion.div>
+    </div>
   );
 }

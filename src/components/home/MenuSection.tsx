@@ -53,7 +53,7 @@ export default function MenuSection({ isMenuOpen, setIsMenuOpen }: MenuSectionPr
               // { name: 'Experience', href: '/#experience' },
               // { name: 'Projects', href: '/#projects' },
               { name: 'About', href: '/about' },
-              { name: 'Gear', href: '/uses' },
+              // { name: 'Gear', href: '/uses' },
               { name: 'Blog', href: '/blog' },
               // { name: 'Contact', href: '/#contact' }
             ].map((item, index) => (

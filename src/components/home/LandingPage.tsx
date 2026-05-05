@@ -8,6 +8,7 @@ import ProjectsSection from './ProjectsSection';
 import ContactSection from './ContactSection';
 import Footer from './Footer';
 import ScrollTriggered from './ExperienceSection';
+import ExperienceShowcase from './dummyExperiece';
 
 export default function LandingPage() {
   return (
@@ -21,29 +22,31 @@ export default function LandingPage() {
 
 
       {/* Hero Wrapper max out at 100vh for scroll effect */}
-      <HeroSection />
+      {/* <HeroSection /> */}
+
+      <ExperienceShowcase />
 
 
       {/* <ScrollTriggered2 /> */}
 
       {/* Services Section */}
-      <ServicesSection />
+      {/* <ServicesSection /> */}
 
       {/* Skills Section */}
-      <SkillsSection />
+      {/* <SkillsSection /> */}
 
       {/* Experience Section */}
-      <ScrollTriggered />
-      {/* <ExperienceSection /> */}
+      {/* <ScrollTriggered /> */}
+
 
       {/* Projects Section */}
-      <ProjectsSection />
+      {/* <ProjectsSection /> */}
 
       {/* Contact Section */}
-      <ContactSection />
-
+      {/* <ContactSection /> */}
+{/*  */}
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
 
     </div>
   );

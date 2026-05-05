@@ -64,10 +64,10 @@ const Keyboard3d = () => {
   };
 
   return (
-    <div className="w-full max-w-[100vw] overflow-x-auto overflow-y-visible pb-10 px-4 sm:px-10 flex flex-col items-center no-scrollbar">
+    <div className="w-full max-w-[100vw] overflow-y-visible pb-10 px-4 sm:px-10 flex flex-col items-center no-scrollbar">
       <style>{`
         .keyboard-board {
-          transform: rotateX(55deg) rotateZ(-35deg) scale(0.8);
+          transform: rotateX(55deg) rotateZ(-35deg) scale(0.95);
           transform-style: preserve-3d;
           transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
           box-shadow: -16px 24px 0 #050608, -24px 36px 50px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.1), inset 0 -2px 10px rgba(0,0,0,0.5), 0 0 80px rgba(14, 165, 233, 0.15);
@@ -107,13 +107,13 @@ const Keyboard3d = () => {
         
         {/* Screen / Display */}
         <div 
-          className="absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-48 sm:w-80 h-10 sm:h-16 bg-[#030408] border-[3px] border-gray-800 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8),inset_0_0_10px_rgba(0,0,0,0.8)] flex items-center justify-center"
+          className="absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-56 sm:w-80 h-12 sm:h-16 bg-[#030408] border-[3px] border-gray-800 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8),inset_0_0_10px_rgba(0,0,0,0.8)] flex items-center justify-center"
           style={{ transform: "translateZ(30px) rotateX(-10deg)" }}
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#030408_70%)] opacity-70 z-10" />
           <div className="absolute inset-0 bg-[#0ea5e9]/5 animate-pulse" />
           <span 
-            className="text-[#0ea5e9] font-mono text-sm sm:text-2xl font-bold tracking-[0.2em] uppercase drop-shadow-[0_0_12px_rgba(14,165,233,0.9)] z-20"
+            className="text-[#0ea5e9] font-mono text-base sm:text-2xl font-bold tracking-[0.2em] uppercase drop-shadow-[0_0_12px_rgba(14,165,233,0.9)] z-20"
           >
             {activeLabel || "READY"}
           </span>
@@ -130,8 +130,8 @@ const Keyboard3d = () => {
                   className={`keycap relative flex items-center justify-center rounded-xl sm:rounded-[1.25rem] font-bold transition-all duration-200 cursor-pointer 
                   ${k.empty ? 'opacity-0 pointer-events-none' : ''}
                   ${k.accent ? 'bg-gradient-to-b from-[#e11d48] to-[#9f1239] text-white' : 'bg-gradient-to-b from-[#2a2e3d] to-[#1a1d27] text-gray-300'} 
-                  ${k.colSpan === 2 ? 'w-[5rem] sm:w-[9.5rem] md:w-[11.5rem]' : 'w-9 sm:w-[4.25rem] md:w-[5.25rem]'}
-                  h-9 sm:h-[4.25rem] md:h-[5.25rem]
+                  ${k.colSpan === 2 ? 'w-[6.5rem] sm:w-[9.5rem] md:w-[11.5rem]' : 'w-11 sm:w-[4.25rem] md:w-[5.25rem]'}
+                  h-11 sm:h-[4.25rem] md:h-[5.25rem]
                   group
                   `}
                   style={{ 
@@ -141,6 +141,7 @@ const Keyboard3d = () => {
                       : 'inset 0px 2px 2px rgba(255,255,255,0.08), inset 0px -4px 8px rgba(0,0,0,0.6)'
                   } as React.CSSProperties}
                   onMouseEnter={() => {
+                    playKeySound();
                     if (k.label) setActiveLabel(k.id.toUpperCase());
                   }}
                   onMouseLeave={() => {
@@ -165,12 +166,12 @@ const Keyboard3d = () => {
                       src={`https://cdn.simpleicons.org/${k.icon}/${k.color}`} 
                       alt={k.label} 
                       loading="lazy" 
-                      className="w-4 h-4 sm:w-8 sm:h-8 md:w-9 md:h-9 pointer-events-none transition-all duration-300 group-hover:scale-110 group-active:scale-95" 
+                      className="w-5 h-5 sm:w-8 sm:h-8 md:w-9 md:h-9 pointer-events-none transition-all duration-300 group-hover:scale-110 group-active:scale-95" 
                       style={{ filter: `drop-shadow(0 0 10px #${k.color}80)` }}
                     />
                   ) : (
                     <span 
-                      className="pointer-events-none text-[10px] sm:text-sm md:text-base tracking-widest transition-all duration-300 group-hover:scale-105 group-active:scale-95"
+                      className="pointer-events-none text-xs sm:text-sm md:text-base tracking-widest transition-all duration-300 group-hover:scale-105 group-active:scale-95"
                       style={{ 
                         color: k.accent ? '#fff' : `#${k.color}`, 
                         textShadow: k.accent ? '0 0 10px rgba(255,255,255,0.6)' : `0 0 10px #${k.color}80` 

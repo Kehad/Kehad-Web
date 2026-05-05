@@ -5,6 +5,7 @@ import BlogPage from './app/blog/page'
 import UsesPage from './app/uses/page'
 import ProjectPage from './app/projects/[slug]/page'
 import NotFoundPage from './app/not-found'
+import CustomCursor from './components/others/CustomCursor'
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Route path="/projects/:slug" element={<ProjectPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+
+      <CustomCursor />
+
     </Router>
   )
 }

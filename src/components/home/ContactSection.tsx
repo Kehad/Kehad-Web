@@ -13,9 +13,9 @@ export default function ContactSection() {
 
     setStatus('sending');
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
 
     emailjs
       .sendForm(serviceId, templateId, form.current, {
@@ -97,7 +97,7 @@ export default function ContactSection() {
         </div>
 
         {/* Decorative 3D Base Element mimicking the right image */}
-        <div className="flex-1 w-full max-w-lg hidden lg:flex items-center justify-center" style={{ perspective: '2000px' }}>
+        <div className="flex-1 w-full max-w-xl hidden lg:flex items-center justify-center" style={{ perspective: '1000px' }}>
            <Keyboard3d  />
         </div>
       </div>

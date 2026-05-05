@@ -67,8 +67,8 @@ export default function HeroSection() {
       <main className="flex-1 flex flex-col xl:flex-row items-center justify-center xl:justify-between px-4 sm:px-8 py-6 sm:py-10 max-w-[1500px] mx-auto w-full z-10 relative">
         
         {/* Left Side: Hero Text */}
-        <div className="flex flex-col items-center xl:items-start text-center xl:text-left xl:w-5/12 mb-10 sm:mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
-          <p className="text-gray-300 font-semibold mb-2 text-sm sm:text-base md:text-xl tracking-wide uppercase">Hi, I am</p>
+        <div className="flex flex-col items-center xl:items-start text-left md:text-center xl:text-left xl:w-5/12 mb-10 sm:mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
+          <p className="text-gray-300 font-semibold mb-2 text-sm sm:text-base md:text-xl tracking-wide">Hi, I am</p>
           <h1 className="text-[3.2rem] sm:text-[5rem] md:text-[7rem] lg:text-[8rem] font-black text-white leading-[1] sm:leading-[0.9] tracking-tight mb-4 sm:mb-6 min-h-[3.2rem] sm:min-h-[5rem] md:min-h-[7rem] lg:min-h-[8rem] w-full">
             <AutoType strings={['Kehinde Adigun', 'Kehad']} loop={true} />
           </h1>

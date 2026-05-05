@@ -95,20 +95,12 @@ export default function SkillsSection() {
           Crafting digital excellence with a modern technological arsenal and
           deep expertise across the stack.
         </motion.p>
+         <p className="text-gray-500 text-center dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mt-5">
+          (hint: hover or press a key)
+        </p>
       </div>
 
-      <div className="grid grid-cols-1gap-10 relative z-20">
-        {/* Frontend Category */}
-        {/* <h2
-          className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2"
-          style={{ transform: "translateZ(50px)" }}
-        >
-          Tech Stack
-        </h2>
-        <p className="text-gray-500 dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mb-6 sm:mb-12">
-          (hint: hover a key)
-        </p> */}
-
+      <div className="relative z-20">
         {/* Main Keyboard Base (Wrapper for scrolling on mobile) */}
         <Keyboard3d />
       </div>

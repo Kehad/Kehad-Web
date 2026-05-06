@@ -346,7 +346,7 @@ function Card({
       data-card-index={num}
       className="sticky w-full"
       style={{
-        top: `calc(15vh + ${num * 40}px)`,
+        top: `calc(30vh + ${num * 40}px)`,
         zIndex: num + 10,
       }}
     >

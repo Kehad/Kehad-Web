@@ -23,8 +23,10 @@ export default function LandingPage() {
       <ServicesSection />
       <SkillsSection/>
       <ScrollTriggered />
-      {/* <ProjectsSection /> */}
       <ExperienceShowcase />
+
+      {/* </div> */}
+
       <ContactSection /> 
       {/* Footer */}
       <Footer />

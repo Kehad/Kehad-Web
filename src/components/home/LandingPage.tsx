@@ -2,11 +2,12 @@
 import HeroSection from "./HeroSection";
 import ServicesSection from "./ServicesSection";
 import SkillsSection from "./SkillsSection";
-import ProjectsSection from "./ProjectsSection";
+
 import ContactSection from "./ContactSection";
 import Footer from "./Footer";
 import ScrollTriggered from "./ExperienceSection";
-import ExperienceShowcase from "./dummyExperiece";
+import ProjectsSection from "./projectSection";
+
 
 export default function LandingPage() {
   return (
@@ -23,12 +24,11 @@ export default function LandingPage() {
       <ServicesSection />
       <SkillsSection/>
       <ScrollTriggered />
-      <ExperienceShowcase />
+      <ProjectsSection />
 
-      {/* </div> */}
 
       <ContactSection /> 
-      {/* Footer */}
+
       <Footer />
     </div>
   );

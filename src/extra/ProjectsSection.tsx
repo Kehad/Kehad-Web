@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { SuspenseImage } from '../others/SuspenseImage';
+import { SuspenseImage } from '../components/others/SuspenseImage';
 
 import taxnaija from '../../assets/taxnaija.png';
 import Piccon from '../../assets/Piccon.png';

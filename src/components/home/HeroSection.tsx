@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Sun, Moon, Download, Briefcase } from 'lucide-react';
-import cv from '@/assets/Kehinde-Adigun-Resume.jpg';
+import {  Download, Briefcase } from 'lucide-react';
+import cv from '@/assets/Kehinde-Adigun-Resume.pdf';
 import MenuSection from './MenuSection';
 import AutoType from '../others/autoType';
 import IsometricRoom from './main/setup';
-// import cv2 from '@/assets/Kehinde-Adigun-Resume.pdf';
+;
 
 
 export default function HeroSection() {
@@ -25,16 +25,7 @@ export default function HeroSection() {
     event.preventDefault();
     const link = document.createElement("a");
     link.download = "Kehinde Gabriel Adigun CV";
-    link.href = cv.src;
-    link.click();
-
-  };
-  const imgResume = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
-    console.log("Download Img resume");
-    const link = document.createElement("a");
-    link.download = "Kehinde Gabriel Adigun CV";
-    // link.href = cv2.src;
+    link.href = cv;
     link.click();
 
   };
@@ -67,14 +58,16 @@ export default function HeroSection() {
       <main className="flex-1 flex flex-col xl:flex-row items-center justify-center xl:justify-between px-4 sm:px-8 py-6 sm:py-10 max-w-[1500px] mx-auto w-full z-10 relative">
         
         {/* Left Side: Hero Text */}
-        <div className="flex flex-col items-center xl:items-start text-left md:text-center xl:text-left xl:w-5/12 mb-10 sm:mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
-          <p className="text-gray-300 font-semibold mb-2 text-sm sm:text-base md:text-xl tracking-wide">Hi, I am</p>
+        <div className="flex flex-col items-start xl:items-start text-left md:text-center xl:text-left xl:w-5/12 mb-10 sm:mb-16 xl:mb-0 w-full mt-4 sm:mt-0">
+          <p className="text-gray-300 text-left font-semibold mb-2 text-sm sm:text-base md:text-xl tracking-wide">Hi, I am</p>
           <h1 className="text-[3.2rem] sm:text-[5rem] md:text-[7rem] lg:text-[8rem] font-black text-white leading-[1] sm:leading-[0.9] tracking-tight mb-4 sm:mb-6 min-h-[3.2rem] sm:min-h-[5rem] md:min-h-[7rem] lg:min-h-[8rem] w-full">
             <AutoType strings={['Kehinde Adigun', 'Kehad']} loop={true} />
           </h1>
-          <p className="text-gray-400 font-bold text-base sm:text-lg md:text-2xl mb-8 sm:mb-12 tracking-wide">A Full Stack Web Developer</p>
+          <p className="text-gray-400 text-left font-bold text-base sm:text-lg md:text-2xl mb-8 sm:mb-12 tracking-wide">A Full Stack Web Developer</p>
           
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center xl:justify-start gap-4 sm:gap-3 w-full sm:w-auto">
+            <div className='flex flex-row items-center justify-center gap-4 sm:gap-3 w-full sm:w-auto'>
+
             <button onClick={pdfResume} className="flex items-center gap-2 bg-blue-600 dark:bg-white text-white dark:text-black px-6 py-3.5 rounded-lg font-bold hover:bg-blue-700 dark:hover:bg-gray-200 transition text-base shadow-md w-full sm:w-auto justify-center cursor-pointer pointer-events-auto">
               <Download className="w-5 h-5" />
               Resume
@@ -83,8 +76,9 @@ export default function HeroSection() {
               <Briefcase className="w-5 h-5" />
               Hire Me
             </a>
+            </div>
             
-            <div className="flex justify-center w-full sm:w-auto gap-3 mt-2 sm:mt-0 pointer-events-auto">
+            <div className="flex justify-cente w-full sm:w-auto gap-3 mt-2 sm:mt-0 pointer-events-auto">
               {/* X / Twitter */}
               <a href="https://twitter.com/devKehad" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white dark:bg-[#151a23] border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-[#1f2633] transition shadow-md text-gray-900 dark:text-white cursor-pointer group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="group-hover:scale-110 transition-transform"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>

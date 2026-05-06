@@ -190,8 +190,8 @@ export default function ProjectsSection() {
       <div className="hidden lg:block">
         <div className="w-full font-serif select-none" id="experience-section">
           {/* Sticky presentation view */}
-          <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center py-12 px-4 bg-[#0B0F19] z-20">
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-[1.2fr_250px_1fr] gap-8 items-center h-full max-h-[800px]">
+          <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center py-12 px-4 z-20">
+            <div className="max-w-[1400px] w-full grid grid-cols-1 lg:grid-cols-[1.2fr_280px_1.2fr] gap-10 items-center h-full max-h-[900px]">
               {/* Left Side: Project Details */}
               <div className="flex flex-col items-start text-left space-y-6 h-full justify-center px-6">
                 <AnimatePresence mode="wait">
@@ -201,17 +201,17 @@ export default function ProjectsSection() {
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, x: 30, filter: "blur(4px)" }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex flex-col items-start space-y-4 max-w-[380px]"
+                    className="flex flex-col items-start space-y-6 max-w-[500px]"
                   >
-                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs font-sans tracking-wide uppercase text-gray-300 font-semibold border border-white/5">
+                    <span className="px-4 py-1.5 bg-white/10 rounded-full text-sm font-sans tracking-wide uppercase text-gray-300 font-semibold border border-white/5">
                       {activeProject.Tag}
                     </span>
 
-                    <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight leading-none">
+                    <h2 className="text-5xl lg:text-7xl font-serif font-bold text-white tracking-tight leading-none">
                       {activeProject.name}
                     </h2>
 
-                    <p className="text-sm text-gray-400 font-sans leading-relaxed">
+                    <p className="text-xl lg:text-2xl text-gray-400 font-sans leading-relaxed">
                       {activeProject.description}
                     </p>
 
@@ -222,7 +222,7 @@ export default function ProjectsSection() {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center justify-center px-5 py-2.5 bg-white text-black rounded-full font-sans text-xs font-semibold uppercase tracking-wider hover:bg-gray-100 transition-colors shadow-lg"
+                        className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-black rounded-full font-sans text-sm font-bold uppercase tracking-wider hover:bg-gray-100 transition-colors shadow-lg"
                       >
                         View Live Project
                       </motion.a>
@@ -238,7 +238,7 @@ export default function ProjectsSection() {
 
                 {/* Sliding list */}
                 <motion.div
-                  animate={{ y: -activeIndex * 80 + 80 }}
+                  animate={{ y: (projectsData.length * 80) / 2 - (activeIndex * 80 + 40) }}
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   className="flex flex-col items-center"
                 >
@@ -285,7 +285,7 @@ export default function ProjectsSection() {
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, x: -30, filter: "blur(4px)" }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative aspect-[4/3] w-full max-w-[460px] overflow-hidden rounded-2xl shadow-2xl bg-white/5 border border-white/10"
+                    className="relative aspect-[4/3] w-full max-w-[600px] overflow-hidden rounded-3xl shadow-2xl bg-white/5 border border-white/10"
                   >
                     <motion.img
                       src={
@@ -309,7 +309,7 @@ export default function ProjectsSection() {
           {/* Scrollable sentinels that drive the project changes */}
           <div
             ref={containerRef}
-            className="relative w-full bg-[#0B0F19]"
+            className="relative w-full opacity-0 g-[#0B0F19]"
             style={{ minHeight: "600vh" }}
           >
             {projectsData.map((_, index) => (

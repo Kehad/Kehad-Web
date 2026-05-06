@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -21,7 +20,7 @@ interface Project {
   description: string;
   website: string;
   Tag: string;
-  imageSrc: string | { src: string } | any;
+  imageSrc: any;
 }
 
 const projectsData: Project[] = [
@@ -120,10 +119,9 @@ const projectsData: Project[] = [
 export default function ExperienceShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sentinelRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
+
 
     projectsData.forEach((_, index) => {
       const sentinel = sentinelRefs.current[index];
@@ -153,10 +151,10 @@ export default function ExperienceShowcase() {
   const activeProject = projectsData[activeIndex];
 
   return (
-    <div className="w-full font-serif select-none" id="experience-section">
+    <section className="relative w-full h-[600vh] font-serif select-none bg-[#0B0F19]">
       {/* Sticky presentation view */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center py-12 px-4 bg-[#0B0F19] z-20">
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-[1.2fr_250px_1fr] gap-8 items-center h-full max-h-[800px]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center py-12 px-4 bg-[#0B0F19]">
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-[1.2fr_250px_1fr] gap-8 items-center h-full max-h-[800px] z-20">
           {/* Left Side: Project Details */}
           <div className="flex flex-col items-start text-left space-y-6 h-full justify-center px-6">
             <AnimatePresence mode="wait">
@@ -271,11 +269,10 @@ export default function ExperienceShowcase() {
         </div>
       </div>
 
-      {/* Scrollable sentinels that drive the project changes */}
+      {/* Invisible sentinels to drive the natural scroll behavior */}
       <div
-        ref={containerRef}
-        className="relative w-full bg-[#0B0F19]"
-        style={{ minHeight: "600vh" }}
+        className="absolute top-0 left-0 w-full pointer-events-none"
+        style={{ height: "100%" }}
       >
         {projectsData.map((_, index) => (
           <div
@@ -283,15 +280,10 @@ export default function ExperienceShowcase() {
             ref={(el) => {
               sentinelRefs.current[index] = el;
             }}
-            className="relative w-full h-[66vh] flex items-center justify-center border-b border-white/5"
-          >
-            <div className="text-center">
-              <h3 className="text-2xl text-gray-500">{projectsData[index].name}</h3>
-              <p className="text-sm text-gray-600 mt-2">Scroll to see this project</p>
-            </div>
-          </div>
+            className="h-[66vh] w-full"
+          />
         ))}
       </div>
-    </div>
+    </section>
   );
 }

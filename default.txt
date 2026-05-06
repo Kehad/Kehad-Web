@@ -1,3 +1,4 @@
+
 // export default function ExperienceSection() {
 //   const targetRef = useRef<HTMLDivElement>(null);
 //   const { scrollYProgress } = useScroll({
@@ -928,3 +929,60 @@ export default function Home() {
     </div>
   );
 }
+
+
+const containerRef = useRef<HTMLElement>(null);
+  const [visibility, setVisibility] = useState({
+    isNear: false,
+    isInView: false,
+    isFull: false,
+    hasLeft: false,
+    hasPassed: false,
+    isCentered: false,
+  });
+
+
+  useEffect(() => {
+        if (!containerRef.current) return;
+
+     const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const rect = entry.boundingClientRect;
+
+          const viewportCenter = window.innerHeight / 2;
+          const elementCenter = rect.top + rect.height / 2;
+
+          const isNear = rect.top < window.innerHeight && rect.bottom > 0;
+
+          const isInView = entry.isIntersecting;
+          const isFull = entry.intersectionRatio >= 0.9;
+
+          const hasLeft =
+            !entry.isIntersecting && rect.top > window.innerHeight;
+
+          const hasPassed = !entry.isIntersecting && rect.bottom < 0;
+
+          // 🔥 NEW: center detection
+          const isCentered =
+            Math.abs(elementCenter - viewportCenter) < rect.height / 4;
+          // tolerance = 25% of element height (tweak this)
+
+          setVisibility({
+            isNear,
+            isInView,
+            isFull,
+            hasLeft,
+            hasPassed,
+            isCentered,
+          });
+        });
+      },
+      {
+        threshold: [0, 0.1, 0.5, 0.9],
+        rootMargin: "0px",
+      },
+    );
+
+    observer.observe(containerRef.current);
+  })

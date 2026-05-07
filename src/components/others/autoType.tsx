@@ -1,6 +1,5 @@
 "use client"
 import React from 'react';
-
 import Typed from 'typed.js';
 
 function AutoType(props: { strings: string[], className?: string, loop?: boolean }) {

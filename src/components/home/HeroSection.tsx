@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import {  Download, Briefcase } from 'lucide-react';
 import cv from '@/assets/Kehinde-Adigun-Resume.pdf';
-import MenuSection from './MenuSection';
 import AutoType from '../others/autoType';
 import IsometricRoom from './main/setup';
 ;
@@ -12,7 +11,6 @@ import IsometricRoom from './main/setup';
 export default function HeroSection() {
 
   const [mounted, setMounted] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -33,26 +31,7 @@ export default function HeroSection() {
   return (
     <div className="relative sm:min-h-[100dvh] flex flex-col w-full z-10 transition-colors duration-500 bg-transparent">
       {/* Top Navbar */}
-      <header className="px-4 sm:px-6 py-4 sm:py-6 flex flex-wrap justify-between items-center w-full max-w-[1500px] mx-auto relative z-50 gap-y-4">
-        <div className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-gray-300 transition cursor-pointer">Kehad</div>
-        
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-4 sm:mt-0">
-          
-          <div className="flex items-center gap-2 px-3 sm:px-4 h-10 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900/50 text-gray-700 dark:text-gray-200 text-sm font-semibold cursor-default shadow-sm">
-             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 002 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
-             1024
-             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          
-          <button 
-            onClick={() => setIsMenuOpen(true)}
-            className="flex items-center gap-2 px-3 sm:px-4 h-10 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900/50 hover:bg-gray-200 dark:hover:bg-gray-800 transition text-sm font-semibold text-gray-700 dark:text-gray-200 cursor-pointer shadow-sm pointer-events-auto"
-          >
-             Menu
-             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
-        </div>
-      </header>
+     
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col xl:flex-row items-center justify-center xl:justify-between px-4 sm:px-8 py-6 sm:py-10 max-w-[1500px] mx-auto w-full z-10 relative">
@@ -96,13 +75,8 @@ export default function HeroSection() {
         </div>
 
         {/* Right Side: Isometric Tech Stack Keyboard */}
-        <div className="xl:w-7/12 flex flex-col items-center justify-center p-0 sm:p-4 lg:p-12 mt-6 xl:mt-0 select-none w-full xl:max-w-none max-w-[100vw] overflow-hidden min-h-[300px] sm:min-h-[400px] relative" style={{ perspective: '3000px' }}>
-          
-          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2" style={{ transform: "translateZ(50px)" }}>Tech Stack</h2>
-          <p className="text-gray-500 dark:text-gray-400 font-medium tracking-widest text-xs sm:text-sm mb-6 sm:mb-12">(hint: hover a key)</p> */}
-
-          {/* Main Keyboard Base (Wrapper for scrolling on mobile) */}
-            {/* <Keyboard3d /> */}
+        <div className=" hidden md:block xl:w-7/12 flex flex-col items-center justify-center p-0 sm:p-4 lg:p-12 mt-6 xl:mt-0 select-none w-full xl:max-w-none max-w-[100vw] overflow-hidden min-h-[300px] sm:min-h-[400px] relative" style={{ perspective: '3000px' }}>
+        
             <IsometricRoom />
         </div>
       </main>
@@ -111,9 +85,6 @@ export default function HeroSection() {
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-7 h-12 border-2 border-gray-400 dark:border-gray-600 rounded-full hidden sm:flex justify-center p-1.5 opacity-80 backdrop-blur-sm pointer-events-none z-10">
         <div className="w-1.5 h-3 bg-gray-500 dark:bg-white rounded-full animate-bounce"></div>
       </div>
-      
-      {/* External Full-Screen Menu Section */}
-      <MenuSection isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
     </div>
   );

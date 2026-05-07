@@ -8,57 +8,59 @@ import MenuSection from "../../components/home/MenuSection";
 import Footer from "../../components/home/Footer";
 import ContactSection from "../../components/home/ContactSection";
 
-const articles: any[] = [
-  {
-    title: "Building a High-Performance 3D Portfolio in Next.js",
-    date: "April 2024",
-    readTime: "8 min read",
-    tag: "TECHNICAL",
-    description: "A deep dive into how I leveraged React Three Fiber, WebGL optimization, and modern Next.js 13 App Router architecture to craft this exact portfolio.",
-    slug: "building-3d-portfolio-nextjs",
-    featured: true
-  },
-  {
-    title: "Mastering Framer Motion for Cinematic Interfaces",
-    date: "March 2024",
-    readTime: "5 min read",
-    tag: "DESIGN",
-    description: "Stop building static websites. Here is my practical guide on injecting life into your UI components using layout animations, scroll tracking, and spring physics.",
-    slug: "mastering-motion-interfaces"
-  },
-  {
-    title: "The Subtle Art of Glassmorphism & Dark Mode",
-    date: "February 2024",
-    readTime: "6 min read",
-    tag: "DESIGN",
-    description: "How to properly combine backdrop-blur, semi-transparent borders, and deep color palettes to achieve an ultra-modern 'glass' aesthetic without sacrificing accessibility.",
-    slug: "art-of-glassmorphism-darkmode"
-  },
-  {
-    title: "Why TypeScript is Essential for Large Scale React Apps",
-    date: "January 2024",
-    readTime: "10 min read",
-    tag: "TECHNICAL",
-    description: "Type safety isn't just about catching errors early; it's about developer experience, documentation, and building a maintainable codebase that scales with your team.",
-    slug: "typescript-essential-react"
-  },
-  {
-    title: "Optimizing Web Vitals: A Case Study on Performance",
-    date: "December 2023",
-    readTime: "12 min read",
-    tag: "TECHNICAL",
-    description: "How we reduced LCP by 40% and improved CLS to near zero for a high-traffic e-commerce platform using modern image optimization and code splitting.",
-    slug: "optimizing-web-vitals"
-  },
-  {
-    title: "Designing for the Future: Minimalist UI Trends in 2024",
-    date: "November 2023",
-    readTime: "4 min read",
-    tag: "DESIGN",
-    description: "Exploring the shift towards hyper-minimalism, brutalist typography, and the resurgence of tactile UI elements in the upcoming year.",
-    slug: "minimalist-ui-trends-2024"
-  }
-];
+// const articles: any[] = [
+//   {
+//     title: "Building a High-Performance 3D Portfolio in Next.js",
+//     date: "April 2024",
+//     readTime: "8 min read",
+//     tag: "TECHNICAL",
+//     description: "A deep dive into how I leveraged React Three Fiber, WebGL optimization, and modern Next.js 13 App Router architecture to craft this exact portfolio.",
+//     slug: "building-3d-portfolio-nextjs",
+//     featured: true
+//   },
+//   {
+//     title: "Mastering Framer Motion for Cinematic Interfaces",
+//     date: "March 2024",
+//     readTime: "5 min read",
+//     tag: "DESIGN",
+//     description: "Stop building static websites. Here is my practical guide on injecting life into your UI components using layout animations, scroll tracking, and spring physics.",
+//     slug: "mastering-motion-interfaces"
+//   },
+//   {
+//     title: "The Subtle Art of Glassmorphism & Dark Mode",
+//     date: "February 2024",
+//     readTime: "6 min read",
+//     tag: "DESIGN",
+//     description: "How to properly combine backdrop-blur, semi-transparent borders, and deep color palettes to achieve an ultra-modern 'glass' aesthetic without sacrificing accessibility.",
+//     slug: "art-of-glassmorphism-darkmode"
+//   },
+//   {
+//     title: "Why TypeScript is Essential for Large Scale React Apps",
+//     date: "January 2024",
+//     readTime: "10 min read",
+//     tag: "TECHNICAL",
+//     description: "Type safety isn't just about catching errors early; it's about developer experience, documentation, and building a maintainable codebase that scales with your team.",
+//     slug: "typescript-essential-react"
+//   },
+//   {
+//     title: "Optimizing Web Vitals: A Case Study on Performance",
+//     date: "December 2023",
+//     readTime: "12 min read",
+//     tag: "TECHNICAL",
+//     description: "How we reduced LCP by 40% and improved CLS to near zero for a high-traffic e-commerce platform using modern image optimization and code splitting.",
+//     slug: "optimizing-web-vitals"
+//   },
+//   {
+//     title: "Designing for the Future: Minimalist UI Trends in 2024",
+//     date: "November 2023",
+//     readTime: "4 min read",
+//     tag: "DESIGN",
+//     description: "Exploring the shift towards hyper-minimalism, brutalist typography, and the resurgence of tactile UI elements in the upcoming year.",
+//     slug: "minimalist-ui-trends-2024"
+//   }
+// ];
+
+const articles: any[] = []
 
 const categories = ["ALL", "TECHNICAL", "DESIGN", "CASE STUDIES"];
 
@@ -94,26 +96,20 @@ export default function BlogIndex() {
   }, [filteredArticles, featuredArticle]);
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-white overflow-x-hidden font-sans flex flex-col">
+    <div className="min-h-screen  text-white overflow-x-hidden font-sans flex flex-col">
       
       {/* Navigation */}
-      <nav className="fixed top-0 w-full p-4 sm:p-6 z-50 flex justify-between items-center bg-[#0B0F19]/80 backdrop-blur-md border-b border-white/5">
-        <Link to="/" className="text-xl font-black tracking-tighter hover:text-blue-400 transition-colors">
-          Kehad.
-        </Link>
-        <button 
-          onClick={() => setIsMenuOpen(true)}
-          className="flex items-center gap-2 px-3 sm:px-4 h-10 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-sm font-semibold text-white cursor-pointer shadow-sm pointer-events-auto"
-        >
-           Menu
-           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        </button>
-      </nav>
+      
 
       <main className="flex-grow pt-32 pb-24 max-w-[1000px] mx-auto px-6 w-full flex flex-col gap-8 md:gap-16">
         
         {/* Header & Search */}
         <header className="flex flex-col gap-8">
+          {/* Back Button */}
+          <Link to="/" className="w-fit flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-bold group mb-2 md:mb-4">
+            <svg className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Home
+          </Link>
           <div className="flex flex-col gap-4">
             <motion.h1 
               initial={{ y: 20, opacity: 0 }}
@@ -382,7 +378,7 @@ export default function BlogIndex() {
 
       </main>
 
-      <ContactSection />
+      {/* <ContactSection /> */}
       <Footer />
 
       {/* Decorative background glows */}

@@ -21,7 +21,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0B0F19] text-gray-900 dark:text-white relative overflow-hidden transition-colors duration-500 font-sans">
+    <div className="min-h-screen text-gray-900 relative transition-colors duration-500 font-sans">
       {/* Abstract Background Elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>

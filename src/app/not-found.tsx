@@ -14,7 +14,7 @@ export default function NotFound() {
   const accentColor = mounted && theme === "light" ? "#2563eb" : "#3b82f6"; // Blue 600 / Blue 500
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gray-50 dark:bg-[#0B0F19] relative overflow-hidden selection:bg-blue-500/30">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center  relative overflow-hidden selection:bg-blue-500/30">
       
       {/* Background grids / noise */}
       <div 

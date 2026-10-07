@@ -1,216 +1,159 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { AnimatePresence, motion } from "motion/react";
-
+import { motion } from "motion/react";
 
 export default function SplashScreen({ onComplete }: { onComplete?: () => void }) {
   const [progress, setProgress] = useState(0);
-  const accentColor = "#3b82f6"; // Blue 500
-  const glowColor = "rgba(59, 130, 246, 0.6)";
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Attempt to play audio on mount
-    if (audioRef.current && progress === 0) {
-      audioRef.current.volume = 0.5;
-      audioRef.current.loop = false;
-      audioRef.current.play().catch(err => console.log("Autoplay blocked by browser:", err));
+    // Attempt audio play
+    if (audioRef.current) {
+      audioRef.current.volume = 0.4;
+      audioRef.current.play().catch((err) => console.log("Audio play blocked:", err));
     }
 
-    const duration = 4000; // total duration in ms
+    const duration = 3800; // total duration in ms
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
             onComplete?.();
-          }, 800); // Small pause at 100% before transition
+          }, 600);
           return 100;
         }
-        // Random increment for realistic loading feel
-        const increment = Math.floor(Math.random() * 8) + 1;
-        return Math.min(prev + increment, 100);
+        return prev + 4;
       });
     }, duration / 25);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [onComplete]);
 
   return (
-    <div
-      className="fixed inset-0 z-[110] flex items-center justify-center overflow-hidden font-sans text-white bg-[#0B0F19] transition-colors duration-500 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.15)_1px,transparent_0)]"
-      style={{ backgroundSize: '48px 48px' }}
-    >
-      {/* Main Dashboard Container - Fullscreen */}
-      <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-between p-6 lg:p-16 overflow-hidden">
+    <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-between bg-black text-white font-sans overflow-hidden select-none">
+      <audio ref={audioRef} src="/dance-beat.mp3" />
+
+      {/* Top Spacer for Vertical Balance */}
+      <div className="h-16 md:h-24" />
+
+      {/* CENTER CONTENT: Windows 7 Animated Logo & Starting Windows Text */}
+      <div className="flex flex-col items-center justify-center gap-8 md:gap-12 z-10">
         
-        {/* Subtle background noise/texture overlay */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
-
-        {/* LEFT PANEL: Live Portfolio Feed */}
-        <div className="hidden lg:flex flex-col w-[300px] h-full justify-center gap-4 z-10">
-          <div className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-2 font-medium">Live Portfolio Feed</div>
-          <div className="flex-1 bg-[#151a23]/80 backdrop-blur-md rounded-2xl border border-[#2a3441] p-5 flex flex-col gap-4 overflow-hidden relative shadow-inner">
-            {/* Wireframe Mockups sliding up */}
-            <motion.div 
-              animate={{ y: [0, -300] }}
-              transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-              className="flex flex-col gap-5"
-            >
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="w-full h-48 bg-[#1f2633] rounded-xl border border-[#374151] p-4 flex flex-col gap-3 shadow-md">
-                  {/* Wireframe header */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-6 h-6 rounded-full bg-[#374151]"></div>
-                    <div className="w-16 h-3 rounded-full bg-[#374151]"></div>
-                  </div>
-                  {/* Wireframe image placeholder */}
-                  <div className="w-full h-20 bg-[#2c3546] rounded-lg relative overflow-hidden">
-                    <div className="absolute inset-0 border border-[#475569] m-1 rounded-md"></div>
-                    <svg className="absolute inset-0 w-full h-full text-[#475569] opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
-                      <line x1="0" y1="0" x2="100" y2="100" stroke="currentColor" strokeWidth="1" />
-                      <line x1="100" y1="0" x2="0" y2="100" stroke="currentColor" strokeWidth="1" />
-                    </svg>
-                  </div>
-                  {/* Wireframe text lines */}
-                  <div className="w-full h-2.5 bg-[#374151] rounded-full mt-1"></div>
-                  <div className="w-3/4 h-2.5 bg-[#374151] rounded-full"></div>
-                  <div className="w-1/2 h-2.5 bg-[#374151] rounded-full"></div>
-                </div>
-              ))}
-            </motion.div>
-            {/* Fade gradient overlays */}
-            <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#151a23] to-transparent z-10"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#151a23] to-transparent z-10"></div>
-          </div>
-          <div className="flex justify-between text-[10px] text-[#888] tracking-widest mt-2 uppercase font-semibold">
-            <span>Framework: Next.js</span>
-            <span>Assets: 125+</span>
-          </div>
-        </div>
-
-        {/* CENTER PANEL: Main Animation & Progress */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-12 px-8 z-10 w-full mt-10 lg:mt-0">
+        {/* Windows 7 Animated Flag Logo */}
+        <div className="relative w-36 h-36 md:w-48 md:h-48 flex items-center justify-center">
           
-          {/* Top Text */}
-          <div className="text-center flex flex-col items-center gap-3">
-            <div className="text-xs md:text-sm tracking-[0.3em] text-[#888] uppercase">Project Lifecycle:</div>
-            <div className="text-lg md:text-2xl tracking-[0.2em] font-light uppercase flex flex-wrap justify-center gap-2 md:gap-4 items-center" style={{ color: accentColor }}>
-              <span className="opacity-40">Idea</span> <span className="text-[#555] text-sm">→</span>
-              <span className="opacity-60">Create</span> <span className="text-[#555] text-sm">→</span>
-              <span className="opacity-80">Test</span> <span className="text-[#555] text-sm">→</span>
-              <span className="font-semibold" style={{ filter: `drop-shadow(0 0 8px ${glowColor})` }}>Deploy</span>
-            </div>
-          </div>
+          {/* Radial Ambient Glow Behind Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{
+              opacity: [0, 0.6, 0.4, 0.7, 0.5],
+              scale: [0.8, 1.15, 1, 1.2, 1.05],
+            }}
+            transition={{
+              duration: 3.5,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+            }}
+            className="absolute w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-r from-red-500/20 via-green-500/20 to-blue-500/20 blur-3xl pointer-events-none"
+          />
 
-          {/* Central 3D Glowing Shape */}
-          <div className="relative w-[250px] h-[250px] md:w-[350px] md:h-[350px] flex items-center justify-center">
-            {/* Core Glow */}
-            <motion.div 
-              animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.25, 0.15] }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="absolute inset-0 blur-[80px] rounded-full"
-              style={{ backgroundColor: accentColor }}
-            ></motion.div>
+          {/* SVG Windows 7 4-Color Glowing Flag Orbs */}
+          <div className="relative z-10 w-24 h-24 md:w-32 md:h-32 grid grid-cols-2 gap-2.5 p-1">
             
-            {/* Animated SVG Rings */}
-            <motion.svg width="100%" height="100%" viewBox="0 0 300 300" className="absolute z-10">
-              {/* Orbit 1 */}
-              <motion.g 
-                animate={{ rotateZ: 360, rotateX: 60 }}
-                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                style={{ transformOrigin: "150px 150px" }}
-              >
-                <ellipse cx="150" cy="150" rx="130" ry="50" fill="none" stroke={accentColor} strokeWidth="1.5" strokeOpacity="0.7" />
-                <circle cx="280" cy="150" r="4" fill={accentColor} style={{ filter: `drop-shadow(0 0 5px ${accentColor})` }} />
-              </motion.g>
-              {/* Orbit 2 */}
-              <motion.g 
-                animate={{ rotateZ: -360, rotateY: 70 }}
-                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                style={{ transformOrigin: "150px 150px" }}
-              >
-                <ellipse cx="150" cy="150" rx="140" ry="40" fill="none" stroke={accentColor} strokeWidth="1" strokeOpacity="0.4" strokeDasharray="6 6" />
-                <circle cx="10" cy="150" r="3" fill={accentColor} />
-              </motion.g>
-              {/* Orbit 3 */}
-              <motion.g 
-                animate={{ rotateZ: 360, rotateX: 40, rotateY: 45 }}
-                transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-                style={{ transformOrigin: "150px 150px" }}
-              >
-                <ellipse cx="150" cy="150" rx="120" ry="120" fill="none" stroke={accentColor} strokeWidth="0.5" strokeOpacity="0.3" />
-                <circle cx="150" cy="30" r="5" fill={accentColor} />
-                <circle cx="150" cy="270" r="2" fill={accentColor} />
-              </motion.g>
-            </motion.svg>
-
-            {/* Center Geometric Core */}
-            <motion.svg width="120" height="120" viewBox="0 0 100 100" className="relative z-20"
-              style={{ filter: `drop-shadow(0 0 12px ${glowColor})` }}
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+            {/* Top-Left: Red Petal */}
+            <motion.div
+              initial={{ x: -20, y: -20, opacity: 0, scale: 0.5 }}
+              animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+              className="relative group"
             >
-              <polygon points="50,5 95,25 95,75 50,95 5,75 5,25" fill="none" stroke={accentColor} strokeWidth="2" strokeLinejoin="round" />
-              <polygon points="50,5 50,95" fill="none" stroke={accentColor} strokeWidth="1" strokeOpacity="0.6" />
-              <polygon points="5,25 95,75" fill="none" stroke={accentColor} strokeWidth="1" strokeOpacity="0.6" />
-              <polygon points="5,75 95,25" fill="none" stroke={accentColor} strokeWidth="1" strokeOpacity="0.6" />
-              <circle cx="50" cy="50" r="35" fill="none" stroke={accentColor} strokeWidth="1" strokeDasharray="3 3" />
-              <circle cx="50" cy="50" r="6" fill={'#0B0F19'} stroke={accentColor} strokeWidth="2" />
-            </motion.svg>
+              <div className="w-full h-full bg-gradient-to-br from-[#ff5252] via-[#e53935] to-[#c62828] rounded-tl-[1.8rem] rounded-tr-[0.4rem] rounded-bl-[0.4rem] rounded-br-[1.2rem] shadow-[0_0_25px_rgba(244,67,54,0.8)] border border-red-400/40 transform -rotate-3 hover:scale-105 transition-transform" />
+              <div className="absolute inset-0 bg-white/30 rounded-tl-[1.8rem] blur-[3px] opacity-70" />
+            </motion.div>
+
+            {/* Top-Right: Green Petal */}
+            <motion.div
+              initial={{ x: 20, y: -20, opacity: 0, scale: 0.5 }}
+              animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
+              className="relative group"
+            >
+              <div className="w-full h-full bg-gradient-to-bl from-[#76ff03] via-[#4caf50] to-[#2e7d32] rounded-tr-[1.8rem] rounded-tl-[0.4rem] rounded-br-[0.4rem] rounded-bl-[1.2rem] shadow-[0_0_25px_rgba(76,175,80,0.8)] border border-green-400/40 transform rotate-3 hover:scale-105 transition-transform" />
+              <div className="absolute inset-0 bg-white/30 rounded-tr-[1.8rem] blur-[3px] opacity-70" />
+            </motion.div>
+
+            {/* Bottom-Left: Blue Petal */}
+            <motion.div
+              initial={{ x: -20, y: 20, opacity: 0, scale: 0.5 }}
+              animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
+              className="relative group"
+            >
+              <div className="w-full h-full bg-gradient-to-tr from-[#00b0ff] via-[#2196f3] to-[#1565c0] rounded-bl-[1.8rem] rounded-br-[0.4rem] rounded-tl-[0.4rem] rounded-tr-[1.2rem] shadow-[0_0_25px_rgba(33,150,243,0.8)] border border-blue-400/40 transform rotate-3 hover:scale-105 transition-transform" />
+              <div className="absolute inset-0 bg-white/30 rounded-bl-[1.8rem] blur-[3px] opacity-70" />
+            </motion.div>
+
+            {/* Bottom-Right: Yellow Petal */}
+            <motion.div
+              initial={{ x: 20, y: 20, opacity: 0, scale: 0.5 }}
+              animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut", delay: 0.8 }}
+              className="relative group"
+            >
+              <div className="w-full h-full bg-gradient-to-tl from-[#ffd600] via-[#ffb300] to-[#ff6f00] rounded-br-[1.8rem] rounded-bl-[0.4rem] rounded-tr-[0.4rem] rounded-tl-[1.2rem] shadow-[0_0_25px_rgba(255,179,0,0.8)] border border-amber-300/40 transform -rotate-3 hover:scale-105 transition-transform" />
+              <div className="absolute inset-0 bg-white/30 rounded-br-[1.8rem] blur-[3px] opacity-70" />
+            </motion.div>
+
           </div>
 
-          {/* Progress Text */}
-          <div className="text-center flex flex-col items-center gap-2 w-full">
-            <div className="flex items-baseline justify-center gap-3 text-xl md:text-3xl tracking-[0.1em] uppercase w-full">
-              <span className="text-[#aaa] font-light">Project Profile...</span>
-              <motion.span 
-                className="font-bold"
-                style={{ color: accentColor }}
-                animate={progress === 100 ? { scale: [1, 1.1, 1], filter: [`drop-shadow(0px 0px 0px ${accentColor})`, `drop-shadow(0px 0px 15px ${accentColor})`, `drop-shadow(0px 0px 0px ${accentColor})`] } : {}}
-                transition={{ duration: 1 }}
-              >
-                {progress}%
-              </motion.span>
-            </div>
-            <div className="text-2xl md:text-6xl font-bold tracking-[0.15em] uppercase mt-1"
-                 style={{ color: accentColor, filter: `drop-shadow(0 0 10px ${glowColor})` }}>
-              {progress == 100 ? "Kehad is here" : "Kehad is Loading..."}
-            </div>
-            
-            <div className="mt-8 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#777] font-semibold">
-              <div>Project: Advanced Platform</div>
-              <div className="hidden md:block w-1 h-1 rounded-full bg-[#555]"></div>
-              <div>Platform: Web / Mobile</div>
-            </div>
-          </div>
+          {/* Central Shimmer Light Streak */}
+          <motion.div
+            initial={{ opacity: 0, rotate: -45, scale: 0.5 }}
+            animate={{ opacity: [0, 0.8, 0], scale: [0.8, 1.4, 0.8] }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+            className="absolute inset-0 pointer-events-none flex items-center justify-center"
+          >
+            <div className="w-full h-1 bg-white/60 blur-md rounded-full shadow-[0_0_20px_white]" />
+          </motion.div>
+
         </div>
 
-        {/* Bottom Center Logo & Audio */}
-        <div 
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity z-10 cursor-pointer"
-          onClick={() => {
-            if (audioRef.current) {
-              if (audioRef.current.paused) {
-                audioRef.current.play();
-              } else {
-                audioRef.current.pause();
-              }
-            }
-          }}
-          title="Click to toggle audio"
+        {/* "Starting Windows" Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="flex flex-col items-center gap-2"
         >
-          <audio ref={audioRef} src="/dance-beat.mp3" loop />
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: accentColor }}>
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-            <line x1="12" y1="22.08" x2="12" y2="12" />
-          </svg>
-          <div className="text-[9px] tracking-[0.4em] uppercase text-[#888] font-bold">Portfolio Crafted</div>
-        </div>
+          <div className="text-xl md:text-2xl font-normal text-gray-200 tracking-wide font-sans drop-shadow-[0_2px_8px_rgba(255,255,255,0.2)]">
+            Starting Windows
+          </div>
+          
+          {/* Subtle loading bar pulse */}
+          <div className="w-32 h-[2px] bg-gray-900 rounded-full overflow-hidden mt-2">
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: "100%" }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1/2 h-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            />
+          </div>
+        </motion.div>
 
       </div>
+
+      {/* BOTTOM FOOTER COPYRIGHT */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="mb-8 text-xs text-gray-400 font-sans tracking-wide"
+      >
+        © Microsoft Corporation
+      </motion.div>
     </div>
   );
 }

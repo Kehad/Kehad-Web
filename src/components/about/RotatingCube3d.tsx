@@ -15,6 +15,116 @@ const RotatingCube3D: React.FC = () => {
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
   const [autoRotate, setAutoRotate] = useState(true);
 
+  const audioCtxRef = React.useRef<AudioContext | null>(null);
+  const noiseRef = React.useRef<AudioBufferSourceNode | null>(null);
+  const gainNodeRef = React.useRef<GainNode | null>(null);
+  const [isPageVisible, setIsPageVisible] = useState(true);
+
+  // Track page visibility
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsPageVisible(!document.hidden);
+    };
+    
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  // Idle timer to resume autoRotate after dragging stops
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+    if (!isDragging && !autoRotate) {
+      timeout = setTimeout(() => {
+        setAutoRotate(true);
+      }, 5000); // 5 seconds before auto-resuming
+    }
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [isDragging, autoRotate]);
+
+  // Sound effect for auto-rotation
+  useEffect(() => {
+    try {
+      if (!audioCtxRef.current) {
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtxRef.current = new AudioContextClass();
+        }
+      }
+
+      const ctx = audioCtxRef.current;
+      if (!ctx) return;
+
+      const shouldPlaySound = autoRotate && isPageVisible;
+
+      if (ctx.state === 'suspended' && shouldPlaySound) {
+        ctx.resume().catch(() => {});
+      }
+      
+      if (!noiseRef.current) {
+        // Create continuous wind/whoosh noise
+        const bufferSize = ctx.sampleRate * 2; 
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        noise.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 300;
+        filter.Q.value = 0.8;
+
+        const lfo = ctx.createOscillator();
+        lfo.type = 'sine';
+        lfo.frequency.value = 0.3; // matches a relaxed spinning vibe
+        
+        const lfoGain = ctx.createGain();
+        lfoGain.gain.value = 150; 
+        
+        lfo.connect(lfoGain);
+        lfoGain.connect(filter.frequency);
+        lfo.start();
+
+        const gainNode = ctx.createGain();
+        gainNode.gain.value = 0;
+
+        noise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        
+        noise.start();
+        
+        noiseRef.current = noise;
+        gainNodeRef.current = gainNode;
+      }
+      
+      if (shouldPlaySound) {
+        gainNodeRef?.current?.gain.setTargetAtTime(0.04, ctx.currentTime, 0.5); // Fade in softly
+      } else {
+        gainNodeRef?.current?.gain.setTargetAtTime(0, ctx.currentTime, 0.2); // Fade out quickly
+      }
+    } catch (e) {
+      // Ignore audio initialization errors
+    }
+  }, [autoRotate, isPageVisible]);
+
+  // Clean up audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
+        audioCtxRef.current.close().catch(() => {});
+      }
+    };
+  }, []);
+
   // Auto-rotation effect
   useEffect(() => {
     console.log(autoRotate);

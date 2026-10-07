@@ -1,7 +1,6 @@
-"use client";
-
-import React, { useState } from 'react';
-import { Maximize2, Minimize2, Globe, ShieldCheck, Lock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Maximize2, Minimize2, Globe, ShieldCheck, Lock, RefreshCw } from 'lucide-react';
 import AIChatWidget from './AIChatWidget';
 
 interface LaptopFrameProps {
@@ -10,6 +9,38 @@ interface LaptopFrameProps {
 
 export default function LaptopFrame({ children }: LaptopFrameProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [inputUrl, setInputUrl] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setInputUrl(window.location.href);
+    }
+  }, [location]);
+
+  const handleUrlSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputUrl) return;
+
+    try {
+      if (inputUrl.startsWith('http://') || inputUrl.startsWith('https://')) {
+        const urlObj = new URL(inputUrl);
+        if (urlObj.origin === window.location.origin) {
+          navigate(urlObj.pathname + urlObj.search + urlObj.hash);
+        } else {
+          window.location.href = inputUrl;
+        }
+      } else {
+        const path = inputUrl.startsWith('/') ? inputUrl : `/${inputUrl}`;
+        navigate(path);
+      }
+    } catch {
+      const path = inputUrl.startsWith('/') ? inputUrl : `/${inputUrl}`;
+      navigate(path);
+    }
+  };
 
   if (isFullscreen) {
     return (
@@ -76,13 +107,30 @@ export default function LaptopFrame({ children }: LaptopFrameProps) {
               <span className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29] inline-block shadow-inner" />
             </div>
 
-            {/* Address Bar */}
-            <div className="flex-1 max-w-xl mx-2 bg-[#171f30] border border-gray-700/60 rounded-xl px-3 py-1 flex items-center justify-center gap-2 text-xs text-gray-300 shadow-inner">
-              <Lock className="w-3 h-3 text-emerald-400" />
-              <span className="text-gray-400 font-mono text-[11px] hidden sm:inline">https://</span>
-              <span className="font-semibold text-white tracking-wide">kehad.dev</span>
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 ml-auto hidden sm:block" />
-            </div>
+            {/* System Dynamic Address Bar */}
+            <form onSubmit={handleUrlSubmit} className="flex-1 max-w-xl mx-2 bg-[#171f30] border border-gray-700/60 rounded-xl px-3 py-1 flex items-center justify-between gap-2 text-xs text-gray-300 shadow-inner">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <Lock className="w-3 h-3 text-emerald-400 shrink-0" />
+                <input
+                  type="text"
+                  value={inputUrl}
+                  // onChange={(e) => setInputUrl(e.target.value)}
+                  className="w-full bg-transparent font-mono text-[11px] text-gray-200 focus:outline-none tracking-wide truncate"
+                  placeholder="https://..."
+                />
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  title="Reload Page"
+                  className="p-1 hover:bg-gray-700/60 rounded-md transition text-gray-400 hover:text-white cursor-pointer"
+                >
+                  <RefreshCw className="w-3 h-3" />
+                </button>
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 hidden sm:block" />
+              </div>
+            </form>
 
             {/* Right Status */}
             <div className="flex items-center justify-end gap-2 w-20 text-[10px] text-gray-400 font-mono">

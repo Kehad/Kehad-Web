@@ -70,7 +70,7 @@ export default function AboutPage() {
                     <Code className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold">20+</div>
+                    <div className="text-sm font-bold text-white">20+</div>
                     <div className="text-[10px] uppercase tracking-wider text-gray-500">Projects</div>
                   </div>
                </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
                     <Rocket className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold">5+</div>
+                    <div className="text-sm font-bold text-white">5+</div>
                     <div className="text-[10px] uppercase tracking-wider text-gray-500">Years Exp</div>
                   </div>
                </div>
@@ -108,7 +108,7 @@ export default function AboutPage() {
         >
           <div className="space-y-4 p-8 rounded-3xl bg-white dark:bg-gray-900/30 border border-gray-200 dark:border-gray-800/50 backdrop-blur-xl">
             <Cpu className="w-8 h-8 text-blue-500" />
-            <h3 className="text-2xl font-bold">Tech Philosophy</h3>
+            <h3 className="text-2xl font-bold text-white">Tech Philosophy</h3>
             <p className="text-gray-600 dark:text-gray-400">
               I believe in writing code that isn't just functional, but maintainable and elegant. Architecture first, syntax second.
             </p>
@@ -116,7 +116,7 @@ export default function AboutPage() {
 
           <div className="space-y-4 p-8 rounded-3xl bg-white dark:bg-gray-900/30 border border-gray-200 dark:border-gray-800/50 backdrop-blur-xl">
             <Globe className="w-8 h-8 text-teal-500" />
-            <h3 className="text-2xl font-bold">Global Reach</h3>
+            <h3 className="text-2xl font-bold text-white">Global Reach</h3>
             <p className="text-gray-600 dark:text-gray-400">
               Working with clients across different time zones has taught me the value of clear communication and asynchronous work.
             </p>
@@ -124,7 +124,7 @@ export default function AboutPage() {
 
           <div className="space-y-4 p-8 rounded-3xl bg-white dark:bg-gray-900/30 border border-gray-200 dark:border-gray-800/50 backdrop-blur-xl">
             <Rocket className="w-8 h-8 text-purple-500" />
-            <h3 className="text-2xl font-bold">Future Vision</h3>
+            <h3 className="text-2xl font-bold text-white">Future Vision</h3>
             <p className="text-gray-600 dark:text-gray-400">
               Constantly exploring emerging tech like Web3, AI integration, and performant 3D web graphics to stay ahead.
             </p>

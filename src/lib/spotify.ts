@@ -90,7 +90,6 @@ export const getPlaylist = async (playlistId: string) => {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
-    next: { revalidate: 3600 },
   });
 
   if (!response.ok) return null;

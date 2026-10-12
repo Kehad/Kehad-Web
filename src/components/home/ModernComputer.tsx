@@ -105,27 +105,32 @@ export default function ModernComputer() {
   }, [scroll]);
 
   useFrame(({ clock }) => {
-    if (scroll.offset > maxScrollRef.current) maxScrollRef.current = scroll.offset;
-    const safeOffset = maxScrollRef.current;
+    // Bidirectional scroll support with smooth offset
+    const safeOffset = scroll ? scroll.offset : 0;
 
     if (group.current) {
       const targetScale = Math.max(viewport.width / 4.2, viewport.height / 2.6) * 1.08;
-      const initialScale = 0.18;
-      const scale = THREE.MathUtils.lerp(initialScale, targetScale, safeOffset);
+      const initialScale = 0.22;
+      // When unfolding finishes (safeOffset > 0.75), zoom further into the screen
+      const zoomFactor = safeOffset > 0.75 ? 1 + (safeOffset - 0.75) * 1.6 : 1;
+      const scale = THREE.MathUtils.lerp(initialScale, targetScale, Math.min(1, safeOffset * 1.1)) * zoomFactor;
 
       group.current.scale.set(scale, scale, scale);
-      group.current.rotation.y = THREE.MathUtils.lerp(0.38, 0.05, safeOffset);
-      group.current.rotation.x = THREE.MathUtils.lerp(0.15, 0, safeOffset);
-      group.current.position.y = THREE.MathUtils.lerp(-1.35, -1.05 * targetScale, safeOffset);
-      group.current.position.z = THREE.MathUtils.lerp(-2.0, -0.4, safeOffset);
+      group.current.rotation.y = THREE.MathUtils.lerp(0.35, 0.0, safeOffset);
+      group.current.rotation.x = THREE.MathUtils.lerp(0.22, 0.0, safeOffset);
+      group.current.position.y = THREE.MathUtils.lerp(-1.25, -1.0 * targetScale, safeOffset);
+      group.current.position.z = THREE.MathUtils.lerp(-2.2, safeOffset > 0.8 ? 0.3 : -0.4, safeOffset);
     }
 
     if (laptopGripRef.current) {
-      laptopGripRef.current.rotation.x = THREE.MathUtils.lerp(-0.1, -0.02, safeOffset);
+      // Unfold lid from default closed state (+1.57 rad = flat onto base) to open (-0.26 rad = ~105deg)
+      const unfoldT = Math.min(1, safeOffset / 0.82);
+      const easedUnfold = unfoldT < 0.5 ? 4 * unfoldT * unfoldT * unfoldT : 1 - Math.pow(-2 * unfoldT + 2, 3) / 2;
+      laptopGripRef.current.rotation.x = THREE.MathUtils.lerp(1.57, -0.26, easedUnfold);
     }
 
     if (blurPlaneMaterialRef.current) {
-      blurPlaneMaterialRef.current.opacity = THREE.MathUtils.lerp(0.97, 0, Math.min(1, safeOffset * 1.3));
+      blurPlaneMaterialRef.current.opacity = THREE.MathUtils.lerp(0.97, 0, Math.min(1, safeOffset * 1.5));
     }
 
     if (terminalInputRef.current) {
@@ -227,6 +232,12 @@ export default function ModernComputer() {
           roughness={isLight ? 0.20 : 0.06} 
         />
       </RoundedBox>
+
+      {/* Back Cover Emblem (Visible when closed, facing up) */}
+      <mesh position={[0, 0, -0.041]} rotation={[0, Math.PI, 0]}>
+        <circleGeometry args={[0.22, 32]} />
+        <meshStandardMaterial color="#38bdf8" emissive="#0284c7" emissiveIntensity={0.7} />
+      </mesh>
 
       {/* Thin Modern Bezel */}
       <group position={[0, 0, 0.055]}>

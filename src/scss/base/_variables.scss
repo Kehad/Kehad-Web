@@ -1,0 +1,54 @@
+// ==========================================================================
+// Awwwards-Caliber Design Tokens & Variables
+// ==========================================================================
+
+// Color Palette - Editorial Obsidian & Acid Citrus / Electric Cobalt
+$color-bg-base: #0a0c10;
+$color-bg-surface: #12151e;
+$color-bg-elevated: #1a1e2b;
+$color-bg-card: rgba(22, 27, 39, 0.75);
+
+$color-accent-lime: #ccff00;      // Acid high-contrast kinetic accent
+$color-accent-blue: #3b82f6;      // Electric cobalt
+$color-accent-purple: #8b5cf6;    // Ultraviolet
+$color-accent-orange: #ff5722;    // International vibrant orange
+$color-accent-cream: #f4efe6;     // Warm editorial bone
+
+$color-text-primary: #f8fafc;
+$color-text-secondary: #94a3b8;
+$color-text-muted: #64748b;
+$color-border: rgba(255, 255, 255, 0.08);
+$color-border-glow: rgba(204, 255, 0, 0.35);
+
+// Typography
+$font-display: 'Syne', system-ui, -apple-system, sans-serif;
+$font-serif: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+$font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+// Easing Functions (GSAP & CSS aligned)
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// Radii
+$radius-xs: 4px;
+$radius-sm: 8px;
+$radius-md: 14px;
+$radius-lg: 20px;
+$radius-xl: 32px;
+$radius-full: 9999px;
+
+// Shadows & Glows
+$shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+$shadow-glow-lime: 0 0 35px rgba(204, 255, 0, 0.3);
+$shadow-glow-blue: 0 0 35px rgba(59, 130, 246, 0.35);
+
+// Layer Z-Indexes
+$z-noise: 999;
+$z-cursor: 9999;
+$z-curtain: 9000;
+$z-menu: 8000;
+$z-nav: 5000;
+$z-content: 10;
+$z-background: 0;

@@ -1,0 +1,605 @@
+// ==========================================================================
+// Junca Studio Exact SEO & GEO Architecture (.pf, .scurve, .dv)
+// Faithfully copied from https://juncastudio.com/services/seo-geo:
+// - Pinned sticky track with step counter roll (.pf__num, .pf__roll, .pf__digits)
+// - Chamfered card figures (.pf__fig) with upward curtain clip-path unveil
+// - Scale 1.14 -> 1.0 transition
+// - WebGL 2 particle terrain wave background with mouse brush disturbance
+// - Staggered text content reveals on right (.pf__info)
+// - Red link tracking cursor (.pf__cursor)
+// ==========================================================================
+
+:root {
+  --pf-bg: #e2e2e0;
+  --fg: #080808;
+  --fg-muted: #707070;
+  --red: #ed3327;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pf-wrapper {
+  position: relative;
+  width: 100%;
+  background: var(--pf-bg);
+  margin-top: 10rem;
+  margin-bottom: 8rem;
+  z-index: 5;
+}
+
+// Transition curves (top and bottom)
+.scurve {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: translateY(-98%);
+  color: var(--pf-bg);
+  pointer-events: none;
+  z-index: 4;
+
+  &__svg {
+    display: block;
+    width: 100%;
+    height: 120px;
+  }
+
+  &--bottom {
+    top: auto;
+    bottom: 0;
+    transform: translateY(98%) scaleY(-1);
+  }
+}
+
+// Section Banner
+.seogeo-banner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 6rem 3rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+  }
+
+  &__title {
+    font-family: var(--font-heading, "Syne", sans-serif);
+    font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    max-width: 1100px;
+    margin: 0 0 1.5rem;
+
+    .italic {
+      font-family: var(--font-serif, "Instrument Serif", serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+  }
+
+  &__subtitle {
+    font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    color: color-mix(in srgb, var(--fg) 75%, transparent);
+    max-width: 750px;
+    margin: 0 0 2rem;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .chip {
+      padding: 6px 14px;
+      background: rgba(8, 8, 8, 0.05);
+      border: 1px solid rgba(8, 8, 8, 0.08);
+      border-radius: 999px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+  }
+}
+
+// The Process Section (.pf)
+.pf {
+  --pf-bg: #e2e2e0;
+  background: var(--pf-bg);
+  padding: 80px 0 0;
+  position: relative;
+  color: var(--fg);
+
+  @media (min-width: 1024px) {
+    --side: 2.5vw;
+    padding: 120px 0 0;
+  }
+
+  &__head {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    display: grid;
+    grid-template-columns: 33% 1fr;
+    column-gap: 40px;
+
+    @media (max-width: 809px) {
+      grid-template-columns: 1fr;
+      row-gap: 28px;
+      padding: 0 1.5rem;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono, monospace);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--fg);
+      margin: 0;
+    }
+  }
+
+  &__lead {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 540px;
+  }
+
+  &__h2 {
+    font-family: var(--font-heading, "Syne", sans-serif);
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin: 0;
+  }
+
+  &__intro {
+    font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+    font-size: 15px;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    color: color-mix(in srgb, var(--fg) 72%, transparent);
+    margin: 0;
+  }
+
+  // Pinned Track Container
+  &__track {
+    width: 90%;
+    margin: 72px auto 0;
+    position: relative;
+
+    @media (min-width: 1024px) {
+      width: 100%;
+      height: calc(100vh + var(--n, 5) * 75vh);
+      margin: 100px 0 0;
+    }
+  }
+
+  // Sticky Stage Container
+  &__stage {
+    position: relative;
+    width: 100%;
+
+    @media (min-width: 1024px) {
+      --mw: min(44vw, 87vh);
+      --mh: calc(var(--mw) / 1.5);
+      --mtop: calc(50% - var(--mh) / 2);
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow: hidden;
+    }
+  }
+
+  // WebGL Canvas Background
+  &__bg {
+    display: none;
+
+    @media (min-width: 1024px) {
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+  }
+
+  // Rolling Step Counter
+  &__num {
+    display: none;
+
+    @media (min-width: 1024px) {
+      left: max(3rem, var(--side));
+      top: var(--mtop);
+      z-index: 2;
+      font-family: var(--font-mono, monospace);
+      font-variant-numeric: tabular-nums;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0;
+      display: flex;
+      position: absolute;
+    }
+  }
+
+  &__lbl {
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    font-size: 12px;
+  }
+
+  &__roll {
+    height: 1em;
+    font-family: var(--font-heading, "Syne", sans-serif);
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  &__digits {
+    translate: 0 calc(var(--a, 0) * -1em);
+    transition: translate 0.8s var(--ease-out-quint);
+    flex-direction: column;
+    display: flex;
+
+    > span {
+      height: 1em;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Steps container
+  &__steps {
+    flex-direction: column;
+    gap: 72px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+
+    @media (min-width: 1024px) {
+      display: contents;
+    }
+  }
+
+  &__step {
+    @media (min-width: 1024px) {
+      display: contents;
+    }
+  }
+
+  // Card Figures with Chamfer & Curtain Unveil
+  &__fig {
+    --cut: 36px;
+    aspect-ratio: 3 / 2;
+    background: color-mix(in srgb, var(--fg) 6%, transparent);
+    margin: 0 0 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.12);
+
+    @media (min-width: 1024px) {
+      left: 50%;
+      top: var(--mtop);
+      z-index: calc(1 + var(--i));
+      width: var(--mw);
+      height: var(--mh);
+      margin: 0 0 0 calc(var(--mw) / -2);
+      aspect-ratio: auto;
+      position: absolute;
+
+      // Upward curtain wipe start state
+      clip-path: polygon(0 100%, calc(100% - var(--cut)) 100%, 100% 100%, 100% 100%, 0 100%);
+      transition: clip-path 1s cubic-bezier(0.25, 1, 0.5, 1);
+
+      &.is-on {
+        // Chamfered corner top-right
+        clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+      }
+    }
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      display: block;
+
+      @media (min-width: 1024px) {
+        transition: scale 1.6s var(--ease-out-quint);
+        scale: 1.14;
+      }
+    }
+
+    &.is-on img {
+      @media (min-width: 1024px) {
+        scale: 1;
+      }
+    }
+  }
+
+  // Right-hand Info Text
+  &__info {
+    position: relative;
+
+    @media (min-width: 1024px) {
+      top: calc(var(--mtop) + var(--mh) * 0.2);
+      left: calc(50% + var(--mw) / 2 + 40px);
+      width: min(360px, calc(50vw - var(--mw) / 2 - 40px - var(--side)));
+      z-index: 2;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-out-quint), translate 0.6s var(--ease-out-quint);
+      position: absolute;
+      translate: 0 18px;
+    }
+  }
+
+  &__step.is-before &__info {
+    @media (min-width: 1024px) {
+      translate: 0 -18px;
+    }
+  }
+
+  &__step.is-active &__info {
+    @media (min-width: 1024px) {
+      opacity: 1;
+      pointer-events: auto;
+      transition-delay: 0.18s;
+      translate: 0 0;
+    }
+  }
+
+  &__n {
+    font-family: var(--font-mono, monospace);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin: 0 0 14px;
+    font-size: 12px;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__title {
+    font-family: var(--font-heading, "Syne", sans-serif);
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin: 0;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  &__text {
+    font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+    letter-spacing: -0.01em;
+    color: color-mix(in srgb, var(--fg) 72%, transparent);
+    margin: 18px 0 0;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  &__tags {
+    font-family: var(--font-mono, monospace);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 50%, transparent);
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin: 18px 0 0;
+    font-size: 12px;
+    display: flex;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      &::before {
+        content: '·';
+        color: var(--red);
+        font-weight: 700;
+      }
+    }
+  }
+
+  // Interactive quick controller pills
+  &__controller {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+
+    .ctrl-pill {
+      border: 1px solid rgba(8, 8, 8, 0.15);
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      color: var(--fg-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+
+      &:hover, &.is-active {
+        background: var(--fg);
+        color: #ffffff;
+        border-color: var(--fg);
+      }
+    }
+  }
+
+  // Custom Cursor for SEO-GEO links
+  &__cursor {
+    z-index: 900;
+    pointer-events: none;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    @media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+      display: block;
+    }
+
+    &-in {
+      transform-origin: 100% 100%;
+      align-items: stretch;
+      gap: 1px;
+      transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+      display: flex;
+      transform: translate(calc(-100% - 6px), calc(-100% - 6px)) scale(0);
+    }
+
+    &.is-on &-in {
+      transform: translate(calc(-100% - 6px), calc(-100% - 6px)) scale(1);
+    }
+
+    &-txt, &-arr {
+      background: var(--red);
+      height: 36px;
+      color: #ffffff;
+      border-radius: 3px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+    &-txt {
+      font-family: var(--font-mono, monospace);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    &-arr {
+      width: 36px;
+    }
+  }
+}
+
+// Deliverables Section (.dv)
+.seogeo-deliverables {
+  max-width: 1400px;
+  margin: 6rem auto 4rem;
+  padding: 0 3rem 6rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem 4rem;
+  }
+
+  &__head {
+    margin-bottom: 3.5rem;
+
+    .eyebrow {
+      font-family: var(--font-mono, monospace);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .title {
+      font-family: var(--font-heading, "Syne", sans-serif);
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin: 0;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  &__card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(8, 8, 8, 0.08);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.4s var(--ease-out-quint), box-shadow 0.4s var(--ease-out-quint), border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.1);
+      border-color: rgba(8, 8, 8, 0.2);
+    }
+
+    .card-num {
+      font-family: var(--font-mono, monospace);
+      font-size: 12px;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-heading, "Syne", sans-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--fg);
+      margin: 0 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: color-mix(in srgb, var(--fg) 70%, transparent);
+      margin: 0;
+    }
+  }
+}
+

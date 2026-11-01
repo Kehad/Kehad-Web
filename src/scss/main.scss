@@ -1,0 +1,50 @@
+// ==========================================================================
+// Main SCSS Entry Point - Awwwards Motion Architecture
+// ==========================================================================
+
+// Base Tokens & Layout
+@use 'base/variables' as *;
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/noise';
+
+// Components & Interactive Modules
+@use 'components/cursor';
+@use 'components/transition';
+@use 'components/navbar';
+@use 'components/hero';
+// @use 'components/showcase';
+// @use 'components/services';
+@use 'components/projects';
+@use 'components/seogeo';
+@use 'components/button';
+@use 'components/badge';
+@use 'components/footer';
+
+// Global Canvas / Scroll Container
+body {
+  background-color: $color-bg-base;
+  color: $color-text-primary;
+  overflow-x: hidden;
+}
+
+// Lenis smooth scroll container rules
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

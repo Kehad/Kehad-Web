@@ -1,0 +1,283 @@
+@use '../base/variables' as *;
+
+// ==========================================================================
+// Interactive Showcase Gallery ("Curated Artifacts")
+// ==========================================================================
+
+.showcase-section {
+  padding: 8rem 3rem 10rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  // Section Header
+  &__header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+    position: relative;
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-family: $font-mono;
+      font-size: 0.8125rem;
+      color: $color-accent-lime;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+
+      .rule-line {
+        height: 1px;
+        width: 60px;
+        background-color: $color-accent-lime;
+      }
+    }
+
+    .header-title {
+      font-family: $font-display;
+      font-size: clamp(2.5rem, 5.5vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      max-width: 850px;
+
+      .serif-accent {
+        font-family: $font-serif;
+        font-style: italic;
+        font-weight: 400;
+        color: $color-accent-cream;
+      }
+    }
+  }
+
+  // Grid of Interactive 3D Tilt Cards
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2.5rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  // 3D Tilt Showcase Card
+  .tilt-card {
+    position: relative;
+    border-radius: $radius-xl;
+    background: $color-bg-card;
+    backdrop-filter: blur(16px);
+    overflow: hidden;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    box-shadow: $shadow-card;
+    transition: box-shadow 0.4s $ease-out-expo;
+
+    // Asymmetric Bento Sizing
+    &--large {
+      grid-column: span 7;
+      min-height: 540px;
+
+      @media (max-width: 1024px) {
+        grid-column: span 1;
+        min-height: 480px;
+      }
+    }
+
+    &--medium {
+      grid-column: span 5;
+      min-height: 540px;
+
+      @media (max-width: 1024px) {
+        grid-column: span 1;
+        min-height: 440px;
+      }
+    }
+
+    &--wide {
+      grid-column: span 12;
+      min-height: 420px;
+
+      @media (max-width: 1024px) {
+        grid-column: span 1;
+      }
+    }
+
+    // Interactive Inner Shell that rotates on mouse move
+    &__inner {
+      width: 100%;
+      height: 100%;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+      transform-style: preserve-3d;
+      will-change: transform;
+
+      @media (max-width: 768px) {
+        padding: 2rem;
+      }
+    }
+
+    // Dynamic Mouse Spotlight / Glare Layer
+    &__glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      border-radius: inherit;
+      background: radial-gradient(circle 350px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 80%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    &:hover &__glare {
+      opacity: 1;
+    }
+
+    &:hover {
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(204, 255, 0, 0.1);
+    }
+
+    // SVG Border Draw Stroke Animation
+    &__border-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 4;
+
+      rect {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.08);
+        stroke-width: 1.5;
+        rx: 32px;
+        transition: stroke 0.4s ease;
+      }
+
+      .animated-stroke {
+        stroke: $color-accent-lime;
+        stroke-dasharray: 2000;
+        stroke-dashoffset: 2000;
+        transition: stroke-dashoffset 1.4s $ease-out-expo;
+      }
+    }
+
+    &:hover &__border-svg .animated-stroke {
+      stroke-dashoffset: 0;
+    }
+
+    // Top Card Meta & Index
+    &__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      transform: translateZ(25px);
+    }
+
+    .card-tags {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      .tag {
+        font-family: $font-mono;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.7rem;
+        border-radius: $radius-full;
+        background: rgba(255, 255, 255, 0.05);
+        color: $color-text-secondary;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+
+        &--highlight {
+          background: rgba(204, 255, 0, 0.1);
+          color: $color-accent-lime;
+          border-color: rgba(204, 255, 0, 0.3);
+        }
+      }
+    }
+
+    .card-index {
+      font-family: $font-mono;
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 600;
+    }
+
+    // Center Rich Illustrated Vector Stage
+    &__visual {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      pointer-events: none;
+      transform: translateZ(40px);
+      transition: transform 0.4s $ease-out-expo;
+
+      svg {
+        max-width: 75%;
+        max-height: 75%;
+        filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+        transition: transform 0.5s $ease-spring;
+      }
+    }
+
+    &:hover &__visual svg {
+      transform: scale(1.08) rotate(-2deg);
+    }
+
+    // Bottom Content & Project Title
+    &__bottom {
+      transform: translateZ(35px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-title {
+      font-family: $font-display;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .arrow-link {
+        display: inline-block;
+        transition: transform 0.3s $ease-spring;
+      }
+    }
+
+    &:hover .arrow-link {
+      transform: translate(6px, -6px);
+      color: $color-accent-lime;
+    }
+
+    .card-desc {
+      font-size: 0.9375rem;
+      color: $color-text-secondary;
+      line-height: 1.5;
+      max-width: 440px;
+    }
+  }
+}
+

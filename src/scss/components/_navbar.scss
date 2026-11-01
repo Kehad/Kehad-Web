@@ -1,0 +1,182 @@
+@use '../base/variables' as *;
+
+// ==========================================================================
+// Editorial Header & Magnetic Navigation
+// ==========================================================================
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-nav;
+  padding: 1.75rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mix-blend-mode: difference;
+  transition: padding 0.4s $ease-out-expo, transform 0.4s $ease-out-expo;
+
+  @media (max-width: 768px) {
+    padding: 1.25rem 1.5rem;
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-display;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.03em;
+    position: relative;
+    padding: 0.5rem;
+
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+      background-color: $color-accent-lime;
+      border-radius: $radius-full;
+      box-shadow: 0 0 10px $color-accent-lime;
+    }
+  }
+
+  &__meta {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: $font-mono;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.6rem 1rem;
+    border-radius: $radius-full;
+    position: relative;
+    overflow: hidden;
+
+    .toggle-icon {
+      width: 24px;
+      height: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      span {
+        display: block;
+        width: 100%;
+        height: 1.5px;
+        background-color: #ffffff;
+        transition: transform 0.3s $ease-out-expo, width 0.3s $ease-out-expo;
+      }
+
+      span:nth-child(2) {
+        width: 60%;
+        align-self: flex-end;
+      }
+    }
+
+    &:hover .toggle-icon span:nth-child(2) {
+      width: 100%;
+    }
+  }
+}
+
+// ==========================================================================
+// Full-Screen Morphing Menu Overlay
+// ==========================================================================
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: $z-menu;
+  pointer-events: none;
+  visibility: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: #0c0f17;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 6rem 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  &__item {
+    overflow: hidden;
+    line-height: 1;
+
+    a {
+      font-family: $font-display;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 800;
+      color: $color-text-primary;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      letter-spacing: -0.03em;
+      transform: translateY(110%);
+      transition: color 0.3s ease;
+
+      .item-num {
+        font-family: $font-mono;
+        font-size: 1.125rem;
+        color: $color-accent-lime;
+        font-weight: 500;
+      }
+
+      &:hover {
+        color: $color-accent-lime;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    font-family: $font-mono;
+    font-size: 0.8125rem;
+    color: $color-text-muted;
+  }
+}

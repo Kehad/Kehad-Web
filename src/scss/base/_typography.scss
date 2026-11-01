@@ -1,0 +1,40 @@
+@use 'variables' as *;
+
+body {
+  font-family: $font-body;
+  background-color: $color-bg-base;
+  color: $color-text-primary;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  line-height: 1.1;
+  font-weight: 800;
+  color: $color-text-primary;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+p {
+  color: $color-text-secondary;
+  font-family: $font-body;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, $color-accent-lime 0%, $color-accent-blue 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

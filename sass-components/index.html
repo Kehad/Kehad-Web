@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sass Components + Instant Refresh</title>
+    <!-- Entry point script for Vite with Sass HMR -->
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <!-- Navbar Component -->
+    <header class="navbar">
+      <div class="navbar__container">
+        <a href="#" class="navbar__brand">
+          <span style="font-size: 1.5rem;">⚡</span>
+          <span>SassVite</span>
+        </a>
+        <nav class="navbar__links">
+          <a href="#components" class="navbar__link">Components</a>
+          <a href="#buttons" class="navbar__link">Buttons</a>
+          <a href="#cards" class="navbar__link">Cards</a>
+          <a href="#docs" class="navbar__link">Docs</a>
+        </nav>
+        <div class="navbar__actions">
+          <button class="btn btn--outline btn--sm">Sign In</button>
+          <button class="btn btn--primary btn--sm">Get Started</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Component -->
+    <section class="hero">
+      <div class="hero__tag">
+        <span class="badge badge--primary">
+          <span>●</span>
+          <span>Instant HMR Refresh Active</span>
+        </span>
+      </div>
+      <h1 class="hero__title">
+        Modular HTML & Sass Components with <span class="text-gradient">Instant Refresh</span>
+      </h1>
+      <p class="hero__subtitle">
+        Change any SCSS partial or HTML structure in <code>src/scss/components/</code> and watch the browser update in real time with zero latency.
+      </p>
+      <div class="hero__cta-group">
+        <button class="btn btn--primary btn--lg">Explore Components</button>
+        <button class="btn btn--secondary btn--lg">Documentation</button>
+      </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="container" id="components">
+      <!-- Buttons Showcase -->
+      <div class="section-header" id="buttons">
+        <h2>Button Component Variations</h2>
+        <p>Defined in <code>src/scss/components/_button.scss</code></p>
+      </div>
+      <div class="component-demo">
+        <button class="btn btn--primary">Primary Button</button>
+        <button class="btn btn--secondary">Secondary Button</button>
+        <button class="btn btn--outline">Outline Button</button>
+        <button class="btn btn--ghost">Ghost Button</button>
+        <button class="btn btn--primary btn--sm">Small Button</button>
+        <button class="btn btn--primary btn--lg">Large Button</button>
+      </div>
+
+      <!-- Badges Showcase -->
+      <div class="section-header">
+        <h2>Badge Component Variations</h2>
+        <p>Defined in <code>src/scss/components/_badge.scss</code></p>
+      </div>
+      <div class="component-demo">
+        <span class="badge badge--primary">Primary Pill</span>
+        <span class="badge badge--success">Success Active</span>
+        <span class="badge badge--secondary">Neutral Tag</span>
+      </div>
+
+      <!-- Cards Grid Showcase -->
+      <div class="section-header" id="cards">
+        <h2>Card Component Grid</h2>
+        <p>Defined in <code>src/scss/components/_card.scss</code></p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card__header">
+            <span class="badge badge--primary">Architecture</span>
+            <span style="font-size: 1.25rem;">🧩</span>
+          </div>
+          <h3 class="card__title">Modular SCSS Structure</h3>
+          <p class="card__body">
+            Cleanly split into <code>base/</code> tokens and <code>components/</code> partials using modern Sass <code>@use</code> rules for scoped reusability.
+          </p>
+          <div class="card__footer">
+            <span style="font-size: 0.8125rem; color: #9ca3af;">v1.0.0</span>
+            <button class="btn btn--outline btn--sm">Learn More</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__header">
+            <span class="badge badge--success">Performance</span>
+            <span style="font-size: 1.25rem;">⚡</span>
+          </div>
+          <h3 class="card__title">Lightning Fast HMR</h3>
+          <p class="card__body">
+            Powered by Vite and Dart Sass. Edits to styles are hot-swapped into the running page without full reloads, preserving DOM state.
+          </p>
+          <div class="card__footer">
+            <span style="font-size: 0.8125rem; color: #9ca3af;">Zero-Config</span>
+            <button class="btn btn--outline btn--sm">Benchmark</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__header">
+            <span class="badge badge--secondary">Scalability</span>
+            <span style="font-size: 1.25rem;">📦</span>
+          </div>
+          <h3 class="card__title">Production Ready</h3>
+          <p class="card__body">
+            Compiles automatically into minified, vendor-prefixed CSS for production deployments with <code>npm run build</code>.
+          </p>
+          <div class="card__footer">
+            <span style="font-size: 0.8125rem; color: #9ca3af;">Optimized</span>
+            <button class="btn btn--outline btn--sm">Deploy</button>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- Footer Component -->
+    <footer class="footer">
+      <div class="footer__container">
+        <div class="footer__bottom">
+          <p>© 2026 Sass Components. Created with Vite + Dart Sass.</p>
+          <p>Instant Live Refresh enabled.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+

@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modular HTML & Sass Components (Instant Refresh)
 
-## Getting Started
+A modern, fast development setup for building HTML & CSS components using Dart Sass and Vite with instant Hot Module Replacement (HMR) / live reload.
 
-First, run the development server:
+---
+
+## 🚀 Quick Start
+
+Start the local development server with instant live reload:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser. Any change you save in `.html` or `.scss` files will reflect immediately on screen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Other Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run build`: Compiles and minifies the HTML, CSS, and JS into `dist/` for production.
+- `npm run preview`: Previews the production build locally.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Architecture & File Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+├── index.html                  # Main showcase page displaying all components
+├── package.json                # Project dependencies (Vite + sass-embedded)
+├── vite.config.js              # Vite configuration (Port 3000, dev source maps)
+└── src/
+    ├── main.js                 # JS entry point importing main.scss
+    └── scss/
+        ├── main.scss           # Root stylesheet importing all partials via @use
+        ├── base/
+        │   ├── _variables.scss # Design tokens: colors, spacing, typography, radii, shadows
+        │   ├── _reset.scss     # Modern box-sizing, margin, and layout resets
+        │   └── _typography.scss# Base fonts, headings, and gradient utility
+        └── components/         # Modular Component Partials
+            ├── _navbar.scss    # Sticky glassmorphic navigation header
+            ├── _hero.scss      # Centered hero section with tag, headline, and CTA
+            ├── _card.scss      # Card component with header, body, footer & hover lift
+            ├── _button.scss    # Primary, secondary, outline, and ghost buttons
+            ├── _badge.scss     # Status badges, tags, and pills
+            └── _footer.scss    # Responsive footer component
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧩 How to Add a New Component
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a new partial in `src/scss/components/`, e.g., `_modal.scss`:
+   ```scss
+   @use '../base/variables' as *;
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   .modal {
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.7);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   ```
+2. Import it into [`src/scss/main.scss`](file:///c:/Users/ADMIN/Desktop/Code/WEB/Kehad-Web/src/scss/main.scss):
+   ```scss
+   @use 'components/modal';
+   ```
+3. Add the HTML markup inside [`index.html`](file:///c:/Users/ADMIN/Desktop/Code/WEB/Kehad-Web/index.html).
+4. Save the file — Vite will update the browser instantly.
+

@@ -1,0 +1,342 @@
+@use '../base/variables' as *;
+
+// ==========================================================================
+// Junca Studio Exact Services Section Architecture (.slist & .srow)
+// Faithfully copied from https://juncastudio.com/services:
+// - Title & Tag shift: translate: var(--k-shift) 0
+// - Number & Arrow shift: .srow__n (translate: 22px) & .srow__arrow (opacity 1, translate: 0)
+// - CTA button curtain reveal: clip-path polygon(0 100%...) -> polygon(0 0...)
+// - Media image curtain unveil: clip-path polygon(0 0, 100% 0...) -> polygon(0 0, 100% 0, 100% 100%...)
+// - Image scale & slide: translate(0, -6%) scale(1.06) -> translate(0, 0) scale(1)
+// ==========================================================================
+
+:root {
+  --k-cubic: cubic-bezier(0.22, 1, 0.36, 1);
+  --k-cubic-in: cubic-bezier(0.64, 0, 0.78, 0);
+  --k-cubic-alt: cubic-bezier(0.25, 1, 0.5, 1);
+  --k-shift: 26px;
+  --accent-red: #ff3838;
+}
+
+.services-junca {
+  position: relative;
+  width: 100%;
+  padding: 8rem 3rem 10rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  // Top Section Editorial Header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .meta-label {
+        font-family: $font-mono;
+        font-size: 0.75rem;
+        color: $color-accent-lime;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .meta-title {
+        font-family: $font-body;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 300;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+        margin: 0;
+      }
+    }
+
+    .header-sectors {
+      font-family: $font-mono;
+      font-size: 0.75rem;
+      color: $color-text-muted;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+  }
+
+  // Services List (.slist)
+  .slist {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  // Exact Junca Studio Service Row (.srow)
+  .srow {
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    transition: background-color 0.4s ease;
+
+    // Hover background overlay curtain
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0px;
+      background: rgba(255, 255, 255, 0.025);
+      opacity: 0;
+      transition: opacity 0.6s var(--k-cubic);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    &:hover::before,
+    &.is-hover::before {
+      opacity: 1;
+    }
+
+    // Row Interactive Button Link
+    &__btn {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 320px;
+      padding: 44px 44% 44px 0px;
+      text-align: left;
+      color: inherit;
+      text-decoration: none;
+      background: transparent;
+      border: 0px;
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      align-items: start;
+      margin: 0px;
+      cursor: pointer;
+
+      @media (max-width: 1024px) {
+        padding-right: 0;
+        min-height: auto;
+      }
+
+      @media (max-width: 640px) {
+        grid-template-columns: 50px 1fr;
+        padding: 30px 0;
+      }
+    }
+
+    // 1. Number & Arrow Shift (Exact Junca micro-interaction)
+    &__num {
+      position: relative;
+      display: block;
+      padding-top: 10px;
+      font-family: $font-mono;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      transition: color 0.6s var(--k-cubic);
+    }
+
+    &__arrow {
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      color: $color-accent-lime;
+      opacity: 0;
+      translate: -14px 0;
+      transition:
+        opacity 0.6s var(--k-cubic),
+        translate 0.6s var(--k-cubic);
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    &__n {
+      display: inline-block;
+      translate: 0px 0;
+      transition: translate 0.6s var(--k-cubic);
+      font-weight: 600;
+    }
+
+    &:hover &__num,
+    &.is-hover &__num {
+      color: #cbd5e1;
+    }
+
+    &:hover &__arrow,
+    &.is-hover &__arrow {
+      opacity: 1;
+      translate: 0px 0;
+    }
+
+    &:hover &__n,
+    &.is-hover &__n {
+      translate: 22px 0;
+    }
+
+    // 2. Main Content Column (.srow__main)
+    &__main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 230px;
+      justify-content: space-between;
+
+      @media (max-width: 1024px) {
+        min-height: auto;
+        gap: 1.5rem;
+      }
+    }
+
+    // 3. Title Shift & Color Transition
+    &__title {
+      font-family: $font-body;
+      font-size: clamp(38px, 4.4vw, 64px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: #94a3b8;
+      display: block;
+      margin: 0;
+      translate: 0px 0;
+      transition:
+        translate 0.6s var(--k-cubic),
+        color 0.6s var(--k-cubic);
+      will-change: translate, color;
+    }
+
+    &:hover &__title,
+    &.is-hover &__title {
+      translate: var(--k-shift) 0;
+      color: #ffffff;
+    }
+
+    // 4. Tagline Shift & Color Transition
+    &__tag {
+      max-width: 440px;
+      font-family: $font-body;
+      font-size: 1rem;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+      color: #64748b;
+      margin-top: 14px;
+      margin-bottom: 2rem;
+      display: block;
+      translate: 0px 0;
+      transition:
+        translate 0.6s var(--k-cubic-alt),
+        color 0.6s var(--k-cubic);
+      will-change: translate, color;
+    }
+
+    &:hover &__tag,
+    &.is-hover &__tag {
+      translate: var(--k-shift) 0;
+      color: #cbd5e1;
+    }
+
+    // 5. Signature Curtain Reveal CTA Button (.srow__cta)
+    &__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-width: 200px;
+      height: 52px;
+      padding: 0px 24px;
+      background: $color-accent-lime;
+      color: #0a0c10;
+      font-family: $font-body;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      border: 0px;
+      border-radius: 2px;
+      margin-top: auto;
+      clip-path: polygon(0px 100%, 100% 100%, 100% 100%, 0px 100%);
+      translate: 0px 0;
+      transition:
+        clip-path 0.6s var(--k-cubic),
+        translate 0.6s var(--k-cubic);
+      will-change: clip-path, translate;
+
+      svg {
+        flex: 0 0 auto;
+        stroke: currentColor;
+        stroke-width: 2.5;
+      }
+    }
+
+    &:hover &__cta,
+    &.is-hover &__cta {
+      clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);
+      translate: var(--k-shift) 0;
+    }
+
+    // 6. Signature Media Image Curtain Unveil (.srow__media)
+    &__media {
+      position: absolute;
+      right: 0px;
+      top: 30px;
+      bottom: 30px;
+      width: auto;
+      max-width: 40%;
+      aspect-ratio: 16 / 10;
+      background: #0f131c;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0px;
+      pointer-events: none;
+      clip-path: polygon(0px 0px, 100% 0px, 100% 0px, 0px 0px);
+      transition: clip-path 0.65s var(--k-cubic-in);
+      will-change: clip-path;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+
+      @media (max-width: 1024px) {
+        display: none; // Junca hides floating media on tablet/mobile for fluid ergonomics
+      }
+
+      picture {
+        display: contents;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        translate: 0px -6%;
+        scale: 1.06;
+        transition:
+          translate 0.9s var(--k-cubic),
+          scale 0.9s var(--k-cubic);
+        will-change: translate, scale;
+      }
+    }
+
+    &:hover &__media,
+    &.is-hover &__media {
+      clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);
+
+      img {
+        translate: 0px 0;
+        scale: 1;
+      }
+    }
+  }
+}

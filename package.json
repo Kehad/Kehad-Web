@@ -1,61 +1,20 @@
 {
-  "name": "kehad-my-portfolio",
-  "version": "0.1.0",
+  "name": "sass-components",
   "private": true,
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "lint": "biome check",
-    "format": "biome format --write"
-  },
-  "dependencies": {
-    "@emailjs/browser": "^4.4.1",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@google/genai": "^2.27.0",
-    "@mui/icons-material": "^7.3.9",
-    "@mui/material": "^7.3.9",
-    "@mui/material-nextjs": "^7.3.9",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
-    "@reduxjs/toolkit": "^2.11.2",
-    "@types/three": "^0.183.1",
-    "autotypejs": "^1.0.6",
-    "classnames": "^2.5.1",
-    "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
-    "ecctrl": "^1.0.97",
-    "express": "^5.2.1",
-    "lucide-react": "^0.577.0",
-    "maath": "^0.10.8",
-    "motion": "^12.38.0",
-    "next-themes": "^0.4.6",
-    "postcss": "^8.5.8",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-icons": "^5.6.0",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.13.1",
-    "react-slick": "^0.31.0",
-    "react-toastify": "^11.0.5",
-    "react-transition-group": "^4.4.5",
-    "slick-carousel": "^1.8.1",
-    "swiper": "^12.1.2",
-    "three": "^0.183.2",
-    "typed.js": "^3.0.0"
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.0",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20.19.39",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "babel-plugin-react-compiler": "1.0.0",
-    "tailwindcss": "^4.2.2",
-    "typescript": "^5",
-    "vite": "^8.0.10"
+    "sass-embedded": "^1.83.0",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.27",
+    "split-type": "^0.3.4"
   }
 }

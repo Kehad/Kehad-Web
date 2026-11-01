@@ -1,0 +1,92 @@
+@use 'sass:color';
+@use '../base/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.85rem;
+  border-radius: $radius-full;
+  font-family: $font-mono;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.2s $ease-spring;
+  will-change: transform;
+
+  // Inner text layer that stays on top of fill
+  &__text {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  // Liquid background filler on hover
+  &__filler {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-full;
+    transition: transform 0.45s $ease-out-expo;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &:hover &__filler {
+    transform: translateY(-100%);
+  }
+
+  // Primary Lime/Acid variant
+  &--primary {
+    background-color: $color-accent-lime;
+    color: $color-bg-base;
+    border-color: $color-accent-lime;
+
+    .btn__filler {
+      background-color: #ffffff;
+    }
+
+    &:hover {
+      box-shadow: $shadow-glow-lime;
+    }
+  }
+
+  // Secondary Glass / Wire variant
+  &--wire {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+
+    .btn__filler {
+      background-color: #ffffff;
+    }
+
+    &:hover {
+      color: $color-bg-base;
+      border-color: #ffffff;
+    }
+  }
+
+  // Large size
+  &--lg {
+    padding: 1.15rem 2.5rem;
+    font-size: 0.875rem;
+  }
+
+  // Small size
+  &--sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+  }
+}

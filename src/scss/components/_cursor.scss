@@ -1,0 +1,114 @@
+@use '../base/variables' as *;
+
+// ==========================================================================
+// Awwwards Magnetic Trailing Cursor
+// ==========================================================================
+
+// Disable native cursor on pointer devices
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, [data-cursor], [data-magnetic] {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: $z-cursor;
+  will-change: transform;
+
+  // 1. High-precision central dot
+  &__dot {
+    position: fixed;
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: $color-accent-lime;
+    border-radius: $radius-full;
+    transition: opacity 0.2s ease, transform 0.2s $ease-spring;
+    mix-blend-mode: difference;
+    z-index: 2;
+  }
+
+  // 2. Smooth lagging follower ring / pill
+  &__follower {
+    position: fixed;
+    top: -24px;
+    left: -24px;
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid rgba(204, 255, 0, 0.6);
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.35s $ease-out-expo, 
+                height 0.35s $ease-out-expo, 
+                border-color 0.25s ease, 
+                background-color 0.25s ease,
+                border-radius 0.35s $ease-out-expo;
+    backdrop-filter: blur(2px);
+    z-index: 1;
+
+    // Inner contextual text pill
+    .cursor-label {
+      font-family: $font-mono;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: $color-bg-base;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.2s ease, transform 0.25s $ease-spring;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+  }
+
+  // State: Hovering Link / Button
+  &--hover &__follower {
+    width: 64px;
+    height: 64px;
+    top: -32px;
+    left: -32px;
+    background: rgba(204, 255, 0, 0.15);
+    border-color: $color-accent-lime;
+    box-shadow: $shadow-glow-lime;
+  }
+
+  &--hover &__dot {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  // State: Active contextual badge (e.g. "VIEW", "EXPLORE", "DRAG")
+  &--badge &__follower {
+    width: 88px;
+    height: 88px;
+    top: -44px;
+    left: -44px;
+    background-color: $color-accent-lime;
+    border-color: transparent;
+    box-shadow: 0 0 40px rgba(204, 255, 0, 0.5);
+
+    .cursor-label {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &--badge &__dot {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  // State: Mouse down click
+  &--clicking &__follower {
+    transform: scale(0.85);
+  }
+}
+

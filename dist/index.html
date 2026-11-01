@@ -1,23 +1,865 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full antialiased dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kehad || My Portfolio</title>
-    <!-- Geist Font Replacement -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --font-geist-sans: 'Inter', sans-serif;
-        --font-geist-mono: monospace;
-      }
-    </style>
-    <script type="module" crossorigin src="/assets/index-DkYcFjMt.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-cQSF7qHL.css">
+    <title>JUNCA & LENVAL INSP. — Interactive Motion Atelier</title>
+
+    <!-- Google Fonts: Syne (Editorial Grotesque), Instrument Serif (High-Fashion Italic), Plus Jakarta Sans, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Main Entry Module -->
+    <script type="module" crossorigin src="/assets/index-Cw7SGeEH.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cb1rB4vD.css">
   </head>
-  <body class="antialiased min-h-screen text-gray-900 bg-gray-50 dark:bg-[#0B0F19] dark:text-gray-100 selection:bg-blue-500/30">
-    <div id="root"></div>
+  <body>
+    <!-- Subtle Film Grain Noise Texture -->
+    <div class="noise-overlay"></div>
+
+    <!-- Ambient Mesh Glows -->
+    <div class="ambient-glow ambient-glow--1"></div>
+    <div class="ambient-glow ambient-glow--2"></div>
+    <div class="ambient-glow ambient-glow--3"></div>
+
+    <!-- =================================================================== -->
+    <!-- Custom Trailing Magnetic Cursor -->
+    <!-- =================================================================== -->
+    <div class="custom-cursor" id="customCursor">
+      <div class="custom-cursor__dot" id="cursorDot"></div>
+      <div class="custom-cursor__follower" id="cursorFollower">
+        <span class="cursor-label" id="cursorLabel">View</span>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- Full-Page Morphing SVG Transition Curtain -->
+    <!-- =================================================================== -->
+    <div class="page-transition" id="pageTransition">
+      <svg class="page-transition__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path id="transitionPath" d="M 0 0 L 100 0 L 100 100 L 0 100 Z" />
+      </svg>
+      <div class="page-transition__content" id="transitionContent">
+        <div class="page-transition__logo">
+          <span>ATELIER</span>
+        </div>
+        <div class="page-transition__counter" id="transitionCounter">00%</div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- Header & Magnetic Navigation -->
+    <!-- =================================================================== -->
+    <header class="header">
+      <a href="#" class="header__brand" data-magnetic>
+        <span class="brand-dot"></span>
+        <span>ATELIER.01</span>
+      </a>
+
+      <div class="header__meta">
+        <span>Curated Systems / 51°30'N 0°07'W</span>
+      </div>
+
+      <button class="header__toggle" id="menuToggle" data-magnetic>
+        <span>Index</span>
+        <div class="toggle-icon">
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </header>
+
+    <!-- =================================================================== -->
+    <!-- Full-Screen Morphing Menu Overlay -->
+    <!-- =================================================================== -->
+    <div class="nav-overlay" id="navOverlay">
+      <svg class="nav-overlay__bg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path id="menuPath" d="M 0 0 L 100 0 L 100 0 C 50 0 50 0 0 0 Z" />
+      </svg>
+      <div class="nav-overlay__inner">
+        <div class="nav-overlay__top">
+          <span style="font-family: var(--font-mono, monospace); font-size: 0.8125rem; color: #ccff00; letter-spacing: 0.1em;">
+            [NAVIGATION ARCHIVE]
+          </span>
+        </div>
+        <nav class="nav-overlay__links">
+          <div class="nav-overlay__item">
+            <a href="#hero" class="menu-link" data-cursor="Jump">
+              <span class="item-num">01</span>
+              <span>Genesis</span>
+            </a>
+          </div>
+          <div class="nav-overlay__item">
+            <a href="#showcase" class="menu-link" data-cursor="Explore">
+              <span class="item-num">02</span>
+              <span>Artifacts</span>
+            </a>
+          </div>
+          <div class="nav-overlay__item">
+            <a href="#experiments" class="menu-link" data-cursor="Inspect">
+              <span class="item-num">03</span>
+              <span>Kinetic Lab</span>
+            </a>
+          </div>
+          <div class="nav-overlay__item">
+            <a href="#about" class="menu-link" data-cursor="Read">
+              <span class="item-num">04</span>
+              <span>Philosophy</span>
+            </a>
+          </div>
+          <div class="nav-overlay__item">
+            <a href="#seo-geo" class="menu-link" data-cursor="SEO &amp; GEO">
+              <span class="item-num">05</span>
+              <span>SEO &amp; GEO Process</span>
+            </a>
+          </div>
+        </nav>
+        <div class="nav-overlay__footer">
+          <span>Awwwards SOTD Concept</span>
+          <span>Tokyo • London • Paris</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- HERO SECTION: Split-text, Vector reveals, Parallax floating stickers -->
+    <!-- =================================================================== -->
+    <section class="hero-editorial" id="hero">
+      <!-- Ambient Decorative SVG Layers -->
+      <div class="hero-editorial__illustrations">
+        <!-- Floating 3D Badge / Holographic Seal -->
+        <div class="art-layer art-layer--badge-3d" data-parallax="0.08">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="90" stroke="#ccff00" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.6"/>
+            <circle cx="100" cy="100" r="76" fill="url(#badgeGrad)" stroke="rgba(255,255,255,0.2)"/>
+            <!-- Rotating Starburst Rays -->
+            <g transform="translate(100,100)">
+              <line x1="0" y1="-64" x2="0" y2="64" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+              <line x1="-64" y1="0" x2="64" y2="0" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+              <line x1="-45" y1="-45" x2="45" y2="45" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+              <line x1="-45" y1="45" x2="45" y2="-45" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+            </g>
+            <!-- Center Modern Glyph Eye -->
+            <ellipse cx="100" cy="100" rx="30" ry="18" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="100" cy="100" r="9" fill="#ccff00"/>
+            <defs>
+              <linearGradient id="badgeGrad" x1="24" y1="24" x2="176" y2="176" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#1e2638" />
+                <stop offset="1" stop-color="#0e131f" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Geometric Spinning Wireframe Cross -->
+        <div class="art-layer art-layer--geometric" data-parallax="-0.05">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="100" height="100" rx="20" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="8 8"/>
+            <circle cx="60" cy="60" r="35" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+            <polygon points="60,20 100,60 60,100 20,60" stroke="#ccff00" stroke-width="1.5"/>
+          </svg>
+        </div>
+
+        <!-- Parametric Curving Ribbon Stroke -->
+        <div class="art-layer art-layer--curved-ribbon" data-parallax="0.04">
+          <svg viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              id="heroRibbonPath"
+              d="M 10 160 C 90 20, 210 180, 310 30"
+              stroke="url(#ribbonGrad)"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+            <defs>
+              <linearGradient id="ribbonGrad" x1="0" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#3b82f6" />
+                <stop offset="0.5" stop-color="#ccff00" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Pre-header Status Pill -->
+      <div class="hero-editorial__meta">
+        <div class="meta-pill" id="heroPill">
+          <span class="pulse-dot"></span>
+          <span>Vol. 24 / Creative Direction & Digital Architecture</span>
+        </div>
+      </div>
+
+      <!-- Main Editorial Headline (Line Masked) -->
+      <h1 class="hero-editorial__headline" id="heroHeadline">
+        <span class="line-mask">
+          <span class="line-inner">WHERE RAW <span class="italic-serif">POETRY</span></span>
+        </span>
+        <span class="line-mask">
+          <span class="line-inner">MEETS <span class="highlight-lime">HYPER-MOTION</span></span>
+        </span>
+        <span class="line-mask">
+          <span class="line-inner">&amp; TACTILE ART.</span>
+        </span>
+      </h1>
+
+      <!-- Subtitle and CTAs Grid -->
+      <div class="hero-editorial__bottom">
+        <div class="hero-editorial__lead">
+          <span class="lead-inner" id="heroLead">
+            An illustrative playground pioneering fluid ergonomics, physics-based micro-choreography, and editorial brutalism for next-generation web artifacts.
+          </span>
+        </div>
+
+        <div class="hero-editorial__actions">
+          <div class="action-inner" id="heroActions">
+            <a href="#showcase" class="btn btn--primary btn--lg" data-magnetic data-cursor="Discover">
+              <span class="btn__filler"></span>
+              <span class="btn__text">
+                <span>Explore Works</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+
+            <button class="btn btn--wire btn--lg" data-magnetic data-cursor="Play">
+              <span class="btn__filler"></span>
+              <span class="btn__text">Reel 2026</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Cue Indicator -->
+      <div class="hero-editorial__scroll-cue">
+        <div class="scroll-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </div>
+        <span>Scroll to Explore</span>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- INTERACTIVE SHOWCASE SECTION: 3D Tilt, Glare, SVG Border-Draw -->
+    <!-- =================================================================== -->
+    <section class="showcase-section" id="showcase">
+      <!-- Section Header -->
+      <div class="showcase-section__header" id="showcaseHeader">
+        <div class="header-top">
+          <span>02 / Showcase Catalog</span>
+          <div class="rule-line"></div>
+        </div>
+        <h2 class="header-title">
+          TACTILE ARTIFACTS <br />
+          <span class="serif-accent">&amp; Interactive Choreography</span>
+        </h2>
+      </div>
+
+      <!-- Asymmetrical Bento Showcase Grid -->
+      <div class="showcase-section__grid">
+        <!-- 1. Large Card: The Kinetic Atlas -->
+        <article
+          class="tilt-card tilt-card--large"
+          data-tilt
+          data-cursor="Inspect"
+        >
+          <!-- SVG Border Draw Animation -->
+          <svg class="tilt-card__border-svg">
+            <rect width="100%" height="100%" />
+            <rect width="100%" height="100%" class="animated-stroke" />
+          </svg>
+          <div class="tilt-card__glare"></div>
+
+          <div class="tilt-card__inner">
+            <div class="tilt-card__top">
+              <div class="card-tags">
+                <span class="tag tag--highlight">WebGL &amp; Shaders</span>
+                <span class="tag">Physics Simulation</span>
+              </div>
+              <span class="card-index">№ 001</span>
+            </div>
+
+            <!-- Center Rich Vector Illustration (Gyroscopic Core) -->
+            <div class="tilt-card__visual">
+              <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Concentric Gyro Rings -->
+                <circle cx="150" cy="150" r="120" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="10 15" opacity="0.5"/>
+                <ellipse cx="150" cy="150" rx="110" ry="45" stroke="#ccff00" stroke-width="2" transform="rotate(-30 150 150)"/>
+                <ellipse cx="150" cy="150" rx="110" ry="45" stroke="#8b5cf6" stroke-width="2" transform="rotate(35 150 150)"/>
+                <!-- Center Glowing Nucleus -->
+                <circle cx="150" cy="150" r="35" fill="url(#coreGlow)" filter="drop-shadow(0 0 20px #ccff00)"/>
+                <circle cx="150" cy="150" r="14" fill="#ffffff"/>
+                <!-- Orbital Nodes -->
+                <circle cx="70" cy="105" r="7" fill="#ccff00"/>
+                <circle cx="230" cy="195" r="7" fill="#3b82f6"/>
+                <defs>
+                  <radialGradient id="coreGlow" cx="0.5" cy="0.5" r="0.5">
+                    <stop offset="0%" stop-color="#ccff00"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="tilt-card__bottom">
+              <h3 class="card-title">
+                <span>The Kinetic Atlas</span>
+                <span class="arrow-link">↗</span>
+              </h3>
+              <p class="card-desc">
+                Generative coordinate mapper tracking multi-dimensional gravitational nodes in real-time GLSL canvas.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Medium Card: Neo Chrono -->
+        <article
+          class="tilt-card tilt-card--medium"
+          data-tilt
+          data-cursor="Explore"
+        >
+          <svg class="tilt-card__border-svg">
+            <rect width="100%" height="100%" />
+            <rect width="100%" height="100%" class="animated-stroke" />
+          </svg>
+          <div class="tilt-card__glare"></div>
+
+          <div class="tilt-card__inner">
+            <div class="tilt-card__top">
+              <div class="card-tags">
+                <span class="tag tag--highlight">Surrealist Vector</span>
+                <span class="tag">SVG Morph</span>
+              </div>
+              <span class="card-index">№ 002</span>
+            </div>
+
+            <!-- Center Rich Vector Illustration (Melting Timepiece) -->
+            <div class="tilt-card__visual">
+              <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Clock Dial Drooping Shape -->
+                <path
+                  d="M 60 70 C 90 20, 180 30, 200 80 C 220 130, 210 200, 150 220 C 100 240, 40 180, 50 120 Z"
+                  fill="url(#chronoGrad)"
+                  stroke="#ffffff"
+                  stroke-width="1.5"
+                  opacity="0.9"
+                />
+                <!-- Clock Hands -->
+                <line x1="130" y1="130" x2="130" y2="70" stroke="#ccff00" stroke-width="3" stroke-linecap="round"/>
+                <line x1="130" y1="130" x2="175" y2="150" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="130" cy="130" r="5" fill="#ccff00"/>
+                <!-- Hour Markers -->
+                <circle cx="130" cy="55" r="3" fill="#ffffff"/>
+                <circle cx="185" cy="130" r="3" fill="#ffffff"/>
+                <circle cx="130" cy="205" r="3" fill="#ffffff"/>
+                <circle cx="65" cy="130" r="3" fill="#ffffff"/>
+                <defs>
+                  <linearGradient id="chronoGrad" x1="50" y1="50" x2="200" y2="220" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#1d2333"/>
+                    <stop offset="100%" stop-color="#0b0e17"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="tilt-card__bottom">
+              <h3 class="card-title">
+                <span>Neo Chrono</span>
+                <span class="arrow-link">↗</span>
+              </h3>
+              <p class="card-desc">
+                Elastic temporal sequencer driven by velocity curves and spring-tensioned clockworks.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Wide Card: Synaptic Void -->
+        <article
+          class="tilt-card tilt-card--wide"
+          data-tilt
+          data-cursor="Drag"
+        >
+          <svg class="tilt-card__border-svg">
+            <rect width="100%" height="100%" />
+            <rect width="100%" height="100%" class="animated-stroke" />
+          </svg>
+          <div class="tilt-card__glare"></div>
+
+          <div class="tilt-card__inner" style="flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+            <div style="max-width: 480px; z-index: 2;">
+              <div class="card-tags" style="margin-bottom: 1.25rem;">
+                <span class="tag tag--highlight">Spatial Audio &amp; AudioReactive</span>
+                <span class="tag">Bespoke Architecture</span>
+              </div>
+              <h3 class="card-title" style="font-size: clamp(2rem, 3.5vw, 3rem);">
+                <span>Synaptic Void</span>
+                <span class="arrow-link">↗</span>
+              </h3>
+              <p class="card-desc">
+                A multi-sensory soundscape transforming browser micro-interactions into musical frequencies and procedural harmonic waves.
+              </p>
+            </div>
+
+            <!-- Parametric Wave Matrix Illustration -->
+            <div style="flex: 1; min-width: 300px; display: flex; align-items: center; justify-content: center; z-index: 1;">
+              <svg viewBox="0 0 450 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 450px;">
+                <path d="M 10 90 Q 70 10, 130 90 T 250 90 T 370 90 T 440 90" stroke="#ccff00" stroke-width="2.5" opacity="0.8" fill="none"/>
+                <path d="M 10 90 Q 70 30, 130 90 T 250 90 T 370 90 T 440 90" stroke="#3b82f6" stroke-width="1.5" opacity="0.6" fill="none"/>
+                <path d="M 10 90 Q 70 50, 130 90 T 250 90 T 370 90 T 440 90" stroke="#8b5cf6" stroke-width="1" opacity="0.5" fill="none"/>
+                <circle cx="130" cy="90" r="6" fill="#ccff00" filter="drop-shadow(0 0 10px #ccff00)"/>
+                <circle cx="250" cy="90" r="6" fill="#3b82f6" filter="drop-shadow(0 0 10px #3b82f6)"/>
+                <circle cx="370" cy="90" r="6" fill="#8b5cf6" filter="drop-shadow(0 0 10px #8b5cf6)"/>
+              </svg>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- JUNCA STUDIO EXACT SERVICES SECTION: Title shift, Line/arrow, Curtain reveals -->
+    <!-- =================================================================== -->
+    <section class="services-junca" id="services">
+      <!-- Section Editorial Header -->
+      <div class="services-junca__header">
+        <div class="header-meta">
+          <span class="meta-label">Categories · 05</span>
+          <h2 class="meta-title">Five capabilities, one goal.</h2>
+        </div>
+        <div class="header-sectors">
+          <span>DeepTech · SaaS · Climate Tech · Robotics · AI · Industry</span>
+        </div>
+      </div>
+
+      <!-- Services List Container -->
+      <div class="slist" id="servicesList">
+        <!-- 01 Websites -->
+        <article class="srow" data-srow="01">
+          <a class="srow__btn" href="#service-websites" data-cursor="Websites">
+            <span class="srow__num">
+              <span class="srow__arrow">→</span>
+              <span class="srow__n">01</span>
+            </span>
+
+            <div class="srow__main">
+              <h3 class="srow__title">Websites</h3>
+              <p class="srow__tag">
+                Designed and built by the same team, in Framer or in code. Websites for ambitious deeptech and hardware companies at pivotal moments.
+              </p>
+              <span class="srow__cta">
+                <span class="srow__cta-label">Explore Websites</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            <figure class="srow__media">
+              <picture>
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=80" alt="Websites overview" loading="lazy" />
+              </picture>
+            </figure>
+          </a>
+        </article>
+
+        <!-- 02 3D & Motion -->
+        <article class="srow" data-srow="02">
+          <a class="srow__btn" href="#service-3d" data-cursor="3D &amp; Motion">
+            <span class="srow__num">
+              <span class="srow__arrow">→</span>
+              <span class="srow__n">02</span>
+            </span>
+
+            <div class="srow__main">
+              <h3 class="srow__title">3D &amp; Motion</h3>
+              <p class="srow__tag">
+                Modeled in Blender, built for the browser. Product animations, cinematic mechanics, and WebGL experiences that explain the invisible.
+              </p>
+              <span class="srow__cta">
+                <span class="srow__cta-label">Explore 3D &amp; Motion</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            <figure class="srow__media">
+              <picture>
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="3D and Motion preview" loading="lazy" />
+              </picture>
+            </figure>
+          </a>
+        </article>
+
+        <!-- 03 Brand -->
+        <article class="srow" data-srow="03">
+          <a class="srow__btn" href="#service-brand" data-cursor="Brand">
+            <span class="srow__num">
+              <span class="srow__arrow">→</span>
+              <span class="srow__n">03</span>
+            </span>
+
+            <div class="srow__main">
+              <h3 class="srow__title">Brand</h3>
+              <p class="srow__tag">
+                An identity that has caught up with the technology. Deeptech branding, design systems, and typography engineered for technical buyers.
+              </p>
+              <span class="srow__cta">
+                <span class="srow__cta-label">Explore Brand</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            <figure class="srow__media">
+              <picture>
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80" alt="Brand identity preview" loading="lazy" />
+              </picture>
+            </figure>
+          </a>
+        </article>
+
+        <!-- 04 Fundraising -->
+        <article class="srow" data-srow="04">
+          <a class="srow__btn" href="#service-fundraising" data-cursor="Fundraising">
+            <span class="srow__num">
+              <span class="srow__arrow">→</span>
+              <span class="srow__n">04</span>
+            </span>
+
+            <div class="srow__main">
+              <h3 class="srow__title">Fundraising</h3>
+              <p class="srow__tag">
+                From pitch deck to investor-ready website, before your round. The deck was made the night before the last one.
+              </p>
+              <span class="srow__cta">
+                <span class="srow__cta-label">Explore Fundraising</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            <figure class="srow__media">
+              <picture>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" alt="Fundraising preview" loading="lazy" />
+              </picture>
+            </figure>
+          </a>
+        </article>
+
+        <!-- 05 SEO & GEO -->
+        <article class="srow" data-srow="05">
+          <a class="srow__btn" href="#seo-geo" data-cursor="SEO &amp; GEO">
+            <span class="srow__num">
+              <span class="srow__arrow">→</span>
+              <span class="srow__n">05</span>
+            </span>
+
+            <div class="srow__main">
+              <h3 class="srow__title">SEO &amp; GEO</h3>
+              <p class="srow__tag">
+                Found on Google and quoted by AI assistants. Technical SEO, generative engine optimization, and search architecture.
+              </p>
+              <span class="srow__cta">
+                <span class="srow__cta-label">Explore SEO &amp; GEO</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            <figure class="srow__media">
+              <picture>
+                <img src="/images/seo-geo/step2.webp" alt="SEO and GEO preview" loading="lazy" />
+              </picture>
+            </figure>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- JUNCA STUDIO EXACT SEO & GEO SERVICE SECTION (.pf) -->
+    <!-- Pinned Chamfered Stage, Curtain Unveil & WebGL Particle Terrain Wave -->
+    <!-- =================================================================== -->
+    <div class="pf-wrapper" id="seo-geo">
+      <!-- Top SVG Convex Transition Curve into Papier Canvas -->
+      <div class="scurve" aria-hidden="true">
+        <svg class="scurve__svg" preserveAspectRatio="none" viewBox="0 0 1561 160">
+          <path fill="currentColor" d="M0,160 V71.2 A28,28 0 0 0 28,99.2 Q780.5,18.6 1533.0,99.2 A28,28 0 0 0 1561,71.2 V160 Z"></path>
+        </svg>
+      </div>
+
+      <!-- SEO & GEO Editorial Banner -->
+      <div class="seogeo-banner">
+        <div class="seogeo-banner__badge">
+          <span class="dot"></span>
+          <span>Service 05 / 05 · SEO &amp; GEO</span>
+        </div>
+        <h1 class="seogeo-banner__title">
+          Your buyers search Google, then ask an AI. <span class="italic">Both should find you</span>, and describe you correctly.
+        </h1>
+        <p class="seogeo-banner__subtitle">
+          SEO and GEO for tech companies: found on Google, quoted by AI models, structured by the same team that designs and engineers the website.
+        </p>
+        <div class="seogeo-banner__chips">
+          <span class="chip">Crawl Audit</span>
+          <span class="chip">Search Console</span>
+          <span class="chip">Intent Mapping</span>
+          <span class="chip">JSON-LD Schema</span>
+          <span class="chip">llms.txt</span>
+          <span class="chip">Perplexity &amp; ChatGPT Quoted</span>
+        </div>
+      </div>
+
+      <!-- THE PROCESS (.pf) -->
+      <section class="pf" data-pf="" data-seed="3.1" style="--n:5">
+        <!-- Section Header -->
+        <div class="pf__head">
+          <p class="eyebrow">The process</p>
+          <div class="pf__lead">
+            <h2 class="pf__h2">How we make a tech company visible in search and AI answers</h2>
+            <p class="pf__intro">
+              Audit, structure, technical work and content are handled by the team that designs and builds the website. You follow every step in the client portal, with the data, the decisions and the pages in one place.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pinned Sticky Track -->
+        <div class="pf__track" data-pf-track="">
+          <div class="pf__stage">
+            <!-- WebGL Particle Terrain Wave Canvas -->
+            <canvas class="pf__bg" data-pf-bg="" aria-hidden="true"></canvas>
+
+            <!-- Rolling Step Counter (Left Side) -->
+            <p class="pf__num" aria-hidden="true">
+              <span class="pf__lbl">Step</span>
+              <span class="pf__roll">
+                <span class="pf__digits" data-pf-digits="">
+                  <span>01</span>
+                  <span>02</span>
+                  <span>03</span>
+                  <span>04</span>
+                  <span>05</span>
+                </span>
+              </span>
+              <span class="pf__lbl">/ 05</span>
+            </p>
+
+            <!-- Step Cards & Infos (Center & Right) -->
+            <ol class="pf__steps">
+              <!-- Step 01: Audit -->
+              <li class="pf__step is-active" data-pf-step="0">
+                <figure class="pf__fig is-on" data-pf-fig="" style="--i:0">
+                  <img
+                    src="/images/seo-geo/step1.webp"
+                    alt="Audit of tech website: sixteen issues ranked by impact, thirteen fixed in the first week, with before and after values"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div class="pf__info">
+                  <p class="pf__n">Step 01</p>
+                  <h3 class="pf__title">Audit</h3>
+                  <p class="pf__text">
+                    We crawl the site, read Search Console and Core Web Vitals, and ask AI assistants what they say about you. Every issue is ranked by impact.
+                  </p>
+                  <p class="pf__tags">
+                    <span>Crawl</span>
+                    <span>Search Console</span>
+                  </p>
+                  <div class="pf__controller">
+                    <button class="ctrl-pill is-active" data-jump="0">01</button>
+                    <button class="ctrl-pill" data-jump="1">02</button>
+                    <button class="ctrl-pill" data-jump="2">03</button>
+                    <button class="ctrl-pill" data-jump="3">04</button>
+                    <button class="ctrl-pill" data-jump="4">05</button>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Step 02: Search and question map (Exact image from user request) -->
+              <li class="pf__step" data-pf-step="1">
+                <figure class="pf__fig" data-pf-fig="" style="--i:1">
+                  <img
+                    src="/images/seo-geo/step2.webp"
+                    alt="Real search queries from the Search Console, grouped by intent and each assigned to one page"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div class="pf__info">
+                  <p class="pf__n">Step 02</p>
+                  <h3 class="pf__title">Search and question map</h3>
+                  <p class="pf__text">
+                    The searches and questions that lead to your product, grouped by intent, each one assigned to a single page.
+                  </p>
+                  <p class="pf__tags">
+                    <span>Keywords</span>
+                    <span>Intents</span>
+                  </p>
+                  <div class="pf__controller">
+                    <button class="ctrl-pill" data-jump="0">01</button>
+                    <button class="ctrl-pill is-active" data-jump="1">02</button>
+                    <button class="ctrl-pill" data-jump="2">03</button>
+                    <button class="ctrl-pill" data-jump="3">04</button>
+                    <button class="ctrl-pill" data-jump="4">05</button>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Step 03: Technical foundations -->
+              <li class="pf__step" data-pf-step="2">
+                <figure class="pf__fig" data-pf-fig="" style="--i:2">
+                  <img
+                    src="/images/seo-geo/step3.webp"
+                    alt="The structured data of the homepage, one JSON-LD graph, next to a robots.txt that lets AI assistants read the site"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div class="pf__info">
+                  <p class="pf__n">Step 03</p>
+                  <h3 class="pf__title">Technical foundations</h3>
+                  <p class="pf__text">
+                    Crawlable structure, redirects, speed, JSON-LD, llms.txt and AI crawler access, fixed in the site itself.
+                  </p>
+                  <p class="pf__tags">
+                    <span>Structure</span>
+                    <span>Schema</span>
+                  </p>
+                  <div class="pf__controller">
+                    <button class="ctrl-pill" data-jump="0">01</button>
+                    <button class="ctrl-pill" data-jump="1">02</button>
+                    <button class="ctrl-pill is-active" data-jump="2">03</button>
+                    <button class="ctrl-pill" data-jump="3">04</button>
+                    <button class="ctrl-pill" data-jump="4">05</button>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Step 04: Pages and articles -->
+              <li class="pf__step" data-pf-step="3">
+                <figure class="pf__fig" data-pf-fig="" style="--i:3">
+                  <img
+                    src="/images/seo-geo/step4.webp"
+                    alt="Article on deep tech branding: a table of contents written as questions, a named author and key takeaways at the top"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div class="pf__info">
+                  <p class="pf__n">Step 04</p>
+                  <h3 class="pf__title">Pages and articles</h3>
+                  <p class="pf__text">
+                    Service pages and articles that answer one question each, written with your team's expertise and structured to be quoted.
+                  </p>
+                  <p class="pf__tags">
+                    <span>Content</span>
+                    <span>GEO</span>
+                  </p>
+                  <div class="pf__controller">
+                    <button class="ctrl-pill" data-jump="0">01</button>
+                    <button class="ctrl-pill" data-jump="1">02</button>
+                    <button class="ctrl-pill" data-jump="2">03</button>
+                    <button class="ctrl-pill" data-jump="3">04</button>
+                    <button class="ctrl-pill" data-jump="4">05</button>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Step 05: Monthly follow-up -->
+              <li class="pf__step" data-pf-step="4">
+                <figure class="pf__fig" data-pf-fig="" style="--i:4">
+                  <img
+                    src="/images/seo-geo/step5.webp"
+                    alt="Monthly report: clicks per month with best performance, pages indexed and AI answers checked"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div class="pf__info">
+                  <p class="pf__n">Step 05</p>
+                  <h3 class="pf__title">Monthly follow-up</h3>
+                  <p class="pf__text">
+                    Clicks, rankings and AI answers checked every month, new articles published, and the plan adjusted to what the data says.
+                  </p>
+                  <p class="pf__tags">
+                    <span>Reporting</span>
+                    <span>Content</span>
+                  </p>
+                  <div class="pf__controller">
+                    <button class="ctrl-pill" data-jump="0">01</button>
+                    <button class="ctrl-pill" data-jump="1">02</button>
+                    <button class="ctrl-pill" data-jump="2">03</button>
+                    <button class="ctrl-pill" data-jump="3">04</button>
+                    <button class="ctrl-pill is-active" data-jump="4">05</button>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT YOU GET (.dv) -->
+      <section class="seogeo-deliverables">
+        <div class="seogeo-deliverables__head">
+          <p class="eyebrow">What you get</p>
+          <h2 class="title">Everything stays in your accounts.</h2>
+        </div>
+        <div class="seogeo-deliverables__grid">
+          <div class="seogeo-deliverables__card">
+            <span class="card-num">01 / AUDIT</span>
+            <h3 class="card-title">Impact Audit Report</h3>
+            <p class="card-desc">Every issue on the site, ranked by its impact on search and AI answers, with clear actionable fixes and verified before-and-after benchmarks.</p>
+          </div>
+          <div class="seogeo-deliverables__card">
+            <span class="card-num">02 / MAP</span>
+            <h3 class="card-title">Search &amp; Question Map</h3>
+            <p class="card-desc">Every query that leads to your tech product mapped by buyer intent directly to a dedicated high-converting target page.</p>
+          </div>
+          <div class="seogeo-deliverables__card">
+            <span class="card-num">03 / SCHEMA</span>
+            <h3 class="card-title">Code &amp; AI Permissions</h3>
+            <p class="card-desc">Crawlable site structure, high-speed redirects, valid JSON-LD graph, llms.txt, and AI bot crawler access directly committed in your codebase.</p>
+          </div>
+          <div class="seogeo-deliverables__card">
+            <span class="card-num">04 / GEO</span>
+            <h3 class="card-title">AI Citations &amp; Reporting</h3>
+            <p class="card-desc">Service pages structured for LLM quote extraction, with recurring monthly verification across ChatGPT Search, Claude, and Perplexity.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom SVG Transition Curve returning into Dark Canvas -->
+      <div class="scurve scurve--bottom" aria-hidden="true">
+        <svg class="scurve__svg" preserveAspectRatio="none" viewBox="0 0 1561 160">
+          <path fill="currentColor" d="M0,160 V71.2 A28,28 0 0 0 28,99.2 Q780.5,18.6 1533.0,99.2 A28,28 0 0 0 1561,71.2 V160 Z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Simple Minimal Footer -->
+    <footer style="padding: 4rem 3rem 6rem; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1500px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; font-family: var(--font-mono, monospace); font-size: 0.8125rem; color: #64748b;">
+      <div>© 2026 ATELIER INC. ALL RIGHTS RESERVED.</div>
+      <div style="color: #ccff00;">AWWWARDS SOTD ARCHITECTURE</div>
+    </footer>
   </body>
 </html>

@@ -77,7 +77,7 @@ export default function HeroSection() {
         {/* Right Side: Isometric Tech Stack Keyboard */}
         <div className=" hidden md:block xl:w-7/12 flex flex-col items-center justify-center p-0 sm:p-4 lg:p-12 mt-6 xl:mt-0 select-none w-full xl:max-w-none max-w-[100vw] overflow-hidden min-h-[300px] sm:min-h-[400px] relative" style={{ perspective: '3000px' }}>
         
-            <IsometricRoom />
+            {/* <IsometricRoom /> */}
         </div>
       </main>
 

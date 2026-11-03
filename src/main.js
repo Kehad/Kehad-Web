@@ -9,6 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { creerReleve } from './scripts/releve.js';
 import { seoGeoSteps } from './data/seoGeoSteps.js';
+import { keyboardGrid } from './data/skillsData.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -983,6 +984,115 @@ const initSeoGeoProcess = (lenis) => {
 };
 
 // ==========================================================================
+// 9. Interactive 3D Mechanical Keyboard Toolchain Skills Architecture
+// ==========================================================================
+const initKeyboard3d = () => {
+  const container = document.getElementById('keyboardGrid');
+  const screenText = document.getElementById('keyboardScreenText');
+  const chassis = document.getElementById('keyboard3d');
+
+  if (!container || !screenText) return;
+
+  // Render Keyboard Rows & Keycaps from data
+  container.innerHTML = keyboardGrid
+    .map((row) => {
+      const keysHtml = row
+        .map((k) => {
+          const colClass = k.colSpan === 2 ? 'keycap--col-2' : '';
+          const iconHtml = k.icon
+            ? `<img src="https://cdn.simpleicons.org/${k.icon}/white" alt="${k.label}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" /><span style="display:none;">${k.label}</span>`
+            : `<span>${k.label}</span>`;
+
+          return `
+            <div
+              class="keycap ${colClass}"
+              data-id="${k.id}"
+              data-name="${k.name || k.label || k.id}"
+              style="background: ${k.color}; --key-shadow: ${k.shadow};"
+            >
+              ${iconHtml}
+            </div>
+          `;
+        })
+        .join('');
+
+      return `<div class="keyboard-row">${keysHtml}</div>`;
+    })
+    .join('');
+
+  // Interactive Switch Event Handlers
+  const keycaps = container.querySelectorAll('.keycap');
+  keycaps.forEach((keycap) => {
+    const techName = keycap.getAttribute('data-name');
+    const keyId = keycap.getAttribute('data-id');
+
+    keycap.addEventListener('mouseenter', () => {
+      if (techName) {
+        screenText.textContent = techName.toUpperCase();
+        screenText.style.color = '#38bdf8';
+      }
+    });
+
+    keycap.addEventListener('mouseleave', () => {
+      screenText.textContent = 'WELCOME';
+      screenText.style.color = '#0ea5e9';
+    });
+
+    keycap.addEventListener('mousedown', () => {
+      keycap.classList.add('is-pressed');
+    });
+
+    keycap.addEventListener('mouseup', () => {
+      keycap.classList.remove('is-pressed');
+    });
+
+    keycap.addEventListener('click', () => {
+      screenText.textContent = `> ${techName.toUpperCase()}`;
+      keycap.classList.add('is-pressed');
+      setTimeout(() => keycap.classList.remove('is-pressed'), 180);
+
+      if (keyId === 'enter') {
+        const projEl = document.getElementById('seo-geo');
+        if (projEl) {
+          projEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+  // Dynamic 3D Mouse Parallax on Desktop
+  if (chassis && window.matchMedia('(min-width: 1024px)').matches) {
+    const stage = chassis.closest('.keyboard-stage');
+    if (stage) {
+      stage.addEventListener('mousemove', (e) => {
+        const rect = stage.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+        const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+
+        const rotX = 55 + mouseY * 12;
+        const rotZ = -32 + mouseX * 12;
+
+        gsap.to(chassis, {
+          rotateX: rotX,
+          rotateZ: rotZ,
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+      });
+
+      stage.addEventListener('mouseleave', () => {
+        gsap.to(chassis, {
+          rotateX: 55,
+          rotateZ: -32,
+          scale: 0.95,
+          duration: 0.8,
+          ease: 'power3.out',
+        });
+      });
+    }
+  }
+};
+// ==========================================================================
 // Bootstrap Architecture on DOM Ready
 // ==========================================================================
 const init = () => {
@@ -993,6 +1103,7 @@ const init = () => {
   initProjectsSection();
   initServicesShowcase();
   initTopographicCanvas();
+  initKeyboard3d();
   initSeoGeoProcess(lenis);
   initPageIntro();
 };

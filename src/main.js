@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { creerReleve } from './scripts/releve.js';
+import { seoGeoSteps } from './data/seoGeoSteps.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -768,12 +769,78 @@ const initTopographicCanvas = () => {
 };
 
 // ==========================================================================
+// 8a. Dynamic Step Rendering via JS Loop
+// ==========================================================================
+const renderSeoGeoSteps = (pf) => {
+  if (!pf) return;
+
+  const total = seoGeoSteps.length;
+  pf.style.setProperty('--n', String(total));
+
+  // 1. Dynamic Digits loop
+  const digitsEl = pf.querySelector('[data-pf-digits]');
+  if (digitsEl) {
+    digitsEl.innerHTML = seoGeoSteps
+      .map((_, i) => `<span>${String(i + 1).padStart(2, '0')}</span>`)
+      .join('');
+  }
+
+  // 2. Dynamic Total counter
+  const totalEl = pf.querySelector('[data-pf-total]');
+  if (totalEl) {
+    totalEl.textContent = `/ ${String(total).padStart(2, '0')}`;
+  }
+
+  // 3. Dynamic Steps loop
+  const stepsContainer = pf.querySelector('.pf__steps');
+  if (stepsContainer) {
+    stepsContainer.innerHTML = seoGeoSteps
+      .map(
+        (step, idx) => `
+        <li class="pf__step ${idx === 0 ? 'is-active' : ''}" data-pf-step="${idx}">
+          <figure class="pf__fig ${idx === 0 ? 'is-on' : ''}" data-pf-fig="" style="--i:${idx}">
+            <img
+              src="${step.image}"
+              alt="${step.alt}"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div class="pf__info">
+            <p class="pf__n">Step ${step.stepNum}</p>
+            <h3 class="pf__title">${step.title}</h3>
+            <p class="pf__text">${step.text}</p>
+            <p class="pf__tags">
+              ${step.tags.map((tag) => `<span>${tag}</span>`).join('')}
+            </p>
+            <div class="pf__controller">
+              ${seoGeoSteps
+                .map(
+                  (_, btnIdx) => `
+                <button class="ctrl-pill ${btnIdx === idx ? 'is-active' : ''}" data-jump="${btnIdx}">
+                  ${String(btnIdx + 1).padStart(2, '0')}
+                </button>
+              `
+                )
+                .join('')}
+            </div>
+          </div>
+        </li>
+      `
+      )
+      .join('');
+  }
+};
+// ==========================================================================
 // 8. Junca Studio Exact SEO & GEO Process Section Architecture (.pf)
 // Pinned Sticky Track, WebGL 2 Particle Wave Canvas, Upward Curtain Chamfer
 // ==========================================================================
 const initSeoGeoProcess = (lenis) => {
   const pf = document.querySelector('[data-pf]');
   if (!pf) return;
+
+  // Render steps dynamically from JavaScript data via loop
+  renderSeoGeoSteps(pf);
 
   const track = pf.querySelector('[data-pf-track]');
   const steps = [...pf.querySelectorAll('[data-pf-step]')];

@@ -243,12 +243,16 @@ const initHeroEntrance = () => {
     );
   }
 
-  // C. Subtitle Lead & Actions
+  // C. Subtitle Lead, Tech Chips & Actions
   if (lead) {
     heroTl.fromTo(lead, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0 }, 0.55);
   }
+  const chips = document.querySelectorAll(".hero-tech-stack .tech-chip");
+  if (chips.length) {
+    heroTl.fromTo(chips, { y: 15, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, stagger: 0.06, duration: 0.8, ease: "power2.out" }, 0.68);
+  }
   if (actions) {
-    heroTl.fromTo(actions, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0 }, 0.65);
+    heroTl.fromTo(actions, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0 }, 0.75);
   }
 
   // D. Staggered SVG Illustration reveals
@@ -305,6 +309,45 @@ const initHeroEntrance = () => {
   }
 };
 
+
+// ==========================================================================
+// 4b. Typewriter Effect cycling between 'Kehinde Adigun' and 'Kehad'
+// ==========================================================================
+const initTypewriter = () => {
+  const el = document.getElementById('typedName');
+  if (!el) return;
+
+  const words = ['Kehinde Adigun', 'Kehad'];
+  let wordIndex = 0;
+  let charIndex = words[0].length;
+  let isDeleting = false;
+
+  const type = () => {
+    const currentWord = words[wordIndex];
+    if (isDeleting) {
+      charIndex--;
+      el.textContent = currentWord.substring(0, charIndex);
+    } else {
+      charIndex++;
+      el.textContent = currentWord.substring(0, charIndex);
+    }
+
+    let delay = isDeleting ? 50 : 100;
+
+    if (!isDeleting && charIndex === currentWord.length) {
+      delay = 3000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      delay = 400;
+    }
+
+    setTimeout(type, delay);
+  };
+
+  setTimeout(type, 3500);
+};
 // ==========================================================================
 // 5. Junca Studio Exact Projects Section & Row Transitions
 // Replicating: row scroll reveal, line sweep, badge flip, and view toggle
@@ -878,6 +921,7 @@ const init = () => {
   const lenis = initSmoothScroll();
   initMagneticCursor();
   initMorphingMenu();
+  initTypewriter();
   initProjectsSection();
   initServicesShowcase();
   initTopographicCanvas();

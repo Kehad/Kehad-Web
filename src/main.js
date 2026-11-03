@@ -807,12 +807,13 @@ const renderSeoGeoSteps = (pf) => {
             />
           </figure>
           <div class="pf__info">
-            <p class="pf__n">Step ${step.stepNum}</p>
-            <h3 class="pf__title">${step.title}</h3>
-            <p class="pf__text">${step.text}</p>
+            <p class="pf__n">Project ${step.stepNum}</p>
+            <h3 class="pf__title">${step.title || step.name}</h3>
+            <p class="pf__text">${step.text || step.description}</p>
             <p class="pf__tags">
-              ${step.tags.map((tag) => `<span>${tag}</span>`).join('')}
+              ${(Array.isArray(step.tags) ? step.tags : [step.Tag]).filter(Boolean).map((tag) => `<span>${tag}</span>`).join('')}
             </p>
+            ${step.website ? `<div class="pf__cta"><a href="${step.website}" target="_blank" rel="noopener noreferrer" class="pf__link-btn" data-cursor="Demo">Live Demo ↗</a></div>` : ''}
             <div class="pf__controller">
               ${seoGeoSteps
                 .map(

@@ -211,115 +211,164 @@ const initPageIntro = () => {
 };
 
 // ==========================================================================
-// 4. Hero Section Choreography (Split-lines & SVG Vector reveals)
 // ==========================================================================
+// 4. Creative Midnight Purple Wireframe Hero Architecture
+// 3D Sinuous Parametric Waves Canvas, Glowing Indicator, Retained CTAs
+// ==========================================================================
+let heroWavesInitialized = false;
+
+const initHeroWavesCanvas = () => {
+  if (heroWavesInitialized) return;
+  const canvas = document.getElementById('heroWavesCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  heroWavesInitialized = true;
+
+  let width = 0;
+  let height = 0;
+  let time = 0;
+  let mouse = { x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 };
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = canvas.offsetWidth || window.innerWidth;
+    height = canvas.offsetHeight || window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  };
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.targetX = e.clientX / window.innerWidth;
+    mouse.targetY = e.clientY / window.innerHeight;
+  });
+
+  const render = () => {
+    time += 0.007;
+    mouse.x += (mouse.targetX - mouse.x) * 0.04;
+    mouse.y += (mouse.targetY - mouse.y) * 0.04;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // 1. Right-side 3D Vortex / Twisted Torus Wireframe Wave
+    // Faithfully matches the prominent swirling parametric loop in the user reference
+    const vortexCenterX = width * 0.88 + (mouse.x - 0.5) * 60;
+    const vortexCenterY = height * 0.48 + (mouse.y - 0.5) * 60;
+    const numVortexLines = 65;
+
+    for (let i = 0; i < numVortexLines; i++) {
+      const p = i / numVortexLines;
+      const angleOffset = p * Math.PI * 2.4 + time * 0.3;
+      const baseRadius = (width < 768 ? 140 : 270) * (0.28 + p * 0.95);
+
+      ctx.beginPath();
+      const points = 72;
+      for (let j = 0; j <= points; j++) {
+        const u = (j / points) * Math.PI * 2;
+        // 3D Parametric Torus Spiral equation
+        const r = baseRadius * (1 + 0.38 * Math.sin(u * 2 + angleOffset));
+        const x3d = r * Math.cos(u + p * 1.2);
+        const y3d = r * Math.sin(u) * 0.65 + Math.sin(u * 3 + time * 0.8 + p * 3) * 42;
+        const z3d = r * Math.sin(u + p);
+
+        // Perspective depth projection
+        const fov = 420;
+        const scale = fov / (fov + z3d * 0.5);
+        const px = vortexCenterX + x3d * scale;
+        const py = vortexCenterY + y3d * scale;
+
+        if (j === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+
+      // Violet / Purple Glowing Wireframe Stroke
+      const alpha = 0.06 + Math.sin(p * Math.PI) * 0.38;
+      ctx.strokeStyle = `rgba(${168 + Math.floor(p * 35)}, ${85 + Math.floor(p * 50)}, 247, ${alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // 2. Left-side Sinuous Flowing Ribbon Lines
+    const numRibbons = 42;
+    for (let i = 0; i < numRibbons; i++) {
+      const p = i / numRibbons;
+      ctx.beginPath();
+      const steps = 60;
+      for (let s = 0; s <= steps; s++) {
+        const tStep = s / steps;
+        const x = tStep * width * 1.15 - width * 0.08;
+
+        const wave1 = Math.sin(tStep * 3.2 + time + p * 2.2) * (65 + p * 45);
+        const wave2 = Math.cos(tStep * 1.8 - time * 0.7 + p * 1.6) * 40;
+        const wave3 = Math.sin(tStep * 4.8 + time * 1.1) * 18;
+
+        const baseY = height * (0.12 + p * 0.76) + (mouse.y - 0.5) * (p * 45);
+        const y = baseY + wave1 + wave2 + wave3;
+
+        if (s === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      const alpha = 0.035 + Math.sin(p * Math.PI) * 0.22;
+      ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(render);
+  };
+
+  render();
+};
+
 const initHeroEntrance = () => {
-  const pill = document.getElementById('heroPill');
-  const lines = document.querySelectorAll('.hero-editorial__headline .line-inner');
-  const lead = document.getElementById('heroLead');
-  const actions = document.getElementById('heroActions');
-  const ribbonPath = document.getElementById('heroRibbonPath');
-  const artBadge = document.querySelector('.art-layer--badge-3d');
-  const artGeo = document.querySelector('.art-layer--geometric');
+  initHeroWavesCanvas();
 
-  const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  const indicatorDot = document.querySelector('.indicator-dot');
+  const indicatorLine = document.querySelector('.indicator-line');
+  const title = document.querySelector('.hero-creative__title');
+  const subtitle = document.querySelector('.hero-creative__subtitle');
+  const actions = document.querySelector('.hero-creative__actions');
+  const scrollCue = document.querySelector('.hero-creative__scroll');
 
-  // A. Status Pill Entry
-  if (pill) {
-    heroTl.fromTo(pill, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0);
+  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  if (indicatorDot && indicatorLine) {
+    heroTl.fromTo(indicatorDot, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8 }, 0.1)
+      .fromTo(indicatorLine, { scaleY: 0, transformOrigin: 'top center' }, { scaleY: 1, duration: 1.0 }, 0.25);
   }
 
-  // B. Masked Headline Lines Entrance (staggered editorial slide & un-rotate)
-  if (lines.length) {
-    heroTl.fromTo(
-      lines,
-      { yPercent: 115, rotate: 2 },
-      {
-        yPercent: 0,
-        rotate: 0,
-        duration: 1.3,
-        stagger: 0.12,
-        ease: 'power4.out',
-      },
-      0.15
-    );
+  if (title) {
+    heroTl.fromTo(title, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, 0.2);
   }
 
-  // C. Subtitle Lead, Tech Chips & Actions
-  if (lead) {
-    heroTl.fromTo(lead, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0 }, 0.55);
+  if (subtitle) {
+    heroTl.fromTo(subtitle, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 0.4);
   }
-  const chips = document.querySelectorAll(".hero-tech-stack .tech-chip");
-  if (chips.length) {
-    heroTl.fromTo(chips, { y: 15, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, stagger: 0.06, duration: 0.8, ease: "power2.out" }, 0.68);
-  }
+
   if (actions) {
-    heroTl.fromTo(actions, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0 }, 0.75);
+    heroTl.fromTo(actions, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.55);
   }
 
-  // D. Staggered SVG Illustration reveals
-  if (artBadge) {
-    heroTl.fromTo(
-      artBadge,
-      { scale: 0, opacity: 0, rotate: -45 },
-      { scale: 1, opacity: 1, rotate: 0, duration: 1.4, ease: 'back.out(1.7)' },
-      0.4
-    );
-  }
-
-  if (artGeo) {
-    heroTl.fromTo(
-      artGeo,
-      { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' },
-      0.6
-    );
-  }
-
-  if (ribbonPath) {
-    const length = ribbonPath.getTotalLength ? ribbonPath.getTotalLength() : 400;
-    gsap.set(ribbonPath, { strokeDasharray: length, strokeDashoffset: length });
-    heroTl.to(
-      ribbonPath,
-      { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' },
-      0.5
-    );
-  }
-
-  // E. Mouse Parallax Layering on Hero Elements
-  const heroSection = document.getElementById('hero');
-  const parallaxLayers = document.querySelectorAll('[data-parallax]');
-
-  if (heroSection && parallaxLayers.length) {
-    heroSection.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const moveX = (clientX - centerX) / centerX;
-      const moveY = (clientY - centerY) / centerY;
-
-      parallaxLayers.forEach((layer) => {
-        const factor = parseFloat(layer.getAttribute('data-parallax') || '0.05');
-        gsap.to(layer, {
-          x: moveX * 60 * factor * 10,
-          y: moveY * 60 * factor * 10,
-          duration: 0.6,
-          ease: 'power2.out',
-        });
-      });
-    });
+  if (scrollCue) {
+    heroTl.fromTo(scrollCue, { opacity: 0, y: 15 }, { opacity: 0.85, y: 0, duration: 1.0 }, 0.75);
   }
 };
 
-
 // ==========================================================================
-// 4b. Typewriter Effect cycling between 'Kehinde Adigun' and 'Kehad'
+// 4b. Typewriter Effect cycling between 'Kehad' and 'Kehinde Adigun'
 // ==========================================================================
 const initTypewriter = () => {
   const el = document.getElementById('typedName');
   if (!el) return;
 
-  const words = ['Kehinde Adigun', 'Kehad'];
+  const words = ['Kehad', 'Kehinde Adigun'];
   let wordIndex = 0;
   let charIndex = words[0].length;
   let isDeleting = false;
@@ -334,15 +383,15 @@ const initTypewriter = () => {
       el.textContent = currentWord.substring(0, charIndex);
     }
 
-    let delay = isDeleting ? 50 : 100;
+    let delay = isDeleting ? 45 : 90;
 
     if (!isDeleting && charIndex === currentWord.length) {
-      delay = 3000;
+      delay = 3200;
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       wordIndex = (wordIndex + 1) % words.length;
-      delay = 400;
+      delay = 350;
     }
 
     setTimeout(type, delay);

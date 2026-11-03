@@ -1,314 +1,314 @@
 @use '../base/variables' as *;
 
 // ==========================================================================
-// Awwwards Editorial Hero Section - Kehinde Adigun Portfolio
+// Creative Purple Wireframe Hero Section (Faithful to Reference Image)
+// Modeled precisely after user reference: purple indicator, gradient name,
+// 3D wireframe waves, retained resume & social links, and bottom mouse cue.
 // ==========================================================================
 
-.hero-editorial {
+.hero-creative {
   min-height: 100vh;
   min-height: 100dvh;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8rem 3rem 4rem;
   overflow: hidden;
-  max-width: 1500px;
-  margin: 0 auto;
+  background: radial-gradient(circle at 85% 35%, #15112c 0%, #080916 60%, #05060e 100%);
+  color: #ffffff;
+  padding: 0;
 
-  @media (max-width: 768px) {
-    padding: 7rem 1.5rem 3rem;
+  // Background 3D Sinuous Parametric Purple Wave Canvas
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
   }
 
-  // Pre-header Meta Pill
-  &__meta {
-    display: inline-flex;
+  // Content Container
+  &__container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 7rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    @media (max-width: 768px) {
+      padding: 6rem 1.75rem 4rem;
+    }
+  }
+
+  // Left Content Layout with Vertical Indicator
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 900px;
+
+    @media (max-width: 640px) {
+      gap: 1.25rem;
+    }
+  }
+
+  // Glowing Purple Dot & Vertical Accent Line (Exact reference match)
+  &__indicator {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-    overflow: hidden;
+    padding-top: 0.6rem;
+    flex-shrink: 0;
 
-    .meta-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid $color-border;
-      padding: 0.4rem 0.9rem;
-      border-radius: $radius-full;
-      font-family: $font-mono;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: $color-accent-lime;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+    .indicator-dot {
+      width: 14px;
+      height: 14px;
+      background: #c084fc;
+      border-radius: 50%;
+      box-shadow:
+        0 0 12px #a855f7,
+        0 0 24px rgba(168, 85, 247, 0.85),
+        0 0 36px rgba(192, 132, 252, 0.5);
+      animation: indicatorGlow 2.5s infinite ease-in-out alternate;
+    }
 
-      .pulse-dot {
-        width: 6px;
-        height: 6px;
-        background-color: $color-accent-lime;
-        border-radius: $radius-full;
-        box-shadow: 0 0 8px $color-accent-lime;
-        animation: pulse 2s infinite;
-      }
+    .indicator-line {
+      width: 2px;
+      height: 135px;
+      background: linear-gradient(
+        to bottom,
+        #a855f7 0%,
+        rgba(168, 85, 247, 0.4) 65%,
+        transparent 100%
+      );
+      margin-top: 8px;
+      border-radius: 2px;
     }
   }
 
-  // Main Editorial Headline with Line-Masking Wrappers
-  &__headline {
+  // Text & Actions Block
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
     font-family: $font-display;
-    font-size: clamp(3rem, 7.8vw, 7.2rem);
+    font-size: clamp(3rem, 7.5vw, 6.5rem);
     font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.045em;
-    color: $color-text-primary;
-    max-width: 1350px;
-    margin-bottom: 3.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.28em;
 
-    .line-mask {
-      overflow: hidden;
-      display: block;
-      padding-bottom: 0.08em;
+    .greeting {
+      color: #ffffff;
     }
 
-    .line-inner {
-      display: block;
-      transform-origin: left bottom;
-      will-change: transform;
-    }
-
-    .italic-serif {
-      font-family: $font-serif;
-      font-weight: 400;
-      font-style: italic;
-      color: $color-accent-cream;
-      letter-spacing: -0.01em;
-      padding: 0 0.15em;
-    }
-
-    .highlight-lime {
-      color: $color-accent-lime;
-      text-shadow: 0 0 35px rgba(204, 255, 0, 0.35);
+    .name-gradient {
+      background: linear-gradient(135deg, #d8b4fe 0%, #c084fc 40%, #a855f7 70%, #7e22ce 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 32px rgba(168, 85, 247, 0.45));
     }
 
     .type-cursor {
-      display: inline-block;
-      color: $color-accent-lime;
+      color: #c084fc;
       font-weight: 300;
       margin-left: 0.04em;
       animation: blinkCursor 0.9s infinite step-start;
-      vertical-align: baseline;
+      -webkit-text-fill-color: #c084fc;
     }
   }
 
-  // Two-Column Subtitle & CTA Grid
-  &__bottom {
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    align-items: flex-end;
-    gap: 3rem;
-    position: relative;
-    z-index: 2;
-
-    @media (max-width: 900px) {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
+  &__subtitle {
+    font-family: $font-body;
+    font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+    font-weight: 400;
+    color: #e2e8f0;
+    margin-top: 1.25rem;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    max-width: 32ch;
   }
 
-  &__lead {
-    font-size: clamp(1.125rem, 1.8vw, 1.45rem);
-    line-height: 1.55;
-    color: $color-text-secondary;
-    max-width: 580px;
-    overflow: hidden;
-
-    .lead-inner {
-      display: block;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-
-      .tech-chip {
-        font-family: $font-mono;
-        font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.75);
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 0.35rem 0.75rem;
-        border-radius: $radius-full;
-        letter-spacing: 0.02em;
-        transition: all 0.3s ease;
-
-        &:hover {
-          color: $color-accent-lime;
-          border-color: rgba(204, 255, 0, 0.4);
-          background: rgba(204, 255, 0, 0.06);
-          transform: translateY(-2px);
-        }
-      }
-    }
-  }
-
+  // Retained Action Buttons & Social Links
   &__actions {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1.25rem;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    overflow: hidden;
+    margin-top: 2.75rem;
 
-    @media (max-width: 900px) {
-      justify-content: flex-start;
+    @media (max-width: 640px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  .btn-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1.65rem;
+    border-radius: 10px;
+    font-family: $font-body;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+
+    @media (max-width: 480px) {
+      width: 100%;
     }
 
-    .action-inner {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+    &--resume {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(124, 58, 237, 0.65);
+        background: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+      }
     }
 
-    .hero-socials {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      margin-left: 0.5rem;
+    &--hire {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
 
-      .social-icon-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: $color-text-secondary;
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-
-        svg {
-          width: 17px;
-          height: 17px;
-          fill: currentColor;
-          transition: transform 0.3s ease;
-        }
-
-        &:hover {
-          color: $color-accent-lime;
-          border-color: rgba(204, 255, 0, 0.4);
-          background: rgba(204, 255, 0, 0.08);
-          transform: translateY(-3px) scale(1.06);
-
-          svg {
-            transform: scale(1.1);
-          }
-        }
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(192, 132, 252, 0.6);
+        color: #d8b4fe;
+        transform: translateY(-2px);
       }
     }
   }
 
-  // Floating Decorative Illustrative SVG Elements
-  &__illustrations {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-
-    .art-layer {
-      position: absolute;
-      will-change: transform;
-    }
-
-    .art-layer--badge-3d {
-      top: 18%;
-      right: 8%;
-      width: 170px;
-      height: 170px;
-      animation: floatBadge 8s ease-in-out infinite alternate;
-    }
-
-    .art-layer--geometric {
-      bottom: 22%;
-      right: 32%;
-      width: 120px;
-      height: 120px;
-      opacity: 0.85;
-      animation: spinSlow 28s linear infinite;
-    }
-
-    .art-layer--curved-ribbon {
-      top: 35%;
-      left: 60%;
-      width: 320px;
-      height: 180px;
-      opacity: 0.7;
-    }
-  }
-
-  // Scroll Indicator
-  &__scroll-cue {
-    position: absolute;
-    bottom: 2rem;
-    left: 3rem;
+  &__socials {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-family: $font-mono;
-    font-size: 0.6875rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
 
-    @media (max-width: 768px) {
-      display: none;
-    }
-
-    .scroll-arrow {
-      width: 20px;
-      height: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: $radius-full;
+    .social-pill {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: bounceDown 2s infinite ease-in-out;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: all 0.3s ease;
 
-      svg {
-        width: 10px;
-        height: 10px;
-        stroke: $color-accent-lime;
+      &:hover {
+        background: rgba(168, 85, 247, 0.18);
+        border-color: rgba(192, 132, 252, 0.55);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 18px rgba(168, 85, 247, 0.35);
+      }
+    }
+  }
+
+  // Centered Bottom Mouse Scroll Indicator (Exact '0' shape from reference)
+  &__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    z-index: 5;
+    opacity: 0.85;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      transform: translateX(-50%) translateY(2px);
+    }
+
+    .mouse-pill {
+      width: 24px;
+      height: 42px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 9999px;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+      background: rgba(10, 12, 24, 0.3);
+      backdrop-filter: blur(4px);
+
+      .mouse-wheel {
+        width: 4px;
+        height: 8px;
+        background: #c084fc;
+        border-radius: 9999px;
+        box-shadow: 0 0 6px #a855f7;
+        animation: mouseWheel 2s infinite ease-in-out;
       }
     }
   }
 }
 
-// Keyframe Animations
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+@keyframes indicatorGlow {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px #a855f7;
+  }
+  100% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #c084fc, 0 0 35px rgba(168, 85, 247, 0.75);
+  }
 }
 
-@keyframes floatBadge {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-16px) rotate(4deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-
-@keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes bounceDown {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+@keyframes mouseWheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(12px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes blinkCursor {

@@ -2,7 +2,7 @@
 
 // ==========================================================================
 // Interactive 3D Mechanical Keyboard Toolchain Skills Section
-// Reusing Hero Midnight Purple Theme & Parametric Wave Canvas Aesthetics
+// Exact specification from user Keyboard3d component
 // ==========================================================================
 
 .skills-section {
@@ -10,16 +10,16 @@
   width: 100%;
   overflow: hidden;
   background: radial-gradient(circle at 18% 45%, #15112c 0%, #080916 65%, #05060e 100%);
-  padding: 9rem 2rem 10rem;
+  padding: 8rem 1.5rem 10rem;
   color: #ffffff;
   z-index: 3;
   border-top: 1px solid rgba(168, 85, 247, 0.12);
 
   @media (max-width: 768px) {
-    padding: 6rem 1.25rem 7rem;
+    padding: 5rem 1rem 7rem;
   }
 
-  // Background 3D Sinuous Parametric Purple Wave Canvas
+  // Background 3D Sinuous Parametric Purple Wave Canvas (Hero Theme Reuse)
   &__canvas {
     position: absolute;
     inset: 0;
@@ -36,7 +36,7 @@
     transform: translateX(-50%);
     width: 800px;
     height: 550px;
-    background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.13) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
     pointer-events: none;
     z-index: 1;
   }
@@ -46,12 +46,16 @@
     z-index: 2;
     max-width: 1440px;
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &__header {
     text-align: center;
     max-width: 800px;
-    margin: 0 auto 3.5rem;
+    margin: 0 auto 4.5rem;
 
     .meta-pill {
       display: inline-flex;
@@ -97,11 +101,6 @@
       filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.45));
     }
 
-    .highlight-lime {
-      color: $color-accent-lime;
-      text-shadow: 0 0 35px rgba(204, 255, 0, 0.35);
-    }
-
     .italic-serif {
       font-family: $font-serif;
       font-weight: 400;
@@ -122,307 +121,296 @@
   }
 }
 
-// 3D Keyboard Stage Container
+// 3D Keyboard Stage Wrapper matching user component:
+// max-w-[100vw] overflow-x-auto overflow-y-visible pb-10 px-4 sm:px-10 flex flex-col items-center no-scrollbar
 .keyboard-stage {
   width: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 6rem 1rem 4rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   perspective: 1400px;
   perspective-origin: 50% 40%;
-  padding: 7rem 1rem 5rem;
-  overflow-x: auto;
-  overflow-y: visible;
 
-  // Custom scrollbar concealment
+  // Custom scrollbar concealment (no-scrollbar)
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
   }
-
-  @media (max-width: 900px) {
-    padding: 5rem 0.5rem 3.5rem;
-  }
 }
 
-// 3D Chassis / Keyboard Body
+// 3D Chassis / Keyboard Body:
+// origin-center transition-transform duration-700 ease-out bg-gray-100 dark:bg-[#1A1F2B] p-3 sm:p-5 md:p-6
+// rounded-3xl sm:rounded-[2.5rem] border border-gray-300 dark:border-gray-700/50
+// shadow-[0_12px_30px_rgba(0,0,0,0.1)] dark:shadow-[-16px_24px_0_#060910,-24px_36px_50px_rgba(0,0,0,0.8)]
+// before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/5 dark:before:from-white/5 before:to-transparent before:rounded-3xl sm:before:rounded-[2.5rem] min-w-max
 .keyboard-chassis {
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(55deg) rotateZ(-32deg) scale(0.95);
-  background: #111422;
-  padding: 2.25rem 2.5rem 2.5rem;
-  border-radius: 2.5rem;
-  border: 1px solid rgba(168, 85, 247, 0.22);
+  transform-origin: center center;
+  transform: rotateX(55deg) rotateZ(-35deg) scale(0.85);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #1A1F2B;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(55, 65, 81, 0.5);
   box-shadow:
-    -18px 24px 0 #04060c,
-    -26px 38px 65px rgba(0, 0, 0, 0.9),
-    0 0 50px rgba(168, 85, 247, 0.14),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    -16px 24px 0 #060910,
+    -24px 36px 50px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(14, 165, 233, 0.08);
   min-width: max-content;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+  @media (min-width: 640px) {
+    padding: 1.75rem 2rem;
     border-radius: 2.5rem;
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, transparent 60%);
-    pointer-events: none;
   }
 
   @media (min-width: 1024px) {
+    transform: rotateX(55deg) rotateZ(-35deg) scale(1);
+    padding: 2.25rem 2.5rem;
+
     &:hover {
-      transform: rotateX(49deg) rotateZ(-26deg) scale(1.02);
+      transform: rotateX(50deg) rotateZ(-30deg) scale(1.02);
     }
   }
 
-  @media (max-width: 768px) {
-    transform: rotateX(55deg) rotateZ(-32deg) scale(0.72);
-    padding: 1.5rem 1.5rem 1.75rem;
-    border-radius: 1.75rem;
-  }
-
-  @media (max-width: 480px) {
-    transform: rotateX(55deg) rotateZ(-32deg) scale(0.58);
-  }
-}
-
-// Floating LED Matrix Screen
-.keyboard-screen {
-  position: absolute;
-  top: -76px;
-  left: 50%;
-  transform: translateX(-50%) translateZ(38px) rotateX(-12deg);
-  width: 380px;
-  height: 60px;
-  background: #060910;
-  border: 2px solid rgba(168, 85, 247, 0.5);
-  border-radius: 14px;
-  box-shadow:
-    0 0 25px rgba(168, 85, 247, 0.35),
-    inset 0 0 15px rgba(0, 0, 0, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  user-select: none;
-  z-index: 20;
-
-  &__glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2) 0%, transparent 75%);
-    pointer-events: none;
-    animation: screenPulse 3s infinite alternate ease-in-out;
-  }
-
-  &__scanline {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(192, 132, 252, 0.4);
-  }
-
-  &__text {
-    font-family: $font-mono;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #c084fc;
-    text-shadow:
-      0 0 8px rgba(192, 132, 252, 0.9),
-      0 0 20px rgba(168, 85, 247, 0.6);
-    z-index: 2;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-}
-
-// Keycaps Grid
-.keyboard-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transform-style: preserve-3d;
-
-  &__row {
-    display: flex;
-    gap: 12px;
-    transform-style: preserve-3d;
-  }
-}
-
-// Key Switch Cap
-.key-cap {
-  position: relative;
-  width: 58px;
-  height: 58px;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-family: $font-mono;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #ffffff;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-  user-select: none;
-  outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-
-  // Keycap 3D extrusion sides
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 14px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+    border-radius: 2rem;
+    background: linear-gradient(to top right, rgba(255, 255, 255, 0.05), transparent);
+    pointer-events: none;
+
+    @media (min-width: 640px) {
+      border-radius: 2.5rem;
+    }
+  }
+}
+
+// Screen / Display:
+// absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-48 sm:w-80 h-10 sm:h-16
+// bg-[#060910] border-2 border-gray-700/50 rounded-xl overflow-hidden
+// shadow-[0_0_20px_rgba(0,0,0,0.5)] flex items-center justify-center
+// style={{ transform: "translateZ(30px) rotateX(-10deg)" }}
+.keyboard-screen {
+  position: absolute;
+  top: -3.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(30px) rotateX(-10deg);
+  width: 12rem;
+  height: 2.75rem;
+  background: #060910;
+  border: 2px solid rgba(55, 65, 81, 0.5);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  z-index: 20;
+
+  @media (min-width: 640px) {
+    top: -5.5rem;
+    width: 20rem;
+    height: 4rem;
+    border-radius: 0.85rem;
+  }
+
+  // Inner Radial Gradient Vignette
+  &__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, #060910 70%);
+    opacity: 0.5;
+    z-index: 10;
     pointer-events: none;
   }
 
-  // Active / Clicked depressed state
-  &:active,
-  &.is-pressed {
-    transform: translateZ(-8px) scale(0.97);
+  // Pulse Glow
+  &__scanline {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 165, 233, 0.05);
+    animation: screenPulse 2.5s infinite alternate ease-in-out;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(14, 165, 233, 0.2);
+    }
   }
 
-  // Hover Glow Elevation
+  // Text: text-[#0ea5e9] font-mono text-sm sm:text-2xl font-bold tracking-[0.2em] uppercase drop-shadow-[0_0_8px_rgba(14,165,233,0.8)]
+  &__text {
+    font-family: $font-mono;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0ea5e9;
+    filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.8));
+    z-index: 20;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    @media (min-width: 640px) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Inner Grid:
+// flex flex-col gap-2.5 sm:gap-4 relative z-10 w-full
+.keyboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  transform-style: preserve-3d;
+
+  @media (min-width: 640px) {
+    gap: 1rem;
+  }
+
+  // Row: flex gap-2.5 sm:gap-4 justify-center w-full
+  &__row,
+  .keyboard-row {
+    display: flex;
+    gap: 0.625rem;
+    justify-content: center;
+    width: 100%;
+    transform-style: preserve-3d;
+
+    @media (min-width: 640px) {
+      gap: 1rem;
+    }
+  }
+}
+
+// Key Switch Cap:
+// relative flex items-center justify-center rounded-xl sm:rounded-2xl font-bold text-white transition-all duration-200 cursor-pointer border-t border-l border-white/20 hover:brightness-110 active:shadow-none
+// text-xs sm:text-lg md:text-2xl
+// w-8 sm:w-16 md:w-20 h-8 sm:h-16 md:h-20
+// colSpan === 2: w-[4.625rem] sm:w-[9rem] md:w-[11rem]
+.keycap,
+.key-cap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  user-select: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 0.75rem;
+
+  @media (min-width: 640px) {
+    border-radius: 1rem;
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.125rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: 5rem;
+    height: 5rem;
+    font-size: 1.5rem;
+  }
+
+  // Colspan 2: w-[4.625rem] sm:w-[9rem] md:w-[11rem]
+  &--col-2,
+  &.keycap--col-2,
+  &.key-cap--col-2 {
+    width: 5rem;
+
+    @media (min-width: 640px) {
+      width: 9rem;
+    }
+
+    @media (min-width: 1024px) {
+      width: 11rem;
+    }
+  }
+
   &:hover {
-    filter: brightness(1.15);
-    border-color: rgba(255, 255, 255, 0.45);
+    filter: brightness(1.12);
   }
 
-  // Custom ColSpans
-  &--col-2 {
-    width: 128px;
+  &:active {
+    box-shadow: none !important;
+    transform: translate(0, 0) !important;
   }
 
-  &--col-3 {
-    width: 198px;
-  }
-
-  // Keycap label typography
-  &__label {
-    line-height: 1;
-    letter-spacing: 0.04em;
-    pointer-events: none;
-  }
-
-  // Keycap icon
+  // Icon: w-4 h-4 sm:w-8 sm:h-8 md:w-10 md:h-10 drop-shadow-md pointer-events-none
+  img,
   &__icon {
-    width: 18px;
-    height: 18px;
+    width: 1rem;
+    height: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     pointer-events: none;
-    fill: currentColor;
+
+    @media (min-width: 640px) {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  // Text label: drop-shadow-md pointer-events-none
+  span,
+  &__label {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    pointer-events: none;
+    font-family: $font-mono;
+    line-height: 1;
   }
 }
 
-// Key Switch Color Themes
-.key--js {
-  background: #eab308;
-  box-shadow: 0 8px 0 #ca8a04, 0 12px 20px rgba(234, 179, 8, 0.4);
-}
-.key--ts {
-  background: #3b82f6;
-  box-shadow: 0 8px 0 #1d4ed8, 0 12px 20px rgba(59, 130, 246, 0.4);
-}
-.key--html {
-  background: #ea580c;
-  box-shadow: 0 8px 0 #c2410c, 0 12px 20px rgba(234, 88, 12, 0.4);
-}
-.key--css {
-  background: #2563eb;
-  box-shadow: 0 8px 0 #1e40af, 0 12px 20px rgba(37, 99, 235, 0.4);
-}
-.key--react {
-  background: #06b6d4;
-  box-shadow: 0 8px 0 #0891b2, 0 12px 20px rgba(6, 182, 212, 0.4);
-}
-.key--vue {
-  background: #10b981;
-  box-shadow: 0 8px 0 #047857, 0 12px 20px rgba(16, 185, 129, 0.4);
-}
-.key--next {
-  background: #18181b;
-  box-shadow: 0 8px 0 #09090b, 0 12px 20px rgba(0, 0, 0, 0.6);
-}
-.key--tailwind {
-  background: #0284c7;
-  box-shadow: 0 8px 0 #0369a1, 0 12px 20px rgba(2, 132, 199, 0.4);
-}
-.key--node {
-  background: #16a34a;
-  box-shadow: 0 8px 0 #15803d, 0 12px 20px rgba(22, 163, 74, 0.4);
-}
-.key--express {
-  background: #4b5563;
-  box-shadow: 0 8px 0 #374151, 0 12px 20px rgba(75, 85, 99, 0.4);
-}
-.key--graphql {
-  background: #db2777;
-  box-shadow: 0 8px 0 #be185d, 0 12px 20px rgba(219, 39, 119, 0.4);
-}
-.key--wp {
-  background: #1d4ed8;
-  box-shadow: 0 8px 0 #1e3a8a, 0 12px 20px rgba(29, 78, 216, 0.4);
-}
-.key--git {
-  background: #ea580c;
-  box-shadow: 0 8px 0 #c2410c, 0 12px 20px rgba(234, 88, 12, 0.4);
-}
-.key--github {
-  background: #27272a;
-  box-shadow: 0 8px 0 #18181b, 0 12px 20px rgba(0, 0, 0, 0.6);
-}
-.key--docker {
-  background: #0284c7;
-  box-shadow: 0 8px 0 #0369a1, 0 12px 20px rgba(2, 132, 199, 0.4);
-}
-.key--npm {
-  background: #dc2626;
-  box-shadow: 0 8px 0 #b91c1c, 0 12px 20px rgba(220, 38, 38, 0.4);
-}
-.key--aws {
-  background: #ea580c;
-  box-shadow: 0 8px 0 #c2410c, 0 12px 20px rgba(234, 88, 12, 0.4);
-}
-.key--nginx {
-  background: #059669;
-  box-shadow: 0 8px 0 #047857, 0 12px 20px rgba(5, 150, 105, 0.4);
-}
-.key--linux {
-  background: #d97706;
-  box-shadow: 0 8px 0 #b45309, 0 12px 20px rgba(217, 119, 6, 0.4);
-}
-.key--space {
-  background: #27272a;
-  box-shadow: 0 8px 0 #18181b, 0 12px 20px rgba(0, 0, 0, 0.6);
-}
-.key--enter {
-  background: #e11d48;
-  box-shadow: 0 8px 0 #be123c, 0 12px 20px rgba(225, 29, 72, 0.4);
-}
-.key--empty {
-  background: #18181b;
-  box-shadow: 0 8px 0 #09090b;
-  cursor: default;
-}
+// Background Colors matching Tailwind classes from user component
+.bg-yellow-500 { background-color: #eab308; }
+.bg-blue-500   { background-color: #3b82f6; }
+.bg-orange-600 { background-color: #ea580c; }
+.bg-blue-600   { background-color: #2563eb; }
+.bg-cyan-400   { background-color: #22d3ee; }
+.bg-emerald-500{ background-color: #10b981; }
+.bg-zinc-900   { background-color: #18181b; }
+.bg-cyan-500   { background-color: #06b6d4; }
+.bg-green-600  { background-color: #16a34a; }
+.bg-gray-700   { background-color: #374151; }
+.bg-pink-600   { background-color: #db2777; }
+.bg-blue-800   { background-color: #1e40af; }
+.bg-zinc-800   { background-color: #27272a; }
+.bg-red-600    { background-color: #dc2626; }
+.bg-orange-400 { background-color: #fb923c; }
+.bg-gray-900   { background-color: #111827; }
+.bg-yellow-600 { background-color: #ca8a04; }
+.bg-\[\#e11d48\] { background-color: #e11d48; }
 
 @keyframes screenPulse {
-  0% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.8;
-  }
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
 }
 
 @keyframes pulsePurple {

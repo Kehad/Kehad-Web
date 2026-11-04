@@ -1189,7 +1189,9 @@ const initSectionWaveCanvas = (canvasId, options = {}) => {
 
 // ==========================================================================
 // 10. Interactive 3D Mechanical Keyboard Toolchain Architecture
-// Reusing Hero Midnight Purple Theme, Glowing Accents, and 3D Transforms
+// Exact implementation matching user Keyboard3d component:
+// Dynamic activeLabel ("WELCOME" / k.id.toUpperCase()),
+// -4px 8px 0 shadow with translate(4px, -4px) and translate(-2px, 2px) on hover.
 // ==========================================================================
 const initKeyboard3d = () => {
   const container = document.getElementById('keyboardGrid');
@@ -1198,7 +1200,7 @@ const initKeyboard3d = () => {
 
   if (!container || !screenText) return;
 
-  // Render Keyboard Rows & Keycaps from data
+  // Render Keyboard Rows & Keycaps from user data
   container.innerHTML = keyboardGrid
     .map((row) => {
       const keysHtml = row
@@ -1208,12 +1210,16 @@ const initKeyboard3d = () => {
             ? `<img src="https://cdn.simpleicons.org/${k.icon}/white" alt="${k.label}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" /><span style="display:none;">${k.label}</span>`
             : `<span>${k.label}</span>`;
 
+          const initialShadow = `-4px 8px 0 ${k.shadow}, -4px 8px 10px rgba(0,0,0,0.2)`;
+          const initialTransform = 'translate(4px, -4px)';
+
           return `
             <div
-              class="keycap key-cap ${colClass}"
+              class="keycap key-cap ${k.bg} ${colClass}"
               data-id="${k.id}"
-              data-name="${k.name || k.label || k.id}"
-              style="background: ${k.color}; --key-shadow: ${k.shadow};"
+              data-label="${k.label}"
+              data-shadow="${k.shadow}"
+              style="box-shadow: ${initialShadow}; transform: ${initialTransform};"
             >
               ${iconHtml}
             </div>
@@ -1225,37 +1231,28 @@ const initKeyboard3d = () => {
     })
     .join('');
 
-  // Interactive Switch Event Handlers with Purple Neon Matrix Feedback
+  // Interactive Switch Event Handlers matching user React code
   const keycaps = container.querySelectorAll('.keycap');
   keycaps.forEach((keycap) => {
-    const techName = keycap.getAttribute('data-name');
     const keyId = keycap.getAttribute('data-id');
+    const label = keycap.getAttribute('data-label');
+    const shadow = keycap.getAttribute('data-shadow');
 
     keycap.addEventListener('mouseenter', () => {
-      if (techName) {
-        screenText.textContent = techName.toUpperCase();
-        screenText.style.color = '#d8b4fe';
+      if (label) {
+        screenText.textContent = keyId.toUpperCase();
       }
+      keycap.style.boxShadow = '0 0 0 transparent';
+      keycap.style.transform = 'translate(-2px, 2px)';
     });
 
     keycap.addEventListener('mouseleave', () => {
       screenText.textContent = 'WELCOME';
-      screenText.style.color = '#c084fc';
-    });
-
-    keycap.addEventListener('mousedown', () => {
-      keycap.classList.add('is-pressed');
-    });
-
-    keycap.addEventListener('mouseup', () => {
-      keycap.classList.remove('is-pressed');
+      keycap.style.boxShadow = `-4px 8px 0 ${shadow}, -4px 8px 10px rgba(0,0,0,0.2)`;
+      keycap.style.transform = 'translate(4px, -4px)';
     });
 
     keycap.addEventListener('click', () => {
-      screenText.textContent = `> ${techName.toUpperCase()}`;
-      keycap.classList.add('is-pressed');
-      setTimeout(() => keycap.classList.remove('is-pressed'), 180);
-
       if (keyId === 'enter') {
         const projEl = document.getElementById('seo-geo');
         if (projEl) {
@@ -1265,36 +1262,17 @@ const initKeyboard3d = () => {
     });
   });
 
-  // Dynamic 3D Mouse Parallax on Desktop
+  // Desktop Hover Transitions matching user React code:
+  // onMouseEnter: rotateX(50deg) rotateZ(-30deg) scale(1.02)
+  // onMouseLeave: rotateX(55deg) rotateZ(-35deg) scale(1.0)
   if (chassis && window.matchMedia('(min-width: 1024px)').matches) {
-    const stage = chassis.closest('.keyboard-stage');
-    if (stage) {
-      stage.addEventListener('mousemove', (e) => {
-        const rect = stage.getBoundingClientRect();
-        const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
-        const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+    chassis.addEventListener('mouseenter', () => {
+      chassis.style.transform = 'rotateX(50deg) rotateZ(-30deg) scale(1.02)';
+    });
 
-        const rotX = 55 + mouseY * 12;
-        const rotZ = -32 + mouseX * 12;
-
-        gsap.to(chassis, {
-          rotateX: rotX,
-          rotateZ: rotZ,
-          duration: 0.5,
-          ease: 'power2.out',
-        });
-      });
-
-      stage.addEventListener('mouseleave', () => {
-        gsap.to(chassis, {
-          rotateX: 55,
-          rotateZ: -32,
-          scale: 0.95,
-          duration: 0.8,
-          ease: 'power3.out',
-        });
-      });
-    }
+    chassis.addEventListener('mouseleave', () => {
+      chassis.style.transform = 'rotateX(55deg) rotateZ(-35deg) scale(1.0)';
+    });
   }
 };
 

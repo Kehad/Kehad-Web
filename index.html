@@ -131,7 +131,9 @@
         <div class="hero-creative__content">
           <div class="hero-creative__indicator">
             <span class="indicator-dot"></span>
-            <span class="indicator-line"></span>
+            <div class="indicator-track">
+              <span class="indicator-line" id="heroIndicatorLine"></span>
+            </div>
           </div>
 
           <div class="hero-creative__text-block">
@@ -139,9 +141,17 @@
               <span class="greeting">Hi, I'm</span>
               <span class="name-gradient" id="typedName">Kehad</span><span class="type-cursor">|</span>
             </h1>
-            <p class="hero-creative__subtitle">
-              I develop website and Mobile applications
-            </p>
+            <div class="hero-creative__subtitles" id="heroSubtitlesList">
+              <p class="hero-creative__subtitle hero-section__subtitle is-active" data-step="0">
+                I develop website and Mobile applications
+              </p>
+              <p class="hero-creative__subtitle hero-section__subtitle" data-step="1">
+                I develop mobile applications
+              </p>
+              <p class="hero-creative__subtitle hero-section__subtitle" data-step="2">
+                I develop desktop applications
+              </p>
+            </div>
 
             <!-- Retained Action Buttons & Social Media Links -->
             <div class="hero-creative__actions">

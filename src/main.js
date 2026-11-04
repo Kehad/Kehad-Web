@@ -200,6 +200,7 @@ const initPageIntro = () => {
       ease: 'power4.inOut',
       onComplete: () => {
         transitionEl.style.display = 'none';
+        ScrollTrigger.refresh();
       },
     },
     '+=0.05'
@@ -327,13 +328,111 @@ const initHeroWavesCanvas = () => {
   render();
 };
 
+// ==========================================================================
+// 4b. Scroll-Driven Sequential Subtitles & Growing Indicator Line
+// As the user scrolls down, the vertical glowing indicator line extends longer
+// and reveals each subtitle item one by one with glowing illumination.
+// ==========================================================================
+const initHeroScrollSubtitles = () => {
+  const heroSection = document.getElementById('hero');
+  const indicatorLine = document.getElementById('heroIndicatorLine');
+  const subtitles = Array.from(document.querySelectorAll('.hero-creative__subtitle, .hero-section__subtitle'));
+  const scrollCue = document.querySelector('.hero-creative__scroll');
+
+  if (!heroSection || !indicatorLine || !subtitles.length) return;
+
+  // Accurately compute the indicator line length to align with each subtitle
+  const getLineHeightForSubtitle = (index) => {
+    const sub = subtitles[index];
+    const track = indicatorLine.parentElement;
+    if (!sub || !track) return 70;
+    const subRect = sub.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+    // Distance from the top of the indicator track to the bottom baseline of the target subtitle
+    const targetY = (subRect.top + subRect.height * 0.85) - trackRect.top;
+    return Math.max(55, Math.round(targetY));
+  };
+
+  // Set initial default state for first subtitle
+  const initialH = getLineHeightForSubtitle(0);
+  indicatorLine.style.height = `${initialH}px`;
+  subtitles[0].classList.add('is-active', 'is-current');
+
+  // Pinned Scrubbed ScrollTrigger
+  ScrollTrigger.create({
+    trigger: heroSection,
+    start: 'top top',
+    end: '+=120%',
+    pin: true,
+    scrub: 0.5,
+    anticipatePin: 1,
+    onUpdate: (self) => {
+      const p = self.progress; // 0.0 to 1.0
+
+      // Fade out scroll cue mouse indicator as user begins scrolling
+      if (scrollCue) {
+        scrollCue.style.opacity = String(Math.max(0, 0.85 - p * 3));
+      }
+
+      // Determine active subtitle step (0, 1, 2)
+      let activeIndex = 0;
+      if (p >= 0.6) {
+        activeIndex = 2;
+      } else if (p >= 0.28) {
+        activeIndex = 1;
+      } else {
+        activeIndex = 0;
+      }
+
+      // Update subtitle visual states (one by one visibility)
+      subtitles.forEach((sub, idx) => {
+        if (idx <= activeIndex) {
+          sub.classList.add('is-active');
+          if (idx === activeIndex) {
+            sub.classList.add('is-current');
+          } else {
+            sub.classList.remove('is-current');
+          }
+        } else {
+          sub.classList.remove('is-active', 'is-current');
+        }
+      });
+
+      // Smoothly interpolate the glowing indicator line length
+      const h0 = getLineHeightForSubtitle(0);
+      const h1 = getLineHeightForSubtitle(1);
+      const h2 = getLineHeightForSubtitle(2);
+
+      let currentHeight = h0;
+      if (p < 0.35) {
+        const subP = p / 0.35;
+        currentHeight = h0 + (h1 - h0) * subP;
+      } else if (p < 0.7) {
+        const subP = (p - 0.35) / 0.35;
+        currentHeight = h1 + (h2 - h1) * subP;
+      } else {
+        const subP = Math.min(1, (p - 0.7) / 0.3);
+        currentHeight = h2 + 25 * subP;
+      }
+
+      indicatorLine.style.height = `${Math.round(currentHeight)}px`;
+    },
+    onRefresh: () => {
+      if (subtitles[0]) {
+        indicatorLine.style.height = `${getLineHeightForSubtitle(0)}px`;
+      }
+    }
+  });
+};
+
 const initHeroEntrance = () => {
   initHeroWavesCanvas();
+  initHeroScrollSubtitles();
 
   const indicatorDot = document.querySelector('.indicator-dot');
   const indicatorLine = document.querySelector('.indicator-line');
   const title = document.querySelector('.hero-creative__title');
-  const subtitle = document.querySelector('.hero-creative__subtitle');
+  const subtitles = document.querySelectorAll('.hero-creative__subtitle');
   const actions = document.querySelector('.hero-creative__actions');
   const scrollCue = document.querySelector('.hero-creative__scroll');
 
@@ -341,15 +440,15 @@ const initHeroEntrance = () => {
 
   if (indicatorDot && indicatorLine) {
     heroTl.fromTo(indicatorDot, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8 }, 0.1)
-      .fromTo(indicatorLine, { scaleY: 0, transformOrigin: 'top center' }, { scaleY: 1, duration: 1.0 }, 0.25);
+      .fromTo(indicatorLine, { scaleY: 0, transformOrigin: 'top center' }, { scaleY: 1, duration: 0.8 }, 0.25);
   }
 
   if (title) {
     heroTl.fromTo(title, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, 0.2);
   }
 
-  if (subtitle) {
-    heroTl.fromTo(subtitle, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 0.4);
+  if (subtitles.length) {
+    heroTl.fromTo(subtitles[0], { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.4);
   }
 
   if (actions) {

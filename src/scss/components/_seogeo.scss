@@ -10,17 +10,17 @@
 // ==========================================================================
 
 :root {
-  --pf-bg: #e2e2e0;
-  --fg: #080808;
-  --fg-muted: #707070;
-  --red: #ed3327;
+  --pf-bg: #070814;
+  --fg: #ffffff;
+  --fg-muted: #94a3b8;
+  --red: #c084fc;
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pf-wrapper {
   position: relative;
   width: 100%;
-  background: var(--pf-bg);
+  background: radial-gradient(circle at 50% 20%, #15112c 0%, #080916 55%, #05060e 100%);
   margin-top: 10rem;
   margin-bottom: 8rem;
   z-index: 5;
@@ -35,7 +35,7 @@
   overflow: hidden;
   line-height: 0;
   transform: translateY(-98%);
-  color: var(--pf-bg);
+  color: #070814;
   pointer-events: none;
   z-index: 4;
 
@@ -116,22 +116,22 @@
 
     .chip {
       padding: 6px 14px;
-      background: rgba(8, 8, 8, 0.05);
-      border: 1px solid rgba(8, 8, 8, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 999px;
       font-family: var(--font-mono, monospace);
       font-size: 11px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--fg);
+      color: #cbd5e1;
     }
   }
 }
 
 // The Process Section (.pf)
 .pf {
-  --pf-bg: #e2e2e0;
-  background: var(--pf-bg);
+  --pf-bg: transparent;
+  background: transparent;
   padding: 80px 0 0;
   position: relative;
   color: var(--fg);
@@ -310,11 +310,13 @@
   &__fig {
     --cut: 36px;
     aspect-ratio: 3 / 2;
-    background: color-mix(in srgb, var(--fg) 6%, transparent);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
     margin: 0 0 24px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 24px 64px -18px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.12);
 
     @media (min-width: 1024px) {
       left: 50%;
@@ -451,8 +453,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 18px;
-      background: var(--fg);
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
       color: #ffffff;
       font-family: var(--font-mono, monospace);
       font-size: 11px;
@@ -461,10 +463,12 @@
       text-transform: uppercase;
       border-radius: 999px;
       text-decoration: none;
+      box-shadow: 0 4px 18px rgba(168, 85, 247, 0.4);
       transition: all 0.25s ease;
 
       &:hover {
-        background: var(--red);
+        background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+        box-shadow: 0 6px 24px rgba(168, 85, 247, 0.6);
         transform: translateY(-2px);
       }
     }
@@ -479,8 +483,8 @@
     flex-wrap: wrap;
 
     .ctrl-pill {
-      border: 1px solid rgba(8, 8, 8, 0.15);
-      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
       padding: 6px 12px;
       border-radius: 999px;
       font-family: var(--font-mono, monospace);
@@ -490,9 +494,10 @@
       transition: all 0.25s ease;
 
       &:hover, &.is-active {
-        background: var(--fg);
+        background: rgba(168, 85, 247, 0.3);
         color: #ffffff;
-        border-color: var(--fg);
+        border-color: #c084fc;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
       }
     }
   }
@@ -588,10 +593,10 @@
   }
 
   &__card {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(8, 8, 8, 0.08);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -600,8 +605,8 @@
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.1);
-      border-color: rgba(8, 8, 8, 0.2);
+      box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.15);
+      border-color: rgba(192, 132, 252, 0.35);
     }
 
     .card-num {

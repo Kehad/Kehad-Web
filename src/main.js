@@ -258,8 +258,8 @@ const initHeroWavesCanvas = () => {
 
     // 1. Right-side 3D Vortex / Twisted Torus Wireframe Wave
     // Faithfully matches the prominent swirling parametric loop in the user reference
-    const vortexCenterX = width * 0.88 + (mouse.x - 0.5) * 60;
-    const vortexCenterY = height * 0.48 + (mouse.y - 0.5) * 60;
+    const vortexCenterX = width * 0.84 + (mouse.x - 0.5) * 45;
+    const vortexCenterY = height * 0.46 + (mouse.y - 0.5) * 45;
     const numVortexLines = 65;
 
     for (let i = 0; i < numVortexLines; i++) {
@@ -294,29 +294,30 @@ const initHeroWavesCanvas = () => {
       ctx.stroke();
     }
 
-    // 2. Left-side Sinuous Flowing Ribbon Lines
-    const numRibbons = 42;
+    // 2. Left-side Sinuous Flowing Ribbon & Contour Lines (Wrapping around the identity block)
+    const numRibbons = 46;
     for (let i = 0; i < numRibbons; i++) {
       const p = i / numRibbons;
       ctx.beginPath();
-      const steps = 60;
+      const steps = 70;
       for (let s = 0; s <= steps; s++) {
         const tStep = s / steps;
-        const x = tStep * width * 1.15 - width * 0.08;
+        const x = tStep * width * 0.85 - width * 0.05;
 
-        const wave1 = Math.sin(tStep * 3.2 + time + p * 2.2) * (65 + p * 45);
-        const wave2 = Math.cos(tStep * 1.8 - time * 0.7 + p * 1.6) * 40;
-        const wave3 = Math.sin(tStep * 4.8 + time * 1.1) * 18;
+        // Flowing harmonic curves arching from upper left around the greeting
+        const wave1 = Math.sin(tStep * 2.8 + time * 0.8 + p * 1.8) * (50 + p * 40);
+        const wave2 = Math.cos(tStep * 1.6 - time * 0.5 + p * 1.4) * 35;
+        const wave3 = Math.sin(tStep * 4.2 + time) * 15;
 
-        const baseY = height * (0.12 + p * 0.76) + (mouse.y - 0.5) * (p * 45);
+        const baseY = height * (0.04 + p * 0.7) + (mouse.y - 0.5) * (p * 35);
         const y = baseY + wave1 + wave2 + wave3;
 
         if (s === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
 
-      const alpha = 0.035 + Math.sin(p * Math.PI) * 0.22;
-      ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+      const alpha = 0.03 + Math.sin(p * Math.PI) * 0.22;
+      ctx.strokeStyle = `rgba(147, 112, 219, ${alpha})`;
       ctx.lineWidth = 1;
       ctx.stroke();
     }
@@ -390,19 +391,34 @@ const initHeroScrollSubtitles = () => {
     });
 
     // Compute line height to reach the active subtitle's bottom
-    const targetSub = subtitles[stepIndex];
-    if (targetSub) {
-      const dotRect = dot.getBoundingClientRect();
-      const subRect = targetSub.getBoundingClientRect();
-      const targetHeight = Math.max(70, Math.round(subRect.bottom - dotRect.bottom));
-      line.style.height = `${targetHeight}px`;
-    }
+    requestAnimationFrame(() => {
+      const targetSub = subtitles[stepIndex];
+      if (targetSub) {
+        const dotRect = dot.getBoundingClientRect();
+        const subRect = targetSub.getBoundingClientRect();
+        const targetHeight = Math.max(75, Math.round(subRect.bottom - dotRect.bottom));
+        line.style.height = `${targetHeight}px`;
+      }
+    });
   };
 
   // Initial calculation after layout render
   setTimeout(() => {
     updateSubtitlesAndLine(0);
   }, 150);
+
+  // Recalculate on subtitle transition end
+  subtitles.forEach((s) => {
+    s.addEventListener('transitionend', () => {
+      const targetSub = subtitles[activeStep];
+      if (targetSub) {
+        const dotRect = dot.getBoundingClientRect();
+        const subRect = targetSub.getBoundingClientRect();
+        const targetHeight = Math.max(75, Math.round(subRect.bottom - dotRect.bottom));
+        line.style.height = `${targetHeight}px`;
+      }
+    });
+  });
 
   // Re-calculate on resize
   window.addEventListener('resize', () => {
@@ -1190,9 +1206,36 @@ const initSectionWaveCanvas = (canvasId, options = {}) => {
 // ==========================================================================
 // 10. Interactive 3D Mechanical Keyboard Toolchain Architecture
 // Exact implementation matching user Keyboard3d component:
-// Dynamic activeLabel ("WELCOME" / k.id.toUpperCase()),
-// -4px 8px 0 shadow with translate(4px, -4px) and translate(-2px, 2px) on hover.
+// Web Audio mechanical switch audio, drop-shadow glows, tinted SimpleIcons,
+// and realistic spring-damped key depression.
 // ==========================================================================
+const playKeySound = () => {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    const audioCtx = new AudioContext();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    // Soft mechanical click sound profile
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+
+    gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.05);
+  } catch (e) {
+    // Audio context may be restricted before first gesture; safely ignore
+  }
+};
+
 const initKeyboard3d = () => {
   const container = document.getElementById('keyboardGrid');
   const screenText = document.getElementById('keyboardScreenText');
@@ -1205,23 +1248,45 @@ const initKeyboard3d = () => {
     .map((row) => {
       const keysHtml = row
         .map((k) => {
-          const colClass = k.colSpan === 2 ? 'keycap--col-2 key-cap--col-2' : '';
-          const iconHtml = k.icon
-            ? `<img src="https://cdn.simpleicons.org/${k.icon}/white" alt="${k.label}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" /><span style="display:none;">${k.label}</span>`
-            : `<span>${k.label}</span>`;
+          const colClass = k.colSpan === 2 ? 'keycap--col-2' : '';
+          const emptyClass = k.empty ? 'keycap--empty' : '';
+          const accentClass = k.accent ? 'keycap--accent' : 'keycap--default';
 
-          const initialShadow = `-4px 8px 0 ${k.shadow}, -4px 8px 10px rgba(0,0,0,0.2)`;
-          const initialTransform = 'translate(4px, -4px)';
+          const shadowColor = k.accent ? '#4c0519' : '#06070a';
+          const innerShadow = k.accent
+            ? 'inset 0px 2px 2px rgba(255,255,255,0.4), inset 0px -4px 8px rgba(0,0,0,0.3)'
+            : 'inset 0px 2px 2px rgba(255,255,255,0.08), inset 0px -4px 8px rgba(0,0,0,0.6)';
+
+          const glowHtml = !k.empty
+            ? `<div class="keycap__glow" style="box-shadow: 0 0 20px #${k.color}30, inset 0 0 15px #${k.color}20;"></div>`
+            : '';
+
+          const contentHtml = k.icon
+            ? `<img 
+                 src="https://cdn.simpleicons.org/${k.icon}/${k.color}" 
+                 alt="${k.label}" 
+                 loading="lazy" 
+                 class="keycap__icon" 
+                 style="filter: drop-shadow(0 0 10px #${k.color}80);"
+                 onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" 
+               />
+               <span class="keycap__label" style="display:none; color: #${k.color}; text-shadow: 0 0 10px #${k.color}80;">${k.label}</span>`
+            : `<span 
+                 class="keycap__label" 
+                 style="color: ${k.accent ? '#fff' : `#${k.color}`}; text-shadow: ${k.accent ? '0 0 10px rgba(255,255,255,0.6)' : `0 0 10px #${k.color}80`};"
+               >
+                 ${k.label}
+               </span>`;
 
           return `
             <div
-              class="keycap key-cap ${k.bg} ${colClass}"
+              class="keycap ${colClass} ${emptyClass} ${accentClass}"
               data-id="${k.id}"
               data-label="${k.label}"
-              data-shadow="${k.shadow}"
-              style="box-shadow: ${initialShadow}; transform: ${initialTransform};"
+              style="--shadow-color: ${shadowColor}; --inner-shadow: ${innerShadow};"
             >
-              ${iconHtml}
+              ${glowHtml}
+              ${contentHtml}
             </div>
           `;
         })
@@ -1232,27 +1297,24 @@ const initKeyboard3d = () => {
     .join('');
 
   // Interactive Switch Event Handlers matching user React code
-  const keycaps = container.querySelectorAll('.keycap');
+  const keycaps = container.querySelectorAll('.keycap:not(.keycap--empty)');
   keycaps.forEach((keycap) => {
     const keyId = keycap.getAttribute('data-id');
     const label = keycap.getAttribute('data-label');
-    const shadow = keycap.getAttribute('data-shadow');
 
     keycap.addEventListener('mouseenter', () => {
+      playKeySound();
       if (label) {
         screenText.textContent = keyId.toUpperCase();
       }
-      keycap.style.boxShadow = '0 0 0 transparent';
-      keycap.style.transform = 'translate(-2px, 2px)';
     });
 
     keycap.addEventListener('mouseleave', () => {
       screenText.textContent = 'WELCOME';
-      keycap.style.boxShadow = `-4px 8px 0 ${shadow}, -4px 8px 10px rgba(0,0,0,0.2)`;
-      keycap.style.transform = 'translate(4px, -4px)';
     });
 
     keycap.addEventListener('click', () => {
+      playKeySound();
       if (keyId === 'enter') {
         const projEl = document.getElementById('seo-geo');
         if (projEl) {
@@ -1263,11 +1325,11 @@ const initKeyboard3d = () => {
   });
 
   // Desktop Hover Transitions matching user React code:
-  // onMouseEnter: rotateX(50deg) rotateZ(-30deg) scale(1.02)
+  // onMouseEnter: rotateX(50deg) rotateZ(-30deg) scale(1.03)
   // onMouseLeave: rotateX(55deg) rotateZ(-35deg) scale(1.0)
   if (chassis && window.matchMedia('(min-width: 1024px)').matches) {
     chassis.addEventListener('mouseenter', () => {
-      chassis.style.transform = 'rotateX(50deg) rotateZ(-30deg) scale(1.02)';
+      chassis.style.transform = 'rotateX(50deg) rotateZ(-30deg) scale(1.03)';
     });
 
     chassis.addEventListener('mouseleave', () => {
@@ -1327,7 +1389,7 @@ const initSkillsScrollAnimation = () => {
   }
 
   // 3. Switch Grid Ripple-In Stagger
-  const keys = document.querySelectorAll('.keyboard-grid .keycap');
+  const keys = document.querySelectorAll('.keyboard-grid .keycap:not(.keycap--empty)');
   if (keys.length > 0) {
     gsap.fromTo(
       keys,

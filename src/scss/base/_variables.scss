@@ -2,23 +2,25 @@
 // Awwwards-Caliber Design Tokens & Variables
 // ==========================================================================
 
-// Color Palette - Editorial Obsidian & Acid Citrus / Electric Cobalt
-$color-bg-base: #0a0c10;
-$color-bg-surface: #12151e;
-$color-bg-elevated: #1a1e2b;
-$color-bg-card: rgba(22, 27, 39, 0.75);
+// Color Palette - Midnight Purple Hero Theme & Kinetic Accents
+$color-bg-base: #05060e;
+$color-bg-surface: #080916;
+$color-bg-elevated: #15112c;
+$color-bg-card: rgba(18, 17, 38, 0.75);
 
-$color-accent-lime: #ccff00;      // Acid high-contrast kinetic accent
-$color-accent-blue: #3b82f6;      // Electric cobalt
-$color-accent-purple: #8b5cf6;    // Ultraviolet
-$color-accent-orange: #ff5722;    // International vibrant orange
-$color-accent-cream: #f4efe6;     // Warm editorial bone
+$color-accent-lime: #ccff00;            // Kinetic contrast accent
+$color-accent-blue: #3b82f6;            // Electric cobalt
+$color-accent-purple: #a855f7;          // Luminous purple
+$color-accent-purple-light: #c084fc;    // Radiant lilac
+$color-accent-purple-dark: #7c3aed;     // Deep violet
+$color-accent-orange: #ff5722;          // International vibrant orange
+$color-accent-cream: #f4efe6;           // Warm editorial bone
 
 $color-text-primary: #f8fafc;
 $color-text-secondary: #94a3b8;
 $color-text-muted: #64748b;
 $color-border: rgba(255, 255, 255, 0.08);
-$color-border-glow: rgba(204, 255, 0, 0.35);
+$color-border-glow: rgba(168, 85, 247, 0.35);
 
 // Typography
 $font-display: 'Syne', system-ui, -apple-system, sans-serif;
@@ -43,6 +45,7 @@ $radius-full: 9999px;
 $shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
 $shadow-glow-lime: 0 0 35px rgba(204, 255, 0, 0.3);
 $shadow-glow-blue: 0 0 35px rgba(59, 130, 246, 0.35);
+$shadow-glow-purple: 0 0 35px rgba(168, 85, 247, 0.4);
 
 // Layer Z-Indexes
 $z-noise: 999;

@@ -36,9 +36,9 @@
     .brand-dot {
       width: 7px;
       height: 7px;
-      background-color: $color-accent-lime;
+      background-color: $color-accent-purple-light;
       border-radius: $radius-full;
-      box-shadow: 0 0 10px $color-accent-lime;
+      box-shadow: 0 0 12px $color-accent-purple;
     }
   }
 
@@ -116,7 +116,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    fill: #0c0f17;
+    fill: #080916;
   }
 
   &__inner {
@@ -159,12 +159,12 @@
       .item-num {
         font-family: $font-mono;
         font-size: 1.125rem;
-        color: $color-accent-lime;
+        color: $color-accent-purple-light;
         font-weight: 500;
       }
 
       &:hover {
-        color: $color-accent-lime;
+        color: $color-accent-purple-light;
       }
     }
   }

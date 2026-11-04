@@ -1110,7 +1110,86 @@ const initSeoGeoProcess = (lenis) => {
 };
 
 // ==========================================================================
-// 9. Interactive 3D Mechanical Keyboard Toolchain Skills Architecture
+// 9. Reusable Sinuous Parametric Wave Background Canvas System
+// Reuses the Hero's mathematical wave patterns across Skills and Footer
+// Equipped with IntersectionObserver for zero off-screen GPU consumption
+// ==========================================================================
+const initSectionWaveCanvas = (canvasId, options = {}) => {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let time = 0;
+  let isVisible = false;
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = canvas.offsetWidth || canvas.parentElement?.offsetWidth || window.innerWidth;
+    height = canvas.offsetHeight || canvas.parentElement?.offsetHeight || 600;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  };
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  const render = () => {
+    if (!isVisible) return;
+    time += 0.007;
+    ctx.clearRect(0, 0, width, height);
+
+    const numLines = options.numLines || 32;
+    const baseOffset = options.baseYOffset !== undefined ? options.baseYOffset : 0.5;
+
+    for (let i = 0; i < numLines; i++) {
+      const p = i / numLines;
+      ctx.beginPath();
+      const steps = 50;
+
+      for (let s = 0; s <= steps; s++) {
+        const t = s / steps;
+        const x = t * width * 1.15 - width * 0.07;
+        const wave1 = Math.sin(t * 3.4 + time + p * 2.2) * (45 + p * 35);
+        const wave2 = Math.cos(t * 1.9 - time * 0.75 + p * 1.6) * 30;
+        const baseY = height * baseOffset + (p - 0.5) * (height * 0.55);
+        const y = baseY + wave1 + wave2;
+
+        if (s === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      const alpha = 0.025 + Math.sin(p * Math.PI) * 0.18;
+      ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(render);
+  };
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      const wasVisible = isVisible;
+      isVisible = entry.isIntersecting;
+      if (isVisible && !wasVisible) {
+        requestAnimationFrame(render);
+      }
+    },
+    { threshold: 0.05 }
+  );
+
+  observer.observe(canvas);
+};
+
+// ==========================================================================
+// 10. Interactive 3D Mechanical Keyboard Toolchain Architecture
+// Reusing Hero Midnight Purple Theme, Glowing Accents, and 3D Transforms
 // ==========================================================================
 const initKeyboard3d = () => {
   const container = document.getElementById('keyboardGrid');
@@ -1124,14 +1203,14 @@ const initKeyboard3d = () => {
     .map((row) => {
       const keysHtml = row
         .map((k) => {
-          const colClass = k.colSpan === 2 ? 'keycap--col-2' : '';
+          const colClass = k.colSpan === 2 ? 'keycap--col-2 key-cap--col-2' : '';
           const iconHtml = k.icon
             ? `<img src="https://cdn.simpleicons.org/${k.icon}/white" alt="${k.label}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';" /><span style="display:none;">${k.label}</span>`
             : `<span>${k.label}</span>`;
 
           return `
             <div
-              class="keycap ${colClass}"
+              class="keycap key-cap ${colClass}"
               data-id="${k.id}"
               data-name="${k.name || k.label || k.id}"
               style="background: ${k.color}; --key-shadow: ${k.shadow};"
@@ -1142,11 +1221,11 @@ const initKeyboard3d = () => {
         })
         .join('');
 
-      return `<div class="keyboard-row">${keysHtml}</div>`;
+      return `<div class="keyboard-row keyboard-grid__row">${keysHtml}</div>`;
     })
     .join('');
 
-  // Interactive Switch Event Handlers
+  // Interactive Switch Event Handlers with Purple Neon Matrix Feedback
   const keycaps = container.querySelectorAll('.keycap');
   keycaps.forEach((keycap) => {
     const techName = keycap.getAttribute('data-name');
@@ -1155,13 +1234,13 @@ const initKeyboard3d = () => {
     keycap.addEventListener('mouseenter', () => {
       if (techName) {
         screenText.textContent = techName.toUpperCase();
-        screenText.style.color = '#38bdf8';
+        screenText.style.color = '#d8b4fe';
       }
     });
 
     keycap.addEventListener('mouseleave', () => {
       screenText.textContent = 'WELCOME';
-      screenText.style.color = '#0ea5e9';
+      screenText.style.color = '#c084fc';
     });
 
     keycap.addEventListener('mousedown', () => {
@@ -1218,6 +1297,191 @@ const initKeyboard3d = () => {
     }
   }
 };
+
+// ==========================================================================
+// 11. Section Unique Animations: Skills Section (#skills)
+// Animation: Scroll-Triggered 3D Subtle Zoom & Mechanical Switch Cascade Stagger
+// ==========================================================================
+const initSkillsScrollAnimation = () => {
+  const section = document.getElementById('skills');
+  if (!section) return;
+
+  // Initialize matching purple wave canvas
+  initSectionWaveCanvas('skillsWavesCanvas', { numLines: 36, baseYOffset: 0.45 });
+
+  // 1. Header Elements Staggered Fade-and-Slide
+  gsap.fromTo(
+    '.skills-section__header > *',
+    { y: 35, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      stagger: 0.15,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.skills-section__header',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
+    }
+  );
+
+  // 2. 3D Keyboard Chassis Subtle Zoom & Elevation Unfold
+  const chassis = document.querySelector('.keyboard-chassis');
+  if (chassis) {
+    gsap.fromTo(
+      chassis,
+      { scale: 0.86, rotateX: 68, opacity: 0 },
+      {
+        scale: 0.95,
+        rotateX: 55,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: '.keyboard-stage',
+          start: 'top 82%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }
+
+  // 3. Switch Grid Ripple-In Stagger
+  const keys = document.querySelectorAll('.keyboard-grid .keycap');
+  if (keys.length > 0) {
+    gsap.fromTo(
+      keys,
+      { scale: 0.65, y: 16, opacity: 0 },
+      {
+        scale: 1,
+        y: 0,
+        opacity: 1,
+        duration: 0.65,
+        stagger: {
+          grid: [4, 6],
+          from: 'center',
+          amount: 0.45,
+        },
+        ease: 'back.out(1.6)',
+        scrollTrigger: {
+          trigger: '.keyboard-grid',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }
+};
+
+// ==========================================================================
+// 12. Section Unique Animations: Footer Section (#footer)
+// Animation: Alternating Slide-Ins & Ambient Purple Glow Expansion
+// ==========================================================================
+const initFooterSectionAnimation = (lenis) => {
+  const footer = document.getElementById('footer');
+  if (!footer) return;
+
+  // Initialize matching purple horizon wave canvas
+  initSectionWaveCanvas('footerWavesCanvas', { numLines: 28, baseYOffset: 0.65 });
+
+  // 1. Left Brand Block Slide-In from Left
+  const brandBlock = footer.querySelector('.footer__brand-block');
+  if (brandBlock) {
+    gsap.fromTo(
+      brandBlock,
+      { x: -50, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1.0,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }
+
+  // 2. Right Nav Columns Slide-In from Right
+  const navCols = footer.querySelectorAll('.footer__col');
+  if (navCols.length > 0) {
+    gsap.fromTo(
+      navCols,
+      { x: 50, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1.0,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }
+
+  // 3. Bottom Copyright Bar Fade-Up
+  const bottomBar = footer.querySelector('.footer__bottom');
+  if (bottomBar) {
+    gsap.fromTo(
+      bottomBar,
+      { y: 25, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 0.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }
+
+  // 4. Ambient Purple Glow Scale & Bloom Expansion
+  const glow = footer.querySelector('.footer__glow');
+  if (glow) {
+    gsap.fromTo(
+      glow,
+      { scale: 0.7, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }
+
+  // 5. Back to Top Magnetic Link with Lenis Smooth Scroll
+  const backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+};
+
 // ==========================================================================
 // Bootstrap Architecture on DOM Ready
 // ==========================================================================
@@ -1226,11 +1490,10 @@ const init = () => {
   initMagneticCursor();
   initMorphingMenu();
   initTypewriter();
-  initProjectsSection();
-  initServicesShowcase();
-  initTopographicCanvas();
   initKeyboard3d();
+  initSkillsScrollAnimation();
   initSeoGeoProcess(lenis);
+  initFooterSectionAnimation(lenis);
   initPageIntro();
 };
 

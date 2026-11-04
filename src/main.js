@@ -10,6 +10,7 @@ import Lenis from 'lenis';
 import { creerReleve } from './scripts/releve.js';
 import { seoGeoSteps } from './data/seoGeoSteps.js';
 import { keyboardGrid } from './data/skillsData.js';
+import { initSpotifyWidget } from './scripts/spotifyWidget.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1535,6 +1536,7 @@ const init = () => {
   initSeoGeoProcess(lenis);
   initFooterSectionAnimation(lenis);
   initPageIntro();
+  initSpotifyWidget();
 };
 
 if (document.readyState === 'loading') {

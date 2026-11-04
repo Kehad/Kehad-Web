@@ -200,7 +200,6 @@ const initPageIntro = () => {
       ease: 'power4.inOut',
       onComplete: () => {
         transitionEl.style.display = 'none';
-        ScrollTrigger.refresh();
       },
     },
     '+=0.05'
@@ -328,111 +327,13 @@ const initHeroWavesCanvas = () => {
   render();
 };
 
-// ==========================================================================
-// 4b. Scroll-Driven Sequential Subtitles & Growing Indicator Line
-// As the user scrolls down, the vertical glowing indicator line extends longer
-// and reveals each subtitle item one by one with glowing illumination.
-// ==========================================================================
-const initHeroScrollSubtitles = () => {
-  const heroSection = document.getElementById('hero');
-  const indicatorLine = document.getElementById('heroIndicatorLine');
-  const subtitles = Array.from(document.querySelectorAll('.hero-creative__subtitle, .hero-section__subtitle'));
-  const scrollCue = document.querySelector('.hero-creative__scroll');
-
-  if (!heroSection || !indicatorLine || !subtitles.length) return;
-
-  // Accurately compute the indicator line length to align with each subtitle
-  const getLineHeightForSubtitle = (index) => {
-    const sub = subtitles[index];
-    const track = indicatorLine.parentElement;
-    if (!sub || !track) return 70;
-    const subRect = sub.getBoundingClientRect();
-    const trackRect = track.getBoundingClientRect();
-    // Distance from the top of the indicator track to the bottom baseline of the target subtitle
-    const targetY = (subRect.top + subRect.height * 0.85) - trackRect.top;
-    return Math.max(55, Math.round(targetY));
-  };
-
-  // Set initial default state for first subtitle
-  const initialH = getLineHeightForSubtitle(0);
-  indicatorLine.style.height = `${initialH}px`;
-  subtitles[0].classList.add('is-active', 'is-current');
-
-  // Pinned Scrubbed ScrollTrigger
-  ScrollTrigger.create({
-    trigger: heroSection,
-    start: 'top top',
-    end: '+=120%',
-    pin: true,
-    scrub: 0.5,
-    anticipatePin: 1,
-    onUpdate: (self) => {
-      const p = self.progress; // 0.0 to 1.0
-
-      // Fade out scroll cue mouse indicator as user begins scrolling
-      if (scrollCue) {
-        scrollCue.style.opacity = String(Math.max(0, 0.85 - p * 3));
-      }
-
-      // Determine active subtitle step (0, 1, 2)
-      let activeIndex = 0;
-      if (p >= 0.6) {
-        activeIndex = 2;
-      } else if (p >= 0.28) {
-        activeIndex = 1;
-      } else {
-        activeIndex = 0;
-      }
-
-      // Update subtitle visual states (one by one visibility)
-      subtitles.forEach((sub, idx) => {
-        if (idx <= activeIndex) {
-          sub.classList.add('is-active');
-          if (idx === activeIndex) {
-            sub.classList.add('is-current');
-          } else {
-            sub.classList.remove('is-current');
-          }
-        } else {
-          sub.classList.remove('is-active', 'is-current');
-        }
-      });
-
-      // Smoothly interpolate the glowing indicator line length
-      const h0 = getLineHeightForSubtitle(0);
-      const h1 = getLineHeightForSubtitle(1);
-      const h2 = getLineHeightForSubtitle(2);
-
-      let currentHeight = h0;
-      if (p < 0.35) {
-        const subP = p / 0.35;
-        currentHeight = h0 + (h1 - h0) * subP;
-      } else if (p < 0.7) {
-        const subP = (p - 0.35) / 0.35;
-        currentHeight = h1 + (h2 - h1) * subP;
-      } else {
-        const subP = Math.min(1, (p - 0.7) / 0.3);
-        currentHeight = h2 + 25 * subP;
-      }
-
-      indicatorLine.style.height = `${Math.round(currentHeight)}px`;
-    },
-    onRefresh: () => {
-      if (subtitles[0]) {
-        indicatorLine.style.height = `${getLineHeightForSubtitle(0)}px`;
-      }
-    }
-  });
-};
-
 const initHeroEntrance = () => {
   initHeroWavesCanvas();
-  initHeroScrollSubtitles();
 
   const indicatorDot = document.querySelector('.indicator-dot');
   const indicatorLine = document.querySelector('.indicator-line');
   const title = document.querySelector('.hero-creative__title');
-  const subtitles = document.querySelectorAll('.hero-creative__subtitle');
+  const subtitlesList = document.getElementById('heroSubtitlesList');
   const actions = document.querySelector('.hero-creative__actions');
   const scrollCue = document.querySelector('.hero-creative__scroll');
 
@@ -440,15 +341,15 @@ const initHeroEntrance = () => {
 
   if (indicatorDot && indicatorLine) {
     heroTl.fromTo(indicatorDot, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8 }, 0.1)
-      .fromTo(indicatorLine, { scaleY: 0, transformOrigin: 'top center' }, { scaleY: 1, duration: 0.8 }, 0.25);
+      .fromTo(indicatorLine, { scaleY: 0, transformOrigin: 'top center' }, { scaleY: 1, duration: 1.0 }, 0.25);
   }
 
   if (title) {
     heroTl.fromTo(title, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, 0.2);
   }
 
-  if (subtitles.length) {
-    heroTl.fromTo(subtitles[0], { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.4);
+  if (subtitlesList) {
+    heroTl.fromTo(subtitlesList, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 0.4);
   }
 
   if (actions) {
@@ -458,6 +359,83 @@ const initHeroEntrance = () => {
   if (scrollCue) {
     heroTl.fromTo(scrollCue, { opacity: 0, y: 15 }, { opacity: 0.85, y: 0, duration: 1.0 }, 0.75);
   }
+
+  initHeroScrollSubtitles();
+};
+
+// ==========================================================================
+// 4c. Scroll-Triggered Subtitles & Dynamic Indicator Line Extension
+// Pure CSS Sticky scroll tracking: NO DOM MUTATIONS or PIN SPACERS
+// Subtitles appear one by one and indication_line extends down smoothly.
+// Completely isolated from SEO & GEO (.pf).
+// ==========================================================================
+const initHeroScrollSubtitles = () => {
+  const heroSection = document.getElementById('hero');
+  const line = document.getElementById('heroIndicatorLine');
+  const dot = document.querySelector('.hero-creative__indicator .indicator-dot');
+  const subtitles = [...document.querySelectorAll('.hero-section__subtitle')];
+  const scrollCue = document.querySelector('.hero-creative__scroll');
+
+  if (!heroSection || !line || !dot || subtitles.length === 0) return;
+
+  let activeStep = 0;
+
+  const updateSubtitlesAndLine = (stepIndex) => {
+    activeStep = stepIndex;
+
+    // Toggle active and current classes
+    subtitles.forEach((s, idx) => {
+      s.classList.toggle('is-active', idx <= stepIndex);
+      s.classList.toggle('is-current', idx === stepIndex);
+    });
+
+    // Compute line height to reach the active subtitle's bottom
+    const targetSub = subtitles[stepIndex];
+    if (targetSub) {
+      const dotRect = dot.getBoundingClientRect();
+      const subRect = targetSub.getBoundingClientRect();
+      const targetHeight = Math.max(70, Math.round(subRect.bottom - dotRect.bottom));
+      line.style.height = `${targetHeight}px`;
+    }
+  };
+
+  // Initial calculation after layout render
+  setTimeout(() => {
+    updateSubtitlesAndLine(0);
+  }, 150);
+
+  // Re-calculate on resize
+  window.addEventListener('resize', () => {
+    updateSubtitlesAndLine(activeStep);
+  });
+
+  // ScrollTrigger tracking scroll progress through #hero
+  // CRITICAL: pin is false! Zero pin-spacers inserted!
+  ScrollTrigger.create({
+    trigger: heroSection,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 0.1,
+    onUpdate: (self) => {
+      const p = self.progress;
+      let step = 0;
+      if (p >= 0.66) {
+        step = 2;
+      } else if (p >= 0.33) {
+        step = 1;
+      } else {
+        step = 0;
+      }
+
+      if (step !== activeStep) {
+        updateSubtitlesAndLine(step);
+      }
+
+      if (scrollCue) {
+        scrollCue.style.opacity = String(Math.max(0, 0.85 - p * 1.2));
+      }
+    }
+  });
 };
 
 // ==========================================================================
@@ -1011,8 +989,6 @@ const initSeoGeoProcess = (lenis) => {
         reduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
         vague: true,
         souris: true,
-        ink: [192 / 255, 132 / 255, 252 / 255],
-        red: [232 / 255, 121 / 255, 249 / 255],
       });
       releve?.setStep(0, totalSteps);
     } catch (e) {
@@ -1069,17 +1045,6 @@ const initSeoGeoProcess = (lenis) => {
     // Update WebGL terrain elevation & scan wave
     releve?.setStep(currentStep, totalSteps);
     updateHoles();
-
-    // Unique Animation: Alternating directional slide-ins for active project info
-    const activeInfo = steps[currentStep]?.querySelector('.pf__info');
-    if (activeInfo) {
-      const offsetX = currentStep % 2 === 0 ? -36 : 36;
-      gsap.fromTo(
-        activeInfo,
-        { x: offsetX, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: 'auto' }
-      );
-    }
   };
 
   // Pointer movement disturbance on the terrain
@@ -1142,103 +1107,6 @@ const initSeoGeoProcess = (lenis) => {
 
   observer.observe(track);
   window.addEventListener('resize', () => updateHoles());
-
-  // Unique Scroll Animation: Section Head Staggered Reveal
-  const pfHead = pf.querySelector('.pf__head');
-  if (pfHead) {
-    gsap.fromTo(
-      pfHead.children,
-      { y: 35, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.9,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: pfHead,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      }
-    );
-  }
-};
-
-// ==========================================================================
-// 8b. Skills Sinuous Parametric Wave Background Canvas
-// Harmonizes with the Hero wave theme: renders subtle flowing violet/purple
-// harmonic sine wave ribbons behind the 3D keyboard toolchain.
-// ==========================================================================
-const initSkillsWavesCanvas = () => {
-  const canvas = document.getElementById('skillsWavesCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let width = 0;
-  let height = 0;
-  let time = 0;
-  let mouse = { x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 };
-
-  const resize = () => {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = canvas.offsetWidth || window.innerWidth;
-    height = canvas.offsetHeight || window.innerHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(dpr, dpr);
-  };
-
-  window.addEventListener('resize', resize);
-  resize();
-
-  const section = canvas.closest('.skills-section') || canvas.parentElement;
-  if (section) {
-    section.addEventListener('mousemove', (e) => {
-      const rect = section.getBoundingClientRect();
-      mouse.targetX = (e.clientX - rect.left) / rect.width;
-      mouse.targetY = (e.clientY - rect.top) / rect.height;
-    });
-  }
-
-  const render = () => {
-    time += 0.005;
-    mouse.x += (mouse.targetX - mouse.x) * 0.03;
-    mouse.y += (mouse.targetY - mouse.y) * 0.03;
-
-    ctx.clearRect(0, 0, width, height);
-
-    // Multi-harmonic flowing violet/purple wave ribbons
-    const numWaves = 32;
-    for (let i = 0; i < numWaves; i++) {
-      const p = i / numWaves;
-      ctx.beginPath();
-      const steps = 60;
-      for (let s = 0; s <= steps; s++) {
-        const tStep = s / steps;
-        const x = tStep * width * 1.15 - width * 0.07;
-
-        const w1 = Math.sin(tStep * 2.6 + time + p * 2.4) * (42 + p * 38);
-        const w2 = Math.cos(tStep * 1.5 - time * 0.7 + p * 1.7) * 32;
-        const w3 = Math.sin(tStep * 4.8 + time * 1.1) * 12;
-
-        const baseY = height * (0.18 + p * 0.64) + (mouse.y - 0.5) * (p * 45);
-        const y = baseY + w1 + w2 + w3;
-
-        if (s === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-
-      const alpha = 0.03 + Math.sin(p * Math.PI) * 0.16;
-      ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-
-    requestAnimationFrame(render);
-  };
-
-  render();
 };
 
 // ==========================================================================
@@ -1318,63 +1186,6 @@ const initKeyboard3d = () => {
     });
   });
 
-  // Unique Scroll Animation: Header Staggered Reveal
-  const skillsHeader = document.querySelector('.skills-section__header');
-  if (skillsHeader) {
-    gsap.fromTo(
-      skillsHeader.children,
-      { y: 35, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.9,
-        stagger: 0.14,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: skillsHeader,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      }
-    );
-  }
-
-  // Unique Scroll Animation: 3D Perspective Tilt & Scale-Up Reveal + Light Sweep
-  if (chassis) {
-    gsap.fromTo(
-      chassis,
-      {
-        scale: 0.82,
-        rotateX: 68,
-        rotateZ: -45,
-        opacity: 0.25,
-      },
-      {
-        scale: 0.95,
-        rotateX: 55,
-        rotateZ: -32,
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: chassis,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-          onEnter: () => {
-            // Hardware self-test light sweep across keycaps
-            const keys = container.querySelectorAll('.keycap');
-            keys.forEach((k, idx) => {
-              setTimeout(() => {
-                k.classList.add('is-illuminated');
-                setTimeout(() => k.classList.remove('is-illuminated'), 200);
-              }, idx * 18);
-            });
-          },
-        },
-      }
-    );
-  }
-
   // Dynamic 3D Mouse Parallax on Desktop
   if (chassis && window.matchMedia('(min-width: 1024px)').matches) {
     const stage = chassis.closest('.keyboard-stage');
@@ -1407,44 +1218,6 @@ const initKeyboard3d = () => {
     }
   }
 };
-
-// ==========================================================================
-// 10. Cosmic Footer Animation: Expanding Glowing Line & Staggered Reveal
-// ==========================================================================
-const initFooterAnimation = () => {
-  const footer = document.getElementById('footer');
-  const borderLine = document.getElementById('footerBorderLine');
-  const container = footer?.querySelector('.footer__container');
-  if (!footer) return;
-
-  ScrollTrigger.create({
-    trigger: footer,
-    start: 'top 92%',
-    onEnter: () => {
-      if (borderLine) borderLine.classList.add('is-visible');
-    },
-  });
-
-  if (container) {
-    gsap.fromTo(
-      container.children,
-      { y: 24, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.85,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: footer,
-          start: 'top 90%',
-          toggleActions: 'play none none none',
-        },
-      }
-    );
-  }
-};
-
 // ==========================================================================
 // Bootstrap Architecture on DOM Ready
 // ==========================================================================
@@ -1456,10 +1229,8 @@ const init = () => {
   initProjectsSection();
   initServicesShowcase();
   initTopographicCanvas();
-  initSkillsWavesCanvas();
   initKeyboard3d();
   initSeoGeoProcess(lenis);
-  initFooterAnimation();
   initPageIntro();
 };
 

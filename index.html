@@ -123,6 +123,7 @@
     <!-- Modeled after uploaded reference with retained Resume & Socials -->
     <!-- =================================================================== -->
     <section class="hero-creative" id="hero">
+      <div class="hero-creative__track">
       <!-- 3D Sinuous Parametric Purple Wave Canvas -->
       <canvas class="hero-creative__canvas" id="heroWavesCanvas"></canvas>
 
@@ -142,7 +143,7 @@
               <span class="name-gradient" id="typedName">Kehad</span><span class="type-cursor">|</span>
             </h1>
             <div class="hero-creative__subtitles" id="heroSubtitlesList">
-              <p class="hero-creative__subtitle hero-section__subtitle is-active" data-step="0">
+              <p class="hero-creative__subtitle hero-section__subtitle is-active is-current" data-step="0">
                 I develop website and Mobile applications
               </p>
               <p class="hero-creative__subtitle hero-section__subtitle" data-step="1">
@@ -152,7 +153,7 @@
                 I develop desktop applications
               </p>
             </div>
-
+            
             <!-- Retained Action Buttons & Social Media Links -->
             <div class="hero-creative__actions">
               <div class="hero-creative__btns">
@@ -203,44 +204,38 @@
           </div>
         </a>
       </div>
+    
+      </div>
     </section>
 
     <!-- SKILLS SECTION: Interactive 3D Mechanical Keyboard Toolchain -->
     <!-- =================================================================== -->
     <section class="skills-section" id="skills">
-      <!-- Glowing Purple Theme Divider -->
-      <div class="skills-section__divider"></div>
-
-      <!-- Sinuous Parametric Purple Wave Canvas -->
-      <canvas class="skills-section__canvas" id="skillsWavesCanvas"></canvas>
-
-      <div class="skills-section__container">
-        <div class="skills-section__header">
-          <div class="meta-pill">
-            <span class="pulse-dot"></span>
-            <span>Toolchain &amp; Engineering Stack</span>
-          </div>
-          <h2 class="skills-section__title">
-            Interactive <span class="highlight-lime">3D Mechanical</span> <span class="italic-serif">Keyboard</span>
-          </h2>
-          <p class="skills-section__subtitle">
-            Hover or tap any mechanical switch to inspect frameworks, libraries, cloud runtimes, and engineering toolchains.
-          </p>
+      <div class="skills-section__header">
+        <div class="meta-pill">
+          <span class="pulse-dot"></span>
+          <span>Toolchain &amp; Engineering Stack</span>
         </div>
+        <h2 class="skills-section__title">
+          Interactive <span class="highlight-lime">3D Mechanical</span> <span class="italic-serif">Keyboard</span>
+        </h2>
+        <p class="skills-section__subtitle">
+          Hover or tap any mechanical switch to inspect frameworks, libraries, cloud runtimes, and engineering toolchains.
+        </p>
+      </div>
 
-        <!-- 3D Keyboard Stage Canvas -->
-        <div class="keyboard-stage">
-          <div class="keyboard-chassis" id="keyboard3d">
-            <!-- LED Matrix Display Screen -->
-            <div class="keyboard-screen">
-              <div class="keyboard-screen__glow"></div>
-              <span class="keyboard-screen__text" id="keyboardScreenText">WELCOME</span>
-              <div class="keyboard-screen__scanline"></div>
-            </div>
-
-            <!-- Mechanical Switch Grid (Populated dynamically via JS loop) -->
-            <div class="keyboard-grid" id="keyboardGrid"></div>
+      <!-- 3D Keyboard Stage Canvas -->
+      <div class="keyboard-stage">
+        <div class="keyboard-chassis" id="keyboard3d">
+          <!-- LED Matrix Display Screen -->
+          <div class="keyboard-screen">
+            <div class="keyboard-screen__glow"></div>
+            <span class="keyboard-screen__text" id="keyboardScreenText">WELCOME</span>
+            <div class="keyboard-screen__scanline"></div>
           </div>
+
+          <!-- Mechanical Switch Grid (Populated dynamically via JS loop) -->
+          <div class="keyboard-grid" id="keyboardGrid"></div>
         </div>
       </div>
     </section>
@@ -288,16 +283,10 @@
       </div>
     </div>
 
-    <!-- Cosmic Midnight Purple Footer -->
-    <footer class="footer" id="footer">
-      <div class="footer__border-line" id="footerBorderLine"></div>
-      <div class="footer__container">
-        <div class="footer__copyright">© 2026 KEHINDE ADIGUN (KEHAD). ALL RIGHTS RESERVED.</div>
-        <div class="footer__badge">
-          <span class="dot"></span>
-          <span>AWWWARDS SOTD ARCHITECTURE</span>
-        </div>
-      </div>
+    <!-- Simple Minimal Footer -->
+    <footer style="padding: 4rem 3rem 6rem; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1500px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; font-family: var(--font-mono, monospace); font-size: 0.8125rem; color: #64748b;">
+      <div>© 2026 KEHINDE ADIGUN (KEHAD). ALL RIGHTS RESERVED.</div>
+      <div style="color: #ccff00;">AWWWARDS SOTD ARCHITECTURE</div>
     </footer>
   </body>
 </html>

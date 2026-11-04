@@ -7,16 +7,26 @@
 // ==========================================================================
 
 .hero-creative {
-  min-height: 100vh;
-  min-height: 100dvh;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+  height: 200vh;
   background: radial-gradient(circle at 85% 35%, #15112c 0%, #080916 60%, #05060e 100%);
   color: #ffffff;
   padding: 0;
+
+  // Pure CSS Sticky track that stays locked in viewport while user scrolls through the 3 subtitles
+  // This does NOT mutate DOM or add pin-spacers, leaving #seo-geo (.pf) 100% intact!
+  &__track {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
   // Background 3D Sinuous Parametric Purple Wave Canvas
   &__canvas {
@@ -59,14 +69,13 @@
     }
   }
 
-  // Glowing Purple Dot & Vertical Dynamic Indicator Line (Matches reference)
+  // Glowing Purple Dot & Vertical Accent Line (Exact reference match)
   &__indicator {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 0.6rem;
     flex-shrink: 0;
-    position: relative;
 
     .indicator-dot {
       width: 14px;
@@ -78,54 +87,46 @@
         0 0 24px rgba(168, 85, 247, 0.85),
         0 0 36px rgba(192, 132, 252, 0.5);
       animation: indicatorGlow 2.5s infinite ease-in-out alternate;
-      z-index: 3;
     }
 
     .indicator-track {
       position: relative;
       width: 2px;
       margin-top: 8px;
-      background: rgba(168, 85, 247, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(168, 85, 247, 0.12);
       border-radius: 2px;
-      min-height: 180px;
-      overflow: visible;
     }
 
     .indicator-line {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 2px;
-      height: 70px;
+      height: 90px;
       background: linear-gradient(
         to bottom,
-        #a855f7 0%,
-        #c084fc 75%,
-        #ffffff 100%
+        #c084fc 0%,
+        #a855f7 65%,
+        #7c3aed 100%
       );
-      border-radius: 2px;
       box-shadow:
-        0 0 10px rgba(168, 85, 247, 0.8),
-        0 0 20px rgba(192, 132, 252, 0.5);
-      transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: height;
-      z-index: 2;
+        0 0 10px rgba(192, 132, 252, 0.7),
+        0 0 20px rgba(168, 85, 247, 0.4);
+      border-radius: 2px;
+      position: relative;
+      transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 
-      // Glowing active leading head
       &::after {
         content: '';
         position: absolute;
-        bottom: -3px;
+        bottom: -2px;
         left: 50%;
         transform: translateX(-50%);
-        width: 7px;
-        height: 7px;
-        background: #ffffff;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
-        box-shadow:
-          0 0 8px #ffffff,
-          0 0 14px #c084fc,
-          0 0 24px #a855f7;
+        background: #ffffff;
+        box-shadow: 0 0 8px #c084fc, 0 0 14px #a855f7;
       }
     }
   }
@@ -168,13 +169,11 @@
     }
   }
 
-  // Sequential Subtitles Container & Items
   &__subtitles {
     display: flex;
     flex-direction: column;
-    gap: 1.15rem;
-    margin-top: 1.4rem;
-    position: relative;
+    gap: 0.85rem;
+    margin-top: 1.25rem;
   }
 
   &__subtitle,
@@ -182,32 +181,33 @@
     font-family: $font-body;
     font-size: clamp(1.2rem, 2.2vw, 1.65rem);
     font-weight: 400;
-    color: #94a3b8;
+    color: rgba(226, 232, 240, 0.25);
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.45;
     letter-spacing: -0.01em;
-    max-width: 38ch;
-    opacity: 0.22;
-    transform: translateY(14px);
-    transition:
-      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      color 0.35s ease,
-      text-shadow 0.35s ease;
-    will-change: opacity, transform;
+    max-width: 32ch;
+    transform: translateY(10px);
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.2;
+    filter: blur(1px);
 
     &.is-active {
-      opacity: 0.85;
+      opacity: 0.75;
+      color: #cbd5e1;
       transform: translateY(0);
-      color: #e2e8f0;
+      filter: blur(0);
     }
 
     &.is-current {
       opacity: 1;
-      transform: translateY(0);
       color: #ffffff;
       font-weight: 500;
-      text-shadow: 0 0 24px rgba(192, 132, 252, 0.4);
+      text-shadow: 0 0 24px rgba(192, 132, 252, 0.45);
+      transform: translateY(0);
+      filter: blur(0);
     }
   }
 

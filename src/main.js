@@ -1011,6 +1011,8 @@ const initSeoGeoProcess = (lenis) => {
         reduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
         vague: true,
         souris: true,
+        ink: [192 / 255, 132 / 255, 252 / 255],
+        red: [232 / 255, 121 / 255, 249 / 255],
       });
       releve?.setStep(0, totalSteps);
     } catch (e) {
@@ -1067,6 +1069,17 @@ const initSeoGeoProcess = (lenis) => {
     // Update WebGL terrain elevation & scan wave
     releve?.setStep(currentStep, totalSteps);
     updateHoles();
+
+    // Unique Animation: Alternating directional slide-ins for active project info
+    const activeInfo = steps[currentStep]?.querySelector('.pf__info');
+    if (activeInfo) {
+      const offsetX = currentStep % 2 === 0 ? -36 : 36;
+      gsap.fromTo(
+        activeInfo,
+        { x: offsetX, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: 'auto' }
+      );
+    }
   };
 
   // Pointer movement disturbance on the terrain
@@ -1129,6 +1142,103 @@ const initSeoGeoProcess = (lenis) => {
 
   observer.observe(track);
   window.addEventListener('resize', () => updateHoles());
+
+  // Unique Scroll Animation: Section Head Staggered Reveal
+  const pfHead = pf.querySelector('.pf__head');
+  if (pfHead) {
+    gsap.fromTo(
+      pfHead.children,
+      { y: 35, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: pfHead,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+  }
+};
+
+// ==========================================================================
+// 8b. Skills Sinuous Parametric Wave Background Canvas
+// Harmonizes with the Hero wave theme: renders subtle flowing violet/purple
+// harmonic sine wave ribbons behind the 3D keyboard toolchain.
+// ==========================================================================
+const initSkillsWavesCanvas = () => {
+  const canvas = document.getElementById('skillsWavesCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width = 0;
+  let height = 0;
+  let time = 0;
+  let mouse = { x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 };
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = canvas.offsetWidth || window.innerWidth;
+    height = canvas.offsetHeight || window.innerHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  };
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  const section = canvas.closest('.skills-section') || canvas.parentElement;
+  if (section) {
+    section.addEventListener('mousemove', (e) => {
+      const rect = section.getBoundingClientRect();
+      mouse.targetX = (e.clientX - rect.left) / rect.width;
+      mouse.targetY = (e.clientY - rect.top) / rect.height;
+    });
+  }
+
+  const render = () => {
+    time += 0.005;
+    mouse.x += (mouse.targetX - mouse.x) * 0.03;
+    mouse.y += (mouse.targetY - mouse.y) * 0.03;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Multi-harmonic flowing violet/purple wave ribbons
+    const numWaves = 32;
+    for (let i = 0; i < numWaves; i++) {
+      const p = i / numWaves;
+      ctx.beginPath();
+      const steps = 60;
+      for (let s = 0; s <= steps; s++) {
+        const tStep = s / steps;
+        const x = tStep * width * 1.15 - width * 0.07;
+
+        const w1 = Math.sin(tStep * 2.6 + time + p * 2.4) * (42 + p * 38);
+        const w2 = Math.cos(tStep * 1.5 - time * 0.7 + p * 1.7) * 32;
+        const w3 = Math.sin(tStep * 4.8 + time * 1.1) * 12;
+
+        const baseY = height * (0.18 + p * 0.64) + (mouse.y - 0.5) * (p * 45);
+        const y = baseY + w1 + w2 + w3;
+
+        if (s === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      const alpha = 0.03 + Math.sin(p * Math.PI) * 0.16;
+      ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(render);
+  };
+
+  render();
 };
 
 // ==========================================================================
@@ -1208,6 +1318,63 @@ const initKeyboard3d = () => {
     });
   });
 
+  // Unique Scroll Animation: Header Staggered Reveal
+  const skillsHeader = document.querySelector('.skills-section__header');
+  if (skillsHeader) {
+    gsap.fromTo(
+      skillsHeader.children,
+      { y: 35, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        stagger: 0.14,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: skillsHeader,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+  }
+
+  // Unique Scroll Animation: 3D Perspective Tilt & Scale-Up Reveal + Light Sweep
+  if (chassis) {
+    gsap.fromTo(
+      chassis,
+      {
+        scale: 0.82,
+        rotateX: 68,
+        rotateZ: -45,
+        opacity: 0.25,
+      },
+      {
+        scale: 0.95,
+        rotateX: 55,
+        rotateZ: -32,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: chassis,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+          onEnter: () => {
+            // Hardware self-test light sweep across keycaps
+            const keys = container.querySelectorAll('.keycap');
+            keys.forEach((k, idx) => {
+              setTimeout(() => {
+                k.classList.add('is-illuminated');
+                setTimeout(() => k.classList.remove('is-illuminated'), 200);
+              }, idx * 18);
+            });
+          },
+        },
+      }
+    );
+  }
+
   // Dynamic 3D Mouse Parallax on Desktop
   if (chassis && window.matchMedia('(min-width: 1024px)').matches) {
     const stage = chassis.closest('.keyboard-stage');
@@ -1240,6 +1407,44 @@ const initKeyboard3d = () => {
     }
   }
 };
+
+// ==========================================================================
+// 10. Cosmic Footer Animation: Expanding Glowing Line & Staggered Reveal
+// ==========================================================================
+const initFooterAnimation = () => {
+  const footer = document.getElementById('footer');
+  const borderLine = document.getElementById('footerBorderLine');
+  const container = footer?.querySelector('.footer__container');
+  if (!footer) return;
+
+  ScrollTrigger.create({
+    trigger: footer,
+    start: 'top 92%',
+    onEnter: () => {
+      if (borderLine) borderLine.classList.add('is-visible');
+    },
+  });
+
+  if (container) {
+    gsap.fromTo(
+      container.children,
+      { y: 24, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.85,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+  }
+};
+
 // ==========================================================================
 // Bootstrap Architecture on DOM Ready
 // ==========================================================================
@@ -1251,8 +1456,10 @@ const init = () => {
   initProjectsSection();
   initServicesShowcase();
   initTopographicCanvas();
+  initSkillsWavesCanvas();
   initKeyboard3d();
   initSeoGeoProcess(lenis);
+  initFooterAnimation();
   initPageIntro();
 };
 

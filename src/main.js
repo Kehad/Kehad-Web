@@ -53,7 +53,7 @@ const initSmoothScroll = () => {
 };
 
 // ==========================================================================
-// 2. Trailing Magnetic Cursor with Contextual States
+// 2. High-Performance Trailing Magnetic Accent Cursor (Zero-Lag, 60/120fps)
 // ==========================================================================
 const initMagneticCursor = () => {
   const cursor = document.getElementById('customCursor');
@@ -68,25 +68,35 @@ const initMagneticCursor = () => {
   // Smoothed follower coordinates
   const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+  // GSAP quickSetters for high performance 120Hz throughput
+  const setDotX = gsap.quickSetter(dot, 'x', 'px');
+  const setDotY = gsap.quickSetter(dot, 'y', 'px');
+  const setFollowerX = gsap.quickSetter(follower, 'x', 'px');
+  const setFollowerY = gsap.quickSetter(follower, 'y', 'px');
 
-    // Instant dot movement
-    gsap.set(dot, { x: mouse.x, y: mouse.y });
-  });
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      setDotX(mouse.x);
+      setDotY(mouse.y);
+    },
+    { passive: true }
+  );
 
-  // Smooth lerp ticker for trailing ring
-  const speed = 0.16; // Interpolation factor
+  // Fast, responsive lerp ticker (snappy tracking: factor 0.38)
+  const speed = 0.38;
   gsap.ticker.add(() => {
     pos.x += (mouse.x - pos.x) * speed;
     pos.y += (mouse.y - pos.y) * speed;
-    gsap.set(follower, { x: pos.x, y: pos.y });
+    setFollowerX(pos.x);
+    setFollowerY(pos.y);
   });
 
   // Mouse down / up micro-physics
-  window.addEventListener('mousedown', () => cursor.classList.add('custom-cursor--clicking'));
-  window.addEventListener('mouseup', () => cursor.classList.remove('custom-cursor--clicking'));
+  window.addEventListener('mousedown', () => cursor.classList.add('custom-cursor--clicking'), { passive: true });
+  window.addEventListener('mouseup', () => cursor.classList.remove('custom-cursor--clicking'), { passive: true });
 
   // Contextual cursor labels ([data-cursor="Text"])
   const contextElements = document.querySelectorAll('[data-cursor]');
@@ -103,7 +113,7 @@ const initMagneticCursor = () => {
   });
 
   // Standard hover state for links and buttons
-  const hoverElements = document.querySelectorAll('a, button, .tag');
+  const hoverElements = document.querySelectorAll('a, button, .tag, .ctrl-pill, .keycap, [role="button"]');
   hoverElements.forEach((el) => {
     el.addEventListener('mouseenter', () => {
       if (!el.hasAttribute('data-cursor')) {
@@ -116,30 +126,42 @@ const initMagneticCursor = () => {
     });
   });
 
-  // Magnetic attraction physics ([data-magnetic])
+  // Magnetic attraction physics ([data-magnetic]) with RAF throttling
   const magneticElements = document.querySelectorAll('[data-magnetic]');
   magneticElements.forEach((el) => {
-    el.addEventListener('mousemove', (e) => {
-      const rect = el.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const deltaX = (e.clientX - centerX) * 0.35;
-      const deltaY = (e.clientY - centerY) * 0.35;
+    let ticking = false;
+    el.addEventListener(
+      'mousemove',
+      (e) => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = el.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const deltaX = (e.clientX - centerX) * 0.35;
+          const deltaY = (e.clientY - centerY) * 0.35;
 
-      gsap.to(el, {
-        x: deltaX,
-        y: deltaY,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    });
+          gsap.to(el, {
+            x: deltaX,
+            y: deltaY,
+            duration: 0.25,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
 
     el.addEventListener('mouseleave', () => {
       gsap.to(el, {
         x: 0,
         y: 0,
-        duration: 0.7,
-        ease: 'elastic.out(1, 0.3)',
+        duration: 0.6,
+        ease: 'elastic.out(1, 0.4)',
+        overwrite: 'auto',
       });
     });
   });
@@ -238,10 +260,11 @@ const initHeroWavesCanvas = () => {
   let width = 0;
   let height = 0;
   let time = 0;
+  let isVisible = true;
   let mouse = { x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 };
 
   const resize = () => {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     width = canvas.parentElement?.offsetWidth || window.innerWidth;
     height = canvas.parentElement?.offsetHeight || window.innerHeight;
     if (width < 320) width = window.innerWidth;
@@ -253,18 +276,24 @@ const initHeroWavesCanvas = () => {
     ctx.scale(dpr, dpr);
   };
 
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
   resize();
 
-  window.addEventListener('mousemove', (e) => {
-    mouse.targetX = e.clientX / window.innerWidth;
-    mouse.targetY = e.clientY / window.innerHeight;
-  });
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      mouse.targetX = e.clientX / window.innerWidth;
+      mouse.targetY = e.clientY / window.innerHeight;
+    },
+    { passive: true }
+  );
 
   const render = () => {
+    if (!isVisible) return;
+
     time += 0.005;
-    mouse.x += (mouse.targetX - mouse.x) * 0.04;
-    mouse.y += (mouse.targetY - mouse.y) * 0.04;
+    mouse.x += (mouse.targetX - mouse.x) * 0.05;
+    mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
     ctx.clearRect(0, 0, width, height);
 
@@ -282,17 +311,16 @@ const initHeroWavesCanvas = () => {
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, width, height);
 
-    // 1. RIGHT SIDE: 3D Torus Vortex / Folded Wireframe Aperture
-    // Exact visual match to the reference image
+    // 1. RIGHT SIDE: 3D Torus Vortex / Folded Wireframe Aperture (Optimized vector density)
     const cx = width * 0.89 + (mouse.x - 0.5) * 35;
     const cy = height * 0.27 + (mouse.y - 0.5) * 25;
-    const numVortex = width < 768 ? 55 : 85;
+    const numVortex = width < 768 ? 32 : 46;
 
     for (let i = 0; i < numVortex; i++) {
       const k = i / numVortex; // 0 (inner eye) to 1 (outer flare)
       ctx.beginPath();
 
-      const points = width < 768 ? 140 : 220;
+      const points = width < 768 ? 64 : 96;
       for (let j = 0; j <= points; j++) {
         const theta = (j / points) * Math.PI * 2;
         
@@ -325,8 +353,7 @@ const initHeroWavesCanvas = () => {
     }
 
     // 2. TOP-LEFT & LEFT: Smooth Topographic Wireframe Arcs
-    // Flowing across the top and cascading around the identity text block
-    const numContour = width < 768 ? 35 : 55;
+    const numContour = width < 768 ? 18 : 28;
     const leftOriginX = width * 0.44 + (mouse.x - 0.5) * 25;
     const leftOriginY = -height * 0.24 + (mouse.y - 0.5) * 20;
 
@@ -334,7 +361,7 @@ const initHeroWavesCanvas = () => {
       const p = c / numContour;
       ctx.beginPath();
 
-      const steps = width < 768 ? 100 : 160;
+      const steps = width < 768 ? 45 : 70;
       for (let s = 0; s <= steps; s++) {
         const u = s / steps;
         
@@ -360,6 +387,19 @@ const initHeroWavesCanvas = () => {
     requestAnimationFrame(render);
   };
 
+  // Zero-cost off-screen CPU consumption via IntersectionObserver
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      const wasVisible = isVisible;
+      isVisible = entry.isIntersecting;
+      if (isVisible && !wasVisible) {
+        requestAnimationFrame(render);
+      }
+    },
+    { threshold: 0.05 }
+  );
+
+  observer.observe(canvas);
   render();
 };
 
@@ -679,39 +719,53 @@ const initServicesShowcase = () => {
 
   if (!stage || !deck || !cards.length) return;
 
-  // 3D Parallax Tilt & Dynamic Card Expansion on Hover
-  stage.addEventListener('mousemove', (e) => {
-    const rect = stage.getBoundingClientRect();
-    const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+  // 3D Parallax Tilt & Dynamic Card Expansion on Hover (RAF throttled)
+  let stageTicking = false;
+  stage.addEventListener(
+    'mousemove',
+    (e) => {
+      if (stageTicking) return;
+      stageTicking = true;
+      requestAnimationFrame(() => {
+        const rect = stage.getBoundingClientRect();
+        const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    // Subtle 3D tilt on the entire stage and deck
-    gsap.to(deck, {
-      rotateX: -normY * 7,
-      rotateY: normX * 8,
-      duration: 0.45,
-      ease: 'power2.out',
-      transformPerspective: 1800,
-    });
+        // Subtle 3D tilt on the entire stage and deck
+        gsap.to(deck, {
+          rotateX: -normY * 7,
+          rotateY: normX * 8,
+          duration: 0.45,
+          ease: 'power2.out',
+          overwrite: 'auto',
+          transformPerspective: 1800,
+        });
 
-    // Individual card depth shifts (fanning physics)
-    cards.forEach((card, i) => {
-      const depthMultiplier = (i + 1) * 3.5;
-      gsap.to(card, {
-        x: normX * depthMultiplier,
-        y: normY * depthMultiplier * 0.5,
-        duration: 0.5,
-        ease: 'power2.out',
+        // Individual card depth shifts (fanning physics)
+        cards.forEach((card, i) => {
+          const depthMultiplier = (i + 1) * 3.5;
+          gsap.to(card, {
+            x: normX * depthMultiplier,
+            y: normY * depthMultiplier * 0.5,
+            duration: 0.5,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+        });
+        stageTicking = false;
       });
-    });
-  });
+    },
+    { passive: true }
+  );
 
   stage.addEventListener('mouseleave', () => {
+    stageTicking = false;
     gsap.to(deck, {
       rotateX: 0,
       rotateY: 0,
       duration: 0.8,
       ease: 'elastic.out(1, 0.4)',
+      overwrite: 'auto',
     });
     cards.forEach((card) => {
       gsap.to(card, {
@@ -719,6 +773,7 @@ const initServicesShowcase = () => {
         y: 0,
         duration: 0.8,
         ease: 'elastic.out(1, 0.4)',
+        overwrite: 'auto',
       });
     });
   });
@@ -870,18 +925,20 @@ const initTopographicCanvas = () => {
   const ctx = canvas.getContext('2d');
   let width = (canvas.width = canvas.offsetWidth);
   let height = (canvas.height = canvas.offsetHeight);
+  let isVisible = false;
 
   const resize = () => {
     width = canvas.width = canvas.offsetWidth;
     height = canvas.height = canvas.offsetHeight;
   };
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
 
   let time = 0;
-  const lineCount = 14;
-  const dotsPerLine = 90;
+  const lineCount = 12;
+  const dotsPerLine = 70;
 
   const render = () => {
+    if (!isVisible) return;
     ctx.clearRect(0, 0, width, height);
     time += 0.007;
 
@@ -913,7 +970,18 @@ const initTopographicCanvas = () => {
     requestAnimationFrame(render);
   };
 
-  render();
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      const wasVisible = isVisible;
+      isVisible = entry.isIntersecting;
+      if (isVisible && !wasVisible) {
+        requestAnimationFrame(render);
+      }
+    },
+    { threshold: 0.05 }
+  );
+
+  observer.observe(canvas);
 };
 
 // ==========================================================================
@@ -1069,15 +1137,19 @@ const initSeoGeoProcess = (lenis) => {
   };
 
   // Pointer movement disturbance on the terrain
-  pf.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse' || !releve || !bgCanvas) return;
-    const rect = bgCanvas.getBoundingClientRect();
-    releve.setMouse(e.clientX - rect.left, e.clientY - rect.top);
-  });
+  pf.addEventListener(
+    'pointermove',
+    (e) => {
+      if (e.pointerType !== 'mouse' || !releve || !bgCanvas) return;
+      const rect = bgCanvas.getBoundingClientRect();
+      releve.setMouse(e.clientX - rect.left, e.clientY - rect.top);
+    },
+    { passive: true }
+  );
 
   pf.addEventListener('pointerleave', () => {
     releve?.setMouse(null);
-  });
+  }, { passive: true });
 
   // Step jumping on pill clicks
   pf.querySelectorAll('.ctrl-pill').forEach((pill) => {

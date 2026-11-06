@@ -4,53 +4,61 @@
 // Awwwards Magnetic Trailing Cursor
 // ==========================================================================
 
-// Disable native cursor on pointer devices
-@media (hover: hover) and (pointer: fine) {
-  body, a, button, [data-cursor], [data-magnetic] {
-    cursor: none !important;
-  }
+// Native cursor restored for instant 0ms hardware precision
+body {
+  cursor: default;
+}
+
+a, button, [data-cursor], [data-magnetic], [role="button"] {
+  cursor: pointer;
 }
 
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   z-index: $z-cursor;
   will-change: transform;
 
-  // 1. High-precision central dot
+  // 1. Sleek central accent dot (subtle, aligned with native cursor)
   &__dot {
     position: fixed;
-    top: -3px;
-    left: -3px;
-    width: 6px;
-    height: 6px;
+    top: -2px;
+    left: -2px;
+    width: 4px;
+    height: 4px;
     background-color: $color-accent-lime;
     border-radius: $radius-full;
-    transition: opacity 0.2s ease, transform 0.2s $ease-spring;
-    mix-blend-mode: difference;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.2s $ease-spring;
+    opacity: 0.7;
     z-index: 2;
   }
 
-  // 2. Smooth lagging follower ring / pill
+  // 2. High-performance trailing follower ring / pill (GPU accelerated, no backdrop-filter)
   &__follower {
     position: fixed;
-    top: -24px;
-    left: -24px;
-    width: 48px;
-    height: 48px;
-    border: 1.5px solid rgba(204, 255, 0, 0.6);
+    top: -20px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid rgba(204, 255, 0, 0.55);
+    background: rgba(204, 255, 0, 0.03);
     border-radius: $radius-full;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: width 0.35s $ease-out-expo, 
-                height 0.35s $ease-out-expo, 
-                border-color 0.25s ease, 
-                background-color 0.25s ease,
-                border-radius 0.35s $ease-out-expo;
-    backdrop-filter: blur(2px);
+    pointer-events: none;
+    transition: width 0.25s $ease-out-expo, 
+                height 0.25s $ease-out-expo, 
+                top 0.25s $ease-out-expo,
+                left 0.25s $ease-out-expo,
+                border-color 0.2s ease, 
+                background-color 0.2s ease,
+                box-shadow 0.2s ease,
+                border-radius 0.25s $ease-out-expo;
+    box-shadow: 0 0 14px rgba(204, 255, 0, 0.12);
     z-index: 1;
 
     // Inner contextual text pill
@@ -69,13 +77,13 @@
     }
   }
 
-  // State: Hovering Link / Button
+  // State: Hovering Link / Button (graceful expansion)
   &--hover &__follower {
-    width: 64px;
-    height: 64px;
-    top: -32px;
-    left: -32px;
-    background: rgba(204, 255, 0, 0.15);
+    width: 52px;
+    height: 52px;
+    top: -26px;
+    left: -26px;
+    background: rgba(204, 255, 0, 0.12);
     border-color: $color-accent-lime;
     box-shadow: $shadow-glow-lime;
   }
@@ -87,13 +95,13 @@
 
   // State: Active contextual badge (e.g. "VIEW", "EXPLORE", "DRAG")
   &--badge &__follower {
-    width: 88px;
-    height: 88px;
-    top: -44px;
-    left: -44px;
+    width: 80px;
+    height: 80px;
+    top: -40px;
+    left: -40px;
     background-color: $color-accent-lime;
     border-color: transparent;
-    box-shadow: 0 0 40px rgba(204, 255, 0, 0.5);
+    box-shadow: 0 0 32px rgba(204, 255, 0, 0.5);
 
     .cursor-label {
       opacity: 1;

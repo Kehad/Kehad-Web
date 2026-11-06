@@ -9,14 +9,15 @@
 .hero-creative {
   position: relative;
   height: 200vh;
-  background: radial-gradient(circle at 85% 35%, #15112c 0%, #080916 60%, #05060e 100%);
+  background: radial-gradient(circle at 88% 28%, #16122d 0%, #080918 55%, #05060f 100%);
   color: #ffffff;
   padding: 0;
 
-  // Pure CSS Sticky track that stays locked in viewport while user scrolls through the 3 subtitles
+  // Pure CSS Sticky track that stays locked in viewport while user scrolls through subtitles
   // This does NOT mutate DOM or add pin-spacers, leaving #seo-geo (.pf) 100% intact!
   &__track {
     position: sticky;
+    position: -webkit-sticky;
     top: 0;
     left: 0;
     width: 100%;
@@ -25,7 +26,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   // Background 3D Sinuous Parametric Purple Wave Canvas
@@ -38,17 +39,17 @@
     z-index: 1;
   }
 
-  // Content Container
+  // Content Container: positioned in upper-left quadrant matching user reference
   &__container {
     position: relative;
     z-index: 2;
     width: 100%;
     max-width: 1500px;
     margin: 0 auto;
-    padding: 7rem 4rem 5rem;
+    padding: clamp(6.5rem, 15vh, 9.5rem) clamp(2rem, 6.5vw, 6.5rem) 4rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     min-height: 100dvh;
 
@@ -61,11 +62,11 @@
   &__content {
     display: flex;
     align-items: flex-start;
-    gap: 1.5rem;
-    max-width: 900px;
+    gap: 1.6rem;
+    max-width: 860px;
 
     @media (max-width: 640px) {
-      gap: 1rem;
+      gap: 1.1rem;
     }
   }
 
@@ -74,17 +75,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 0.95rem; // Perfectly aligned with cap-height of "Hi, I'm"
+    padding-top: 0.65rem; // Aligned with cap-height of "Hi, I'm"
     flex-shrink: 0;
 
     .indicator-dot {
-      width: 12px;
-      height: 12px;
+      width: 11px;
+      height: 11px;
       background: #c084fc;
       border-radius: 50%;
       box-shadow:
         0 0 10px #a855f7,
-        0 0 20px rgba(168, 85, 247, 0.9),
+        0 0 20px rgba(168, 85, 247, 0.85),
         0 0 30px rgba(192, 132, 252, 0.5);
       animation: indicatorGlow 2.5s infinite ease-in-out alternate;
     }
@@ -92,12 +93,11 @@
     .indicator-track {
       position: relative;
       width: 2px;
-      margin-top: 8px;
+      margin-top: 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(168, 85, 247, 0.15);
-      border-radius: 2px;
+      background: transparent;
     }
 
     .indicator-line {
@@ -106,28 +106,15 @@
       background: linear-gradient(
         to bottom,
         #c084fc 0%,
-        #a855f7 65%,
+        #a855f7 60%,
         #7c3aed 100%
       );
       box-shadow:
-        0 0 8px rgba(192, 132, 252, 0.7),
-        0 0 16px rgba(168, 85, 247, 0.4);
+        0 0 8px rgba(192, 132, 252, 0.6),
+        0 0 16px rgba(168, 85, 247, 0.35);
       border-radius: 2px;
       position: relative;
       transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: #ffffff;
-        box-shadow: 0 0 6px #c084fc, 0 0 12px #a855f7;
-      }
     }
   }
 
@@ -139,7 +126,7 @@
 
   &__title {
     font-family: $font-body;
-    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-size: clamp(2.3rem, 4.5vw, 3.6rem);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.025em;
@@ -147,7 +134,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: baseline;
-    gap: 0.32em;
+    gap: 0.35em;
     white-space: nowrap;
 
     .greeting {
@@ -156,9 +143,9 @@
     }
 
     .name-gradient {
-      color: #a78bfa;
+      color: #9d72ff;
       font-weight: 700;
-      text-shadow: 0 0 24px rgba(167, 139, 250, 0.45);
+      text-shadow: 0 0 24px rgba(157, 114, 255, 0.45);
       -webkit-text-fill-color: initial;
       background: none;
     }
@@ -173,28 +160,33 @@
     display: flex;
     flex-direction: column;
     margin-top: 1.25rem;
-    gap: 0.75rem;
   }
 
   &__subtitle,
   .hero-section__subtitle {
     font-family: $font-body;
-    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
     font-weight: 400;
     color: #ffffff;
     margin: 0;
-    line-height: 1.45;
+    line-height: 1.42;
     letter-spacing: -0.015em;
     max-width: 32ch;
-    // Hidden by default when not reached
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    pointer-events: none;
-    transform: translateY(10px);
-    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                margin 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    // Initial state: hidden subtitles take ZERO space and are 100% invisible
+    &:not(.is-active) {
+      opacity: 0 !important;
+      max-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(10px) !important;
+      overflow: hidden !important;
+    }
 
     &.is-active {
       opacity: 0.85;
@@ -203,17 +195,21 @@
       overflow: visible;
       pointer-events: auto;
       transform: translateY(0);
+      margin-top: 0.65rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     &.is-current {
       opacity: 1;
       color: #ffffff;
-      font-weight: 500;
+      font-weight: 400;
       max-height: 120px;
       overflow: visible;
       pointer-events: auto;
       transform: translateY(0);
-      text-shadow: 0 0 16px rgba(192, 132, 252, 0.35);
     }
   }
 
@@ -321,7 +317,7 @@
   // Centered Bottom Mouse Scroll Indicator (Exact '0' shape from reference)
   &__scroll {
     position: absolute;
-    bottom: 2rem;
+    bottom: 2.5rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -329,7 +325,7 @@
     align-items: center;
     text-decoration: none;
     z-index: 5;
-    opacity: 0.85;
+    opacity: 0.75;
     transition: opacity 0.3s ease, transform 0.3s ease;
 
     &:hover {
@@ -338,9 +334,9 @@
     }
 
     .mouse-pill {
-      width: 22px;
-      height: 38px;
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      width: 20px;
+      height: 34px;
+      border: 1.8px solid rgba(226, 232, 240, 0.45);
       border-radius: 9999px;
       display: flex;
       justify-content: center;
@@ -348,8 +344,8 @@
       background: transparent;
 
       .mouse-wheel {
-        width: 3px;
-        height: 7px;
+        width: 2.5px;
+        height: 6px;
         background: #c084fc;
         border-radius: 9999px;
         box-shadow: 0 0 6px #a855f7;

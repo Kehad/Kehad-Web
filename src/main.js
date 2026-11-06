@@ -209,6 +209,14 @@ const initPageIntro = () => {
     .add(() => {
       initHeroEntrance();
     }, '-=0.5');
+
+  // Safety fallback to guarantee curtain disappears smoothly even if frames lag
+  setTimeout(() => {
+    if (transitionEl && transitionEl.style.display !== 'none') {
+      transitionEl.style.display = 'none';
+      initHeroEntrance();
+    }
+  }, 1600);
 };
 
 // ==========================================================================
@@ -234,8 +242,11 @@ const initHeroWavesCanvas = () => {
 
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = canvas.offsetWidth || window.innerWidth;
-    height = canvas.offsetHeight || window.innerHeight;
+    width = canvas.parentElement?.offsetWidth || window.innerWidth;
+    height = canvas.parentElement?.offsetHeight || window.innerHeight;
+    if (width < 320) width = window.innerWidth;
+    if (height < 320) height = window.innerHeight;
+
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -251,75 +262,98 @@ const initHeroWavesCanvas = () => {
   });
 
   const render = () => {
-    time += 0.007;
+    time += 0.005;
     mouse.x += (mouse.targetX - mouse.x) * 0.04;
     mouse.y += (mouse.targetY - mouse.y) * 0.04;
 
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Right-side 3D Vortex / Twisted Torus Wireframe Wave
-    // Faithfully matches the prominent swirling parametric loop in the user reference
-    const vortexCenterX = width * 0.84 + (mouse.x - 0.5) * 45;
-    const vortexCenterY = height * 0.46 + (mouse.y - 0.5) * 45;
-    const numVortexLines = 65;
+    // Deep Midnight Obsidian Base
+    ctx.fillStyle = '#05060f';
+    ctx.fillRect(0, 0, width, height);
 
-    for (let i = 0; i < numVortexLines; i++) {
-      const p = i / numVortexLines;
-      const angleOffset = p * Math.PI * 2.4 + time * 0.3;
-      const baseRadius = (width < 768 ? 140 : 270) * (0.28 + p * 0.95);
+    // Soft Purple Ambient Radial Glow behind the right vortex
+    const glowX = width * 0.88 + (mouse.x - 0.5) * 35;
+    const glowY = height * 0.28 + (mouse.y - 0.5) * 25;
+    const glow = ctx.createRadialGradient(glowX, glowY, 15, glowX, glowY, width < 768 ? 320 : 620);
+    glow.addColorStop(0, 'rgba(139, 92, 246, 0.20)');
+    glow.addColorStop(0.35, 'rgba(109, 40, 217, 0.08)');
+    glow.addColorStop(1, 'rgba(5, 6, 15, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, width, height);
 
+    // 1. RIGHT SIDE: 3D Torus Vortex / Folded Wireframe Aperture
+    // Exact visual match to the reference image
+    const cx = width * 0.89 + (mouse.x - 0.5) * 35;
+    const cy = height * 0.27 + (mouse.y - 0.5) * 25;
+    const numVortex = width < 768 ? 55 : 85;
+
+    for (let i = 0; i < numVortex; i++) {
+      const k = i / numVortex; // 0 (inner eye) to 1 (outer flare)
       ctx.beginPath();
-      const points = 72;
-      for (let j = 0; j <= points; j++) {
-        const u = (j / points) * Math.PI * 2;
-        // 3D Parametric Torus Spiral equation
-        const r = baseRadius * (1 + 0.38 * Math.sin(u * 2 + angleOffset));
-        const x3d = r * Math.cos(u + p * 1.2);
-        const y3d = r * Math.sin(u) * 0.65 + Math.sin(u * 3 + time * 0.8 + p * 3) * 42;
-        const z3d = r * Math.sin(u + p);
 
-        // Perspective depth projection
-        const fov = 420;
-        const scale = fov / (fov + z3d * 0.5);
-        const px = vortexCenterX + x3d * scale;
-        const py = vortexCenterY + y3d * scale;
+      const points = width < 768 ? 140 : 220;
+      for (let j = 0; j <= points; j++) {
+        const theta = (j / points) * Math.PI * 2;
+        
+        const baseR = (width < 768 ? 30 : 45) + Math.pow(k, 0.82) * (width < 768 ? 260 : 460);
+
+        const pinch = Math.sin(theta + 0.25 + time * 0.4) * 0.36;
+        const fold = Math.cos(theta * 2 - 0.15 + time * 0.2) * (0.26 + k * 0.36);
+        const ripple = Math.sin(theta * 3 + 0.7 + time * 0.5) * (0.07 + k * 0.05);
+
+        const r = baseR * (1 + pinch + fold + ripple);
+
+        const rot = -0.44;
+        const xLocal = r * Math.cos(theta) * 1.08;
+        const yLocal = r * Math.sin(theta) * 1.34;
+
+        const px = cx + xLocal * Math.cos(rot) - yLocal * Math.sin(rot);
+        const py = cy + xLocal * Math.sin(rot) + yLocal * Math.cos(rot);
 
         if (j === 0) ctx.moveTo(px, py);
         else ctx.lineTo(px, py);
       }
 
-      // Violet / Purple Glowing Wireframe Stroke
-      const alpha = 0.06 + Math.sin(p * Math.PI) * 0.38;
-      ctx.strokeStyle = `rgba(${168 + Math.floor(p * 35)}, ${85 + Math.floor(p * 50)}, 247, ${alpha})`;
-      ctx.lineWidth = 1;
+      const alpha = 0.04 + Math.sin(k * Math.PI) * 0.45;
+      const rVal = Math.floor(145 + k * 45);
+      const gVal = Math.floor(75 + k * 65);
+      const bVal = 252;
+      ctx.strokeStyle = `rgba(${rVal}, ${gVal}, ${bVal}, ${alpha.toFixed(3)})`;
+      ctx.lineWidth = 1.0;
       ctx.stroke();
     }
 
-    // 2. Left-side Sinuous Flowing Ribbon & Contour Lines (Wrapping around the identity block)
-    const numRibbons = 46;
-    for (let i = 0; i < numRibbons; i++) {
-      const p = i / numRibbons;
+    // 2. TOP-LEFT & LEFT: Smooth Topographic Wireframe Arcs
+    // Flowing across the top and cascading around the identity text block
+    const numContour = width < 768 ? 35 : 55;
+    const leftOriginX = width * 0.44 + (mouse.x - 0.5) * 25;
+    const leftOriginY = -height * 0.24 + (mouse.y - 0.5) * 20;
+
+    for (let c = 0; c < numContour; c++) {
+      const p = c / numContour;
       ctx.beginPath();
-      const steps = 70;
+
+      const steps = width < 768 ? 100 : 160;
       for (let s = 0; s <= steps; s++) {
-        const tStep = s / steps;
-        const x = tStep * width * 0.85 - width * 0.05;
+        const u = s / steps;
+        
+        const angle = 0.65 + u * 2.35;
+        const rBase = (180 + p * (width < 768 ? 260 : 440)) * (0.65 + u * 1.05);
 
-        // Flowing harmonic curves arching from upper left around the greeting
-        const wave1 = Math.sin(tStep * 2.8 + time * 0.8 + p * 1.8) * (50 + p * 40);
-        const wave2 = Math.cos(tStep * 1.6 - time * 0.5 + p * 1.4) * 35;
-        const wave3 = Math.sin(tStep * 4.2 + time) * 15;
+        const wave = Math.sin(u * 4.2 + p * 2.8 + time * 0.5) * (25 + p * 18)
+                   + Math.cos(u * 2.2 - p * 1.5 - time * 0.3) * 22;
 
-        const baseY = height * (0.04 + p * 0.7) + (mouse.y - 0.5) * (p * 35);
-        const y = baseY + wave1 + wave2 + wave3;
+        const px = leftOriginX - Math.cos(angle) * (rBase + wave);
+        const py = leftOriginY + Math.sin(angle) * (rBase + wave) * 1.35;
 
-        if (s === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        if (s === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
       }
 
-      const alpha = 0.03 + Math.sin(p * Math.PI) * 0.22;
-      ctx.strokeStyle = `rgba(147, 112, 219, ${alpha})`;
-      ctx.lineWidth = 1;
+      const alpha = 0.025 + Math.sin(p * Math.PI) * 0.22;
+      ctx.strokeStyle = `rgba(157, 122, 238, ${alpha.toFixed(3)})`;
+      ctx.lineWidth = 0.95;
       ctx.stroke();
     }
 
@@ -456,42 +490,12 @@ const initHeroScrollSubtitles = () => {
 };
 
 // ==========================================================================
-// 4b. Typewriter Effect cycling between 'Kehad' and 'Kehinde Adigun'
+// 4b. Hero Name: Static & Crisp to prevent layout shifts
 // ==========================================================================
 const initTypewriter = () => {
   const el = document.getElementById('typedName');
   if (!el) return;
-
-  const words = ['Kehad', 'Kehinde Adigun'];
-  let wordIndex = 0;
-  let charIndex = words[0].length;
-  let isDeleting = false;
-
-  const type = () => {
-    const currentWord = words[wordIndex];
-    if (isDeleting) {
-      charIndex--;
-      el.textContent = currentWord.substring(0, charIndex);
-    } else {
-      charIndex++;
-      el.textContent = currentWord.substring(0, charIndex);
-    }
-
-    let delay = isDeleting ? 45 : 90;
-
-    if (!isDeleting && charIndex === currentWord.length) {
-      delay = 3200;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      delay = 350;
-    }
-
-    setTimeout(type, delay);
-  };
-
-  setTimeout(type, 3500);
+  el.textContent = 'Kehad';
 };
 // ==========================================================================
 // 5. Junca Studio Exact Projects Section & Row Transitions
@@ -1527,6 +1531,7 @@ const initFooterSectionAnimation = (lenis) => {
 // Bootstrap Architecture on DOM Ready
 // ==========================================================================
 const init = () => {
+  initHeroWavesCanvas();
   const lenis = initSmoothScroll();
   initMagneticCursor();
   initMorphingMenu();

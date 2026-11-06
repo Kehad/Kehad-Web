@@ -3,14 +3,14 @@
 // Enables visitor OAuth 2.0 PKCE login, playlist retrieval, and playback
 // ==========================================================================
 
-const SPOTIFY_CLIENT_ID_KEY = 'kehad_spotify_client_id';
+const SPOTIFY_CLIENT_ID_KEY = '993fe9ccf251424583d1b79eae09def1';
 const SPOTIFY_ACCESS_TOKEN_KEY = 'kehad_spotify_access_token';
 const SPOTIFY_REFRESH_TOKEN_KEY = 'kehad_spotify_refresh_token';
 const SPOTIFY_EXPIRES_AT_KEY = 'kehad_spotify_expires_at';
 const SPOTIFY_VERIFIER_KEY = 'kehad_spotify_code_verifier';
 
 // Default / fallback Client ID (can be configured by visitor in settings)
-export const DEFAULT_CLIENT_ID = '331c1955b2534a74b0fa06a233633dcb';
+export const DEFAULT_CLIENT_ID = '993fe9ccf251424583d1b79eae09def1';
 
 export const getClientId = () => {
   return localStorage.getItem(SPOTIFY_CLIENT_ID_KEY) || DEFAULT_CLIENT_ID;
@@ -287,3 +287,4 @@ export const DEMO_PLAYLISTS = [
     uri: 'spotify:playlist:37i9dQZF1DWZeKCadgRdKQ',
   },
 ];
+

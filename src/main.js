@@ -1447,18 +1447,30 @@ const initSkillsScrollAnimation = () => {
   // 2. 3D Keyboard Chassis Subtle Zoom & Elevation Unfold
   const chassis = document.querySelector('.keyboard-chassis');
   if (chassis) {
+    const getTargetValues = () => {
+      const w = window.innerWidth;
+      if (w < 380) return { scale: 0.54, rotX: 42, rotZ: -16 };
+      if (w < 480) return { scale: 0.62, rotX: 44, rotZ: -18 };
+      if (w < 640) return { scale: 0.72, rotX: 48, rotZ: -24 };
+      if (w < 1024) return { scale: 0.90, rotX: 55, rotZ: -35 };
+      return { scale: 1.0, rotX: 55, rotZ: -35 };
+    };
+
+    const target = getTargetValues();
+
     gsap.fromTo(
       chassis,
-      { scale: 0.86, rotateX: 68, opacity: 0 },
+      { scale: target.scale * 0.88, rotateX: target.rotX + 12, rotateZ: target.rotZ, opacity: 0 },
       {
-        scale: 0.95,
-        rotateX: 55,
+        scale: target.scale,
+        rotateX: target.rotX,
+        rotateZ: target.rotZ,
         opacity: 1,
         duration: 1.2,
         ease: 'expo.out',
         scrollTrigger: {
           trigger: '.keyboard-stage',
-          start: 'top 82%',
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
         },
       }

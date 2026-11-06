@@ -4,6 +4,13 @@
 // Awwwards Magnetic Trailing Cursor
 // ==========================================================================
 
+// Disable custom virtual cursor on touch / mobile devices
+@media (hover: none) or (pointer: coarse), (max-width: 768px) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
 // Native cursor restored for instant 0ms hardware precision
 body {
   cursor: default;

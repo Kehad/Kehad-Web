@@ -1,6 +1,6 @@
 // ==========================================================================
 // Spotify Fixed Music Widget Controller
-// Manages bottom pill toggle, expanded drawer, PKCE OAuth, & IFrame player
+// Manages bottom pill toggle, expanded compact drawer, PKCE OAuth, & player
 // ==========================================================================
 
 import {
@@ -10,9 +10,6 @@ import {
   fetchUserProfile,
   fetchUserPlaylists,
   logoutSpotify,
-  getClientId,
-  setClientId,
-  DEMO_PLAYLISTS,
 } from '../services/spotify.js';
 
 export const initSpotifyWidget = async () => {
@@ -23,15 +20,15 @@ export const initSpotifyWidget = async () => {
   const userAvatar = document.getElementById('spotifyUserAvatar');
   const userName = document.getElementById('spotifyUserName');
   const userStatus = document.getElementById('spotifyUserStatus');
+  const playerContainer = document.getElementById('spotifyPlayerContainer');
   const iframe = document.getElementById('spotifyPlayerIframe');
   const playlistsSection = document.getElementById('spotifyPlaylistsSection');
   const pillLabel = document.getElementById('spotifyPillLabel');
 
   if (!pill || !drawer || !closeBtn || !iframe || !playlistsSection) return;
 
-  let activePlaylistId = DEMO_PLAYLISTS[0].id;
+  let activePlaylistId = null;
   let userPlaylists = [];
-  let isDemoMode = false;
 
   // 1. Toggle Drawer Open / Close
   const openDrawer = () => {
@@ -49,7 +46,7 @@ export const initSpotifyWidget = async () => {
   pill.addEventListener('click', openDrawer);
   closeBtn.addEventListener('click', closeDrawer);
 
-  // Close when clicking outside on mobile/desktop
+  // Close when clicking outside drawer & pill
   document.addEventListener('click', (e) => {
     const path = e.composedPath ? e.composedPath() : [];
     const isInside = path.includes(drawer) || path.includes(pill);
@@ -58,11 +55,12 @@ export const initSpotifyWidget = async () => {
     }
   });
 
-  // 2. Play a specific playlist in the embedded player
+  // 2. Play a specific playlist in the compact embedded player
   const playPlaylist = (playlist) => {
     activePlaylistId = playlist.id;
+    if (playerContainer) playerContainer.style.display = 'block';
     iframe.src = `https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator&theme=0`;
-    pillLabel.textContent = `Playing: ${playlist.name}`;
+    pillLabel.textContent = `${playlist.name}`;
 
     // Highlight active item in DOM
     const items = playlistsSection.querySelectorAll('.spotify-drawer__item');
@@ -71,7 +69,7 @@ export const initSpotifyWidget = async () => {
     });
   };
 
-  // 3. Render Playlist List
+  // 3. Render User Playlist List
   const renderPlaylists = (playlists, title = 'Your Playlists') => {
     let html = `
       <div class="spotify-drawer__section-title">
@@ -90,10 +88,10 @@ export const initSpotifyWidget = async () => {
           <img src="${cover}" alt="${p.name}" class="item-cover" loading="lazy" />
           <div class="item-meta">
             <div class="item-title">${p.name}</div>
-            <div class="item-desc">${p.description ? p.description.slice(0, 45) + '...' : count}</div>
+            <div class="item-desc">${p.description ? p.description.slice(0, 36) + '...' : count}</div>
           </div>
           <button class="item-play-btn" aria-label="Play ${p.name}">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
           </button>
@@ -104,7 +102,7 @@ export const initSpotifyWidget = async () => {
     html += `</ul>`;
     playlistsSection.innerHTML = html;
 
-    // Attach click listeners
+    // Attach click listeners to play playlists
     const items = playlistsSection.querySelectorAll('.spotify-drawer__item');
     items.forEach((item) => {
       item.addEventListener('click', () => {
@@ -115,73 +113,39 @@ export const initSpotifyWidget = async () => {
     });
   };
 
-  // 4. Render Logged-Out / Connect View
+  // 4. Render Logged-Out / Connect View (Clean, compact, no dummy playlists or settings)
   const renderConnectView = () => {
-    userAvatar.style.display = 'none';
-    logoutBtn.style.display = 'none';
-    userName.textContent = 'Spotify Library';
-    userStatus.textContent = 'Guest / Offline';
+    if (userAvatar) userAvatar.style.display = 'none';
+    if (logoutBtn) logoutBtn.style.display = 'none';
+    if (playerContainer) playerContainer.style.display = 'none';
+    iframe.src = '';
+
+    userName.textContent = 'Spotify';
+    userStatus.textContent = 'Not Connected';
     userStatus.style.color = '#94a3b8';
+    pillLabel.textContent = 'Spotify Playlists';
 
     playlistsSection.innerHTML = `
       <div class="spotify-drawer__login-prompt">
         <svg class="spotify-big-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.494 17.307c-.215.353-.675.466-1.028.25-2.817-1.722-6.363-2.112-10.539-1.158-.403.093-.807-.156-.899-.56-.093-.404.156-.808.56-.9 4.568-1.045 8.49-.607 11.656 1.33.353.216.466.676.25 1.038zm1.467-3.264c-.27.44-.849.578-1.288.307-3.226-1.982-8.143-2.556-11.958-1.398-.497.15-1.027-.132-1.178-.63-.15-.497.132-1.027.63-1.178 4.364-1.325 9.775-.688 13.487 1.592.44.27.578.848.307 1.288zm.126-3.41c-3.868-2.297-10.248-2.508-13.942-1.387-.593.18-1.221-.157-1.4-.75-.181-.594.156-1.222.75-1.402 4.246-1.289 11.287-1.042 15.748 1.605.534.317.708 1.011.391 1.545-.316.533-1.01.708-1.547.39z"/>
         </svg>
-        <h3 class="prompt-title">Connect Your Spotify</h3>
+        <h3 class="prompt-title">Connect Spotify</h3>
         <p class="prompt-desc">
-          Authorize your Spotify account to load and play your personal playlists right here without leaving this page.
+          Sign in to Spotify to load and listen to your personal playlists directly in this player.
         </p>
-
         <button class="btn-connect-spotify" id="connectSpotifyBtn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.494 17.307c-.215.353-.675.466-1.028.25-2.817-1.722-6.363-2.112-10.539-1.158-.403.093-.807-.156-.899-.56-.093-.404.156-.808.56-.9 4.568-1.045 8.49-.607 11.656 1.33.353.216.466.676.25 1.038zm1.467-3.264c-.27.44-.849.578-1.288.307-3.226-1.982-8.143-2.556-11.958-1.398-.497.15-1.027-.132-1.178-.63-.15-.497.132-1.027.63-1.178 4.364-1.325 9.775-.688 13.487 1.592.44.27.578.848.307 1.288zm.126-3.41c-3.868-2.297-10.248-2.508-13.942-1.387-.593.18-1.221-.157-1.4-.75-.181-.594.156-1.222.75-1.402 4.246-1.289 11.287-1.042 15.748 1.605.534.317.708 1.011.391 1.545-.316.533-1.01.708-1.547.39z"/>
           </svg>
           <span>Connect with Spotify</span>
         </button>
-
-        <button class="btn-preview-demo" id="previewDemoBtn">
-          Browse Demo Playlists
-        </button>
-
-        <div class="client-settings">
-          <button class="settings-toggle" id="settingsToggle">Client ID Settings ⚙️</button>
-          <div class="settings-panel" id="settingsPanel">
-            <input type="text" id="clientIdInput" placeholder="Enter Spotify Client ID" value="${getClientId()}" />
-            <button class="btn-save-id" id="saveClientIdBtn">Save Client ID</button>
-          </div>
-        </div>
       </div>
     `;
 
-    // Connect button
+    // Connect button click
     document.getElementById('connectSpotifyBtn')?.addEventListener('click', () => {
       initiateSpotifyLogin();
-    });
-
-    // Preview demo button
-    document.getElementById('previewDemoBtn')?.addEventListener('click', () => {
-      isDemoMode = true;
-      userStatus.textContent = 'Demo / Curated Mode';
-      userStatus.style.color = '#c084fc';
-      renderPlaylists(DEMO_PLAYLISTS, 'Curated Developer Playlists');
-    });
-
-    // Client ID settings
-    const settingsToggle = document.getElementById('settingsToggle');
-    const settingsPanel = document.getElementById('settingsPanel');
-    const clientIdInput = document.getElementById('clientIdInput');
-    const saveClientIdBtn = document.getElementById('saveClientIdBtn');
-
-    settingsToggle?.addEventListener('click', () => {
-      settingsPanel?.classList.toggle('is-visible');
-    });
-
-    saveClientIdBtn?.addEventListener('click', () => {
-      const val = clientIdInput?.value;
-      setClientId(val);
-      alert('Spotify Client ID saved!');
-      settingsPanel?.classList.remove('is-visible');
     });
   };
 
@@ -208,23 +172,19 @@ export const initSpotifyWidget = async () => {
 
     logoutBtn.style.display = 'block';
 
-    // Fetch Playlists
-    userPlaylists = await fetchUserPlaylists(25);
+    // Fetch User's Real Playlists
+    userPlaylists = await fetchUserPlaylists(30);
 
-    if (userPlaylists.length > 0) {
+    if (userPlaylists && userPlaylists.length > 0) {
       renderPlaylists(userPlaylists, 'Your Playlists');
-      // Set first playlist as initial player item
       playPlaylist(userPlaylists[0]);
     } else {
+      if (playerContainer) playerContainer.style.display = 'none';
       playlistsSection.innerHTML = `
-        <div style="text-align: center; padding: 2rem; color: #94a3b8; font-family: var(--font-body);">
-          <p>No playlists found in your account.</p>
-          <button class="btn-preview-demo" id="fallbackDemoBtn">Explore Demo Playlists</button>
+        <div class="spotify-drawer__empty">
+          <p>No playlists found in your Spotify account.</p>
         </div>
       `;
-      document.getElementById('fallbackDemoBtn')?.addEventListener('click', () => {
-        renderPlaylists(DEMO_PLAYLISTS, 'Curated Playlists');
-      });
     }
   };
 

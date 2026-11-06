@@ -259,34 +259,3 @@ export const fetchUserPlaylists = async (limit = 20) => {
   return data.items || [];
 };
 
-// ==========================================================================
-// Curated Demo / Fallback Playlists (For instant preview before login)
-// ==========================================================================
-
-export const DEMO_PLAYLISTS = [
-  {
-    id: '37i9dQZF1DXdLEN7aqioXM',
-    name: 'Coding & Focus Beats',
-    description: 'Chilled beats, lofi study, and deep techno flow for development.',
-    tracks: { total: 100 },
-    images: [{ url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&h=300&fit=crop' }],
-    uri: 'spotify:playlist:37i9dQZF1DXdLEN7aqioXM',
-  },
-  {
-    id: '37i9dQZF1DX4t95PaoR1To',
-    name: 'Synthwave & Cyberpunk Drive',
-    description: 'Neon retrosynth, darksynth, and nocturnal electronic energy.',
-    tracks: { total: 75 },
-    images: [{ url: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&h=300&fit=crop' }],
-    uri: 'spotify:playlist:37i9dQZF1DX4t95PaoR1To',
-  },
-  {
-    id: '37i9dQZF1DWZeKCadgRdKQ',
-    name: 'Deep Focus Ambient',
-    description: 'Atmospheric soundscapes and minimal ambient textures.',
-    tracks: { total: 80 },
-    images: [{ url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop' }],
-    uri: 'spotify:playlist:37i9dQZF1DWZeKCadgRdKQ',
-  },
-];
-

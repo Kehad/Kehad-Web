@@ -3,14 +3,16 @@
 // Enables visitor OAuth 2.0 PKCE login, playlist retrieval, and playback
 // ==========================================================================
 
-const SPOTIFY_CLIENT_ID_STORAGE_KEY = 'kehad_spotify_client_id';
-const SPOTIFY_ACCESS_TOKEN_KEY = 'kehad_spotify_access_token';
-const SPOTIFY_REFRESH_TOKEN_KEY = 'kehad_spotify_refresh_token';
-const SPOTIFY_EXPIRES_AT_KEY = 'kehad_spotify_expires_at';
-const SPOTIFY_VERIFIER_KEY = 'kehad_spotify_code_verifier';
-
 // Default Client ID loaded securely from environment (.env)
 export const DEFAULT_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
+export const SPOTIFY_CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET || '';
+
+// Storage identifier keys configured via environment (.env) with safe defaults
+const SPOTIFY_CLIENT_ID_STORAGE_KEY = import.meta.env.VITE_SPOTIFY_CLIENT_ID_KEY;
+const SPOTIFY_ACCESS_TOKEN_KEY = import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN_KEY;
+const SPOTIFY_REFRESH_TOKEN_KEY = import.meta.env.VITE_SPOTIFY_REFRESH_TOKEN_KEY;
+const SPOTIFY_EXPIRES_AT_KEY = import.meta.env.VITE_SPOTIFY_EXPIRES_AT_KEY;
+const SPOTIFY_VERIFIER_KEY = import.meta.env.VITE_SPOTIFY_VERIFIER_KEY;
 
 export const getClientId = () => {
   return localStorage.getItem(SPOTIFY_CLIENT_ID_STORAGE_KEY) || DEFAULT_CLIENT_ID;

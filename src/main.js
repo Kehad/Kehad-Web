@@ -9,6 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { creerReleve } from './scripts/releve.js';
 import { seoGeoSteps } from './data/seoGeoSteps.js';
+import { initExperienceShowcase } from './scripts/experience.js';
 import { keyboardGrid } from './data/skillsData.js';
 import { initSpotifyWidget } from './scripts/spotifyWidget.js';
 
@@ -646,60 +647,114 @@ const initProjectsSection = () => {
 };
 
 // ==========================================================================
-// 6. Fullscreen Morphing Menu Overlay Animation
+// 6. Flau Udo Scaled-Down Hero Card & Side Navigation Interaction
+// Modeled after https://flau-template.webflow.io/
 // ==========================================================================
-const initMorphingMenu = () => {
+const initMorphingMenu = (lenis) => {
   const toggleBtn = document.getElementById('menuToggle');
+  const toggleText = document.getElementById('menuToggleText');
   const overlay = document.getElementById('navOverlay');
-  const menuPath = document.getElementById('menuPath');
   const menuLinks = document.querySelectorAll('.nav-overlay__item a');
-  const menuInner = document.querySelector('.nav-overlay__inner');
+  const pageWrapperOverlay = document.getElementById('pageWrapperOverlay');
 
-  if (!toggleBtn || !overlay || !menuPath || !menuInner) return;
+  if (!toggleBtn || !overlay) return;
 
   let isOpen = false;
 
-  const openTimeline = gsap.timeline({ paused: true });
+  const openMenu = () => {
+    isOpen = true;
 
-  openTimeline
-    .set(overlay, { visibility: 'visible', pointerEvents: 'auto' })
-    .to(menuPath, {
-      attr: { d: 'M 0 0 L 100 0 L 100 100 C 50 100 50 100 0 100 Z' },
-      duration: 0.7,
-      ease: 'power4.in',
-    })
-    .to(menuPath, {
-      attr: { d: 'M 0 0 L 100 0 L 100 100 C 50 100 50 100 0 100 Z' },
-      duration: 0.3,
-    })
-    .to(menuInner, { opacity: 1, duration: 0.4 }, '-=0.2')
-    .to(
+    // If scrolled past hero, instantly reset scroll to top so hero card is visible
+    if (window.scrollY > 40) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    lenis?.stop();
+    document.body.classList.add('menu-open');
+    toggleBtn.classList.add('is-active');
+    if (toggleText) toggleText.textContent = 'Close';
+    overlay.setAttribute('aria-hidden', 'false');
+
+    // Stagger navigation items in
+    gsap.fromTo(
       menuLinks,
+      { opacity: 0, x: -30 },
       {
-        y: 0,
-        duration: 0.8,
-        stagger: 0.08,
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        stagger: 0.07,
         ease: 'power3.out',
-      },
-      '-=0.3'
+        delay: 0.15,
+      }
     );
+  };
+
+  const closeMenu = (callback) => {
+    isOpen = false;
+    document.body.classList.remove('menu-open');
+    toggleBtn.classList.remove('is-active');
+    if (toggleText) toggleText.textContent = 'Menu';
+    overlay.setAttribute('aria-hidden', 'true');
+
+    gsap.to(menuLinks, {
+      opacity: 0,
+      x: -15,
+      duration: 0.25,
+      ease: 'power2.in',
+    });
+
+    setTimeout(() => {
+      lenis?.start();
+      ScrollTrigger.refresh();
+      if (typeof callback === 'function') callback();
+    }, 750);
+  };
 
   const toggleMenu = () => {
-    isOpen = !isOpen;
     if (isOpen) {
-      openTimeline.play();
+      closeMenu();
     } else {
-      openTimeline.reverse();
+      openMenu();
     }
   };
 
   toggleBtn.addEventListener('click', toggleMenu);
 
-  // Close menu on link click
-  menuLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      if (isOpen) toggleMenu();
+  // Clicking the scaled hero card closes the menu
+  if (pageWrapperOverlay) {
+    pageWrapperOverlay.addEventListener('click', () => {
+      if (isOpen) closeMenu();
     });
+  }
+
+  // Close menu & smoothly navigate to anchor when link is clicked
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        closeMenu(() => {
+          const target = document.querySelector(href);
+          if (target) {
+            if (lenis) {
+              lenis.scrollTo(target, { duration: 1.2, offset: -20 });
+            } else {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      } else {
+        if (isOpen) closeMenu();
+      }
+    });
+  });
+
+  // ESC key closes menu
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) {
+      closeMenu();
+    }
   });
 };
 
@@ -1618,10 +1673,11 @@ const init = () => {
   initHeroWavesCanvas();
   const lenis = initSmoothScroll();
   initMagneticCursor();
-  initMorphingMenu();
+  initMorphingMenu(lenis);
   initTypewriter();
   initKeyboard3d();
   initSkillsScrollAnimation();
+  initExperienceShowcase();
   initSeoGeoProcess(lenis);
   initFooterSectionAnimation(lenis);
   initPageIntro();

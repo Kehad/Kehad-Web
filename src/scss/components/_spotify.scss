@@ -105,6 +105,13 @@
   }
 }
 
+body.menu-open .spotify-pill {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.95) !important;
+  transition: all 0.3s ease;
+}
+
 // 2. Expanded Compact Drawer (Small, Sleek Bottom Box)
 .spotify-drawer {
   position: fixed;

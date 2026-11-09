@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Revolving Showcase &amp; Monolith Cube — Kehad</title>
+
+    <!-- Google Fonts: Syne, JetBrains Mono, Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      /* Subtle Vignette & Glow */
+      .stage-backdrop {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at 50% 48%, rgba(26, 26, 40, 0.45) 0%, #000000 75%);
+        z-index: 1;
+      }
+
+      /* Navigation Return / Brand (Header) */
+      .showcase-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 24px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 100;
+        mix-blend-mode: difference;
+      }
+
+      .showcase-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: #ffffff;
+        font-family: 'Syne', sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .brand-dot {
+        width: 8px;
+        height: 8px;
+        background: #c084fc;
+        border-radius: 50%;
+        box-shadow: 0 0 12px #a855f7;
+      }
+
+      .showcase-close {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #ffffff;
+        text-decoration: none;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 8px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 9999px;
+        backdrop-filter: blur(12px);
+        transition: all 0.3s ease;
+      }
+
+      .showcase-close:hover {
+        background: rgba(168, 85, 247, 0.2);
+        border-color: rgba(192, 132, 252, 0.6);
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+      }
+
+      /* Main 3D Viewport Stage */
+      .stage-container {
+        position: relative;
+        width: 100vw;
+        height: 80vh;
+        min-height: 580px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 1200px;
+        perspective-origin: 50% 46%;
+        z-index: 2;
+        cursor: grab;
+      }
+
+      .stage-container:active {
+        cursor: grabbing;
+      }
+
+      /* 3D World / Rotating Carousel Ring */
+      .carousel-world {
+        position: relative;
+        width: 0;
+        height: 0;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+
+      /* =================================================================== */
+      /* Central 3D Cube (Monolith) */
+      /* =================================================================== */
+      .central-cube {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        top: -110px;
+        left: -110px;
+        transform-style: preserve-3d;
+        pointer-events: none;
+      }
+
+      .cube-face {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        background: #0d0e14;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.9);
+      }
+
+      .cube-face--front  { transform: rotateY(0deg) translateZ(110px); background: linear-gradient(180deg, #181924 0%, #0d0e14 100%); }
+      .cube-face--back   { transform: rotateY(180deg) translateZ(110px); background: #08090e; }
+      .cube-face--right  { transform: rotateY(90deg) translateZ(110px); background: linear-gradient(180deg, #13141d 0%, #090a10 100%); }
+      .cube-face--left   { transform: rotateY(-90deg) translateZ(110px); background: linear-gradient(180deg, #151722 0%, #0a0b12 100%); }
+      .cube-face--top    { 
+        transform: rotateX(90deg) translateZ(110px); 
+        background: radial-gradient(circle at 50% 50%, #2a2d3e 0%, #151622 100%); 
+        border-color: rgba(255, 255, 255, 0.32);
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+      }
+      .cube-face--bottom { transform: rotateX(-90deg) translateZ(110px); background: #030306; box-shadow: 0 0 60px rgba(0, 0, 0, 0.95); }
+
+      /* Subtle floor shadow under cube */
+      .cube-shadow {
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        top: -190px;
+        left: -190px;
+        transform: rotateX(90deg) translateZ(-130px);
+        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      /* =================================================================== */
+      /* Revolving 3D Project Cards */
+      /* =================================================================== */
+      .project-card {
+        position: absolute;
+        width: 340px;
+        height: 220px;
+        top: -110px;
+        left: -170px;
+        transform-style: preserve-3d;
+        border-radius: 6px;
+        cursor: pointer;
+        will-change: transform, opacity;
+      }
+
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        border-radius: 6px;
+      }
+
+      .card-face {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      /* Front Face (Active Browser Frame) */
+      .card-face--front {
+        background: #090a12;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.85);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Back Face (Sleek Dark Obsidian Wireframe Frame matching reference) */
+      .card-face--back {
+        transform: rotateY(180deg);
+        background: rgba(6, 7, 10, 0.7);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card-back-watermark {
+        display: none;
+      }
+
+      .project-card:hover .card-face {
+        border-color: rgba(255, 255, 255, 0.65);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 255, 255, 0.18);
+      }
+
+      /* Browser Frame UI inside front cards */
+      .card-browser {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
+
+      .card-browser__bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      /* Highlight Card 1 (TaxNaija with crisp white header matching reference) */
+      .project-card--highlight .card-browser__bar {
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .project-card--highlight .card-browser__dot {
+        background: #94a3b8;
+      }
+
+      .project-card--highlight .card-browser__url {
+        background: #f1f5f9;
+        color: #475569;
+      }
+
+      .card-browser__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .card-browser__url {
+        flex: 1;
+        margin: 0 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 3px;
+        height: 14px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: rgba(255, 255, 255, 0.55);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .card-browser__body {
+        flex: 1;
+        position: relative;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background: #08090e;
+        overflow: hidden;
+      }
+
+      .card-preview-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.45;
+        transition: opacity 0.35s ease, transform 0.5s ease;
+      }
+
+      .project-card:hover .card-preview-img {
+        opacity: 0.8;
+        transform: scale(1.05);
+      }
+
+      .card-info {
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(180deg, transparent 0%, rgba(8, 9, 14, 0.95) 50%);
+        padding: 10px 0 0;
+      }
+
+      .card-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #c084fc;
+        margin-bottom: 2px;
+      }
+
+      .card-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+      }
+
+      /* =================================================================== */
+      /* Bottom "VIEW ALL WORKS" Button */
+      /* =================================================================== */
+      .action-footer {
+        position: relative;
+        z-index: 10;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .btn-view-works {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 14px 38px;
+        color: #ffffff;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-view-works::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: -1;
+      }
+
+      .btn-view-works:hover {
+        color: #000000;
+        border-color: #ffffff;
+        box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
+      }
+
+      .btn-view-works:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      /* Drag instructions */
+      .drag-hint {
+        position: absolute;
+        top: 85px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      @media (max-width: 768px) {
+        .project-card {
+          width: 260px;
+          height: 165px;
+          top: -82px;
+          left: -130px;
+        }
+
+        .central-cube {
+          width: 140px;
+          height: 140px;
+          top: -70px;
+          left: -70px;
+        }
+
+        .cube-face {
+          width: 140px;
+          height: 140px;
+        }
+
+        .cube-face--front  { transform: rotateY(0deg) translateZ(70px); }
+        .cube-face--back   { transform: rotateY(180deg) translateZ(70px); }
+        .cube-face--right  { transform: rotateY(90deg) translateZ(70px); }
+        .cube-face--left   { transform: rotateY(-90deg) translateZ(70px); }
+        .cube-face--top    { transform: rotateX(90deg) translateZ(70px); }
+        .cube-face--bottom { transform: rotateX(-90deg) translateZ(70px); }
+
+        .btn-view-works {
+          padding: 12px 26px;
+          font-size: 11px;
+        }
+
+        .showcase-nav {
+          padding: 16px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage-backdrop"></div>
+
+    <!-- Header / Brand & Return Link -->
+    <header class="showcase-nav">
+      <a href="index.html" class="showcase-brand">
+        <span class="brand-dot"></span>
+        <span>1024</span>
+      </a>
+      <a href="index.html#seo-geo" class="showcase-close">
+        <span>Back to Portfolio</span>
+        <span>✕</span>
+      </a>
+    </header>
+
+    <div class="drag-hint">Drag / Swipe to Rotate 3D Showcase</div>
+
+    <!-- 3D Interactive Stage -->
+    <div class="stage-container" id="stageContainer">
+      <div class="carousel-world" id="carouselWorld">
+        
+        <!-- Central 3D Cube Monolith -->
+        <div class="cube-shadow"></div>
+        <div class="central-cube" id="centralCube">
+          <div class="cube-face cube-face--front"></div>
+          <div class="cube-face cube-face--back"></div>
+          <div class="cube-face cube-face--right"></div>
+          <div class="cube-face cube-face--left"></div>
+          <div class="cube-face cube-face--top"></div>
+          <div class="cube-face cube-face--bottom"></div>
+        </div>
+
+        <!-- 8 Orbiting Project Cards (Double Sided) -->
+
+        <!-- Card 1 (TaxNaija - Highlight card matching reference image) -->
+        <div class="project-card project-card--highlight" data-index="0" data-url="https://taxnaija.gov.ng">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">taxnaija.gov.ng • live</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/taxnaija.png" alt="TaxNaija" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 01 • Finance</div>
+                    <div class="card-title">TaxNaija Platform</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">01 // TAXNAIJA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 (Piccon) -->
+        <div class="project-card" data-index="1" data-url="https://piccon.app">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">piccon.app</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/Piccon.png" alt="Piccon" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 02 • AI Vision</div>
+                    <div class="card-title">Piccon Intelligence</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">02 // PICCON</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 (Kehad Calculator) -->
+        <div class="project-card" data-index="2">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">kehad-calc.dev</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/kehad-calc.png" alt="Kehad Calculator" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 03 • Utility</div>
+                    <div class="card-title">Kehad Calculator</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">03 // CALCULATOR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 (QuoteSpark) -->
+        <div class="project-card" data-index="3">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">quotespark.co</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/quote-generator.png" alt="QuoteSpark" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 04 • Web App</div>
+                    <div class="card-title">QuoteSpark Generator</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">04 // QUOTESPARK</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 (ArtisanHub) -->
+        <div class="project-card" data-index="4">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">artisanhub.ng</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/artisanhub.png" alt="ArtisanHub" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 05 • Marketplace</div>
+                    <div class="card-title">ArtisanHub Nigeria</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">05 // ARTISANHUB</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 (Kadee) -->
+        <div class="project-card" data-index="5">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">kadee.design</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/kadee.png" alt="Kadee" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 06 • Portfolio</div>
+                    <div class="card-title">Kadee Creative</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">06 // KADEE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 (Static Exchange) -->
+        <div class="project-card" data-index="6">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">static-exchange.io</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/static-exchnge.png" alt="Static Exchange" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 07 • Crypto / Web3</div>
+                    <div class="card-title">Static Exchange</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">07 // EXCHANGE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 (Tic-Tac-Toe XO) -->
+        <div class="project-card" data-index="7">
+          <div class="card-inner">
+            <div class="card-face card-face--front">
+              <div class="card-browser">
+                <div class="card-browser__bar">
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <span class="card-browser__dot"></span>
+                  <div class="card-browser__url">xo.kehad.io</div>
+                </div>
+                <div class="card-browser__body">
+                  <img src="/projects/xo.png" alt="XO Gaming" class="card-preview-img" />
+                  <div class="card-info">
+                    <div class="card-tag">Project 08 • Interactive</div>
+                    <div class="card-title">XO Multiplayer</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-face--back">
+              <span class="card-back-watermark">08 // XO GAME</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Action Button -->
+    <div class="action-footer">
+      <a href="index.html#seo-geo" class="btn-view-works">VIEW ALL WORKS</a>
+    </div>
+
+    <script>
+      (function() {
+        const container = document.getElementById('stageContainer');
+        const world = document.getElementById('carouselWorld');
+        const cube = document.getElementById('centralCube');
+        const cards = document.querySelectorAll('.project-card');
+
+        const TOTAL_CARDS = cards.length;
+        
+        // Compute radius based on screen width
+        const getRadius = () => {
+          return window.innerWidth < 768 ? 310 : 480;
+        };
+
+        let radius = getRadius();
+        window.addEventListener('resize', () => {
+          radius = getRadius();
+          positionCards();
+        });
+
+        // Initial 3D positioning of cards in cylinder
+        const positionCards = () => {
+          const angleStep = 360 / TOTAL_CARDS;
+          cards.forEach((card, i) => {
+            const angle = i * angleStep;
+            card.dataset.baseAngle = angle;
+            card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+          });
+        };
+        positionCards();
+
+        // 3D Rotation State
+        let currentRotationY = -22;
+        let currentRotationX = -18; // Looking slightly down into the scene
+        let targetRotationY = -22;
+        let targetRotationX = -18;
+
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let velocityX = 0;
+        let lastX = 0;
+        let isHovered = false;
+
+        // Mouse Drag / Touch Events
+        container.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          startX = e.clientX;
+          lastX = e.clientX;
+          velocityX = 0;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (isDragging) {
+            const deltaX = e.clientX - lastX;
+            velocityX = deltaX * 0.45;
+            targetRotationY += velocityX;
+            lastX = e.clientX;
+          } else {
+            // Subtle mouse parallax tilt
+            const nx = (e.clientX / window.innerWidth) - 0.5;
+            const ny = (e.clientY / window.innerHeight) - 0.5;
+            targetRotationX = -18 + (ny * 10);
+          }
+        });
+
+        window.addEventListener('mouseup', () => {
+          isDragging = false;
+        });
+
+        // Touch support for mobile devices
+        container.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 1) {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            lastX = e.touches[0].clientX;
+            velocityX = 0;
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+          if (isDragging && e.touches.length === 1) {
+            const clientX = e.touches[0].clientX;
+            const deltaX = clientX - lastX;
+            velocityX = deltaX * 0.5;
+            targetRotationY += velocityX;
+            lastX = clientX;
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+          isDragging = false;
+        });
+
+        // Pause auto-rotation on hover
+        container.addEventListener('mouseenter', () => isHovered = true);
+        container.addEventListener('mouseleave', () => isHovered = false);
+
+        // Click card to bring it directly to front
+        cards.forEach((card) => {
+          card.addEventListener('click', (e) => {
+            const baseAngle = parseFloat(card.dataset.baseAngle);
+            const normalizedY = ((currentRotationY % 360) + 360) % 360;
+            let diff = -baseAngle - normalizedY;
+            while (diff < -180) diff += 360;
+            while (diff > 180) diff -= 360;
+            targetRotationY = currentRotationY + diff;
+          });
+        });
+
+        // Render loop with smooth damping and depth calculations
+        function animate() {
+          // Ambient slow auto-rotation when not interacting
+          if (!isDragging && Math.abs(velocityX) < 0.05 && !isHovered) {
+            targetRotationY -= 0.12;
+          }
+
+          // Inertia damping
+          if (!isDragging) {
+            velocityX *= 0.92;
+            targetRotationY += velocityX;
+          }
+
+          // Smooth interpolation
+          currentRotationY += (targetRotationY - currentRotationY) * 0.08;
+          currentRotationX += (targetRotationX - currentRotationX) * 0.08;
+
+          // Apply 3D rotation to the cylinder carousel
+          world.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
+
+          // Counter-rotate or subtle secondary rotation on central cube
+          if (cube) {
+            cube.style.transform = `rotateY(${-currentRotationY * 0.25}deg) rotateX(${currentRotationX * 0.15}deg)`;
+          }
+
+          // Dynamic depth shading for cards (front cards bright, back cards dimmed)
+          cards.forEach((card) => {
+            const baseAngle = parseFloat(card.dataset.baseAngle);
+            const totalAngle = (baseAngle + currentRotationY) * (Math.PI / 180);
+            
+            // cos is 1 when facing front, -1 when facing back
+            const depthFactor = Math.cos(totalAngle);
+            
+            // Map depth to opacity (0.35 to 1.0)
+            const opacity = 0.4 + (0.6 * ((depthFactor + 1) / 2));
+            card.style.opacity = opacity.toFixed(2);
+            
+            // Give closer cards higher z-index appearance
+            const zSort = Math.round(depthFactor * 500);
+            card.style.zIndex = zSort + 500;
+          });
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+      })();
+    </script>
+  </body>
+</html>
